@@ -37,9 +37,22 @@ GET    /businesses/clients/:businessId  controllers.ClientsController.businessCl
 POST   /businesses/clients           controllers.ClientsController.newClient
 +nocsrf
 POST   /businesses/clients/update    controllers.ClientsController.updateClient
+
 +nocsrf
 DELETE /businesses/:businessId/clients/:clientId controllers.ClientsController.deleteClientById(clientId: Int, businessId : Int)
 
+
+# Vendor Contacts
+GET /businesses/vendors/:id       controllers.VendorContactsController.vendorContactsByBusiness(id: Int)
+
++nocsrf
+POST  /businesses/vendors          controllers.VendorContactsController.newVendorContact
+
++nocsrf
+POST   /businesses/vendors/update    controllers.VendorContactsController.updateVendorContact
+
++nocsrf
+DELETE /businesses/:businessId/vendors/:vendorId  controllers.VendorContactsController.deleteVendorById(vendorId: Int, businessId : Int)
 
 # # User Login system
 GET     /login                      controllers.ApplicationController.login

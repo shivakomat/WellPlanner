@@ -23,7 +23,7 @@
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Notes</th>
                                     <th class="text-center">Project</th>
-                                    <th class="text-right">Actions</th>
+                                    <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,7 +40,7 @@
                                         <input type="text" style="text-align:center;" class="form-control" data-ng-model="controller.formData.customerName">
                                     </td>
                                     <td class="text-center">
-                                        <phonenumber-directive placeholder="'(415) 314-1805'" model='controller.formData.phoneNumber'></phonenumber-directive>
+                                        <phonenumber-directive model='controller.formData.phoneNumber'></phonenumber-directive>
 @*                                        <input type="number" data-number-to-string style="text-align:center;" class="form-control" data-ng-model="controller.formData.phoneNumber">*@
                                     </td>
                                     <td class="text-center">
@@ -58,8 +58,8 @@
                                         </button>
                                     </td>
                                     <td class="text-center"></td>
-                                    <td class="td-actions text-right">
-                                        <button class="btn btn-success" data-ng-click="controller.saveItem(6)">
+                                    <td class="td-actions text-center">
+                                        <button class="btn btn-success" data-ng-click="controller.saveItem(@businessId)">
                                             <span class="btn-label">
                                                 <i class="nc-icon nc-check-2"></i>
                                             </span>
@@ -90,11 +90,16 @@
                                             <i class="fa fa-edit"></i>
                                         </button>
                                     </td>
-                                    <td class="text-center"><button type="button" class="btn btn-outline-default">ADD</button></td>
-                                    <td class="td-actions text-right">
+                                    <td class="text-center"><button type="button" class="btn btn-outline-default">CREATE</button></td>
+                                    <td class="td-actions text-center">
+                                        <button class="btn btn-default">
+                                            <span class="btn-label">
+                                                <i class="nc-icon nc-tag-content"></i>
+                                            </span>
+                                        </button>
                                         <button class="btn btn-warning">
                                             <span class="btn-label">
-                                                <i class="nc-icon nc-ruler-pencil"></i>
+                                                <i class="nc-icon nc-settings-gear-65"></i>
                                             </span>
                                         </button>
                                         <button class="btn btn-danger" data-ng-click="controller.removeClient(@businessId, client.id)">

@@ -71,6 +71,4 @@ class ClientsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: 
     successResponse(OK, Json.toJson(clientsApi.deleteClientById(clientId, businessId)), Seq("Successfully processed"))
   }
 
-
-
 }

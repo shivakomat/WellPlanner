@@ -4,7 +4,7 @@ import model.api.businesses.AdminSignUpMessage
 import model.api.clients.{NewClientMessage, UpdatedClientMessage}
 import model.api.projects.NewWeddingProjectMessage
 import model.api.users.UserMessage
-import model.dataModels.{Business, Client, User}
+import model.dataModels.{Business, Client, User, VendorContact}
 import org.joda.time.DateTime
 import play.api.libs.json.{JodaReads, JodaWrites, Json, Writes}
 
@@ -21,6 +21,7 @@ object JsonFormats {
   implicit val newWeddingProjectMessage = Json.format[NewWeddingProjectMessage]
   implicit val newClientMessage = Json.format[NewClientMessage]
   implicit val clientFormat = Json.format[Client]
+  implicit val vendorContactFormat = Json.format[VendorContact]
   implicit val updatedClientMessage = Json.format[UpdatedClientMessage]
 
 }

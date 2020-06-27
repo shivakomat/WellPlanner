@@ -19,6 +19,8 @@ app.controller('clientsController', function($http, $window) {
     clientController.showNewItem = false;
 
     clientController.newItem = function() {
+      clientController.formData = {};
+      clientController.formData.phoneNumber='';
       clientController.showNewItem = true;
     };
 
@@ -53,9 +55,9 @@ app.controller('clientsController', function($http, $window) {
         });
     }
 
-    function refresh() {
+    function refresh(businessId) {
         clientController.showNewItem = false;
-        allClients(6);
+        allClients(businessId);
     }
 
     function createAClient(businessId) {
@@ -75,7 +77,7 @@ app.controller('clientsController', function($http, $window) {
             url: '/businesses/clients',
             data: newClient,
         }).then(function mySuccess() {
-            refresh();
+            refresh(businessId);
             alerts.autoCloseAlert('success-message', 'New Client Created', 'Awesome!');
         }, function myError() {
             alerts.autoCloseAlert('success-message', 'Error Creating Client', 'Please try again!');
@@ -87,7 +89,7 @@ app.controller('clientsController', function($http, $window) {
             method: 'DELETE',
             url: '/businesses/' + businessId + '/clients/' + clientId
         }).then(function mySuccess() {
-            refresh();
+            refresh(businessId);
             alerts.autoCloseAlert('success-message', 'Client removed!!', '');
         }, function myError() {
             alerts.autoCloseAlert('title-and-text', 'Error deleting a client', 'Please try again!');
