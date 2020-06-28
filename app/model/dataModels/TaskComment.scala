@@ -1,8 +1,6 @@
 package model.dataModels
 
-import org.joda.time.DateTime
-
-case class TaskComment(id: Int, commentText: Option[String] = None,
-                       userCreatedId: Int, taskId: Int, businessId: Int,
-                       projectId: Int, modifiedDate: DateTime,
-                       createdDate: DateTime)
+case class TaskComment(id: Option[Int] = None, comment_text: Option[String] = None,
+                       user_created_id: Int, task_id: Int, business_id: Int,
+                       project_id: Int, modified_date: Option[Int] = None,
+                       created_date: Option[Int] = None)

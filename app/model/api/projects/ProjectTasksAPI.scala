@@ -1,0 +1,68 @@
+package model.api.projects
+
+import model.dataModels.{Task, TaskComment}
+import model.databases.{TaskCommentsDbFacade, TasksDbFacade}
+import model.tools.DateTimeNow
+import play.api.db.DBApi
+import play.api.libs.ws.WSClient
+
+class ProjectTasksAPI(dbApi: DBApi, ws: WSClient) {
+
+  private val tasksListDb = new TasksDbFacade(dbApi)
+  private val tasksCommentsDb = new TaskCommentsDbFacade(dbApi)
+
+  def addTask(newTask: Task): Either[String, Task] = {
+    val newTaskAdded =
+      tasksListDb.addNewTask(newTask.copy(modified_date = Some(DateTimeNow.getCurrent),
+                                          created_date = Some(DateTimeNow.getCurrent)))
+    val newTaskExecution =
+      for {
+        id <- newTaskAdded
+        task <- tasksListDb.byTaskId(id)
+      } yield (task)
+
+    if(newTaskExecution.nonEmpty) Right(newTaskExecution.get)
+    else Left("failed during database insertion or reading the newly created data")
+  }
+
+  def allTasks(projectId: Long, businessId: Long): Seq[TaskList] =
+    tasksListDb
+      .list()
+      .filter(t => t.business_id == businessId && t.project_id == projectId)
+      .groupBy(_.parent_task_id)
+      .map(taskList => {
+        TaskList(
+          parent = taskList._2.filter(_.parent_task_id == taskList._1).head,
+          subTasks = taskList._2.filterNot(tl => if(tl.parent_task_id.nonEmpty) tl.parent_task_id.get == taskList._1.get else false))
+      })
+      .toSeq
+
+  def addCommentToTask(taskComment: TaskComment): Either[String, TaskComment] = {
+    val newTaskCommentAdded =
+      tasksCommentsDb.addNewTaskComment(taskComment.copy(modified_date = Some(DateTimeNow.getCurrent), created_date = Some(DateTimeNow.getCurrent)))
+
+    val newTaskComment =
+      for {
+        id <- newTaskCommentAdded
+        taskComment <- tasksCommentsDb.byId(id)
+      } yield (taskComment)
+
+    if(newTaskComment.nonEmpty) Right(newTaskComment.get)
+    else Left("failed during database insertion or reading the newly created data")
+  }
+
+  def taskCommentsByTask(businessId: Long, projectId: Long, taskId: Long): Seq[TaskComment] =
+    tasksCommentsDb.byTaskId(taskId, businessId, projectId)
+
+
+  def deleteTaskComment(taskCommentId: Long, taskId: Long, projectId: Long, businessId: Long): Seq[TaskComment] = {
+    val rowsDeleted = tasksCommentsDb.deleteTaskComment(taskCommentId, taskId, projectId, businessId)
+    this.taskCommentsByTask(businessId, projectId, taskId)
+  }
+
+  def deleteTask(taskId: Long, projectId: Long, businessId: Long): Seq[TaskList] = {
+    val rowsdeleted = tasksListDb.deleteTask(taskId,projectId, businessId)
+    this.allTasks(projectId, businessId)
+  }
+
+}

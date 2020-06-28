@@ -55,12 +55,13 @@ class ClientsApi(dbApi: DBApi, ws: WSClient) {
   }
 
 
-  def updateClientsBasicInfo(updateClientMessage: UpdatedClientMessage): Either[String, Client] = {
+  def updateClientsBasicInfo(updateClientMessage: NewClientMessage): Either[String, Client] = {
     val updatedRows = clientsDb.updateBasicClientInfo(
-      Client(id = Some(updateClientMessage.clientId),
+      Client(id = updateClientMessage.clientId,
              name = Some(updateClientMessage.customerName),
              phone_number = updateClientMessage.phoneNumber.toString,
              email = Some(updateClientMessage.emailAddress),
+             event_type = Some(updateClientMessage.eventType),
              budget = Some(updateClientMessage.budget),
              status = Some(updateClientMessage.status),
              business_id = updateClientMessage.businessId,
@@ -68,7 +69,7 @@ class ClientsApi(dbApi: DBApi, ws: WSClient) {
     )
 
     if(updatedRows == 1) {
-      val updatedClient = clientsDb.byId(updateClientMessage.clientId)
+      val updatedClient = clientsDb.byId(updateClientMessage.clientId.get)
       Right(updatedClient.get)
     } else
       Left("Failed during database update or reading the update client data back from database")

@@ -1,8 +1,7 @@
 package model.dataModels
 
-import org.joda.time.DateTime
 
-case class Project(id: Int,
+case class Project(id: Option[Int] = None,
                    name: String,
                    event_type: Option[String] = None,
                    brides_name: Option[String] = None,

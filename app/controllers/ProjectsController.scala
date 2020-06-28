@@ -41,7 +41,6 @@ class ProjectsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
       errors => badRequest,
       payload => createProject(payload)
     )
-
   }
 
 }

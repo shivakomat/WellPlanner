@@ -1,16 +1,15 @@
 package controllers
 
 import com.google.inject.Inject
-import controllers.util.JsonFormats.updatedClientMessage
-import controllers.util.JsonFormats.newClientMessage
-import controllers.util.JsonFormats.clientFormat
+import controllers.util.JsonFormats.{clientFormat, newClientMessage}
 import controllers.util.ResponseTypes.{errorResponse, successResponse}
-import model.api.clients.{ClientsApi, NewClientMessage, UpdatedClientMessage}
+import model.api.clients.{ClientsApi, NewClientMessage}
 import play.api.Logger
 import play.api.db.DBApi
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.WSClient
 import play.api.mvc._
+
 import scala.concurrent.Future
 
 class ClientsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WSClient) extends AbstractController(cc) {
@@ -48,7 +47,7 @@ class ClientsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: 
   def updateClient(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
     println("Updated client request incoming")
 
-    def update(client: UpdatedClientMessage): Future[Result] =
+    def update(client: NewClientMessage): Future[Result] =
       clientsApi.updateClientsBasicInfo(client) match {
         case Right(data) =>
           logForSuccess(Json.toJson(data).toString)
@@ -57,7 +56,7 @@ class ClientsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: 
           Future.successful(errorResponse(FOUND, Seq(s"Error: $errorMsg")))
       }
 
-    request.body.validate[UpdatedClientMessage].fold(
+    request.body.validate[NewClientMessage].fold(
       errors => badRequest,
       payload => update(payload)
     )
