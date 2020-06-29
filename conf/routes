@@ -43,16 +43,36 @@ DELETE /businesses/:businessId/clients/:clientId controllers.ClientsController.d
 
 
 # Vendor Contacts
-GET /businesses/vendors/:id       controllers.VendorContactsController.vendorContactsByBusiness(id: Int)
+GET /businesses/vendors/:id                             controllers.VendorContactsController.vendorContactsByBusiness(id: Int)
 
 +nocsrf
-POST  /businesses/vendors          controllers.VendorContactsController.newVendorContact
+POST  /businesses/vendors                               controllers.VendorContactsController.newVendorContact
 
 +nocsrf
-POST   /businesses/vendors/update    controllers.VendorContactsController.updateVendorContact
+POST   /businesses/vendors/update                       controllers.VendorContactsController.updateVendorContact
 
 +nocsrf
-DELETE /businesses/:businessId/vendors/:vendorId  controllers.VendorContactsController.deleteVendorById(vendorId: Int, businessId : Int)
+DELETE /businesses/:businessId/vendors/:vendorId        controllers.VendorContactsController.deleteVendorById(vendorId: Int, businessId : Int)
+
+
+############## Project Tasks
+
+GET /businesses/:businessId/projects/:projectId/tasks   controllers.TasksController.tasks(businessId: Int, projectId: Int)
+
++nocsrf
+POST /businesses/projects/tasks                         controllers.TasksController.addNewTasks
+
++nocsrf
+DELETE /businesses/:businessId/projects/:projectId/tasks/:taskId     controllers.TasksController.deleteTaskById(taskId: Int, projectId: Int, businessId: Int)
+
++nocsrf
+POST  /businesses/projects/tasks/taskComments           controllers.TasksController.addCommentToTask
+
+GET   /businesses/:businessId/projects/:projectId/tasks/:taskId/taskComments   controllers.TasksController.taskCommentsByTask(businessId: Int, projectId: Int, taskId: Int)
+
++nocsrf
+DELETE /businesses/:businessId/projects/:projectId/tasks/:taskId/taskComments/:taskCommentId controllers.TasksController.deleteTaskCommentById(taskCommentId: Int, taskId: Int, projectId: Int, businessId: Int)
+
 
 # # User Login system
 GET     /login                      controllers.ApplicationController.login

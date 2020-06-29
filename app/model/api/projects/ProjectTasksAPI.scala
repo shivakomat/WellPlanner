@@ -25,17 +25,15 @@ class ProjectTasksAPI(dbApi: DBApi, ws: WSClient) {
     else Left("failed during database insertion or reading the newly created data")
   }
 
-  def allTasks(projectId: Long, businessId: Long): Seq[TaskList] =
-    tasksListDb
-      .list()
-      .filter(t => t.business_id == businessId && t.project_id == projectId)
-      .groupBy(_.parent_task_id)
-      .map(taskList => {
-        TaskList(
-          parent = taskList._2.filter(_.parent_task_id == taskList._1).head,
-          subTasks = taskList._2.filterNot(tl => if(tl.parent_task_id.nonEmpty) tl.parent_task_id.get == taskList._1.get else false))
-      })
-      .toSeq
+  def allTasks(projectId: Long, businessId: Long): Seq[TaskList] = {
+    val listOfTasks = tasksListDb.list()
+    listOfTasks
+    .groupBy(_.parent_task_id)
+    .flatMap(t => {
+        if(t._1.get > 0) Some(TaskList(parent = listOfTasks.find(e => e.id.get == t._1.get).get, subTasks = t._2))
+        else None
+      }).toSeq
+  }
 
   def addCommentToTask(taskComment: TaskComment): Either[String, TaskComment] = {
     val newTaskCommentAdded =
@@ -51,6 +49,15 @@ class ProjectTasksAPI(dbApi: DBApi, ws: WSClient) {
     else Left("failed during database insertion or reading the newly created data")
   }
 
+  def updateTaskInfo(updatedTask: Task): Either[String, Task] = {
+    val updatedRows = tasksListDb.updateTaskInfo(updatedTask)
+    if(updatedRows == 1) {
+      val updatedClient = tasksListDb.byTaskId(updatedTask.id.get)
+      Right(updatedClient.get)
+    } else
+      Left("Failed during database update or reading the updated task back from database")
+  }
+
   def taskCommentsByTask(businessId: Long, projectId: Long, taskId: Long): Seq[TaskComment] =
     tasksCommentsDb.byTaskId(taskId, businessId, projectId)
 
@@ -61,7 +68,7 @@ class ProjectTasksAPI(dbApi: DBApi, ws: WSClient) {
   }
 
   def deleteTask(taskId: Long, projectId: Long, businessId: Long): Seq[TaskList] = {
-    val rowsdeleted = tasksListDb.deleteTask(taskId,projectId, businessId)
+    val rowsDeleted = tasksListDb.deleteTask(taskId,projectId, businessId)
     this.allTasks(projectId, businessId)
   }
 

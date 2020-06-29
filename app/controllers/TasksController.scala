@@ -1,7 +1,7 @@
 package controllers
 
 import com.google.inject.Inject
-import controllers.util.ResponseTypes.{errorResponse, successResponse, successResponseWithId}
+import controllers.util.ResponseTypes.{errorResponse, successResponse}
 import model.api.projects.ProjectTasksAPI
 import model.dataModels.{Task, TaskComment}
 import play.api.Logger
@@ -10,7 +10,6 @@ import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.WSClient
 import play.api.mvc.{AbstractController, Action, BodyParsers, ControllerComponents, Result}
 import controllers.util.JsonFormats._
-
 import scala.concurrent.Future
 
 class TasksController @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WSClient) extends AbstractController(cc) {
@@ -42,6 +41,24 @@ class TasksController @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WSC
     )
   }
 
+  def updateTask(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+    println("Updating task request accepted")
+
+    def updateOperation(task: Task): Future[Result] =
+      tasksApi.updateTaskInfo(task) match {
+        case Right(data) =>
+          logForSuccess(Json.toJson(data).toString)
+          Future.successful(successResponse(CREATED, Json.toJson(data), Seq(s"Successfully update task ${data.title}")))
+        case Left(errorMsg) =>
+          Future.successful(errorResponse(FOUND, Seq(s"Error: $errorMsg")))
+      }
+
+    request.body.validate[Task].fold(
+      errors => badRequest,
+      payload => updateOperation(payload)
+    )
+  }
+
   def addCommentToTask(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
     def addComment(comment: TaskComment): Future[Result] = {
       tasksApi.addCommentToTask(comment) match {
@@ -58,6 +75,8 @@ class TasksController @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WSC
     )
   }
 
+
+
   def tasks(businessId: Int, projectId: Int) =  Action {
     successResponse(OK, Json.toJson(tasksApi.allTasks(projectId, businessId)), Seq("Successfully processed"))
   }
@@ -68,6 +87,11 @@ class TasksController @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WSC
 
   def deleteTaskById(taskId: Int, projectId: Int, businessId: Int) = Action {
     successResponse(OK, Json.toJson(tasksApi.deleteTask(taskId, projectId, businessId)), Seq("Successfully processed"))
+  }
+
+
+  def deleteTaskCommentById(taskCommentId: Int, taskId: Int, projectId: Int, businessId: Int) = Action {
+    successResponse(OK, Json.toJson(tasksApi.deleteTaskComment(taskCommentId, taskId, projectId, businessId)), Seq("Successfully processed"))
   }
 
 }

@@ -13,8 +13,8 @@ class TaskCommentsDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbA
 
   def addNewTaskComment(taskComment: TaskComment): Option[Long] = {
     db.withConnection { implicit connection =>
-      SQL("insert into taskComments(comment_text, task_id, user_created_id, project_id, business_id, modified_date, created_date) " +
-        "values ({comment_text}, {task_id}, {user_created_id}, {project_id}, {parent_task_id}, {business_id}, {modified_date}, {created_date})")
+      SQL("insert into task_comments (comment_text, task_id, user_created_id, project_id, business_id, modified_date, created_date) " +
+        "values ({comment_text}, {task_id}, {user_created_id}, {project_id}, {business_id}, {modified_date}, {created_date})")
         .on("comment_text"  -> taskComment.comment_text, "task_id" -> taskComment.task_id, "user_created_id" -> taskComment.user_created_id, "project_id" -> taskComment.project_id,
           "business_id" -> taskComment.business_id, "modified_date" -> taskComment.modified_date, "created_date" -> taskComment.created_date)
         .executeInsert()
@@ -23,20 +23,20 @@ class TaskCommentsDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbA
 
   def list(): Seq[TaskComment] =
     db.withConnection { implicit connection =>
-      SQL("select * from taskComments").as(parser.*)
+      SQL("select * from task_comments").as(parser.*)
     }
 
 
   def byId(taskCommentId : Long): Option[TaskComment] =
     db.withConnection { implicit connection =>
-      SQL(s"select * from taskComments where id = {id}")
+      SQL(s"select * from task_comments where id = {id}")
         .on("id" -> taskCommentId)
         .as(parser.singleOpt)
     }
 
   def byTaskId(taskId : Long, businessId : Long, projectId: Long): Seq[TaskComment] =
     db.withConnection { implicit connection =>
-      SQL(s"select * from taskComments where task_id = {id} and business_id = {business_id}" +
+      SQL(s"select * from task_comments where task_id = {id} and business_id = {business_id}" +
                  s" and project_id = {project_id}")
         .on("id" -> taskId, "business_id" -> businessId, "project_id" -> projectId)
         .as(parser.*)
@@ -44,7 +44,7 @@ class TaskCommentsDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbA
 
   def deleteTaskComment(taskCommentId: Long, taskId: Long, projectId: Long, businessId: Long): Int =
     db.withConnection { implicit connection =>
-      SQL("delete from taskComments where id = {taskCommentId} and business_id = {business_id} and task_id = {taskId}")
+      SQL("delete from task_comments where id = {taskCommentId} and business_id = {business_id} and task_id = {taskId}")
         .on("taskCommentId" -> taskCommentId, "business_id" -> businessId, "taskId" -> taskId, "projectId" -> projectId)
         .executeUpdate()
     }
