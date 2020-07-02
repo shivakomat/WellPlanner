@@ -274,7 +274,10 @@
                 <div class="card">
                     <div class="card-body">
                         <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
-                            <h4 class="card-title">Breakdown</h4>
+                            <h4 class="card-title">Breakdowns</h4>
+                              <div class="mt-lg-3">
+                                  <div><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#createList">ADD NEW BREAKDOWN</button></div>
+                              </div>
 @*                            <div class="mt-lg-3">*@
 @*                                <div><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#createList">ADD NEW CATEGORY</button></div>*@
 @*                            </div>*@
@@ -298,13 +301,13 @@
                                                         </th>
                                                         <th class="text-left text-warning">
                                                         </th>
-                                                        <th class="text-left text-warning">
+                                                        <th class="text-center text-warning">
                                                             Estimate
                                                         </th>
-                                                        <th class="text-left text-warning">
+                                                        <th class="text-center text-warning">
                                                             Actual
                                                         </th>
-                                                        <th class="text-left text-warning">
+                                                        <th class="text-center text-warning">
                                                             Difference
                                                         </th>
                                                         <th class="text-center text-warning">
@@ -328,16 +331,16 @@
                                                             </div>
                                                         </td>
                                                         <td contenteditable='true' class="text-left">
-                                                            Corrodination Fees
+                                                            Coordination Fees
                                                         </td>
-                                                        <td contenteditable='true' class="text-left">
+                                                        <td contenteditable='true' class="text-center">
                                                             $ 7,000.00
                                                         </td>
-                                                        <td contenteditable='true' class="text-left">
+                                                        <td contenteditable='true' class="text-center">
                                                             -
                                                         </td>
-                                                        <td class="text-left">
-                                                            -
+                                                        <td class="text-center text-danger">
+                                                            <b>($1)</b>
                                                         </td>
                                                         <td contenteditable='true' class="text-center">
                                                             -
@@ -346,12 +349,14 @@
                                                             -
                                                         </td>
                                                         <td class="text-center">
-
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remainders">
-                                                                <i class="nc-icon nc-time-alarm"></i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Payments">
-                                                                <i class="nc-icon nc-calendar-60"></i>
+@*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remainders">*@
+@*                                                                <i class="nc-icon nc-time-alarm"></i>*@
+@*                                                            </button>*@
+@*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Payments">*@
+@*                                                                <i class="nc-icon nc-calendar-60"></i>*@
+@*                                                            </button>*@
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit">
+                                                                <i class="nc-icon nc-ruler-pencil"></i>
                                                             </button>
                                                             <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
                                                                 <i class="nc-icon nc-simple-remove"></i>
@@ -363,333 +368,23 @@
                                                     <tr>
                                                         <td class="text-center">
                                                         </td>
-                                                        <td class="text-center">
-                                                            <h6><i class="nc-icon nc-money-coins"></i> USD</h6>
+                                                        <td class="text-right">
+                                                            <i class="nc-icon nc-money-coins"></i>
                                                         </td>
-                                                        <td class="text-left">
+                                                        <td class="text-center">
                                                             <h6>$ 7,000.00</h6>
                                                         </td>
                                                         <td  class="text-left">
-                                                            <h6>NA</h6>
+
                                                         </td>
                                                         <td class="text-left">
-                                                            <h6>NA</h6>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <h6>NA</h6>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <h6>NA</h6>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            - -
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div>
-                                            <button type="button" class="btn btn-default btn-round btn-icon btn-icon-mini btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newTask" data-original-title="New Item">
-                                                <i class="nc-icon nc-simple-add"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card card-plain">
-                                <div class="card-header" role="tab" id="headingTwo">
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">
-                                      <h7><b>Photography</b></h7>
-                                        <i class="nc-icon nc-minimal-down"></i>
-                                    </a>
-                                </div>
-                                <div id="collapseThree" class="collapse show" role="tabpanel" aria-labelledby="headingTwo">
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped">
-                                                <thead class="text-primary">
-                                                    <tr>
-                                                        <th class="text-center">
-                                                        </th>
-                                                        <th class="text-left text-warning">
-                                                        </th>
-                                                        <th class="text-left text-warning">
-                                                            Estimate
-                                                        </th>
-                                                        <th class="text-left text-warning">
-                                                            Actual
-                                                        </th>
-                                                        <th class="text-left text-warning">
-                                                            Difference
-                                                        </th>
-                                                        <th class="text-center text-warning">
-                                                            Paid
-                                                        </th>
-                                                        <th class="text-center text-warning">
-                                                            Due
-                                                        </th>
-                                                        <th class="text-center text-warning">
-                                                            Actions
-                                                        </th>
-                                                    </tr></thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-center">
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" checked="">
-                                                                    <span class="form-check-sign"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td contenteditable='true' class="text-left">
-                                                            Photographer
-                                                        </td>
-                                                        <td contenteditable='true' class="text-left">
-                                                            $ 4,000.00
-                                                        </td>
-                                                        <td contenteditable='true' class="text-left">
-                                                            $ 3,664.92
-                                                        </td>
-                                                        <td class="text-left">
-                                                            $ 335.08
-                                                        </td>
-                                                        <td contenteditable='true' class="text-center">
-                                                            $ 1,832.46
-                                                        </td>
-                                                        <td class="text-center">
-                                                            $ 1,832.46
+
                                                         </td>
                                                         <td class="text-center">
 
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remainders">
-                                                                <i class="nc-icon nc-time-alarm"></i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Payments">
-                                                                <i class="nc-icon nc-calendar-60"></i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
-                                                                <i class="nc-icon nc-simple-remove"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" checked="">
-                                                                    <span class="form-check-sign"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td contenteditable='true' class="text-left">
-                                                            Gratitute
-                                                        </td>
-                                                        <td contenteditable='true' class="text-left">
-                                                            $ 400.00
-                                                        </td>
-                                                        <td contenteditable='true' class="text-left">
-                                                            -
-                                                        </td>
-                                                        <td class="text-left">
-                                                            -
-                                                        </td>
-                                                        <td contenteditable='true' class="text-center">
-                                                            -
-                                                        </td>
-                                                        <td class="text-center">
-                                                            -
                                                         </td>
                                                         <td class="text-center">
 
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remainders">
-                                                                <i class="nc-icon nc-time-alarm"></i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Payments">
-                                                                <i class="nc-icon nc-calendar-60"></i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
-                                                                <i class="nc-icon nc-simple-remove"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-
-                                                        <!-- Totals -->
-                                                    <tr>
-                                                        <td class="text-center">
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <h6><i class="nc-icon nc-money-coins"></i> USD</h6>
-                                                        </td>
-                                                        <td class="text-left">
-                                                            <h6>$ 4,400.00</h6>
-                                                        </td>
-                                                        <td  class="text-left">
-                                                            <h6>$ 3,664.92</h6>
-                                                        </td>
-                                                        <td class="text-left">
-                                                            <h6>$ 335.08</h6>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <h6>$ 1,832.46</h6>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <h6>$ 1,832.46</h6>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            - -
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div>
-                                            <button type="button" class="btn btn-default btn-round btn-icon btn-icon-mini btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newTask" data-original-title="New Item">
-                                                <i class="nc-icon nc-simple-add"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card card-plain">
-                                <div class="card-header" role="tab" id="headingTwo">
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        <h7><b>Venue</b></h7>
-                                        <i class="nc-icon nc-minimal-down"></i>
-                                    </a>
-                                </div>
-                                <div id="collapseTwo" class="collapse show" role="tabpanel" aria-labelledby="headingTwo">
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped">
-                                                <thead class="text-primary">
-                                                    <tr>
-                                                        <th class="text-center">
-                                                        </th>
-                                                        <th class="text-left text-warning">
-                                                        </th>
-                                                        <th class="text-left text-warning">
-                                                            Estimate
-                                                        </th>
-                                                        <th class="text-left text-warning">
-                                                            Actual
-                                                        </th>
-                                                        <th class="text-left text-warning">
-                                                            Difference
-                                                        </th>
-                                                        <th class="text-center text-warning">
-                                                            Paid
-                                                        </th>
-                                                        <th class="text-center text-warning">
-                                                            Due
-                                                        </th>
-                                                        <th class="text-center text-warning">
-                                                            Actions
-                                                        </th>
-                                                    </tr></thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="text-center">
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" checked="">
-                                                                    <span class="form-check-sign"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td contenteditable='true' class="text-left">
-                                                            Ceremony Venue Rental
-                                                        </td>
-                                                        <td contenteditable='true' class="text-left">
-                                                            $ 2,000.00
-                                                        </td>
-                                                        <td contenteditable='true' class="text-left">
-                                                            $ 2,094.23
-                                                        </td>
-                                                        <td class="text-left text-danger">
-                                                            <b>($94.23)</b>
-                                                        </td>
-                                                        <td contenteditable='true' class="text-center">
-                                                            $ 2,094.23
-                                                        </td>
-                                                        <td class="text-center">
-                                                            $ 0.00
-                                                        </td>
-                                                        <td class="text-center">
-
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remainders">
-                                                                <i class="nc-icon nc-time-alarm"></i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Payments">
-                                                                <i class="nc-icon nc-calendar-60"></i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
-                                                                <i class="nc-icon nc-simple-remove"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="text-center">
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" checked="">
-                                                                    <span class="form-check-sign"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td contenteditable='true' class="text-left">
-                                                            Venue Required Liability Insurance
-                                                        </td>
-                                                        <td contenteditable='true' class="text-left">
-                                                            $ 135.00
-                                                        </td>
-                                                        <td contenteditable='true' class="text-left">
-                                                            $ 135.00
-                                                        </td>
-                                                        <td class="text-left">
-                                                            -
-                                                        </td>
-                                                        <td contenteditable='true' class="text-center">
-                                                            $ 135.00
-                                                        </td>
-                                                        <td class="text-center">
-                                                            $ 0.00
-                                                        </td>
-                                                        <td class="text-center">
-
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remainders">
-                                                                <i class="nc-icon nc-time-alarm"></i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Payments">
-                                                                <i class="nc-icon nc-calendar-60"></i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
-                                                                <i class="nc-icon nc-simple-remove"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-
-                                                        <!-- Totals -->
-                                                    <tr>
-                                                        <td class="text-center">
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <h6><i class="nc-icon nc-money-coins"></i> USD</h6>
-                                                        </td>
-                                                        <td class="text-left">
-                                                            <h6>$ 2,135.00</h6>
-                                                        </td>
-                                                        <td  class="text-left">
-                                                            <h6>$ 2,729.23</h6>
-                                                        </td>
-                                                        <td class="text-left text-danger">
-                                                            <h6>($94.23)</h6>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <h6>$ 1,832.46</h6>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <h6>$ 1,832.46</h6>
                                                         </td>
                                                         <td class="text-center">
                                                             - -
