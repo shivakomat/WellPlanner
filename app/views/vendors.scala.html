@@ -1,4 +1,4 @@
-@(message: String)
+@(message: String, businessId: Int)
 
 @main("Well Planner", "vendors", "Vendor Contacts") {
     <!-- New Project Modal -->
@@ -38,15 +38,11 @@
                             <input type="text" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Location</label>
+                            <label for="exampleFormControlInput1">Address</label>
                             <input type="text" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Phone Number</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Email</label>
+                            <label for="exampleFormControlInput1">Contact Info</label>
                             <input type="text" class="form-control">
                         </div>
                         <div class="form-group">
@@ -64,7 +60,7 @@
     </div>
 
 
-    <div class="content">
+    <div class="content" data-ng-controller="vendorContactsController as controller" data-ng-init="controller.getAllClients(@businessId)">
         <div class="row">
             <div class="col-md-12">
                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#newCustomer">New Vendor Contact</button>
@@ -77,10 +73,10 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th class="text-center">#</th>
+@*                                    <th class="text-center">#</th>*@
                                     <th class="text-center"></th>
-                                    <th class="text-center">Name</th>
-                                    <th class="text-center">Contact</th>
+                                    <th class="text-center">Company</th>
+                                    <th class="text-center"></th>
                                     <th class="text-center">Description</th>
                                     <th class="text-center">Type</th>
                                     <th class="text-center">Location</th>
@@ -89,12 +85,50 @@
                                     <th class="text-center">Date Added</th>
                                     <th class="text-center">Cost</th>
                                     <th class="text-center">Notes</th>
-                                    <th class="text-right">Actions</th>
+                                    <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
+@*                                <tr >*@
+@*                                    <th class="text-center">*@
+@*                                        <div class="form-check">*@
+@*                                            <label class="form-check-label">*@
+@*                                                <input class="form-check-input" type="checkbox" checked="">*@
+@*                                                <span class="form-check-sign"></span>*@
+@*                                            </label>*@
+@*                                        </div>*@
+@*                                    </th>*@
+@*                                    <td class="text-center">*@
+@*                                        <input type="text" style="text-align:center;" class="form-control" data-ng-model="controller.formData.customerName">*@
+@*                                    </td>*@
+@*                                    <td class="text-center">*@
+@*                                        <phonenumber-directive model='controller.formData.phoneNumber'></phonenumber-directive>*@
+@*                                    </td>*@
+@*                                    <td class="text-center">*@
+@*                                        <input type="email" style="text-align:center;" class="form-control" data-ng-model="controller.formData.emailAddress">*@
+@*                                    </td>*@
+@*                                    <td class="text-center">*@
+@*                                        <input type="number" style="text-align:center;" class="form-control" data-ng-model="controller.formData.budget">*@
+@*                                    </td>*@
+@*                                    <td class="text-center">*@
+@*                                        <select class="form-control" data-ng-model="controller.formData.status" ng-options= "item.type for item in controller.clientStatuses"></select>*@
+@*                                    </td>*@
+@*                                    <td class="td-actions text-center">*@
+@*                                    </td>*@
+@*                                    <td class="text-center"></td>*@
+@*                                    <td class="td-actions text-center">*@
+@*                                        <button class="btn btn-success" data-ng-click="controller.saveItem(@businessId)">*@
+@*                                            <span class="btn-label">*@
+@*                                                <i class="nc-icon nc-check-2"></i>*@
+@*                                            </span>*@
+@*                                        </button>*@
+@*                                        <button class="btn btn-danger" data-ng-click="controller.cancelItem()">*@
+@*                                            <i class="nc-icon nc-scissors"></i>*@
+@*                                        </button>*@
+@*                                    </td>*@
+@*                                </tr>*@
                                 <tr>
-                                    <td class="text-center">1</td>
+@*                                    <td class="text-center">1</td>*@
                                     <th class="text-center">
                                         <div class="form-check">
                                             <label class="form-check-label">
@@ -113,16 +147,18 @@
                                     <td class="text-center">March 28th 2020</td>
                                     <td class="text-center">&dollar; 5,000</td>
                                     <td class="td-actions text-center">
-                                        <button type="button" rel="tooltip" class="btn btn-success btn-sm btn-icon">
-                                            <i class="fa fa-edit"></i>
+                                        <button type="button" rel="tooltip" class="btn btn-outline-default" data-original-title="Add Notes">
+                                            <i class="nc-icon nc-paper"></i>
                                         </button>
                                     </td>
-                                    <td class="td-actions text-right">
-                                        <button type="button" rel="tooltip" class="btn btn-danger btn-sm btn-icon">
-                                            <i class="fa fa-times"></i>
+                                    <td class="td-actions text-center">
+                                        <button class="btn btn-warning" rel="tooltip" data-original-title="Edit">
+                                            <span class="btn-label">
+                                                <i class="nc-icon nc-ruler-pencil"></i>
+                                            </span>
                                         </button>
-                                        <button type="button" rel="tooltip" class="btn btn-warning btn-sm btn-icon">
-                                            <i class="fa fa-edit"></i>
+                                        <button class="btn btn-danger" rel="tooltip" data-original-title="Remove">
+                                            <i class="nc-icon nc-scissors"></i>
                                         </button>
                                     </td>
                                 </tr>
