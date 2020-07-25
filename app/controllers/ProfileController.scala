@@ -31,7 +31,8 @@ class ProfileController @Inject() (cache: DefaultSyncCacheApi) extends Controlle
     val id = request.session.get("id").get
     val profile = cache.get[JsValue](id + "profile").get
     val userId = (profile \ "app_user_id").as[Int]
-    Ok(views.html.mainDashboard(profile, userId))
+    println("user Id ------>>>>>> " + userId)
+    Ok(views.html.mainDashboard(profile, userId, 2))
   }
 
 }

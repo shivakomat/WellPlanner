@@ -1,4 +1,4 @@
-@(title: String, activeMenuItem: String, pageTitle: String)(content: Html)
+@(title: String, activeMenuItem: String, pageTitle: String, businessId: Int)(content: Html)
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -36,7 +36,7 @@
                             <img src="@routes.Assets.versioned("template_assets/img/logo-small.png")">
                         </div>
                     </a>
-                    <a href="/pages/dashboard" class="simple-text logo-normal">
+                    <a href="/pages/dashboard/@businessId" class="simple-text logo-normal">
                         FIRGUN EVENTS
                         <!-- <div class="logo-image-big">
             <img src="../assets/img/logo-big.png">
@@ -51,7 +51,7 @@
                         } else {
                             <li>
                         }
-                            <a href="/pages/dashboard">
+                            <a href="/pages/dashboard/@businessId">
                                 <i class="nc-icon nc-air-baloon"></i>
                                 <p>Dashboard</p>
                             </a>
@@ -62,7 +62,7 @@
                     } else {
                         <li>
                     }
-                            <a href="/pages/projects">
+                            <a href="/pages/projects/@businessId">
                                 <i class="nc-icon nc-tie-bow"></i>
                                 <p>Projects</p>
                             </a>
@@ -73,7 +73,7 @@
                     } else {
                             <li>
                             }
-                            <a href="/pages/vendors">
+                            <a href="/pages/vendors/@businessId">
                                 <i class="nc-icon nc-shop"></i>
                                 <p>Vendors</p>
                             </a>
@@ -84,7 +84,7 @@
                     } else {
                         <li>
                     }
-                            <a href="/pages/customers">
+                            <a href="/pages/customers/@businessId">
                                 <i class="nc-icon nc-single-02"></i>
                                 <p>Clients</p>
                             </a>
@@ -565,9 +565,10 @@
                 ]
             });
         </script>
-        <script src="@routes.Assets.versioned("javascripts/angular/main.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular.js")"></script>
         <script src="@routes.Assets.versioned("javascripts/angular/signUpController.js")"></script>
         <script src="@routes.Assets.versioned("javascripts/angular/clientsController.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/vendorContactsController.js")"></script>
 
 
 

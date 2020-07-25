@@ -1,6 +1,6 @@
 @(userId: Int)
 
-@main("Travel Buddy - My Trips", "my-trips", "") {
+@main("Travel Buddy - My Trips", "my-trips", "", 0) {
     <!-- Page Content -->
     <div class="container-fluid" data-ng-controller="tripsController as userTrip" data-ng-init="userTrip.getUserTrips(@userId)">
         <div class="row">

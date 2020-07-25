@@ -31,12 +31,13 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.budget("Project Budget"))
   }
 
-  def projectsPages = Action {
-    Ok(views.html.projects("Projects"))
+  def projectsPages(businessId: Int) = Action {
+    Ok(views.html.projects("Projects", businessId))
   }
 
-  def mainDashboard = Action {
-    Ok(views.html.mainDashboard(JsNull, 3))
+  // TODO temporary page render, this needs to be replaced with profile page which has user authentication built in
+  def mainDashboard(businessId: Int) = Action {
+    Ok(views.html.mainDashboard(JsNull, 0, businessId))
   }
 
   def settingsPage = Action {
@@ -44,15 +45,15 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   }
 
   def loginPage = Action {
-    Redirect("https://well-wedding-planner.herokuapp.com/assets/rubik-presentation-site/well-planner.html")
+    Redirect("http://localhost:7000/assets/rubik-presentation-site/well-planner.html")
   }
 
   def registerPage = Action {
     Ok(views.html.register())
   }
 
-  def customerPage = Action {
-    Ok(views.html.customers("Customers", 1))
+  def customerPage(businessId: Int) = Action {
+    Ok(views.html.customers("Customers", businessId))
   }
 
   def invoicesPage = Action {
@@ -63,8 +64,8 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.calendar("Calendar"))
   }
 
-  def vendors = Action {
-    Ok(views.html.vendors("Vendor Contacts", 1))
+  def vendors(businessId: Int) = Action {
+    Ok(views.html.vendors("Vendor Contacts", businessId))
   }
 
   def businessUserRegisterPage = Action {

@@ -1,6 +1,6 @@
-@(message: String)
+@(message: String, businessId: Int)
 
-@main("Well Planner", "projects", "Projects") {
+@main("Well Planner", "projects", "Projects", businessId) {
     <!-- New Project Modal -->
     <div class="modal fade" id="newProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">

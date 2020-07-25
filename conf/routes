@@ -8,21 +8,26 @@ GET     /                           controllers.HomeController.loginPage
 GET     /register                   controllers.HomeController.registerPage
 GET     /register-business-user     controllers.HomeController.businessUserRegisterPage
 GET     /register-team-users        controllers.HomeController.businessTeamUsersSettingsPage
-
 GET     /profile                    controllers.HomeController.profile
 GET     /pages/tasks                controllers.HomeController.projectTasks
 GET     /pages/settings             controllers.HomeController.settingsPage
-GET     /pages/budget               controllers.HomeController.projectBudgetPage
-GET     /pages/projects             controllers.HomeController.projectsPages
-GET     /pages/customers            controllers.HomeController.customerPage
+
 GET     /pages/invoices             controllers.HomeController.invoicesPage
-GET     /pages/vendors              controllers.HomeController.vendors
 GET     /pages/calendar             controllers.HomeController.businessCalendar
-
 GET     /pages/login                controllers.HomeController.loginPage
-
 GET     /pages/profile             controllers.ProfileController.profilePage
-GET     /pages/dashboard           controllers.HomeController.mainDashboard
+
+GET     /pages/budget               controllers.HomeController.projectBudgetPage
+
+# REST API Routes for web pages
+
+GET     /pages/customers/:businessId            controllers.HomeController.customerPage(businessId: Int)
+GET     /pages/dashboard/:businessId           controllers.HomeController.mainDashboard(businessId: Int)
+GET     /pages/vendors/:businessId             controllers.HomeController.vendors(businessId: Int)
+GET     /pages/projects/:businessId             controllers.HomeController.projectsPages(businessId: Int)
+
+
+
 
 # REST API Routes for data
 

@@ -1,6 +1,6 @@
 @(message: String, businessId: Int)
 
-@main("Well Planner", "customers", "Clients") {
+@main("Well Planner", "customers", "Clients", businessId) {
     <!-- New Project Modal -->
     <div class="content" data-ng-controller="clientsController as controller" data-ng-init="controller.getAllClients(@businessId)">
         <div class="row">
@@ -15,7 +15,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th class="text-center"></th>
+                                    <th class="text-center"><p>@businessId</p></th>
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Phone Number</th>
                                     <th class="text-center">Email Address</th>
