@@ -14,40 +14,28 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Vendor Name</label>
+                            <label for="exampleFormControlInput1">Name</label>
                             <input type="text" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Contact Name</label>
+                            <label for="exampleFormControlInput1">Contact</label>
                             <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Vendor Type</label>
-                            <input type="number" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Estimated Costs</label>
-                            <input type="number" class="form-control">
                         </div>
                         <div class="form-group">
                             <label for="exampleFormControlInput1">Description</label>
                             <input type="text" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Notes</label>
+                            <label for="exampleFormControlInput1">Location</label>
                             <input type="text" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Address</label>
-                            <input type="text" class="form-control">
+                            <label for="exampleFormControlInput1">Phone</label>
+                            <input type="number" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label for="exampleFormControlInput1">Contact Info</label>
+                            <label for="exampleFormControlInput1">Email</label>
                             <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Date Added</label>
-                            <input type="text" class="form-control datetimepicker" value="10/05/2018">
                         </div>
                     </form>
                 </div>
@@ -60,10 +48,10 @@
     </div>
 
 
-    <div class="content" data-ng-controller="vendorContactsController as controller" data-ng-init="controller.getAllClients(@businessId)">
+    <div class="content" data-ng-controller="vendorContactsController as controller" data-ng-init="controller.getAllVendors(@businessId)">
         <div class="row">
             <div class="col-md-12">
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#newCustomer">New Vendor Contact</button>
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="" data-ng-click="controller.newItem()">New Vendor Contact</button>
             </div>
         </div>
         <div class="row">
@@ -75,60 +63,17 @@
                                 <tr>
 @*                                    <th class="text-center">#</th>*@
                                     <th class="text-center"></th>
-                                    <th class="text-center">Company</th>
-                                    <th class="text-center"></th>
+                                    <th class="text-center">Name</th>
+                                    <th class="text-center">Contact</th>
                                     <th class="text-center">Description</th>
-                                    <th class="text-center">Type</th>
                                     <th class="text-center">Location</th>
                                     <th class="text-center">Phone</th>
                                     <th class="text-center">Email</th>
-                                    <th class="text-center">Date Added</th>
-                                    <th class="text-center">Cost</th>
-                                    <th class="text-center">Notes</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-@*                                <tr >*@
-@*                                    <th class="text-center">*@
-@*                                        <div class="form-check">*@
-@*                                            <label class="form-check-label">*@
-@*                                                <input class="form-check-input" type="checkbox" checked="">*@
-@*                                                <span class="form-check-sign"></span>*@
-@*                                            </label>*@
-@*                                        </div>*@
-@*                                    </th>*@
-@*                                    <td class="text-center">*@
-@*                                        <input type="text" style="text-align:center;" class="form-control" data-ng-model="controller.formData.customerName">*@
-@*                                    </td>*@
-@*                                    <td class="text-center">*@
-@*                                        <phonenumber-directive model='controller.formData.phoneNumber'></phonenumber-directive>*@
-@*                                    </td>*@
-@*                                    <td class="text-center">*@
-@*                                        <input type="email" style="text-align:center;" class="form-control" data-ng-model="controller.formData.emailAddress">*@
-@*                                    </td>*@
-@*                                    <td class="text-center">*@
-@*                                        <input type="number" style="text-align:center;" class="form-control" data-ng-model="controller.formData.budget">*@
-@*                                    </td>*@
-@*                                    <td class="text-center">*@
-@*                                        <select class="form-control" data-ng-model="controller.formData.status" ng-options= "item.type for item in controller.clientStatuses"></select>*@
-@*                                    </td>*@
-@*                                    <td class="td-actions text-center">*@
-@*                                    </td>*@
-@*                                    <td class="text-center"></td>*@
-@*                                    <td class="td-actions text-center">*@
-@*                                        <button class="btn btn-success" data-ng-click="controller.saveItem(@businessId)">*@
-@*                                            <span class="btn-label">*@
-@*                                                <i class="nc-icon nc-check-2"></i>*@
-@*                                            </span>*@
-@*                                        </button>*@
-@*                                        <button class="btn btn-danger" data-ng-click="controller.cancelItem()">*@
-@*                                            <i class="nc-icon nc-scissors"></i>*@
-@*                                        </button>*@
-@*                                    </td>*@
-@*                                </tr>*@
-                                <tr>
-@*                                    <td class="text-center">1</td>*@
+                                <tr data-ng-show="controller.showNewItem">
                                     <th class="text-center">
                                         <div class="form-check">
                                             <label class="form-check-label">
@@ -137,27 +82,57 @@
                                             </label>
                                         </div>
                                     </th>
-                                    <td class="text-center">Pearl Banquette Hall</td>
-                                    <td class="text-center">Rupinder</td>
-                                    <td class="text-center">Initial Payment</td>
-                                    <td class="text-center">Reception</td>
-                                    <td class="text-center">Mississauga</td>
-                                    <td class="text-center">905-678-2345</td>
-                                    <td class="text-center">rupinder_pearlBanquetHall.com</td>
-                                    <td class="text-center">March 28th 2020</td>
-                                    <td class="text-center">&dollar; 5,000</td>
-                                    <td class="td-actions text-center">
-                                        <button type="button" rel="tooltip" class="btn btn-outline-default" data-original-title="Add Notes">
-                                            <i class="nc-icon nc-paper"></i>
-                                        </button>
+                                    <td class="text-center">
+                                        <input type="text" style="text-align:center;" class="form-control" data-ng-model="controller.formData.name">
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" style="text-align:center;" class="form-control" data-ng-model="controller.formData.contact">
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" style="text-align:center;" class="form-control" data-ng-model="controller.formData.description">
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="text" style="text-align:center;" class="form-control" data-ng-model="controller.formData.location">
+                                    </td>
+                                    <td class="text-center">
+                                        <phonenumber-directive model='controller.formData.phone_number'></phonenumber-directive>
+                                    </td>
+                                    <td class="text-center">
+                                        <input type="email" style="text-align:center;" class="form-control" data-ng-model="controller.formData.email">
                                     </td>
                                     <td class="td-actions text-center">
-                                        <button class="btn btn-warning" rel="tooltip" data-original-title="Edit">
+                                        <button class="btn btn-success" data-ng-click="controller.saveItem(@businessId)">
+                                            <span class="btn-label">
+                                                <i class="nc-icon nc-check-2"></i>
+                                            </span>
+                                        </button>
+                                        <button class="btn btn-danger" data-ng-click="controller.cancelItem()">
+                                            <i class="nc-icon nc-scissors"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr data-ng-repeat="vendor in controller.vendors">
+                                    <th class="text-center">
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" checked="">
+                                                <span class="form-check-sign"></span>
+                                            </label>
+                                        </div>
+                                    </th>
+                                    <td class="text-center">{{vendor.name}}</td>
+                                    <td class="text-center">{{vendor.name}}</td>
+                                    <td class="text-center">{{vendor.description}}</td>
+                                    <td class="text-center">{{vendor.location}}</td>
+                                    <td class="text-center">{{vendor.phone_number | phonenumber}}</td>
+                                    <td class="text-center">{{vendor.email}}</td>
+                                    <td class="td-actions text-center">
+                                        <button class="btn btn-warning" rel="tooltip" data-original-title="Edit" >
                                             <span class="btn-label">
                                                 <i class="nc-icon nc-ruler-pencil"></i>
                                             </span>
                                         </button>
-                                        <button class="btn btn-danger" rel="tooltip" data-original-title="Remove">
+                                        <button class="btn btn-danger" rel="tooltip" data-original-title="Remove" data-ng-click="controller.removeVendor(@businessId, vendor.id)">
                                             <i class="nc-icon nc-scissors"></i>
                                         </button>
                                     </td>
