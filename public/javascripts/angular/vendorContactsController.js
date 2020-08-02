@@ -52,11 +52,11 @@ app.controller('vendorContactsController', function($http, $window) {
     function createAVendor(businessId) {
         var newVendor = {};
         newVendor = vendorContactsController.formData;
+        console.log(vendorContactsController.formData);
         newVendor.business_id = businessId;
         newVendor.notes = '';
         newVendor.vendor_type="local";
         newVendor.estimated_costs=0.0;
-
         console.log(newVendor);
 
         $http({
