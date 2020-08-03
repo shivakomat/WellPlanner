@@ -4,29 +4,79 @@
     <!-- New Project Modal -->
     <div class="modal fade" id="newProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-new-project-modal data-business-id=1></div>
 
-    <div class="content" data-ng-controller="projectsController as controller">
+    <div class="content" data-ng-controller="projectsController as controller" data-ng-init="controller.getAllProjects(@businessId)">
         <div class="row">
-            <div class="col-lg-4 mt-lg-5">
+            <div class="col-lg-4 mt-lg-5" data-ng-if="controller.projects.length > 0">
                 <div class="card text-center" style="width: 25rem;">
-                    <div class="card-header card-header-primary">
-                        Wedding
-                    </div>
+                    <div class="card-header card-header-primary"></div>
                     <div class="card-body">
-                        <h4 class="card-title">Rikita & Zack</h4>
-                        <p class="card-text"><i class="nc-icon nc-spaceship"></i>  Nov 25th 2020</p>
-                        <a href="/pages/tasks" class="btn btn-outline-warning btn-round">
+                        <h4 class="card-title">{{controller.projects[0].brides_name}} & {{controller.projects[0].grooms_name}}</h4>
+                        <p class="card-text"><i class="nc-icon nc-spaceship"></i>  {{controller.projects[0].event_date}}</p>
+                        <a href="/pages/tasks/{{controller.projects[0].id}}" class="btn btn-outline-warning btn-round">
                             <i class="fa fa-heart"></i> Enter
                         </a>
                     </div>
                     <div class="card-footer text-muted">
-                        created 2 days ago
+                        created on {{controller.projects[0].created_date}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mt-lg-5" data-ng-if="controller.projects.length > 1">
+                <div class="card text-center" style="width: 25rem;">
+                    <div class="card-header card-header-primary">
+
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{controller.projects[1].brides_name}} & {{controller.projects[1].grooms_name}}</h4>
+                        <p class="card-text"><i class="nc-icon nc-spaceship"></i>  {{controller.projects[1].event_date}}</p>
+                        <a href="/pages/tasks/{{controller.projects[1].id}}" class="btn btn-outline-warning btn-round">
+                            <i class="fa fa-heart"></i> Enter
+                        </a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        created on {{controller.projects[1].created_date}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mt-lg-5" data-ng-if="controller.projects.length > 2">
+                <div class="card text-center" style="width: 25rem;">
+                    <div class="card-header card-header-primary">
+
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{controller.projects[2].brides_name}} & {{controller.projects[2].grooms_name}}</h4>
+                        <p class="card-text"><i class="nc-icon nc-spaceship"></i>  {{controller.projects[2].event_date}}</p>
+                        <a href="/pages/tasks/{{controller.projects[2].id}}" class="btn btn-outline-warning btn-round">
+                            <i class="fa fa-heart"></i> Enter
+                        </a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        created on {{controller.projects[2].created_date}}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mt-lg-5" data-ng-if="controller.projects.length > 3">
+                <div class="card text-center" style="width: 25rem;">
+                    <div class="card-header card-header-primary">
+
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title">{{controller.projects[3].brides_name}} & {{controller.projects[3].grooms_name}}</h4>
+                        <p class="card-text"><i class="nc-icon nc-spaceship"></i>  {{controller.projects[3].event_date}}</p>
+                        <a href="/pages/tasks/{{controller.projects[3].id}}" class="btn btn-outline-warning btn-round">
+                            <i class="fa fa-heart"></i> Enter
+                        </a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        created on {{controller.projects[3].created_date}}
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 mt-lg-5">
                 <div class="card card-plain text-center" style="width: 25rem;">
                     <div class="card-body">
-                        <h4 class="card-title">Create Project</h4>
+                        <h4 class="card-title">Create New Project</h4>
                         <button class="btn btn-lg btn-warning"  data-toggle="modal" data-target="#newProject">
                             <i class="nc-icon nc-simple-add"></i>
                         </button>

@@ -8,6 +8,8 @@ trait ProjectsDbAPI {
 
   def list(): Seq[Project]
 
-  def listByBusinessId(businessId:Long): Seq[Project]
+//  def listByBusinessId(businessId:Long): Seq[Project]
+
+  def deleteByProjectIdAndBusinessId(projectId: Int, businessId: Int): Int
 
 }

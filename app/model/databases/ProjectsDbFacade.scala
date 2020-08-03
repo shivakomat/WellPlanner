@@ -13,13 +13,13 @@ class ProjectsDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) 
 
   def addNewProject(project: Project): Option[Long] = {
     db.withConnection { implicit connection =>
-      SQL("insert into Projects(name , event_type , brides_name, notes, budget, grooms_name, business_id, modified_date, created_date) " +
-        "values ({name} , {event_type} , {brides_name}, {notes}, {budget}, {grooms_name}, {business_id}, {modified_date}, {created_date})")
+      SQL("insert into Projects(name , event_type , brides_name, budget, event_date, grooms_name, business_id, modified_date, created_date) " +
+        "values ({name} , {event_type} , {brides_name}, {budget}, {event_date}, {grooms_name}, {business_id}, {modified_date}, {created_date})")
         .on("name"  -> project.name,
           "event_type" -> project.event_type,
           "brides_name" -> project.brides_name,
           "grooms_name" -> project.grooms_name,
-          "notes" -> project.notes,
+          "event_date" -> project.event_date,
           "budget" -> project.budget,
           "business_id" -> project.business_id,
           "modified_date" -> project.modified_date,
@@ -33,6 +33,10 @@ class ProjectsDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) 
       SQL("select * from projects").as(parser.*)
     }
 
-  def listByBusinessId(businessId:Long): Seq[Project] = ???
-
+  def deleteByProjectIdAndBusinessId(projectId: Int, businessId: Int): Int =
+    db.withConnection { implicit connection =>
+      SQL("delete from projects where id = {project_id} and business_id = {business_id}")
+        .on("project_id" -> projectId, "business_id" -> businessId)
+        .executeUpdate()
+    }
 }

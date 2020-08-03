@@ -35,6 +35,11 @@ GET     /pages/projects/:businessId             controllers.HomeController.proje
 +nocsrf
 POST   /businesses/projects          controllers.ProjectsController.newWeddingProject
 
+GET    /businesses/:businessId/projects          controllers.ProjectsController.projectsByBusiness(businessId: Int)
+
++nocsrf
+DELETE /businesses/:businessId/projects/:projectId controllers.ProjectsController.deleteProjectById(projectId: Int, businessId : Int)
+
 # # Clients
 GET    /businesses/clients/:businessId  controllers.ClientsController.businessClients(businessId: Int)
 +nocsrf

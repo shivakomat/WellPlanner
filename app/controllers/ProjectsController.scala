@@ -43,4 +43,15 @@ class ProjectsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
     )
   }
 
+
+
+  def projectsByBusiness(businessId: Int) =  Action {
+    successResponse(OK, Json.toJson(projectsApi.allByBusiness(businessId)), Seq("Successfully processed"))
+  }
+
+  def deleteProjectById(projectId: Int, businessId: Int) = Action {
+    successResponse(OK, Json.toJson(projectsApi.deleteProjectById(projectId, businessId)), Seq("Successfully processed"))
+  }
+
+
 }
