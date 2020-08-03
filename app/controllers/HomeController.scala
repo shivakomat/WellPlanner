@@ -23,12 +23,12 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.profile("Your new application is ready."))
   }
 
-  def projectTasks = Action {
-    Ok(views.html.projectTasks("Project Tasks"))
+  def projectTasks(projectId: Int, businessId: Int) = Action {
+    Ok(views.html.projectTasks("Project Tasks", projectId, businessId))
   }
 
-  def projectBudgetPage = Action {
-    Ok(views.html.budget("Project Budget"))
+  def projectBudgetPage(projectId: Int, businessId: Int) = Action {
+    Ok(views.html.budget("Project Budget", projectId, businessId))
   }
 
   def projectsPages(businessId: Int) = Action {

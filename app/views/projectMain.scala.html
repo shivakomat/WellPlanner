@@ -1,4 +1,4 @@
-@(title: String, activeMenuItem: String, pageTitle: String)(content: Html)
+@(title: String, activeMenuItem: String, pageTitle: String, projectId: Int, businessId: Int)(content: Html)
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -36,7 +36,7 @@
                             <img src="@routes.Assets.versioned("template_assets/img/faces/ayo-ogunseinde-2.jpg")"/>
                         </div>
                     </a>
-                    <a href="/pages/dashboard/1" class="simple-text logo-normal">
+                    <a href="/pages/dashboard/@businessId" class="simple-text logo-normal">
                         FIRGUN EVENTS
 @*                        <div class="logo-image-big"> <img src="../assets/img/logo-big.png"></div>*@
                     </a>
@@ -86,7 +86,7 @@
                         } else {
                             <li>
                         }
-                            <a href="/pages/tasks">
+                            <a href="/pages/@businessId/projects/@projectId/tasks">
                                 <i class="nc-icon nc-bullet-list-67"></i>
                                 <p>Tasks</p>
                             </a>
@@ -118,7 +118,7 @@
                         } else {
                             <li>
                         }
-                            <a href="/pages/budget">
+                            <a href="/pages/@businessId/projects/@projectId/budget">
                                 <i class="nc-icon nc-money-coins"></i>
                                 <p>Budget</p>
                             </a>
@@ -172,10 +172,10 @@
                                         </p>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                                        <a class="dropdown-item" href="/pages/dashboard">Main Dashboard</a>
-                                        <a class="dropdown-item" href="/pages/projects">Projects</a>
-                                        <a class="dropdown-item" href="/pages/customers">Clients</a>
-                                        <a class="dropdown-item" href="/pages/vendors">Vendors</a>
+                                        <a class="dropdown-item" href="/pages/dashboard/@businessId">Main Dashboard</a>
+                                        <a class="dropdown-item" href="/pages/projects/@businessId">Projects</a>
+                                        <a class="dropdown-item" href="/pages/customers/@businessId">Clients</a>
+                                        <a class="dropdown-item" href="/pages/vendors/@businessId">Vendors</a>
 @*                                        <a class="dropdown-item" href="#">INVOICES</a>*@
 @*                                        <a class="dropdown-item" href="#">COMPANY CALENDAR</a>*@
                                     </div>
