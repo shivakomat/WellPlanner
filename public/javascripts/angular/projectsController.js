@@ -1,9 +1,8 @@
-'use strict';
-
-app.controller('projectsController', function ($http, $window, $scope) {
+app.controller('projectsController', function ProjectsController (ProjectsFactory, $http, $window, $scope) {
     var projectsController = this;
 
     projectsController.projects = [];
+    projectsController.projectsHtml = "";
 
     function refresh(businessId) {
         allProjects(businessId);
@@ -14,12 +13,10 @@ app.controller('projectsController', function ($http, $window, $scope) {
     };
 
     projectsController.removeProject = function (projectId, businessId) {
-        console.log("Inside remove project");
         deleteProjectBy(projectId, businessId);
     };
 
     function deleteProjectBy(projectId, businessId) {
-        console.log(projectId);
         $http({
             method: 'DELETE',
             url: '/businesses/' + businessId + '/projects/' + projectId
@@ -32,15 +29,22 @@ app.controller('projectsController', function ($http, $window, $scope) {
     }
 
     function allProjects(businessId) {
-        $http({
-            method: 'GET',
-            url: '/businesses/'+ businessId + "/projects"
-        }).then(function mySuccess (response) {
-            refresh(businessId);
-            projectsController.projects = response.data.data;
-        }, function myError (response) {
-            console.log(response.statusText)
+        ProjectsFactory.getAllProjects(businessId,
+            function mySuccess (response) {
+                projectsController.projects = response.data.data;
+            }, function myError (response) {
+                console.log(response.statusText)
         });
+    }
+});
+
+app.factory('ProjectsFactory', function ProjectsFactory ($http) {
+    var getAllProjects = function (businessId, successFunction, errorFunction) {
+        $http({method: 'GET', url: '/businesses/'+ businessId + "/projects"}).then(successFunction, errorFunction)
+    };
+
+    return {
+        getAllProjects: getAllProjects
     }
 });
 
@@ -62,21 +66,17 @@ app.controller('newProjectController', [NewProjectController]);
 function NewProjectController($http) {
     var newProjectController = this;
 
-    console.log("new project controller created");
-
     newProjectController.formData = {};
 
     newProjectController.createNew = function () {
         console.log("create new project button clicked");
-
         newProject(1)
     };
 
-
-    function newProject(businessId) {
+    function newProject() {
         var newProject = {};
         newProject = newProjectController.formData;
-        newProject.businessId = businessId;
+        newProject.businessId = newProjectController.businessId;
         console.log(newProject);
 
         $http({
