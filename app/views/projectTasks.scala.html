@@ -60,48 +60,9 @@
         </div>
     </div>
 
+
     <!-- New List Modal -->
-    <div class="modal fade" id="createList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h5 class="modal-title" id="exampleModalLabel">Create List</h5>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Title</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Due Date</label>
-                            <input type="text" class="form-control datetimepicker" value="10/05/2018">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Set Visibility</label>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Visibility By
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Customer</a>
-                                    <a class="dropdown-item" href="#">Company</a>
-                                </div>
-                            </div>
-                            <input type="text" class="form-control">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">ADD</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div class="modal fade" id="createList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-new-task-list-modal data-project-id=@projectId data-business-id=@businessId></div>
 
     <!-- New Task Modal -->
     <div class="modal fade" id="newTask" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -239,12 +200,12 @@
 
                             <div class="mt-lg-3 card card-plain" data-ng-repeat="task in controller.tasks">
                                 <div class="card-header" role="tab" id="headingOne">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="{{ '#collapse_' + task.parent.id}}" aria-expanded="true" aria-controls="collapseOne">
                                         <h7><b>{{task.parent.title}}</b></h7>
                                         <i class="nc-icon nc-minimal-down"></i>
                                     </a>
                                 </div>
-                                <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                                <div id="{{ 'collapse_' + task.parent.id}}" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                                     <div class="card-body">
                                         <div class="table-borderless table-responsive">
                                             <table class="table">

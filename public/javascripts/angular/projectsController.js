@@ -70,7 +70,7 @@ function NewProjectController($http) {
 
     newProjectController.createNew = function () {
         console.log("create new project button clicked");
-        newProject(1)
+        newProject()
     };
 
     function newProject() {
