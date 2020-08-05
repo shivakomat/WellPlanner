@@ -24,7 +24,7 @@
             <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="@routes.Assets.versioned("template_assets/demo/demo.css")" rel="stylesheet" />
     </head>
-    <body class="">
+    <body class="" data-ng-app="wellPlanner">
         <div class="wrapper ">
             <div class="sidebar" data-color="white" data-active-color="danger">
                     <!--
@@ -302,14 +302,13 @@
             <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
         <script src="@routes.Assets.versioned("template_assets/js/paper-dashboard.min.js?v=2.0.1")" type="text/javascript"></script>
             <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-        <script src="@routes.Assets.versioned("template_assets/demo.js")"></script>
+        <script src="@routes.Assets.versioned("template_assets/demo/demo.js")"></script>
         <script>
                 $(document).ready(function() {
                     // Javascript method's body can be found in assets/js/demos.js
-                    demo.initDashboardPageCharts();
+                    // demo.initDashboardPageCharts();
+                    // demo.initVectorMap();
 
-
-                    demo.initVectorMap();
 
                 });
 
@@ -328,7 +327,6 @@
                 <!-- javascript for Date Time Picker -->
                 $('.datetimepicker').datetimepicker({
                     icons: {
-                        time: "fa fa-clock-o",
                         date: "fa fa-calendar",
                         up: "fa fa-chevron-up",
                         down: "fa fa-chevron-down",
@@ -341,7 +339,268 @@
                 });
         </script>
 
+
+        <script src="@routes.Assets.versioned("node_modules/angular/angular.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-animate/angular-animate.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-aria/angular-aria.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-material/angular-material.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-jwt/dist/angular-jwt.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-storage/dist/angular-storage.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-ui-router/release/angular-ui-router.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/auth0-angular/build/auth0-angular.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/auth0-js/build/auth0.js")"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap-tpls.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap.min.js"></script>
+        @*        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.0/angular-route.min.js"></script>*@
+        <script>
+            alerts = {
+                autoCloseAlert: function(type, _title, _desc) {
+                    if (type == 'basic') {
+                        swal({
+                            title: _title,
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-success"
+                        }).catch(swal.noop);
+
+                    } else if (type == 'title-and-text') {
+                        swal({
+                            title: _title,
+                            text: _desc,
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-info"
+                        }).catch(swal.noop);
+
+                    } else if (type == 'success-message') {
+                        swal({
+                            title: _title,
+                            text: _desc,
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-success",
+                            type: "success"
+                        }).catch(swal.noop);
+
+                    } else if (type == 'warning-message-and-confirmation') {
+                        swal({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonClass: 'btn btn-success',
+                            cancelButtonClass: 'btn btn-danger',
+                            confirmButtonText: 'Yes, delete it!',
+                            buttonsStyling: false
+                        }).then(function() {
+                            swal({
+                                title: 'Deleted!',
+                                text: 'Your file has been deleted.',
+                                type: 'success',
+                                confirmButtonClass: "btn btn-success",
+                                buttonsStyling: false
+                            });
+                        }).catch(swal.noop);
+                    } else if (type == 'warning-message-and-cancel') {
+                        swal({
+                            title: 'Are you sure?',
+                            text: 'You will not be able to recover this imaginary file!',
+                            type: 'warning',
+                            showCancelButton: true,
+                            confirmButtonText: 'Yes, delete it!',
+                            cancelButtonText: 'No, keep it',
+                            confirmButtonClass: "btn btn-success",
+                            cancelButtonClass: "btn btn-danger",
+                            buttonsStyling: false
+                        }).then(function() {
+                            swal({
+                                title: 'Deleted!',
+                                text: 'Your imaginary file has been deleted.',
+                                type: 'success',
+                                confirmButtonClass: "btn btn-success",
+                                buttonsStyling: false
+                            }).catch(swal.noop);
+                        }, function(dismiss) {
+                            // dismiss can be 'overlay', 'cancel', 'close', 'esc', 'timer'
+                            if (dismiss === 'cancel') {
+                                swal({
+                                    title: 'Cancelled',
+                                    text: 'Your imaginary file is safe :)',
+                                    type: 'error',
+                                    confirmButtonClass: "btn btn-info",
+                                    buttonsStyling: false
+                                }).catch(swal.noop);
+                            }
+                        }).catch(swal.noop);
+
+                    } else if (type == 'custom-html') {
+                        swal({
+                            title: 'HTML example',
+                            buttonsStyling: false,
+                            confirmButtonClass: "btn btn-success",
+                            html: 'You can use <b>bold text</b>, ' +
+                                    '<a href="http://github.com">links</a> ' +
+                                    'and other HTML tags'
+                        }).catch(swal.noop);
+
+                    } else if (type == 'auto-close') {
+                        swal({
+                            title: _title,
+                            text: "I will close in 2 seconds.",
+                            timer: 2000,
+                            showConfirmButton: true
+                        }).catch(swal.noop);
+                    } else if (type == 'input-field') {
+                        swal({
+                            title: 'Input something',
+                            html: '<div class="form-group">' +
+                                    '<input id="input-field" type="text" class="form-control" />' +
+                                    '</div>',
+                            showCancelButton: true,
+                            confirmButtonClass: 'btn btn-success',
+                            cancelButtonClass: 'btn btn-danger',
+                            buttonsStyling: false
+                        }).then(function(result) {
+                            swal({
+                                type: 'success',
+                                html: 'You entered: <strong>' +
+                                        $('#input-field').val() +
+                                        '</strong>',
+                                confirmButtonClass: 'btn btn-success',
+                                buttonsStyling: false
+
+                            }).catch(swal.noop);
+                        }).catch(swal.noop);
+                    }
+                }
+            }
+        </script>
+
+        @*        <script>*@
+        @*            <!-- javascript for init -->*@
+        @*            $calendar = $('#fullCalendar');*@
+
+        @*            today = new Date();*@
+        @*            y = today.getFullYear();*@
+        @*            m = today.getMonth();*@
+        @*            d = today.getDate();*@
+
+        @*            $calendar.fullCalendar({*@
+        @*                viewRender: function(view, element) {*@
+        @*                    // We make sure that we activate the perfect scrollbar when the view isn't on Month*@
+        @*                    if (view.name != 'month'){*@
+        @*                        $(element).find('.fc-scroller').perfectScrollbar();*@
+        @*                    }*@
+        @*                },*@
+        @*                header: {*@
+        @*                    left: 'title',*@
+        @*                    center: 'month,agendaWeek,agendaDay',*@
+        @*                    right: 'prev,next,today'*@
+        @*                },*@
+        @*                defaultDate: today,*@
+        @*                selectable: true,*@
+        @*                selectHelper: true,*@
+        @*                views: {*@
+        @*                    month: { // name of view*@
+        @*                        titleFormat: 'MMMM YYYY'*@
+        @*                        // other view-specific options here*@
+        @*                    },*@
+        @*                    week: {*@
+        @*                        titleFormat: " MMMM D YYYY"*@
+        @*                    },*@
+        @*                    day: {*@
+        @*                        titleFormat: 'D MMM, YYYY'*@
+        @*                    }*@
+        @*                },*@
+
+        @*                select: function(start, end) {*@
+
+        @*                    // on select we show the Sweet Alert modal with an input*@
+        @*                    swal({*@
+        @*                        title: 'Create an Event',*@
+        @*                        html: '<div class="form-group">' +*@
+        @*                                '<input class="form-control" placeholder="Event Title" id="input-field">' +*@
+        @*                                '</div>',*@
+        @*                        showCancelButton: true,*@
+        @*                        confirmButtonClass: 'btn btn-success',*@
+        @*                        cancelButtonClass: 'btn btn-danger',*@
+        @*                        buttonsStyling: false*@
+        @*                    }).then(function(result) {*@
+
+        @*                        var eventData;*@
+        @*                        event_title = $('#input-field').val();*@
+
+        @*                        if (event_title) {*@
+        @*                            eventData = {*@
+        @*                                title: event_title,*@
+        @*                                start: start,*@
+        @*                                end: end*@
+        @*                            };*@
+        @*                            $calendar.fullCalendar('renderEvent', eventData, true); // stick? = true*@
+        @*                        }*@
+
+        @*                        $calendar.fullCalendar('unselect');*@
+
+        @*                    });*@
+        @*                },*@
+        @*                editable: true,*@
+        @*                eventLimit: true, // allow "more" link when too many events*@
+
+
+        @*                // color classes: [ event-blue | event-azure | event-green | event-orange | event-red ]*@
+        @*                events: [*@
+        @*                    {*@
+        @*                        title: 'All Day Event',*@
+        @*                        start: new Date(y, m, 1),*@
+        @*                        className: 'event-default'*@
+        @*                    },*@
+        @*                    {*@
+        @*                        title: 'Meeting',*@
+        @*                        start: new Date(y, m, d-1, 10, 30),*@
+        @*                        allDay: false,*@
+        @*                        className: 'event-green'*@
+        @*                    },*@
+        @*                    {*@
+        @*                        title: 'Lunch',*@
+        @*                        start: new Date(y, m, d+7, 12, 0),*@
+        @*                        end: new Date(y, m, d+7, 14, 0),*@
+        @*                        allDay: false,*@
+        @*                        className: 'event-red'*@
+        @*                    },*@
+        @*                    {*@
+        @*                        title: 'Nud-pro Launch',*@
+        @*                        start: new Date(y, m, d-2, 12, 0),*@
+        @*                        allDay: true,*@
+        @*                        className: 'event-azure'*@
+        @*                    },*@
+        @*                    {*@
+        @*                        title: 'Click for Google',*@
+        @*                        start: new Date(y, m, 21),*@
+        @*                        end: new Date(y, m, 22),*@
+        @*                        url: 'https://google.com',*@
+        @*                        className: 'event-orange'*@
+        @*                    }*@
+        @*                ]*@
+        @*            });*@
+        @*        </script>*@
+        <script src="@routes.Assets.versioned("javascripts/angular/main.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/signUpController.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/clientsController.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/vendorContactsController.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/projectsController.js")"></script>
         <script src="@routes.Assets.versioned("javascripts/angular/tasksController.js")"></script>
+
+
+
+
+
+        <script src="https://cdn.auth0.com/js/auth0-spa-js/1.2/auth0-spa-js.production.js"></script>
+
+        <script src="https://cdn.auth0.com/js/auth0/9.11/auth0.min.js"></script>
+
+        <script type="text/javascript">
+          var webAuth = new auth0.WebAuth({
+              domain:       'wellplanner.auth0.com',
+              clientID:     'u8R70ddHX8BmP2Jn2cc3xJBR6jEzM8x6'
+          });
+        </script>
     </body>
 
 </html>

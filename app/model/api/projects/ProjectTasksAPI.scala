@@ -27,12 +27,14 @@ class ProjectTasksAPI(dbApi: DBApi, ws: WSClient) {
 
   def allTasks(projectId: Long, businessId: Long): Seq[TaskList] = {
     val listOfTasks = tasksListDb.list()
-    listOfTasks
-    .groupBy(_.parent_task_id)
-    .flatMap(t => {
-        if(t._1.get > 0) Some(TaskList(parent = listOfTasks.find(e => e.id.get == t._1.get).get, subTasks = t._2))
-        else None
-      }).toSeq
+
+    val mapOfParentTaskWithSubTasks = listOfTasks.groupBy(_.parent_task_id)
+    val parentTasks: Option[Seq[Task]] = mapOfParentTaskWithSubTasks.get(None)
+
+    if(parentTasks.nonEmpty)
+        parentTasks.get.map(parentTask => TaskList(parent = parentTask, subTasks = mapOfParentTaskWithSubTasks.getOrElse(parentTask.id, Seq.empty[Task])))
+    else
+        Seq.empty[TaskList]
   }
 
   def addCommentToTask(taskComment: TaskComment): Either[String, TaskComment] = {

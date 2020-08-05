@@ -1,7 +1,7 @@
-'use strict';
-
-app.controller('tasksController', function ($http, $window, $scope) {
+app.controller('tasksController', function ($http) {
     var tasksController = this;
+
+    console.log("Intiatianated tasks controller");
 
     tasksController.tasks = [];
 
@@ -9,8 +9,9 @@ app.controller('tasksController', function ($http, $window, $scope) {
         allTasks(businessId, projectId);
     }
 
-    tasksController.getAllTasks = function (businessId) {
-        allTasks(businessId)
+    tasksController.getAllTasks = function (projectId, businessId) {
+        console.log("Inside tasks");
+        allTasks(businessId, projectId)
     };
 
     tasksController.removeTask = function (projectId, businessId) {
@@ -34,7 +35,6 @@ app.controller('tasksController', function ($http, $window, $scope) {
             method: 'GET',
         url: '/businesses/'+ businessId + "/projects/" + projectId + "/tasks"
         }).then(function mySuccess (response) {
-            refresh(businessId, projectId);
             tasksController.tasks = response.data.data;
         }, function myError (response) {
             console.log(response.statusText)

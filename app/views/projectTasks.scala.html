@@ -225,7 +225,7 @@
 
     <!-- Main Content -->
 
-    <div class="content" data-ng-controller="tasksController as controller">
+    <div class="content" data-ng-controller="tasksController as controller" data-ng-init="controller.getAllTasks(@projectId, @businessId)">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -237,10 +237,10 @@
                             </div>
 
 
-                            <div class="mt-lg-3 card card-plain">
+                            <div class="mt-lg-3 card card-plain" data-ng-repeat="task in controller.tasks">
                                 <div class="card-header" role="tab" id="headingOne">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        <h7><b>Bride and Groom's</b></h7>
+                                        <h7><b>{{task.parent.title}}</b></h7>
                                         <i class="nc-icon nc-minimal-down"></i>
                                     </a>
                                 </div>
@@ -249,7 +249,7 @@
                                         <div class="table-borderless table-responsive">
                                             <table class="table">
                                                 <tbody>
-                                                    <tr>
+                                                    <tr data-ng-repeat="subTask in task.subTasks">
                                                         <td>
                                                             <div class="form-check">
                                                                 <label class="form-check-label">
@@ -258,80 +258,13 @@
                                                                 </label>
                                                             </div>
                                                         </td>
-                                                        <td class="text-left">Customer to Sign Contract</td>
+                                                        <td class="text-left">{{subTask.title}} - {{subTask.description}}</td>
                                                         <td class="td-actions text-right">
                                                             <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#taskDetails" data-original-title="Comments">
                                                                 <i class="nc-icon nc-chat-33"></i>
                                                             </button>
 
                                                             <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="#editTaskModal" data-original-title="Edit Task">
-                                                                <i class="nc-icon nc-ruler-pencil"></i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
-                                                                <i class="nc-icon nc-simple-remove"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" checked>
-                                                                    <span class="form-check-sign"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td class="text-left"><strike>Customer to fill out the online form to gather event details</strike></td>
-                                                        <td class="td-actions text-right">
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#taskDetails" data-original-title="Comments">
-                                                                <i class="nc-icon nc-chat-33"></i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
-                                                                <i class="nc-icon nc-ruler-pencil"></i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
-                                                                <i class="nc-icon nc-simple-remove"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" checked>
-                                                                    <span class="form-check-sign"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td class="text-left"><strike>Find vendors within the customer's budget</strike>
-                                                        </td>
-                                                        <td class="td-actions text-right">
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#taskDetails" data-original-title="Comments">
-                                                                <i class="nc-icon nc-chat-33"></i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
-                                                                <i class="nc-icon nc-ruler-pencil"></i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
-                                                                <i class="nc-icon nc-simple-remove"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox">
-                                                                    <span class="form-check-sign"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td class="text-left">Contact some of them</td>
-                                                        <td class="td-actions text-right">
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#taskDetails" data-original-title="Comments">
-                                                                <i class="nc-icon nc-chat-33"></i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
                                                                 <i class="nc-icon nc-ruler-pencil"></i>
                                                             </button>
                                                             <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
