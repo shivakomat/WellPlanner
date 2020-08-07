@@ -1,21 +1,28 @@
 app.controller('tasksController', function ($http) {
     var tasksController = this;
 
-    console.log("Intiatianated tasks controller");
-
     tasksController.tasks = [];
+    tasksController.currentParentTask = {};
+    tasksController.currentSubTask = {};
 
     function refresh(businessId, projectId) {
         allTasks(businessId, projectId);
     }
 
+    tasksController.newSubtask = function(parentTask) {
+        tasksController.currentParentTask = parentTask;
+    };
+
+    tasksController.editTask = function (subTask) {
+        tasksController.currentSubTask = subTask;
+    };
+
     tasksController.getAllTasks = function (projectId, businessId) {
-        console.log("Inside tasks");
         allTasks(businessId, projectId)
     };
 
-    tasksController.removeTask = function (projectId, businessId) {
-        deleteTaskBy(projectId, businessId);
+    tasksController.removeTask = function (projectId, businessId, taskId) {
+        deleteTaskBy(projectId, businessId, taskId);
     };
 
     function deleteTaskBy(projectId, businessId, taskId) {
@@ -23,10 +30,10 @@ app.controller('tasksController', function ($http) {
             method: 'DELETE',
             url: '/businesses/' + businessId + '/projects/' + projectId + '/tasks/' + taskId
         }).then(function mySuccess() {
-            refresh(businessId);
-            alerts.autoCloseAlert('success-message', 'Project removed!!', '');
+            refresh(businessId, projectId);
+            alerts.autoCloseAlert('success-message', 'Task removed!!', '');
         }, function myError() {
-            alerts.autoCloseAlert('title-and-text', 'Error deleting project', 'Please try again!');
+            alerts.autoCloseAlert('title-and-text', 'Error deleting task', 'Please try again!');
         })
     }
 
@@ -57,16 +64,61 @@ function NewTaskListModalDirective() {
     }
 }
 
+app.directive('newSubTaskModal',  [NewSubTaskListModalDirective]);
+function NewSubTaskListModalDirective() {
+    return{
+        templateUrl:  "http://localhost:7000/assets/javascripts/angular/newSubTaskModal.html",
+        scope: false,
+        bindToController: {
+            businessId: '=',
+            projectId: '=',
+            parent: '=',
+            currentSubTask: '='
+        },
+        controller: NewTaskListModalController,
+        controllerAs: 'newTaskListModalController'
+    }
+}
+
 app.controller('newTaskListModalController', [NewTaskListModalController]);
 function NewTaskListModalController($http) {
     var newTaskListModalController = this;
 
     newTaskListModalController.formData = {};
 
-    newTaskListModalController.createNew = function () {
-        console.log("create new task list button clicked");
+    newTaskListModalController.createNewTaskList = function () {
         newTaskList()
     };
+
+    newTaskListModalController.createNewSubTask = function () {
+        newSubTask()
+    };
+
+    function newSubTask() {
+        var subTask = {};
+        
+        console.log(newTaskListModalController.parent);
+
+        subTask = newTaskListModalController.formData;
+        subTask.business_id = newTaskListModalController.businessId;
+        subTask.project_id = newTaskListModalController.projectId;
+        subTask.parent_task_id = newTaskListModalController.parent.id;
+        subTask.is_category = false;
+        subTask.title = "";
+        subTask.notes = "";
+
+
+        $http({
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            url: '/businesses/projects/tasks',
+            data: subTask,
+        }).then(function mySuccess() {
+            alerts.autoCloseAlert('success-message', 'New Sub Task has been created', 'Awesome!');
+        }, function myError() {
+            alerts.autoCloseAlert('success-message', 'Error Creating new sub task', 'Please try again!');
+        })
+    }
 
     function newTaskList() {
         var taskList = {};

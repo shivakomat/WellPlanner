@@ -64,63 +64,6 @@
     <!-- New List Modal -->
     <div class="modal fade" id="createList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-new-task-list-modal data-project-id=@projectId data-business-id=@businessId></div>
 
-    <!-- New Task Modal -->
-    <div class="modal fade" id="newTask" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h5 class="modal-title" id="exampleModalLabel">Create Task</h5>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Description</label>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Due Date</label>
-                            <input type="text" class="form-control datetimepicker" value="10/05/2018">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Assigned To</label>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Select Team Member
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Action</a>
-                                    <a class="dropdown-item" href="#">Another action</a>
-                                    <a class="dropdown-item" href="#">Something else here</a>
-                                </div>
-                            </div>
-                            <input type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleFormControlInput1">Set Visibility</label>
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Visibility By
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Customer</a>
-                                    <a class="dropdown-item" href="#">Company</a>
-                                </div>
-                            </div>
-                            <input type="text" class="form-control">
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">ADD</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Task Comments Modal -->
     <div class="modal fade bd-example-modal-lg" id="taskDetails" tabindex="-1" role="dialog" aria-labelledby="taskDetailsLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -184,9 +127,14 @@
     </div>
 
 
-    <!-- Main Content -->
 
+
+    <!-- Main Content -->
     <div class="content" data-ng-controller="tasksController as controller" data-ng-init="controller.getAllTasks(@projectId, @businessId)">
+
+    <!-- New Sub Task Modal -->
+    <data-new-sub-task-modal data-parent="controller.currentParentTask"  data-current-sub-task="controller.currentSubTask" data-project-id=@projectId data-business-id=@businessId></data-new-sub-task-modal>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -199,6 +147,7 @@
 
 
                             <div class="mt-lg-3 card card-plain" data-ng-repeat="task in controller.tasks">
+
                                 <div class="card-header" role="tab" id="headingOne">
                                     <a data-toggle="collapse" data-parent="#accordion" href="{{ '#collapse_' + task.parent.id}}" aria-expanded="true" aria-controls="collapseOne">
                                         <h7><b>{{task.parent.title}}</b></h7>
@@ -219,16 +168,16 @@
                                                                 </label>
                                                             </div>
                                                         </td>
-                                                        <td class="text-left">{{subTask.title}} - {{subTask.description}}</td>
+                                                        <td class="text-left">{{subTask.description}}</td>
                                                         <td class="td-actions text-right">
                                                             <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#taskDetails" data-original-title="Comments">
                                                                 <i class="nc-icon nc-chat-33"></i>
                                                             </button>
 
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="#editTaskModal" data-original-title="Edit Task">
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="#newTask" data-original-title="Edit Task">
                                                                 <i class="nc-icon nc-ruler-pencil"></i>
                                                             </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove" data-ng-click="controller.removeTask(subTask.project_id, subTask.business_id, subTask.id)">
                                                                 <i class="nc-icon nc-simple-remove"></i>
                                                             </button>
                                                         </td>
@@ -237,7 +186,7 @@
                                             </table>
                                         </div>
                                         <div>
-                                            <button type="button" class="btn btn-default btn-round btn-icon btn-icon-mini btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newTask" data-original-title="New Task">
+                                            <button type="button" class="btn btn-default btn-round btn-icon btn-icon-mini btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newTask" data-original-title="New Task" data-ng-click="controller.newSubtask(task.parent)">
                                                 <i class="nc-icon nc-simple-add"></i>
                                             </button>
                                         </div>
