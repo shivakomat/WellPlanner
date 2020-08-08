@@ -13,12 +13,12 @@ class TasksDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
 
   def addNewTask(task: Task): Option[Long] =
     db.withConnection { implicit connection =>
-      SQL("insert into tasks(title , description , notes, is_category," +
+      SQL("insert into tasks(title , description , notes, is_category, is_completed," +
           " due_date, project_id, parent_task_id, business_id, modified_date, created_date) " +
-          "values ({title} , {description} , {notes}, {is_category}, {due_date}, {project_id}, {parent_task_id}, {business_id}," +
+          "values ({title} , {description} , {notes}, {is_category}, {is_completed}, {due_date}, {project_id}, {parent_task_id}, {business_id}," +
           " {modified_date}, {created_date})")
       .on("title"  -> task.title, "description" -> task.description, "notes" -> task.notes,
-            "is_category" -> task.is_category, "due_date" -> task.due_date, "project_id" -> task.project_id,
+            "is_category" -> task.is_category, "is_completed" -> task.is_completed, "due_date" -> task.due_date, "project_id" -> task.project_id,
             "parent_task_id" -> task.parent_task_id, "business_id" -> task.business_id,
             "modified_date" -> task.modified_date, "created_date" -> task.created_date)
         .executeInsert()
@@ -26,13 +26,14 @@ class TasksDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
 
   def updateTaskInfo(updatedTask: Task): Int =
     db.withConnection { implicit connection =>
-      SQL("update tasks set title = {title}, description  = {description}, notes = {notes}, is_category = {is_category}" +
+      SQL("update tasks set title = {title}, description  = {description}, notes = {notes}, is_category = {is_category}, is_completed = {is_completed}," +
         " due_date = {due_date}, project_id = {project_id}, parent_task_id = {parent_task_id}," +
-        " business_id = {business_id}, modified_date = {modified_date}, created_date = {created_date} ")
-        .on("title"  -> updatedTask.title, "description" -> updatedTask.description, "notes" -> updatedTask.notes,
-          "is_category" -> updatedTask.is_category, "due_date" -> updatedTask.due_date, "project_id" -> updatedTask.project_id,
-          "parent_task_id" -> updatedTask.parent_task_id, "business_id" -> updatedTask.business_id,
-          "modified_date" -> updatedTask.modified_date, "created_date" -> updatedTask.created_date)
+        " business_id = {business_id}, modified_date = {modified_date}, created_date = {created_date} where id = {id}")
+        .on("id" -> updatedTask.id, "title"  -> updatedTask.title, "description" -> updatedTask.description, "notes" -> updatedTask.notes,
+                  "is_category" -> updatedTask.is_category, "is_completed" -> updatedTask.is_completed,
+                  "due_date" -> updatedTask.due_date, "project_id" -> updatedTask.project_id,
+                  "parent_task_id" -> updatedTask.parent_task_id, "business_id" -> updatedTask.business_id,
+                  "modified_date" -> updatedTask.modified_date, "created_date" -> updatedTask.created_date)
         .executeUpdate()
     }
 

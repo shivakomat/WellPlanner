@@ -9,6 +9,14 @@ app.controller('tasksController', function ($http) {
         allTasks(businessId, projectId);
     }
 
+    tasksController.completeTask = function (subTask) {
+        if(subTask.is_completed === true) {
+            updateTask(subTask, "Task completed!!", "Woo hoo!");
+        } else {
+            updateTask(subTask, "Not Completed!!", "Soon to be completed");
+        }
+    };
+
     tasksController.newSubtask = function(parentTask) {
         tasksController.currentParentTask = parentTask;
     };
@@ -24,6 +32,20 @@ app.controller('tasksController', function ($http) {
     tasksController.removeTask = function (projectId, businessId, taskId) {
         deleteTaskBy(projectId, businessId, taskId);
     };
+
+    function updateTask(updatedSubTask, msg, msgDesc) {
+        console.log(updatedSubTask);
+        $http({
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            url: '/businesses/projects/tasks/update',
+            data: updatedSubTask,
+        }).then(function mySuccess() {
+            alerts.autoCloseAlert('success-message', msg, msgDesc);
+        }, function myError() {
+            alerts.autoCloseAlert('success-message', 'Error updating task', 'Please try again!');
+        })
+    }
 
     function deleteTaskBy(projectId, businessId, taskId) {
         $http({
@@ -86,6 +108,8 @@ function NewTaskListModalController($http) {
 
     newTaskListModalController.formData = {};
 
+    console.log(newTaskListModalController.currentSubTask);
+
     newTaskListModalController.createNewTaskList = function () {
         newTaskList()
     };
@@ -106,6 +130,7 @@ function NewTaskListModalController($http) {
         subTask.is_category = false;
         subTask.title = "";
         subTask.notes = "";
+        subTask.is_completed = false;
 
 
         $http({
@@ -129,6 +154,9 @@ function NewTaskListModalController($http) {
         taskList.is_category = true;
         taskList.description = "";
         taskList.notes = "";
+        taskList.is_completed = false;
+
+        console.log(taskList);
 
         $http({
             method: 'POST',
