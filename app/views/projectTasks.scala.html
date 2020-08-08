@@ -60,10 +60,6 @@
 @*        </div>*@
 @*    </div>*@
 
-
-    <!-- New List Modal -->
-    <div class="modal fade" id="createList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-new-task-list-modal data-project-id=@projectId data-business-id=@businessId></div>
-
     <!-- Task Comments Modal -->
     <div class="modal fade bd-example-modal-lg" id="taskDetails" tabindex="-1" role="dialog" aria-labelledby="taskDetailsLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -132,11 +128,17 @@
     <!-- Main Content -->
     <div class="content" data-ng-controller="tasksController as controller" data-ng-init="controller.getAllTasks(@projectId, @businessId)">
 
+    <!-- New List Modal -->
+    <div class="modal fade" id="createList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-new-task-list-modal data-tasks="controller.tasks" data-project-id=@projectId data-business-id=@businessId></div>
+
     <!-- New Sub Task Modal -->
-    <data-new-sub-task-modal data-parent="controller.currentParentTask"  data-project-id=@projectId data-business-id=@businessId></data-new-sub-task-modal>
+    <data-new-sub-task-modal data-tasks="controller.tasks" data-parent="controller.currentParentTask"  data-project-id=@projectId data-business-id=@businessId></data-new-sub-task-modal>
 
     <!-- Edit Task Modal -->
-    <data-edit-sub-task-modal data-parent="controller.currentParentTask"  data-current-sub-task="controller.currentSubTask" data-project-id=@projectId data-business-id=@businessId></data-edit-sub-task-modal>
+    <data-edit-sub-task-modal  data-parent="controller.currentParentTask"  data-current-sub-task="controller.currentSubTask" data-project-id=@projectId data-business-id=@businessId></data-edit-sub-task-modal>
+
+    <!-- Delete Task Modal -->
+    <data-delete-task-list-modal data-tasks="controller.tasks" data-project-id=@projectId data-business-id=@businessId></data-delete-task-list-modal>
 
         <div class="row">
             <div class="col-md-12">
@@ -144,10 +146,10 @@
                     <div class="card-body">
                         <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
                             <h4 class="card-title">Tasks Lists</h4>
-                            <div class="mt-lg-3">
-                                <div><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#createList">ADD NEW LIST</button></div>
+                            <div class="mt-lg-8">
+                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#createList">ADD NEW LIST</button>
+                                <button type="button" data-ng-show="controller.tasks.length > 0" class="btn btn-outline-default btn-sm" data-toggle="modal" data-target="#deleteTaskList">DELETE LIST</button>
                             </div>
-
 
                             <div class="mt-lg-3 card card-plain" data-ng-repeat="task in controller.tasks">
                                 <div class="card-header" role="tab" id="headingOne">

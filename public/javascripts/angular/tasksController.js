@@ -53,7 +53,7 @@ app.controller('tasksController', function ($http) {
             url: '/businesses/' + businessId + '/projects/' + projectId + '/tasks/' + taskId
         }).then(function mySuccess() {
             refresh(businessId, projectId);
-            alerts.autoCloseAlert('success-message', 'Task removed!!', '');
+            alerts.autoCloseAlert('success-message', 'Task Deleted!!', '');
         }, function myError() {
             alerts.autoCloseAlert('title-and-text', 'Error deleting task', 'Please try again!');
         })
@@ -71,33 +71,15 @@ app.controller('tasksController', function ($http) {
     }
 });
 
-app.directive('deleteTaskList',  [DeleteTaskListDirective]);
-function DeleteTaskListDirective() {
-    return{
-        templateUrl:  "http://localhost:7000/assets/javascripts/angular/deleteTaskListModal.html",
-        scope: {},
-        bindToController: {
-            businessId: '=',
-            projectId: '='
-        },
-        controller: DeleteTaskListController,
-        controllerAs: 'deleteTaskListController'
-    }
-}
-
-app.controller('deleteTaskListController', [DeleteTaskListController]);
-function DeleteTaskListController() {
-
-}
-
 app.directive('newTaskListModal',  [NewTaskListModalDirective]);
 function NewTaskListModalDirective() {
     return{
         templateUrl:  "http://localhost:7000/assets/javascripts/angular/newTaskListModal.html",
-        scope: {},
+        scope: false,
         bindToController: {
             businessId: '=',
-            projectId: '='
+            projectId: '=',
+            tasks: '='
         },
         controller: NewTaskListModalController,
         controllerAs: 'newTaskListModalController'
@@ -114,10 +96,65 @@ function NewSubTaskListModalDirective() {
             businessId: '=',
             projectId: '=',
             parent: '=',
-            currentSubTask: '='
+            currentSubTask: '=',
+            tasks: '='
         },
-        controller: NewTaskListModalController,
-        controllerAs: 'newTaskListModalController'
+        controller: NewSubTaskListModalController,
+        controllerAs: 'newSubTaskListModalController'
+    }
+}
+
+app.directive('deleteTaskListModal',  [DeleteTaskListModalDirective]);
+function DeleteTaskListModalDirective() {
+    return{
+        templateUrl:  "http://localhost:7000/assets/javascripts/angular/deleteTaskListModal.html",
+        scope: false,
+        bindToController: {
+            businessId: '=',
+            projectId: '=',
+            tasks: '='
+        },
+        controller: DeleteTaskModalController,
+        controllerAs: 'deleteTaskModalController'
+    }
+}
+
+app.controller('deleteTaskModalController', [DeleteTaskModalController]);
+function DeleteTaskModalController($http) {
+    var deleteTaskModalController = this;
+    deleteTaskModalController.formData = {};
+
+    deleteTaskModalController.deleteTaskList = function () {
+        deleteTaskList(deleteTaskModalController.businessId, deleteTaskModalController.projectId, deleteTaskModalController.formData.taskToDelete.parent.id)
+    };
+
+
+    function deleteTaskList(businessId, projectId, taskId, msg, msgDesc) {
+        $http({
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            url: '/businesses/' + businessId + '/projects/' + projectId + '/tasks/' + taskId
+        }).then(function mySuccess() {
+            refresh(businessId, projectId);
+            alerts.autoCloseAlert('success-message', msg, msgDesc);
+        }, function myError() {
+            alerts.autoCloseAlert('success-message', 'Error updating task', 'Please try again!');
+        })
+    }
+
+    function refresh(businessId, projectId) {
+        allTasks(businessId, projectId);
+    }
+
+    function allTasks(businessId, projectId) {
+        $http({
+            method: 'GET',
+            url: '/businesses/'+ businessId + "/projects/" + projectId + "/tasks"
+        }).then(function mySuccess (response) {
+            deleteTaskModalController.tasks = response.data.data;
+        }, function myError (response) {
+            console.log(response.statusText)
+        });
     }
 }
 
@@ -168,42 +205,14 @@ function NewTaskListModalController($http) {
 
     newTaskListModalController.formData = {};
 
+
     newTaskListModalController.createNewTaskList = function () {
         newTaskList()
     };
 
-    newTaskListModalController.createNewSubTask = function () {
-        newSubTask()
-    };
-
-    function newSubTask() {
-        var subTask = {};
-        
-        console.log(newTaskListModalController.parent);
-
-        subTask = newTaskListModalController.formData;
-        subTask.business_id = newTaskListModalController.businessId;
-        subTask.project_id = newTaskListModalController.projectId;
-        subTask.parent_task_id = newTaskListModalController.parent.id;
-        subTask.is_category = false;
-        subTask.title = "";
-        subTask.notes = "";
-        subTask.is_completed = false;
-
-
-        $http({
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            url: '/businesses/projects/tasks',
-            data: subTask,
-        }).then(function mySuccess() {
-            alerts.autoCloseAlert('success-message', 'New Sub Task has been created', 'Awesome!');
-        }, function myError() {
-            alerts.autoCloseAlert('success-message', 'Error Creating new sub task', 'Please try again!');
-        })
-    }
-
     function newTaskList() {
+        console.log(newTaskListModalController.tasks);
+
         var taskList = {};
         taskList = newTaskListModalController.formData;
         taskList.business_id = newTaskListModalController.businessId;
@@ -222,10 +231,81 @@ function NewTaskListModalController($http) {
             url: '/businesses/projects/tasks',
             data: taskList,
         }).then(function mySuccess() {
-            alerts.autoCloseAlert('success-message', 'New Task List has been created', 'Awesome!');
+            refresh(newTaskListModalController.businessId, newTaskListModalController.projectId);
+            alerts.autoCloseAlert('success-message', 'New list created!!', 'Nice start!');
         }, function myError() {
-            alerts.autoCloseAlert('success-message', 'Error Creating new task list', 'Please try again!');
+            alerts.autoCloseAlert('success-message', 'Sorry, unable to create a new list', 'Please try again!');
         })
+    }
+
+    function refresh(businessId, projectId) {
+        allTasks(businessId, projectId);
+    }
+
+    function allTasks(businessId, projectId) {
+        $http({
+            method: 'GET',
+            url: '/businesses/'+ businessId + "/projects/" + projectId + "/tasks"
+        }).then(function mySuccess (response) {
+            newTaskListModalController.tasks = response.data.data;
+        }, function myError (response) {
+            console.log(response.statusText)
+        });
+    }
+
+}
+
+app.controller('newSubTaskListModalController', [NewSubTaskListModalController]);
+function NewSubTaskListModalController($http) {
+    var newSubTaskListModalController = this;
+
+    newSubTaskListModalController.formData = {};
+
+    console.log(" newSubTaskListModalController initialized");
+
+    newSubTaskListModalController.createNewSubTask = function () {
+        newSubTask()
+    };
+
+    function newSubTask() {
+        var subTask = {};
+
+        subTask = newSubTaskListModalController.formData;
+        subTask.business_id = newSubTaskListModalController.businessId;
+        subTask.project_id = newSubTaskListModalController.projectId;
+        subTask.parent_task_id = newSubTaskListModalController.parent.id;
+        subTask.is_category = false;
+        subTask.title = "";
+        subTask.notes = "";
+        subTask.is_completed = false;
+
+
+        $http({
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            url: '/businesses/projects/tasks',
+            data: subTask,
+        }).then(function mySuccess() {
+            refresh(newSubTaskListModalController.businessId, newSubTaskListModalController.projectId);
+            alerts.autoCloseAlert('success-message', 'New task created!!', 'Good job!');
+        }, function myError() {
+            alerts.autoCloseAlert('success-message', 'Sorry, unable to create task', 'Please try again!');
+        })
+    }
+
+    function refresh(businessId, projectId) {
+        allTasks(businessId, projectId);
+    }
+
+    function allTasks(businessId, projectId) {
+        $http({
+            method: 'GET',
+            url: '/businesses/'+ businessId + "/projects/" + projectId + "/tasks"
+        }).then(function mySuccess (response) {
+            newSubTaskListModalController.tasks = response.data.data;
+        }, function myError (response) {
+            console.log(response.statusText)
+        });
     }
 
 }

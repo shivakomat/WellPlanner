@@ -13,11 +13,11 @@
                     <br>
                     <div class="form-group">
                         <label for="description">Task Description</label>
-                        <input id="description" type="text" class="form-control" data-ng-model="newTaskListModalController.formData.description">
+                        <input id="description" type="text" class="form-control" data-ng-model="newSubTaskListModalController.formData.description">
                     </div>
                     <div class="form-group">
                         <label for="dueDate">Task Due Date</label>
-                        <input id="dueDate" type="number" class="form-control" data-ng-model="newTaskListModalController.formData.due_date">
+                        <input id="dueDate" type="number" class="form-control" data-ng-model="newSubTaskListModalController.formData.due_date">
     <!--                    <input id="dueDate" type="text" class="form-control datetimepicker" value="10/05/2018">-->
                     </div>
     <!--                <div class="form-group">-->
@@ -51,7 +51,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="newTaskListModalController.createNewSubTask()">ADD</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="newSubTaskListModalController.createNewSubTask()">ADD</button>
             </div>
         </div>
     </div>
