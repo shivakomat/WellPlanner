@@ -129,7 +129,7 @@
     <div class="content" data-ng-controller="tasksController as controller" data-ng-init="controller.getAllTasks(@projectId, @businessId)">
 
     <!-- New List Modal -->
-    <div class="modal fade" id="createList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-new-task-list-modal data-tasks="controller.tasks" data-project-id=@projectId data-business-id=@businessId></div>
+    <data-new-task-list-modal data-tasks="controller.tasks" data-project-id=@projectId data-business-id=@businessId></data-new-task-list-modal>
 
     <!-- New Sub Task Modal -->
     <data-new-sub-task-modal data-tasks="controller.tasks" data-parent="controller.currentParentTask"  data-project-id=@projectId data-business-id=@businessId></data-new-sub-task-modal>

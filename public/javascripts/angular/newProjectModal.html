@@ -1,33 +1,35 @@
-<div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            <h5 class="modal-title" id="exampleModalLabel">Create Project</h5>
-        </div>
-        <div class="modal-body">
-            <form>
-                <div class="form-group">
-                    <label for="brideName">Bride</label>
-                    <input id="brideName" type="text" class="form-control" data-ng-model="newProjectController.formData.bride">
-                    <label for="groomName">Groom</label>
-                    <input id="groomName" type="text" class="form-control" data-ng-model="newProjectController.formData.groom">
-                </div>
-                <div class="form-group">
-                    <label for="budgetApproximation">Budget</label>
-                    <input id="budgetApproximation" type="number" class="form-control" data-ng-model="newProjectController.formData.budget">
-                </div>
-                <div class="form-group">
-                    <label for="dueDate">Event Date</label>
-                    <input id="dueDate" type="number" class="form-control" data-ng-model="newProjectController.formData.eventDate">
-<!--                    <input id="dueDate" type="text" class="form-control datetimepicker" value="10/05/2018" >-->
-                </div>
-            </form>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="newProjectController.createNew()">ADD</button>
+<div class="modal fade" id="newProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="exampleModalLabel">Create Project</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="brideName">Bride</label>
+                        <input id="brideName" type="text" class="form-control" data-ng-model="newProjectController.formData.bride">
+                        <label for="groomName">Groom</label>
+                        <input id="groomName" type="text" class="form-control" data-ng-model="newProjectController.formData.groom">
+                    </div>
+                    <div class="form-group">
+                        <label for="budgetApproximation">Budget</label>
+                        <input id="budgetApproximation" type="number" class="form-control" data-ng-model="newProjectController.formData.budget">
+                    </div>
+                    <div class="form-group">
+                        <label for="dueDate">Event Date</label>
+                        <input id="dueDate" type="number" class="form-control" data-ng-model="newProjectController.formData.eventDate">
+    <!--                    <input id="dueDate" type="text" class="form-control datetimepicker" value="10/05/2018" >-->
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="newProjectController.createNew()">ADD</button>
+            </div>
         </div>
     </div>
 </div>
