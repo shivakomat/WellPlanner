@@ -133,7 +133,7 @@
         <data-new-sub-task-modal data-tasks="controller.tasks" data-parent="controller.currentParentTask"  data-project-id=@projectId data-business-id=@businessId></data-new-sub-task-modal>
 
             <!-- Edit Task Modal -->
-        <data-edit-sub-task-modal  data-parent="controller.currentParentTask"  data-current-sub-task="controller.currentSubTask" data-project-id=@projectId data-business-id=@businessId></data-edit-sub-task-modal>
+        <data-edit-sub-task-modal  data-parent="controller.currentParentTask"  data-sub-task="controller.currentSubTask" data-project-id=@projectId data-business-id=@businessId></data-edit-sub-task-modal>
 
             <!-- Delete Task Modal -->
         <data-delete-task-list-modal data-tasks="controller.tasks" data-project-id=@projectId data-business-id=@businessId></data-delete-task-list-modal>
@@ -161,6 +161,11 @@
                                         <div class="table-borderless table-responsive">
                                             <table class="table">
                                                 <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td  class="text-left"><u>Description</u></td>
+                                                        <td  class="text-left"><u>Due Date</u></td>
+                                                    </tr>
                                                     <tr data-ng-repeat="subTask in task.subTasks">
                                                         <td>
                                                             <div class="form-check">
@@ -172,6 +177,7 @@
                                                         </td>
                                                         <td data-ng-if="subTask.is_completed == false" class="text-left">{{subTask.description}}</td>
                                                         <td data-ng-if="subTask.is_completed" class="text-left"><strike>{{subTask.description}}</strike></td>
+                                                        <td class="text-left">{{subTask.due_date}}</td>
                                                         <td class="td-actions text-right">
                                                             <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#taskDetails" data-original-title="Comments">
                                                                 <i class="nc-icon nc-chat-33"></i>

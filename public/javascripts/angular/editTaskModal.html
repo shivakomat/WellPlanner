@@ -13,45 +13,18 @@
                     <br>
                     <div class="form-group">
                         <label for="description">Task Description</label>
-                        <input id="description" type="text" class="form-control" data-ng-model="editTaskModalController.subtask.description">
+                        <input id="description" type="text" class="form-control" data-ng-model="editTaskModalController.subTask.description">
                     </div>
                     <div class="form-group">
                         <label for="dueDate">Task Due Date</label>
-                        <input id="dueDate" type="number" class="form-control" data-ng-model="editTaskModalController.subtask.due_date">
+                        <input id="dueDate" type="number" class="form-control" data-ng-model="editTaskModalController.subTask.due_date">
                         <!--                    <input id="dueDate" type="text" class="form-control datetimepicker" value="10/05/2018">-->
                     </div>
-                    <!--                <div class="form-group">-->
-                    <!--                    <label for="exampleFormControlInput1">Assigned To</label>-->
-                    <!--                    <div class="dropdown">-->
-                    <!--                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                    <!--                            Select Team Member-->
-                    <!--                        </button>-->
-                    <!--                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
-                    <!--                            <a class="dropdown-item" href="#">Action</a>-->
-                    <!--                            <a class="dropdown-item" href="#">Another action</a>-->
-                    <!--                            <a class="dropdown-item" href="#">Something else here</a>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-                    <!--                    <input type="text" class="form-control">-->
-                    <!--                </div>-->
-                    <!--                <div class="form-group">-->
-                    <!--                    <label for="exampleFormControlInput1">Set Visibility</label>-->
-                    <!--                    <div class="dropdown">-->
-                    <!--                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                    <!--                            Visibility By-->
-                    <!--                        </button>-->
-                    <!--                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
-                    <!--                            <a class="dropdown-item" href="#">Customer</a>-->
-                    <!--                            <a class="dropdown-item" href="#">Company</a>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-                    <!--                    <input type="text" class="form-control">-->
-                    <!--                </div>-->
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="editTaskModalController.update()">Update</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="editTaskModalController.updateTask()">Update</button>
             </div>
         </div>
     </div>

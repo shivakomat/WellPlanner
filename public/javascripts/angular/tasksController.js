@@ -110,7 +110,7 @@ function DeleteTaskListModalDirective() {
 }
 
 app.controller('deleteTaskModalController', [DeleteTaskModalController]);
-function DeleteTaskModalController(TasksFactory, $http) {
+function DeleteTaskModalController(TasksFactory) {
     var deleteTaskModalController = this;
     deleteTaskModalController.formData = {};
 
@@ -118,10 +118,10 @@ function DeleteTaskModalController(TasksFactory, $http) {
         deleteTaskList(deleteTaskModalController.businessId, deleteTaskModalController.projectId, deleteTaskModalController.formData.taskToDelete.parent.id)
     };
 
-    function deleteTaskList(businessId, projectId, taskId, msg, msgDesc) {
+    function deleteTaskList(businessId, projectId, taskId) {
         TasksFactory.deleteTaskBy(projectId, businessId, taskId, function mySuccess() {
             refresh(businessId, projectId);
-            alerts.autoCloseAlert('success-message', msg, msgDesc);
+            alerts.autoCloseAlert('success-message', "Task deleted successfully", "Nice!");
         }, function myError() {
             alerts.autoCloseAlert('success-message', 'Error updating task', 'Please try again!');
         });
@@ -139,49 +139,44 @@ function DeleteTaskModalController(TasksFactory, $http) {
     }
 }
 
-// app.directive('editTaskModal',  [EditSubTaskModalDirective]);
-// function EditSubTaskModalDirective() {
-//     return{
-//         templateUrl:  "http://localhost:7000/assets/javascripts/angular/editTaskModal.html",
-//         scope: false,
-//         bindToController: {
-//             businessId: '=',
-//             projectId: '=',
-//             parent: '=',
-//             subTask: '='
-//         },
-//         controller: EditTaskModalController,
-//         controllerAs: 'editTaskModalController'
-//     }
-// }
-//
-// app.controller('editTaskModalController', [EditTaskModalController]);
-// function EditTaskModalController() {
-//     var editTaskModalController = this;
-//     console.log(editTaskModalController.subTask);
-//
-//     editTaskModalController.updateTask = function () {
-//         updateTask(editTaskModalController.subTask, "Task updated!", "Woo hoo!");
-//     };
-//
-//     function updateTask(updatedSubTask, msg, msgDesc) {
-//         console.log(updatedSubTask);
-//         $http({
-//             method: 'POST',
-//             headers: { 'Content-Type': 'application/json' },
-//             url: '/businesses/projects/tasks/update',
-//             data: updatedSubTask,
-//         }).then(function mySuccess() {
-//             alerts.autoCloseAlert('success-message', msg, msgDesc);
-//         }, function myError() {
-//             alerts.autoCloseAlert('success-message', 'Error updating task', 'Please try again!');
-//         })
-//     }
-//
-// }
+app.directive('editSubTaskModal',  [EditSubTaskModalDirective]);
+function EditSubTaskModalDirective() {
+    return{
+        templateUrl:  "http://localhost:7000/assets/javascripts/angular/editTaskModal.html",
+        scope: false,
+        bindToController: {
+            businessId: '=',
+            projectId: '=',
+            parent: '=',
+            subTask: '='
+        },
+        controller: EditTaskModalController,
+        controllerAs: 'editTaskModalController'
+    }
+}
+
+app.controller('editTaskModalController', [EditTaskModalController]);
+function EditTaskModalController(TasksFactory) {
+    var editTaskModalController = this;
+
+    editTaskModalController.updateTask = function () {
+        updateTask(editTaskModalController.subTask, "Task updated!", "Woo hoo!");
+    };
+
+    function updateTask(updatedSubTask, msg, msgDesc) {
+        console.log(updatedSubTask);
+        TasksFactory.updateTaskBy(updatedSubTask,
+           function mySuccess() {
+            alerts.autoCloseAlert('success-message', msg, msgDesc);
+        }, function myError() {
+            alerts.autoCloseAlert('success-message', 'Error updating task', 'Please try again!');
+        })
+    }
+
+}
 
 app.controller('newTaskListModalController', [NewTaskListModalController]);
-function NewTaskListModalController(TasksFactory, $http) {
+function NewTaskListModalController(TasksFactory) {
     var newTaskListModalController = this;
 
     newTaskListModalController.formData = {};
