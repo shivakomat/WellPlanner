@@ -1,6 +1,4 @@
-app.controller('clientsController', function($http, $window) {
-    // $window.location.href = "http://" + $window.location.host + "/pages/customers";
-
+app.controller('clientsController', function(ClientsFactory) {
     var clientController = this;
     clientController.clients = [];
     clientController.formData = {};
@@ -45,10 +43,7 @@ app.controller('clientsController', function($http, $window) {
     };
 
     function allClients(businessId) {
-        $http({
-            method: 'GET',
-            url: '/businesses/clients/'+ businessId
-        }).then(function mySuccess (response) {
+        ClientsFactory.getAllClients(businessId, function mySuccess (response) {
             clientController.clients = response.data.data;
         }, function myError (response) {
             console.log(response.statusText)
@@ -69,30 +64,20 @@ app.controller('clientsController', function($http, $window) {
         newClient.eventType = 'WEDDING';
         newClient.eventDate = '';
 
-        // alerts.autoCloseAlert('auto-close', 'adding new client', '');
-
-        $http({
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            url: '/businesses/clients',
-            data: newClient,
-        }).then(function mySuccess() {
+        ClientsFactory.addClient(newClient, function mySuccess() {
             refresh(businessId);
-            alerts.autoCloseAlert('success-message', 'New Client Created', 'Awesome!');
+            alerts.autoCloseAlert('success-message', 'New client added!!', 'Good luck!');
         }, function myError() {
-            alerts.autoCloseAlert('success-message', 'Error Creating Client', 'Please try again!');
-        })
+            alerts.autoCloseAlert('success-message', 'Oops something went wrong', 'Please try again!');
+        });
     }
 
     function deleteAClient(businessId, clientId) {
-        $http({
-            method: 'DELETE',
-            url: '/businesses/' + businessId + '/clients/' + clientId
-        }).then(function mySuccess() {
+        ClientsFactory.deleteClientBy(clientId, businessId, function mySuccess() {
             refresh(businessId);
             alerts.autoCloseAlert('success-message', 'Client removed!!', '');
         }, function myError() {
-            alerts.autoCloseAlert('title-and-text', 'Error deleting a client', 'Please try again!');
+            alerts.autoCloseAlert('title-and-text', 'Oops something went wrong', 'Please try again!');
         })
     }
 });

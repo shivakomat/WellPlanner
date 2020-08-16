@@ -3,6 +3,10 @@
 @main("Well Planner", "customers", "Clients", businessId) {
     <!-- New Project Modal -->
     <div class="content" data-ng-controller="clientsController as controller" data-ng-init="controller.getAllClients(@businessId)">
+
+        <!-- New Project Modal -->
+        <data-new-project-modal data-projects="controller.projects" data-business-id=@businessId></data-new-project-modal>
+
         <div class="row">
             <div class="col-md-12">
                 <button type="button" class="btn btn-default" data-toggle="modal" data-id="@businessId" data-target="#newCustomer" data-ng-click="controller.newItem()">New Client</button>
@@ -88,7 +92,7 @@
                                         </button>
                                     </td>
                                     <td class="text-center">
-                                        <button type="button" rel="tooltip" data-original-title="Create New Project" class="btn btn-outline-default">CREATE</button></td>
+                                        <button type="button" rel="tooltip" data-original-title="Create New Project" class="btn btn-outline-default"  data-toggle="modal" data-target="#newProject">CREATE</button></td>
                                     <td class="td-actions text-center">
                                         <button class="btn btn-warning" rel="tooltip" data-original-title="Edit">
                                             <span class="btn-label">
