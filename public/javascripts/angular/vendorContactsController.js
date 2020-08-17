@@ -32,6 +32,11 @@ app.controller('vendorContactsController', function(VendorContactsFactory, $http
         deleteAVendor(businessId, clientId)
     };
 
+
+    vendorContactsController.editVendor = function (vendor) {
+        vendorContactsController.currentVendor = vendor;
+    };
+
     function allVendors(businessId) {
         VendorContactsFactory.getAllVendors(businessId, function mySuccess (response) {
             vendorContactsController.vendors = response.data.data;
@@ -70,3 +75,52 @@ app.controller('vendorContactsController', function(VendorContactsFactory, $http
         });
     }
 });
+
+
+app.directive('editVendorModalDirective',  [EditVendorModalDirective]);
+function EditVendorModalDirective() {
+    return{
+        templateUrl:  "http://localhost:7000/assets/javascripts/angular/editVendorModal.html",
+        scope: false,
+        bindToController: {
+            businessId: '=',
+            projectId: '=',
+            currentVendor: '='
+        },
+        controller: EditVendorModalController,
+        controllerAs: 'editVendorModalController'
+    }
+}
+
+app.controller('editVendorModalController', [EditVendorModalController]);
+function EditVendorModalController(VendorContactsFactory) {
+    var editVendorModalController = this;
+
+    editVendorModalController.updateVendor = function () {
+        updateVendor(editVendorModalController.currentVendor, "Vendor Info updated!", "Always update!");
+    };
+
+    function refresh(businessId) {
+        allVendors(businessId);
+    }
+
+    function allVendors(businessId) {
+        VendorContactsFactory.getAllVendors(businessId, function mySuccess (response) {
+            vendorContactsController.vendors = response.data.data;
+        }, function myError (response) {
+            console.log(response.statusText)
+        });
+    }
+
+    function updateVendor(updatedVendor, msg, msgDesc) {
+        console.log(updatedVendor);
+        VendorContactsFactory.updateVendor(updatedVendor,
+            function mySuccess() {
+                refresh(updatedVendor.business_id);
+                alerts.autoCloseAlert('success-message', msg, msgDesc);
+            }, function myError() {
+                alerts.autoCloseAlert('success-message', 'Error updating task', 'Please try again!');
+            })
+    }
+
+}
