@@ -77,15 +77,15 @@ app.controller('vendorContactsController', function(VendorContactsFactory, $http
 });
 
 
-app.directive('editVendorModalDirective',  [EditVendorModalDirective]);
+app.directive('editVendorModal',  [EditVendorModalDirective]);
 function EditVendorModalDirective() {
     return{
         templateUrl:  "http://localhost:7000/assets/javascripts/angular/editVendorModal.html",
         scope: false,
         bindToController: {
             businessId: '=',
-            projectId: '=',
-            currentVendor: '='
+            currentVendor: '=',
+            vendors: '='
         },
         controller: EditVendorModalController,
         controllerAs: 'editVendorModalController'
@@ -106,7 +106,7 @@ function EditVendorModalController(VendorContactsFactory) {
 
     function allVendors(businessId) {
         VendorContactsFactory.getAllVendors(businessId, function mySuccess (response) {
-            vendorContactsController.vendors = response.data.data;
+            editVendorModalController.vendors = response.data.data;
         }, function myError (response) {
             console.log(response.statusText)
         });
@@ -114,12 +114,12 @@ function EditVendorModalController(VendorContactsFactory) {
 
     function updateVendor(updatedVendor, msg, msgDesc) {
         console.log(updatedVendor);
-        VendorContactsFactory.updateVendor(updatedVendor,
+        VendorContactsFactory.updateVendorBy(updatedVendor,
             function mySuccess() {
                 refresh(updatedVendor.business_id);
                 alerts.autoCloseAlert('success-message', msg, msgDesc);
             }, function myError() {
-                alerts.autoCloseAlert('success-message', 'Error updating task', 'Please try again!');
+                alerts.autoCloseAlert('success-message', 'Oops something went wrong!', 'Please try again!');
             })
     }
 

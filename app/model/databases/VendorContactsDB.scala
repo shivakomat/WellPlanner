@@ -30,10 +30,10 @@ class VendorContactsDB @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) 
 
   override def updateBasicVendorInfo(updatedContact: VendorContact): Int =
     db.withConnection { implicit connection =>
-      SQL("update vendor_contacts set name = {name}, email = {email}, location = {location}, contact = {contact}," +
+      SQL("update vendor_contacts set name = {name}, description = {description}, email = {email}, location = {location}, contact = {contact}," +
         " vendor_type = {vendor_type}, phone_number = {phone_number}, estimated_costs = {estimated_costs}, modified_date = {modified_date}" +
         " where id = {contact_id} and business_id = {business_id}")
-        .on("name" -> updatedContact.name, "email" -> updatedContact.email,"phone_number" -> updatedContact.phone_number, "estimated_costs" -> updatedContact.estimated_costs,
+        .on("name" -> updatedContact.name, "description" -> updatedContact.description, "email" -> updatedContact.email,"phone_number" -> updatedContact.phone_number, "estimated_costs" -> updatedContact.estimated_costs,
           "vendor_type" -> updatedContact.vendor_type, "location" -> updatedContact.location, "contact" -> updatedContact.contact,
           "modified_date" -> updatedContact.modified_date, "business_id" -> updatedContact.business_id, "contact_id" -> updatedContact.id)
         .executeUpdate()

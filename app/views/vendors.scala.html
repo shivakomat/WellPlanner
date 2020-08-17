@@ -1,11 +1,10 @@
 @(message: String, businessId: Int)
 
 @main("Well Planner", "vendors", "Vendor Contacts", businessId) {
-
-    <data-edit-project-modal data-projects="controller.projects" data-business-id=@businessId></data-edit-project-modal>
-
-
     <div class="content" data-ng-controller="vendorContactsController as controller" data-ng-init="controller.getAllVendors(@businessId)">
+
+        <data-edit-vendor-modal data-vendors="controller.vendors" data-current-vendor="controller.currentVendor" data-business-id=@businessId></data-edit-vendor-modal>
+
         <div class="row">
             <div class="col-md-12">
                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="" data-ng-click="controller.newItem()">New Vendor Contact</button>
@@ -84,7 +83,7 @@
                                     <td class="text-center">{{vendor.phone_number | phonenumber}}</td>
                                     <td class="text-center">{{vendor.email}}</td>
                                     <td class="td-actions text-center">
-                                        <button class="btn btn-warning" rel="tooltip" data-original-title="Edit" data-ng-click="controller.editVendor(vendor)">
+                                        <button class="btn btn-warning" rel="tooltip" data-original-title="Edit" data-toggle="modal" data-target="#editVendor" data-ng-click="controller.editVendor(vendor)">
                                             <span class="btn-label">
                                                 <i class="nc-icon nc-ruler-pencil"></i>
                                             </span>

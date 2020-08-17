@@ -2,8 +2,6 @@
 
 @main("Well Planner", "projects", "Projects", businessId) {
 
-@*    <div class="modal fade" id="newProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-new-project-modal data-business-id=@businessId></div>*@
-
     <div class="content" data-ng-controller="projectsController as controller" data-ng-init="controller.getAllProjects(@businessId)">
         <!-- New Project Modal -->
         <data-new-project-modal data-projects="controller.projects" data-business-id=@businessId></data-new-project-modal>

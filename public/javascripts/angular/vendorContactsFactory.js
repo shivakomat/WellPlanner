@@ -11,10 +11,14 @@ app.factory('VendorContactsFactory', function VendorContactsFactory ($http) {
         $http({method: 'DELETE', url: '/businesses/' + businessId + '/vendors/' + vendorId}).then(successFunction, errorFunction);
     };
 
+    var updateVendorBy = function (updatedVendor, successFunction, errorFunction) {
+        $http({method: 'POST', url: '/businesses/vendors/update', data: updatedVendor}).then(successFunction, errorFunction);
+    };
 
     return {
         getAllVendors: getAllVendors,
         addVendor: addVendor,
-        deleteVendorBy: deleteVendorBy
+        deleteVendorBy: deleteVendorBy,
+        updateVendorBy: updateVendorBy
     }
 });
