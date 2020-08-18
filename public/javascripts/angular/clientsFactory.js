@@ -11,9 +11,15 @@ app.factory('ClientsFactory', function ProjectsFactory ($http) {
         $http({method: 'DELETE', url: '/businesses/' + businessId + '/clients/' + clientId}).then(successFunction, errorFunction);
     };
 
+    var updateClientBy = function (updatedClient, successFunction, errorFunction) {
+        $http({method: 'POST', url: '/businesses/clients/update', data: updatedClient}).then(successFunction, errorFunction);
+    };
+
+
     return {
         getAllClients: getAllClients,
         addClient: addClient,
-        deleteClientBy: deleteClientBy
+        deleteClientBy: deleteClientBy,
+        updateClientBy: updateClientBy
     }
 });

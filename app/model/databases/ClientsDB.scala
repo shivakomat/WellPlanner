@@ -25,10 +25,10 @@ class ClientsDB @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with Cl
   def updateBasicClientInfo(updateClient: Client): Int =
     db.withConnection { implicit connection =>
       SQL("update clients set name = {name}, email = {email}," +
-        " phone_number = {phone_number}, budget = {budget}, status = {status}, modified_date = {modified_date}" +
+        " phone_number = {phone_number}, budget = {budget}, notes = {notes}, status = {status}, modified_date = {modified_date}" +
         " where id = {client_id} and business_id = {business_id}")
         .on("name" -> updateClient.name, "email" -> updateClient.email,"phone_number" -> updateClient.phone_number, "budget" -> updateClient.budget, "status" -> updateClient.status,
-          "modified_date" -> updateClient.modified_date, "business_id" -> updateClient.business_id, "client_id" -> updateClient.id)
+          "modified_date" -> updateClient.modified_date, "business_id" -> updateClient.business_id, "client_id" -> updateClient.id, "notes" -> updateClient.notes)
         .executeUpdate()
     }
 

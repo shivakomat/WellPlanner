@@ -1,0 +1,47 @@
+<!-- Edit Client Modal -->
+<div class="modal fade" id="editClient" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="exampleModalLabel">Edit Client</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input id="name" type="text" class="form-control" data-ng-model="editClientModalController.currentClient.name">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <!--                        <phonenumber-directive model='editVendorModalController.currentClient.phone_number'></phonenumber-directive>-->
+                        <input id="phone" type="text" class="form-control" data-ng-model="editClientModalController.currentClient.phone_number">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input id="email" type="text" class="form-control" data-ng-model="editClientModalController.currentClient.email">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Initial Budget</label>
+                        <input id="contact" type="number" class="form-control" data-ng-model="editClientModalController.currentClient.budget">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Status</label>
+                        <input id="description" type="text" class="form-control" data-ng-model="editClientModalController.currentClient.status">
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea id="notes" rows="4" cols="80" class="form-control textarea" data-ng-model="editClientModalController.currentClient.notes"></textarea>
+<!--                        <input id="location" type="text-area" class="form-control" data-ng-model="editClientModalController.currentClient.notes">-->
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="editClientModalController.updateClient()">Update</button>
+            </div>
+        </div>
+    </div>
+</div>

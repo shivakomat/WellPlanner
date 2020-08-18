@@ -62,6 +62,7 @@ class ClientsApi(dbApi: DBApi, ws: WSClient) {
              phone_number = updateClientMessage.phoneNumber.toString,
              email = Some(updateClientMessage.emailAddress),
              event_type = Some(updateClientMessage.eventType),
+             notes = updateClientMessage.notes,
              budget = Some(updateClientMessage.budget),
              status = Some(updateClientMessage.status),
              business_id = updateClientMessage.businessId,

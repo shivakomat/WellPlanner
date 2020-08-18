@@ -50,6 +50,10 @@ app.controller('clientsController', function(ClientsFactory) {
         });
     }
 
+    clientController.updateClient = function editClient(client) {
+        clientController.currentClient = client;
+    };
+
     function refresh(businessId) {
         clientController.showNewItem = false;
         allClients(businessId);
@@ -159,3 +163,64 @@ app.filter('phonenumber', function() {
         return formattedNumber;
     };
 });
+
+
+app.directive('editClientModal',  [EditClientModalDirective]);
+function EditClientModalDirective() {
+    return{
+        templateUrl:  "http://localhost:7000/assets/javascripts/angular/editClientModal.html",
+        scope: false,
+        bindToController: {
+            businessId: '=',
+            currentClient: '=',
+            clients: '='
+        },
+        controller: EditClientModalController,
+        controllerAs: 'editClientModalController'
+    }
+}
+
+app.controller('editClientModalController', [EditClientModalController]);
+function EditClientModalController(ClientsFactory) {
+    var editClientModalController = this;
+
+    editClientModalController.updateClient = function () {
+        updateClient(editClientModalController.currentClient, "Client Info updated!", "Always update!");
+    };
+
+    function refresh(businessId) {
+        allClients(businessId);
+    }
+
+    function allClients(businessId) {
+        ClientsFactory.getAllClients(businessId, function mySuccess (response) {
+            editVendorModalController.vendors = response.data.data;
+        }, function myError (response) {
+            console.log(response.statusText)
+        });
+    }
+
+    function updateClient(updatedClient, msg, msgDesc) {
+        var newClient = {};
+        newClient.businessId = updatedClient.business_id;
+        newClient.notes = updatedClient.notes;
+        newClient.status = updatedClient.status;
+        newClient.eventType = updatedClient.event_type;
+        newClient.budget = updatedClient.budget;
+        newClient.eventDate = '';
+        newClient.emailAddress = updatedClient.email;
+        newClient.phoneNumber = updatedClient.phone_number;
+        newClient.customerName = updatedClient.name;
+        newClient.clientId = updatedClient.id;
+
+        console.log(newClient);
+        ClientsFactory.updateClientBy(newClient,
+            function mySuccess() {
+                refresh(updatedClient.business_id);
+                alerts.autoCloseAlert('success-message', msg, msgDesc);
+            }, function myError() {
+                alerts.autoCloseAlert('success-message', 'Oops something went wrong!', 'Please try again!');
+            })
+    }
+
+}
