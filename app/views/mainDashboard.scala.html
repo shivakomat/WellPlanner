@@ -2,7 +2,10 @@
 @(profileData: JsValue, userId: Int, businessId: Int)
 
 @main("Well Planner", "dashboard", "Main Dashboard", businessId) {
-    <div class="content">
+    <div class="content" data-ng-controller="dashboardController as controller" data-ng-init="controller.init(@businessId)">
+        <div class="header text-center">
+            <h3 class="title">Timeline</h3>
+        </div>
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
@@ -15,7 +18,7 @@
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-title">10</p>
+                                    <p class="card-title">{{controller.totalProjects}}</p>
                                     <p></p>
                                 </div>
                             </div>
