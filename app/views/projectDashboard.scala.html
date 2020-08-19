@@ -1,20 +1,21 @@
 @import play.api.libs.json.JsValue
+@(title: String, projectId: Int, businessId: Int)
 
-@projectMain("Project Dashboard", "project-dashboard", "Project Dashboard",0,0) {
-    <div class="content">
+@projectMain("Project Dashboard", "project-dashboard", "Project Overview Dashboard",projectId, businessId) {
+    <div class="content" data-ng-controller="projectDashboardController as controller" data-ng-init="controller.init(@businessId, @projectId)">
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-body ">
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-bag-16 text-default"></i>
+                                    <i class="nc-icon nc-check-2 text-default"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-title">10</p>
+                                    <p class="card-title">{{controller.totalCompletedTasks}} / {{controller.totalUnCompletedTasks}}</p>
                                     <p></p>
                                 </div>
                             </div>
@@ -23,24 +24,23 @@
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            Total Projects
+                            Completed Tasks / Uncompleted Tasks
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-body ">
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-compass-05 text-success"></i>
+                                    <i class="nc-icon nc-shop text-success"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">1</p>
-                                    <p class="card-title">10</p>
+                                    <p class="card-title">{{controller.totalVendors}}</p>
                                     <p></p>
                                 </div>
                             </div>
@@ -49,34 +49,33 @@
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            Total Active / Completed Projects
+                            Total Vendor Contacts
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-body ">
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-bank text-danger"></i>
+                                    <i class="nc-icon nc-circle-10 text-danger"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">$ 5,000.00</p>
-                                    <p class="card-title">$ 7,000.00
-                                    </p><p>
-                                </p></div>
+                                    <p class="card-title">{{controller.totalClients}}</p>
+                                    <p></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            Current / Expected Revenue for 2020
+                            Total Clients
                         </div>
                     </div>
                 </div>

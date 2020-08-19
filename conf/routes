@@ -29,6 +29,7 @@ GET     /pages/projects/:businessId             controllers.HomeController.proje
 
 GET     /pages/:businessId/projects/:projectId/tasks                controllers.HomeController.projectTasks(projectId: Int, businessId: Int)
 GET     /pages/:businessId/projects/:projectId/budget               controllers.HomeController.projectBudgetPage(projectId: Int, businessId: Int)
+GET     /pages/:businessId/projects/:projectId/overview-dashboard   controllers.HomeController.projectOverviewDashboard(projectId: Int, businessId: Int)
 
 
 
