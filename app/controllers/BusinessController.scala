@@ -49,4 +49,8 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
     Future.successful(successBooleanResponse(OK, businessExists, successMessage))
   }
 
+  def byId(businessId: Int) =  Action {
+    successResponse(OK, Json.toJson(businessesApi.businessInfo(businessId)), Seq("Successfully processed"))
+  }
+
 }

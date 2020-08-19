@@ -3,17 +3,44 @@
 
 @main("Well Planner", "dashboard", "Main Dashboard", businessId) {
     <div class="content" data-ng-controller="dashboardController as controller" data-ng-init="controller.init(@businessId)">
-        <div class="header text-center">
-            <h3 class="title">Timeline</h3>
-        </div>
+@*        <div class="header text-center">*@
+@*            <h1 class="text-danger" >{{controller.businessInfo.name}}</h1>*@
+@*        </div>*@
+@*        <div class="row">*@
+@*            <div class="col-lg-12 col-md-12 col-sm-12">*@
+@*                <div class="card card-stats">*@
+@*                    <div class="card-body ">*@
+@*                        <div class="row">*@
+@*                            <div class="col-5 col-md-4">*@
+@*                                <div class="icon-big text-center icon-warning">*@
+@*                                    <i class="nc-icon nc-tie-bow text-default"></i>*@
+@*                                </div>*@
+@*                            </div>*@
+@*                            <div class="col-7 col-md-8">*@
+@*                                <div class="numbers">*@
+@*                                    <p class="card-title">{{controller.totalProjects}}</p>*@
+@*                                    <p></p>*@
+@*                                </div>*@
+@*                            </div>*@
+@*                        </div>*@
+@*                    </div>*@
+@*                    <div class="card-footer ">*@
+@*                        <hr>*@
+@*                        <div class="stats">*@
+@*                            Total Projects*@
+@*                        </div>*@
+@*                    </div>*@
+@*                </div>*@
+@*            </div>*@
+@*        </div>*@
         <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-body ">
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-bag-16 text-default"></i>
+                                    <i class="nc-icon nc-tie-bow text-default"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
@@ -32,19 +59,18 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-body ">
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-compass-05 text-success"></i>
+                                    <i class="nc-icon nc-shop text-success"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">1</p>
-                                    <p class="card-title">10</p>
+                                    <p class="card-title">{{controller.totalVendors}}</p>
                                     <p></p>
                                 </div>
                             </div>
@@ -53,34 +79,33 @@
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            Total Active / Completed Projects
+                            Total Vendor Contacts
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-body ">
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-bank text-danger"></i>
+                                    <i class="nc-icon nc-circle-10 text-danger"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">$ 5,000.00</p>
-                                    <p class="card-title">$ 7,000.00
-                                    </p><p>
-                                </p></div>
+                                    <p class="card-title">{{controller.totalClients}}</p>
+                                    <p></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            Current / Expected Revenue for 2020
+                            Total Clients
                         </div>
                     </div>
                 </div>

@@ -47,4 +47,8 @@ class BusinessesApi(dbApi: DBApi, ws: WSClient) {
     businessesDb.existsByName(businessName)
   }
 
+  def businessInfo(businessId: Int): Option[Business] = {
+    businessesDb.byId(businessId)
+  }
+
 }

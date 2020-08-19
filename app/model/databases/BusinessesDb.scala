@@ -36,8 +36,16 @@ class BusinessesDb @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with
         .as(parser.singleOpt)
     }
 
-  def existsByName(businessName: String): Boolean = {
+  def existsByName(businessName: String): Boolean =
     find(businessName).nonEmpty
-  }
+
+
+  def byId(businessId: Int): Option[Business] =
+    db.withConnection { implicit connection =>
+      SQL(s"select * from businesses where id = {id}")
+        .on("id" -> businessId)
+        .as(parser.singleOpt)
+    }
+
 
 }

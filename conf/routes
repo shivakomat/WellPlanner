@@ -102,6 +102,7 @@ GET     /callback                   controllers.CallbackController.callback(code
 POST    /businesses/signUp                  controllers.BusinessController.registerNewBusiness()
 GET     /businesses/exists/:businessName    controllers.BusinessController.businessExists(businessName)
 GET     /businesses/users/:username/:email  controllers.UsersController.usernameAndEmailExists(username, email)
+GET     /businesses/:businessId             controllers.BusinessController.byId(businessId: Int)
 
 # # Users
 GET     /users/:username                  controllers.UsersController.usernameExists(username)
