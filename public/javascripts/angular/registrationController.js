@@ -73,10 +73,10 @@ app.controller('registerBusinessController', function($http, $window) {
                 'Content-Type': 'application/json'
             },
             'data': {
-                'client_id': 'BOjjaXe3n0T0TdfeCflTmT9i6ZrZiB9f',
+                'client_id': 'Kp0T1n3QIsJqcvR5dJTDJ0ghbR4idZvr',
                 'email': pageController.email,
                 'password': pageController.password,
-                'connection': 'well-planner-users-dev',
+                'connection': 'well-planner-users',
                 'name': pageController.businessName,
                 'user_metadata': {'color': 'red'}
             }
