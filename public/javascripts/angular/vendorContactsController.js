@@ -80,7 +80,7 @@ app.controller('vendorContactsController', function(VendorContactsFactory, $http
 app.directive('editVendorModal',  [EditVendorModalDirective]);
 function EditVendorModalDirective() {
     return{
-        templateUrl:  "http://localhost:7000/assets/javascripts/angular/editVendorModal.html",
+        templateUrl:  "https://well-wedding-planner.herokuapp.com/assets/javascripts/angular/editVendorModal.html",
         scope: false,
         bindToController: {
             businessId: '=',

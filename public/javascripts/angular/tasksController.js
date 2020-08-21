@@ -64,7 +64,7 @@ app.controller('tasksController', function (TasksFactory, $http) {
 app.directive('newTaskListModal',  [NewTaskListModalDirective]);
 function NewTaskListModalDirective() {
     return{
-        templateUrl:  "http://localhost:7000/assets/javascripts/angular/newTaskListModal.html",
+        templateUrl:  "https://well-wedding-planner.herokuapp.com/assets/javascripts/angular/newTaskListModal.html",
         scope: false,
         bindToController: {
             businessId: '=',
@@ -80,7 +80,7 @@ function NewTaskListModalDirective() {
 app.directive('newSubTaskModal',  [NewSubTaskListModalDirective]);
 function NewSubTaskListModalDirective() {
     return{
-        templateUrl:  "http://localhost:7000/assets/javascripts/angular/newSubTaskModal.html",
+        templateUrl:  "https://well-wedding-planner.herokuapp.com/assets/javascripts/angular/newSubTaskModal.html",
         scope: false,
         bindToController: {
             businessId: '=',
@@ -97,7 +97,7 @@ function NewSubTaskListModalDirective() {
 app.directive('deleteTaskListModal',  [DeleteTaskListModalDirective]);
 function DeleteTaskListModalDirective() {
     return{
-        templateUrl:  "http://localhost:7000/assets/javascripts/angular/deleteTaskListModal.html",
+        templateUrl:  "https://well-wedding-planner.herokuapp.com/assets/javascripts/angular/deleteTaskListModal.html",
         scope: false,
         bindToController: {
             businessId: '=',
@@ -142,7 +142,7 @@ function DeleteTaskModalController(TasksFactory) {
 app.directive('editSubTaskModal',  [EditSubTaskModalDirective]);
 function EditSubTaskModalDirective() {
     return{
-        templateUrl:  "http://localhost:7000/assets/javascripts/angular/editTaskModal.html",
+        templateUrl:  "https://well-wedding-planner.herokuapp.com/assets/javascripts/angular/editTaskModal.html",
         scope: false,
         bindToController: {
             businessId: '=',
