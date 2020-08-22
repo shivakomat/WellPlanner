@@ -1,7 +1,7 @@
 app.directive('newProjectModal',  [NewProjectModalDirective]);
 function NewProjectModalDirective() {
     return{
-        templateUrl:  "http://well-wedding-planner.herokuapp.com/assets/javascripts/angular/newProjectModal.html",
+        templateUrl:  "https://well-wedding-planner.herokuapp.com/assets/javascripts/angular/newProjectModal.html",
         scope: false,
         bindToController: {
             businessId: '=',

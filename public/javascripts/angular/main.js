@@ -10,6 +10,6 @@ app.config(function ($provide, authProvider, $urlRouterProvider, $httpProvider, 
                 // Allow same origin resource loads.
                 'self',
                 // Allow loading from our assets domain. **.
-                'http://well-wedding-planner.herokuapp.com/assets/**'
+                'https://well-wedding-planner.herokuapp.com/assets/**'
         ]);
 });
