@@ -168,7 +168,7 @@ app.filter('phonenumber', function() {
 app.directive('editClientModal',  [EditClientModalDirective]);
 function EditClientModalDirective() {
     return{
-        templateUrl:  "https://well-wedding-planner.herokuapp.com/assets/javascripts/angular/editClientModal.html",
+        templateUrl:  "http://well-wedding-planner.herokuapp.com/assets/javascripts/angular/editClientModal.html",
         scope: false,
         bindToController: {
             businessId: '=',
