@@ -97,7 +97,7 @@ app.controller('registerBusinessController', function($http, $window) {
                 data: newBusiness,
             }).then(function mySuccess() {
                 $window.location.href =
-                    "http://" + $window.location.host + "/pages/dashboard"
+                    "https://" + $window.location.host + "/pages/dashboard"
             }, function myError() {
                 alert("Internal Registration Error!!");
             })
