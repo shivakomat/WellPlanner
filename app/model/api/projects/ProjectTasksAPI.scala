@@ -26,7 +26,7 @@ class ProjectTasksAPI(dbApi: DBApi, ws: WSClient) {
   }
 
   def allTasks(projectId: Long, businessId: Long): Seq[TaskList] = {
-    val listOfTasks = tasksListDb.list()
+    val listOfTasks = tasksListDb.list(projectId, businessId)
 
     val mapOfParentTaskWithSubTasks = listOfTasks.groupBy(_.parent_task_id)
     val parentTasks: Option[Seq[Task]] = mapOfParentTaskWithSubTasks.get(None)

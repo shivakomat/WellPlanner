@@ -44,9 +44,11 @@ class TasksDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
         .as(parser.singleOpt)
     }
 
-  def list(): Seq[Task] =
+  def list(projectId: Long, businessId: Long): Seq[Task] =
     db.withConnection { implicit connection =>
-      SQL("select * from tasks").as(parser.*)
+      SQL("select * from tasks where business_id = {businessId} and project_id = {projectId}")
+        .on( "projectId" -> projectId, "businessId" -> businessId)
+        .as(parser.*)
     }
 
 
@@ -59,4 +61,3 @@ class TasksDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
   }
 
 }
-
