@@ -68,7 +68,6 @@ POST   /businesses/vendors/update                       controllers.VendorContac
 +nocsrf
 DELETE /businesses/:businessId/vendors/:vendorId        controllers.VendorContactsController.deleteVendorById(vendorId: Int, businessId : Int)
 
-
 ###### Project Tasks
 GET /businesses/:businessId/projects/:projectId/tasks                                           controllers.TasksController.tasks(businessId: Int, projectId: Int)
 +nocsrf
@@ -83,14 +82,12 @@ GET   /businesses/:businessId/projects/:projectId/tasks/:taskId/taskComments    
 +nocsrf
 DELETE /businesses/:businessId/projects/:projectId/tasks/:taskId/taskComments/:taskCommentId    controllers.TasksController.deleteTaskCommentById(taskCommentId: Int, taskId: Int, projectId: Int, businessId: Int)
 
-
 ###### Project Budgetting
 GET /businesses/:businessId/projects/:projectId/budget-breakdowns                               controllers.BudgetController.budgetBreakdownsBy(businessId: Int, projectId: Int)
 +nocsrf
 POST /businesses/projects/budget-breakdowns                                                     controllers.BudgetController.addNew()
 +nocsrf
 DELETE  /businesses/:businessId/projects/:projectId/budget-breakdowns/:breakdownId              controllers.BudgetController.deleteBudgetBreakdownById(breakdownId: Int, projectId: Int, businessId: Int)
-
 
 # # User Login system
 GET     /login                      controllers.ApplicationController.login
@@ -106,9 +103,9 @@ GET     /businesses/users/:username/:email  controllers.UsersController.username
 GET     /businesses/:businessId             controllers.BusinessController.byId(businessId: Int)
 
 # # Users
-GET     /users/:username                  controllers.UsersController.usernameExists(username)
+GET     /users/:username               controllers.UsersController.usernameExists(username)
 GET     /users/:email                  controllers.UsersController.usernameExists(email)
-
+GET     /users/auth0/:auth0Id                controllers.UsersController.byAuth0Id(auth0Id)
 
 # assets
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

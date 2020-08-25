@@ -62,6 +62,16 @@ class UsersController @Inject() (dbApi: DBApi, cc: ControllerComponents) extends
     )
   }
 
+  def byAuth0Id(auth0Id: String) = Action.async {
+    val user = api.byAuth0Id(auth0Id)
+    user match {
+      case Some(u) =>
+        Future.successful(successResponse(OK, Json.toJson(u), Seq("User Found!!!")))
+      case None =>
+        Future.successful(errorResponse(NOT_FOUND, Seq("User Not Found!!!")))
+    }
+  }
+
   def usernameAndEmailExists(username: String, email: String) = Action.async {
     val userNameAndEmailExists = api.userNameAndEmailCheck(username, email)
     val jsonData = Json.toJson(s"{ usernameExists : ${userNameAndEmailExists.usernameExists}, emailExists: ${userNameAndEmailExists.emailExists}")

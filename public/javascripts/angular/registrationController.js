@@ -1,4 +1,4 @@
-app.controller('registerBusinessController', function($http, $window) {
+app.controller('registerBusinessController', function($http, $window, CommonsFactory) {
 
     var pageController = this;
 
@@ -88,16 +88,17 @@ app.controller('registerBusinessController', function($http, $window) {
             newBusiness.phoneNumber = data.phoneNumber.toString();
             newBusiness.auth0Id = response.data._id;
 
-            // console.log(newBusiness);
-
             $http({
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 url: '/businesses/signUp',
                 data: newBusiness,
             }).then(function mySuccess() {
-                $window.location.href =
-                    "https://" + $window.location.host + "/pages/dashboard"
+                CommonsFactory.getUserByAuthOId(newBusiness.auth0Id, function success (response) {
+                    $window.location.href = "https://" + $window.location.host + "/pages/dashboard/" + response.data.data.business_id
+                }, function errorCallback() {
+                    alert("Internal Registration Error!!");
+                });
             }, function myError() {
                 alert("Internal Registration Error!!");
             })
