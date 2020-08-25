@@ -1,7 +1,7 @@
 @import play.api.libs.json.JsValue
 @(title: String, projectId: Int, businessId: Int)
 
-@projectMain("Project Dashboard", "project-dashboard", "Project Overview Dashboard",projectId, businessId) {
+@projectMain("Project Dashboard", "project-dashboard", "Project Overview Dashboard", projectId, businessId) {
     <div class="content" data-ng-controller="projectDashboardController as controller" data-ng-init="controller.init(@businessId, @projectId)">
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-6">
