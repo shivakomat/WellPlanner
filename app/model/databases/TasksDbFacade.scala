@@ -54,8 +54,8 @@ class TasksDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
 
   def deleteTask(taskId: Long, projectId: Long, businessId: Long): Int = {
     db.withConnection { implicit connection =>
-      SQL("delete from tasks where id = {taskId} and business_id = {business_id}")
-        .on("taskId" -> taskId, "projectId" -> projectId, "business_id" -> businessId)
+      SQL("delete from tasks where id = {taskId} and business_id = {businessId} and project_id = {projectId}")
+        .on("taskId" -> taskId, "projectId" -> projectId, "businessId" -> businessId)
         .executeUpdate()
     }
   }

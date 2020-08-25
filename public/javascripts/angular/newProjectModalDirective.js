@@ -1,7 +1,7 @@
 app.directive('newProjectModal',  [NewProjectModalDirective]);
 function NewProjectModalDirective() {
     return{
-        templateUrl:  "https://well-wedding-planner.herokuapp.com/assets/javascripts/angular/newProjectModal.html",
+        template:  '<ng-include src="getTemplateUrl()"/>',
         scope: false,
         bindToController: {
             businessId: '=',
@@ -14,9 +14,14 @@ function NewProjectModalDirective() {
 }
 
 app.controller('newProjectController', [NewProjectController]);
-function NewProjectController(ProjectsFactory) {
+function NewProjectController(ProjectsFactory, $scope, templates) {
     var newProjectController = this;
     newProjectController.formData = {};
+
+    $scope.getTemplateUrl = function () {
+        return templates.newProjectModal;
+    };
+
 
     newProjectController.createNew = function () {
         newProject()

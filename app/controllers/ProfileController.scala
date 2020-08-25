@@ -1,11 +1,16 @@
 package controllers
 
 import javax.inject.Inject
+import util.JsonFormats._
+import model.api.users.UsersFacade
 import play.api.cache._
+import play.api.db.DBApi
 import play.api.libs.json._
 import play.api.mvc._
 
-class ProfileController @Inject() (cache: DefaultSyncCacheApi) extends Controller {
+class ProfileController @Inject() (dbApi: DBApi, cache: DefaultSyncCacheApi) extends Controller {
+
+  private val userApi = new UsersFacade(dbApi)
 
   def AuthenticatedAction(f: Request[AnyContent] => Result): Action[AnyContent] = {
     Action {
@@ -31,12 +36,15 @@ class ProfileController @Inject() (cache: DefaultSyncCacheApi) extends Controlle
     val id = request.session.get("id").get
     val profile = cache.get[JsValue](id + "profile").get
     val userId = (profile \ "app_user_id").as[Int]
+    val authUserId =  (profile \ "sub").as[String].split('|').last
     println("------------------->")
     println(id)
     println(profile)
     println(userId)
+    println(authUserId)
     println("------------------->")
-    Ok(views.html.mainDashboard(profile, userId, 2))
+    val user = userApi.byAuth0Id(authUserId).get
+    Ok(views.html.mainDashboard(Json.toJson(user), user.id.get, user.business_id))
   }
 
 }

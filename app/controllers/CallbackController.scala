@@ -35,6 +35,8 @@ class CallbackController @Inject() (dbApi: DBApi, cache: DefaultSyncCacheApi, ws
           getUser(accessToken).map { user =>
             val id = request.session.get("id").get
             cache.set(request.session.get("id").get + "profile", user)
+            println("profile page route")
+            println(routes.ProfileController.profilePage())
             Redirect(routes.ProfileController.profilePage())
               .withSession(
                 "idToken" -> idToken,
