@@ -3,11 +3,9 @@ package controllers
 import com.google.inject.Inject
 import controllers.util.JsonFormats._
 import controllers.util.ResponseTypes._
-import model.api.businesses.AdminSignUpMessage
 import model.api.projects.{NewWeddingProjectMessage, ProjectsFacade}
 import play.api.Logger
 import play.api.db.DBApi
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.WSClient
 import play.api.mvc._
@@ -43,8 +41,6 @@ class ProjectsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
     )
   }
 
-
-
   def projectsByBusiness(businessId: Int) =  Action {
     successResponse(OK, Json.toJson(projectsApi.allByBusiness(businessId)), Seq("Successfully processed"))
   }
@@ -52,6 +48,5 @@ class ProjectsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
   def deleteProjectById(projectId: Int, businessId: Int) = Action {
     successResponse(OK, Json.toJson(projectsApi.deleteProjectById(projectId, businessId)), Seq("Successfully processed"))
   }
-
 
 }

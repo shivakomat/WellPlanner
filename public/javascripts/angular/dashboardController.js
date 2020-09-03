@@ -1,6 +1,17 @@
-app.controller('dashboardController', function(ProjectsFactory, VendorContactsFactory, ClientsFactory, BusinessFactory) {
+app.controller('dashboardController', function(ProjectsFactory, VendorContactsFactory, ClientsFactory, BusinessFactory, $timeout) {
 
    var dashboardController = this;
+
+    dashboardController.clock = "loading clock..."; // initialise the time variable
+    dashboardController.tickInterval = 1000; //ms
+
+    var tick = function() {
+        dashboardController.clock = Date.now(); // get the current time
+        $timeout(tick, dashboardController.tickInterval); // reset the timer
+    };
+
+    // Start the timer
+    $timeout(tick, dashboardController.tickInterval);
 
     dashboardController.totalProjects = 0;
     dashboardController.totalVendors = 0;

@@ -47,5 +47,14 @@ class ProfileController @Inject() (dbApi: DBApi, cache: DefaultSyncCacheApi) ext
     Ok(views.html.mainDashboard(Json.toJson(user), user.id.get, user.business_id))
   }
 
+  def businessMainPage: Action[AnyContent]  = AuthenticatedAction { request =>
+    val id = request.session.get("id").get
+    val profile = cache.get[JsValue](id + "profile").get
+    val userId = (profile \ "app_user_id").as[Int]
+    val authUserId =  (profile \ "sub").as[String].split('|').last
+    val user = userApi.byAuth0Id(authUserId).get
+    Ok(views.html.mainDashboard(Json.toJson(user), user.id.get, user.business_id))
+  }
+
 }
 

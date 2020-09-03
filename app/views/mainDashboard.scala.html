@@ -33,84 +33,245 @@
 @*                </div>*@
 @*            </div>*@
 @*        </div>*@
+@*        <div class="row">*@
+@*            <div class="col-lg-4 col-md-6 col-sm-6">*@
+@*                <div class="card card-stats">*@
+@*                    <div class="card-body ">*@
+@*                        <div class="row">*@
+@*                            <div class="col-5 col-md-4">*@
+@*                                <div class="icon-big text-center icon-warning">*@
+@*                                    <i class="nc-icon nc-tie-bow text-default"></i>*@
+@*                                </div>*@
+@*                            </div>*@
+@*                            <div class="col-7 col-md-8">*@
+@*                                <div class="numbers">*@
+@*                                    <p class="card-title">{{controller.totalProjects}}</p>*@
+@*                                    <p></p>*@
+@*                                </div>*@
+@*                            </div>*@
+@*                        </div>*@
+@*                    </div>*@
+@*                    <div class="card-footer ">*@
+@*                        <hr>*@
+@*                        <div class="stats">*@
+@*                            Total Projects*@
+@*                        </div>*@
+@*                    </div>*@
+@*                </div>*@
+@*            </div>*@
+@*            <div class="col-lg-4 col-md-6 col-sm-6">*@
+@*                <div class="card card-stats">*@
+@*                    <div class="card-body ">*@
+@*                        <div class="row">*@
+@*                            <div class="col-5 col-md-4">*@
+@*                                <div class="icon-big text-center icon-warning">*@
+@*                                    <i class="nc-icon nc-shop text-success"></i>*@
+@*                                </div>*@
+@*                            </div>*@
+@*                            <div class="col-7 col-md-8">*@
+@*                                <div class="numbers">*@
+@*                                    <p class="card-title">{{controller.totalVendors}}</p>*@
+@*                                    <p></p>*@
+@*                                </div>*@
+@*                            </div>*@
+@*                        </div>*@
+@*                    </div>*@
+@*                    <div class="card-footer ">*@
+@*                        <hr>*@
+@*                        <div class="stats">*@
+@*                            Total Vendor Contacts*@
+@*                        </div>*@
+@*                    </div>*@
+@*                </div>*@
+@*            </div>*@
+
+@*            <div class="col-lg-4 col-md-6 col-sm-6">*@
+@*                <div class="card card-stats">*@
+@*                    <div class="card-body ">*@
+@*                        <div class="row">*@
+@*                            <div class="col-5 col-md-4">*@
+@*                                <div class="icon-big text-center icon-warning">*@
+@*                                    <i class="nc-icon nc-circle-10 text-danger"></i>*@
+@*                                </div>*@
+@*                            </div>*@
+@*                            <div class="col-7 col-md-8">*@
+@*                                <div class="numbers">*@
+@*                                    <p class="card-title">{{controller.totalClients}}</p>*@
+@*                                    <p></p>*@
+@*                                </div>*@
+@*                            </div>*@
+@*                        </div>*@
+@*                    </div>*@
+@*                    <div class="card-footer ">*@
+@*                        <hr>*@
+@*                        <div class="stats">*@
+@*                            Total Clients*@
+@*                        </div>*@
+@*                    </div>*@
+@*                </div>*@
+@*                </div>*@
+@*            </div>*@
+@*        </div>*@
         <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-body ">
-                        <div class="row">
-                            <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-tie-bow text-default"></i>
-                                </div>
+            <div class="col-md-6 ml-auto mr-auto">
+                <div class="card card-user">
+@*                    <div class="image">*@
+@*                        <img src="@routes.Assets.versioned("template_assets/img/bg/damir-bosnjak.jpg")">*@
+@*                    </div>*@
+                    <div class="card-header text-center">
+                        <h2 class="card-title text-danger">Welcome to {{controller.businessInfo.name}}</h2>
+                        <hr>
+                        <h5>Today is {{ controller.clock  | date:'medium' }}</h5>
+@*                        <h6>{{ controller.clock  | date:'medium' }}</h6>*@
+                    </div>
+                    <div class="card-body">
+                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail">
+                                <img src="@routes.Assets.versioned("template_assets/img/image_placeholder.jpg")" alt="...">
                             </div>
-                            <div class="col-7 col-md-8">
-                                <div class="numbers">
-                                    <p class="card-title">{{controller.totalProjects}}</p>
-                                    <p></p>
-                                </div>
-                            </div>
+                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
+@*                            <div>*@
+@*                                <span class="btn btn-rose btn-round btn-file">*@
+@*                                    <span class="fileinput-new">Select image</span>*@
+@*                                    <span class="fileinput-exists">Change</span>*@
+@*                                    <input type="file" name="...">*@
+@*                                </span>*@
+@*                                <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>*@
+@*                            </div>*@
                         </div>
                     </div>
-                    <div class="card-footer ">
+                    <div class="card-footer">
                         <hr>
-                        <div class="stats">
-                            Total Projects
+                        <div class="button-container">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-6 col-6 ml-auto">
+                                    <h3><i class="nc-icon nc-tie-bow text-warning"></i></h3>
+                                    <h3>{{controller.totalProjects}}</h3>
+                                    <h5><a href="/pages/projects/@businessId" style="color: #0f0f0f">Total Projects</a></h5>
+                                </div>
+                                <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
+                                    <h3><i class="nc-icon nc-shop text-success"></i></h3>
+                                    <h3>{{controller.totalClients}}</h3>
+                                    <h5><a href="/pages/customers/@businessId" style="color: #0f0f0f">Total Clients</a></h5>
+                                </div>
+                                <div class="col-lg-3 mr-auto">
+                                    <h3><i class="nc-icon nc-circle-10 text-danger"></i></h3>
+                                    <h3>{{controller.totalVendors}}</h3>
+                                    <h5 class="text-default"><a href="/pages/vendors/@businessId" style="color: #0f0f0f">Total Vendor Contacts</a></h5>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-body ">
-                        <div class="row">
-                            <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-shop text-success"></i>
-                                </div>
-                            </div>
-                            <div class="col-7 col-md-8">
-                                <div class="numbers">
-                                    <p class="card-title">{{controller.totalVendors}}</p>
-                                    <p></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer ">
-                        <hr>
-                        <div class="stats">
-                            Total Vendor Contacts
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 ml-auto mr-auto">
+@*                <div class="card">*@
+@*                    <div class="card-header">*@
+@*                        <h4 class="card-title">Team Members</h4>*@
+@*                    </div>*@
+@*                    <div class="card-body">*@
+@*                        <ul class="list-unstyled team-members">*@
+@*                            <li>*@
+@*                                <div class="row">*@
+@*                                    <div class="col-md-2 col-2">*@
+@*                                        <div class="avatar">*@
+@*                                            <img src="@routes.Assets.versioned("template_assets/img/faces/ayo-ogunseinde-2.jpg")" alt="Circle Image" class="img-circle img-no-padding img-responsive">*@
+@*                                        </div>*@
+@*                                    </div>*@
+@*                                    <div class="col-md-7 col-7">*@
+@*                                        DJ Khaled*@
+@*                                        <br>*@
+@*                                        <span class="text-muted"><small>Offline</small></span>*@
+@*                                    </div>*@
+@*                                    <div class="col-md-3 col-3 text-right">*@
+@*                                        <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>*@
+@*                                    </div>*@
+@*                                </div>*@
+@*                            </li>*@
+@*                            <li>*@
+@*                                <div class="row">*@
+@*                                    <div class="col-md-2 col-2">*@
+@*                                        <div class="avatar">*@
+@*                                            <img src="@routes.Assets.versioned("template_assets/img/faces/joe-gardner-2.jpg")" alt="Circle Image" class="img-circle img-no-padding img-responsive">*@
+@*                                        </div>*@
+@*                                    </div>*@
+@*                                    <div class="col-md-7 col-7">*@
+@*                                        Creative Tim*@
+@*                                        <br>*@
+@*                                        <span class="text-success"><small>Available</small></span>*@
+@*                                    </div>*@
+@*                                    <div class="col-md-3 col-3 text-right">*@
+@*                                        <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>*@
+@*                                    </div>*@
+@*                                </div>*@
+@*                            </li>*@
+@*                            <li>*@
+@*                                <div class="row">*@
+@*                                    <div class="col-md-2 col-2">*@
+@*                                        <div class="avatar">*@
+@*                                            <img src="@routes.Assets.versioned("template_assets/img/faces/clem-onojeghuo-2.jpg")"  alt="Circle Image" class="img-circle img-no-padding img-responsive">*@
+@*                                        </div>*@
+@*                                    </div>*@
+@*                                    <div class="col-ms-7 col-7">*@
+@*                                        Flume*@
+@*                                        <br>*@
+@*                                        <span class="text-danger"><small>Busy</small></span>*@
+@*                                    </div>*@
+@*                                    <div class="col-md-3 col-3 text-right">*@
+@*                                        <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>*@
+@*                                    </div>*@
+@*                                </div>*@
+@*                            </li>*@
+@*                        </ul>*@
+@*                    </div>*@
+@*                </div>*@
 
-            <div class="col-lg-4 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-body ">
-                        <div class="row">
-                            <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-circle-10 text-danger"></i>
-                                </div>
-                            </div>
-                            <div class="col-7 col-md-8">
-                                <div class="numbers">
-                                    <p class="card-title">{{controller.totalClients}}</p>
-                                    <p></p>
-                                </div>
-                            </div>
-                        </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Quick Look</h5>
                     </div>
-                    <div class="card-footer ">
-                        <hr>
-                        <div class="stats">
-                            Total Clients
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-5 col-sm-4 col-6">
+                                <div class="nav-tabs-navigation verical-navs">
+                                    <div class="nav-tabs-wrapper">
+                                        <ul class="nav nav-tabs flex-column nav-stacked" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" href="#info" role="tab" data-toggle="tab">Inquires</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#description" role="tab" data-toggle="tab">Tasks</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="#extra" role="tab" data-toggle="tab">Projects</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 col-md-7 col-sm-8 col-6">
+                                    <!-- Tab panes -->
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="info">
+                                        <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
+                                        <p>It’s one continuous form where hardware and software function in perfect unison, creating a new generation of phone that’s better by any measure.</p>
+                                    </div>
+                                    <div class="tab-pane" id="description">
+                                        <p>The first thing you notice when you hold the phone is how great it feels in your hand. The cover glass curves down around the sides to meet the anodized aluminum enclosure in a remarkable, simplified design. </p>
+                                        <p>There are no distinct edges. No gaps. Just a smooth, seamless bond of metal and glass that feels like one continuous surface.</p>
+                                    </div>
+                                    <div class="tab-pane" id="extra">
+                                        <p>It’s one continuous form where hardware and software function in perfect unison, creating a new generation of phone that’s better by any measure.</p>
+                                        <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
