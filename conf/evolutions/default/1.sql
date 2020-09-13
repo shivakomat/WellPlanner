@@ -1,5 +1,8 @@
 # --- !Downs
 DROP TABLE "play_evolutions";
+DROP TABLE "teams";
+DROP TABLE "vendor_contacts_lists";
+DROP TABLE "vendor_buckets";
 DROP TABLE "budget_breakdowns";
 DROP TABLE "vendor_contacts";
 DROP TABLE "task_comments";

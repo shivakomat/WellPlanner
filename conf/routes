@@ -12,6 +12,9 @@ GET     /profile                    controllers.HomeController.profile
 
 GET     /pages/settings             controllers.HomeController.settingsPage
 
+
+
+
 GET     /pages/invoices             controllers.HomeController.invoicesPage
 GET     /pages/calendar             controllers.HomeController.businessCalendar
 GET     /pages/login                controllers.HomeController.loginPage
@@ -31,10 +34,12 @@ GET     /pages/:businessId/projects/:projectId/tasks                controllers.
 GET     /pages/:businessId/projects/:projectId/budget               controllers.HomeController.projectBudgetPage(projectId: Int, businessId: Int)
 GET     /pages/:businessId/projects/:projectId/overview-dashboard   controllers.HomeController.projectOverviewDashboard(projectId: Int, businessId: Int)
 
+GET     /pages/:businessId/business-settings                        controllers.HomeController.businessSettingsPage(businessId: Int)
 
 
 
 # REST API Routes for data
+
 
 # # Projects
 +nocsrf
@@ -98,6 +103,10 @@ GET     /callback                   controllers.CallbackController.callback(code
 # # Businesses
 +nocsrf
 POST    /businesses/signUp                  controllers.BusinessController.registerNewBusiness()
+
++nocsrf
+POST    /businesses/updateInfo              controllers.BusinessController.updateBusinessInfo()
+
 GET     /businesses/exists/:businessName    controllers.BusinessController.businessExists(businessName)
 GET     /businesses/users/:username/:email  controllers.UsersController.usernameAndEmailExists(username, email)
 GET     /businesses/:businessId             controllers.BusinessController.byId(businessId: Int)

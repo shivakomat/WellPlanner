@@ -4,12 +4,14 @@ import com.google.inject.Inject
 import controllers.util.JsonFormats._
 import controllers.util.ResponseTypes._
 import model.api.businesses.{AdminSignUpMessage, BusinessesApi}
+import model.dataModels.Business
 import play.api.Logger
 import play.api.db.DBApi
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.WSClient
 import play.api.mvc._
+
 import scala.concurrent.Future
 
 class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WSClient) extends AbstractController(cc) {
@@ -20,6 +22,9 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
 
   private def badRequest: Future[Result] =
     Future.successful(errorResponse(BAD_REQUEST, Seq("Unable to recognize request")))
+
+  def logForSuccess(data: String) =
+    logger.info(s"Successfully created \n tasks and id follows : \n { $data } ")
 
   def registerNewBusiness(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
 
@@ -52,5 +57,24 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
   def byId(businessId: Int) =  Action {
     successResponse(OK, Json.toJson(businessesApi.businessInfo(businessId)), Seq("Successfully processed"))
   }
+
+  def updateBusinessInfo(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+    println("Updating business info request accepted")
+
+    def updateOperation(business: Business): Future[Result] =
+      businessesApi.updateBusinessInfoBy(business) match {
+        case Right(data) =>
+          logForSuccess(Json.toJson(data).toString)
+          Future.successful(successResponse(CREATED, Json.toJson(data), Seq(s"Successfully update business ${data.id}")))
+        case Left(errorMsg) =>
+          Future.successful(errorResponse(FOUND, Seq(s"Error: $errorMsg")))
+      }
+
+    request.body.validate[Business].fold(
+      errors => badRequest,
+      payload => updateOperation(payload)
+    )
+  }
+
 
 }

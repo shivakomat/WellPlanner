@@ -48,6 +48,10 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.projectSettings("Company Settings"))
   }
 
+  def businessSettingsPage(businessId: Int) = Action {
+    Ok(views.html.settings(JsNull, 0, businessId))
+  }
+
   def loginPage = Action {
     Redirect("https://well-wedding-planner.herokuapp.com/assets/rubik-presentation-site/well-planner.html")
   }

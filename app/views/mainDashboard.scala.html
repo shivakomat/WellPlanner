@@ -119,7 +119,7 @@
 @*                        <img src="@routes.Assets.versioned("template_assets/img/bg/damir-bosnjak.jpg")">*@
 @*                    </div>*@
                     <div class="card-header text-center">
-                        <h2 class="card-title text-danger">Welcome to {{controller.businessInfo.name}}</h2>
+                        <h2 class="card-title text-danger">{{controller.businessInfo.name}}</h2>
                         <hr>
                         <h5>Today is {{ controller.clock  | date:'medium' }}</h5>
 @*                        <h6>{{ controller.clock  | date:'medium' }}</h6>*@
@@ -227,50 +227,50 @@
 @*                        </ul>*@
 @*                    </div>*@
 @*                </div>*@
-
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Quick Look</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-4 col-md-5 col-sm-4 col-6">
-                                <div class="nav-tabs-navigation verical-navs">
-                                    <div class="nav-tabs-wrapper">
-                                        <ul class="nav nav-tabs flex-column nav-stacked" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" href="#info" role="tab" data-toggle="tab">Inquires</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#description" role="tab" data-toggle="tab">Tasks</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#extra" role="tab" data-toggle="tab">Projects</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-8 col-md-7 col-sm-8 col-6">
-                                    <!-- Tab panes -->
-                                <div class="tab-content">
-                                    <div class="tab-pane active" id="info">
-                                        <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display.</p>
-                                        <p>It’s one continuous form where hardware and software function in perfect unison, creating a new generation of phone that’s better by any measure.</p>
-                                    </div>
-                                    <div class="tab-pane" id="description">
-                                        <p>The first thing you notice when you hold the phone is how great it feels in your hand. The cover glass curves down around the sides to meet the anodized aluminum enclosure in a remarkable, simplified design. </p>
-                                        <p>There are no distinct edges. No gaps. Just a smooth, seamless bond of metal and glass that feels like one continuous surface.</p>
-                                    </div>
-                                    <div class="tab-pane" id="extra">
-                                        <p>It’s one continuous form where hardware and software function in perfect unison, creating a new generation of phone that’s better by any measure.</p>
-                                        <p>Larger, yet dramatically thinner. More powerful, but remarkably power efficient. With a smooth metal surface that seamlessly meets the new Retina HD display. </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+@*                <div class="card">*@
+@*                    <div class="card-body">*@
+@*                        <div class="nav-tabs-navigation">*@
+@*                            <div class="nav-tabs-wrapper">*@
+@*                                <ul id="tabs" class="nav nav-tabs" role="tablist">*@
+@*                                    <li class="nav-item">*@
+@*                                        <a class="nav-link" data-toggle="tab" href="#home" role="tab" aria-expanded="true" aria-selected="false">Inquires</a>*@
+@*                                    </li>*@
+@*                                    <li class="nav-item">*@
+@*                                        <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-expanded="false" aria-selected="false">Tasks</a>*@
+@*                                    </li>*@
+@*                                    <li class="nav-item">*@
+@*                                        <a class="nav-link active" data-toggle="tab" href="#messages" role="tab" aria-expanded="false" aria-selected="true">Projects</a>*@
+@*                                    </li>*@
+@*                                </ul>*@
+@*                            </div>*@
+@*                        </div>*@
+@*                        <div id="my-tab-content" class="tab-content text-center">*@
+@*                            <div class="tab-pane" id="home" role="tabpanel" aria-expanded="true">*@
+@*                                <div class="table-responsive">*@
+@*                                    <table class="table">*@
+@*                                        <tbody>*@
+@*                                            <tr>*@
+@*                                                <td>USA</td>*@
+@*                                                <td class="text-right">*@
+@*                                                    2.920*@
+@*                                                </td>*@
+@*                                                <td class="text-right">*@
+@*                                                    53.23%*@
+@*                                                </td>*@
+@*                                            </tr>*@
+@*                                        </tbody>*@
+@*                                    </table>*@
+@*                                </div>*@
+@*                            </div>*@
+@*                            <div class="tab-pane" id="profile" role="tabpanel" aria-expanded="false">*@
+@*                                <p>Here is your profile.</p>*@
+@*                            </div>*@
+@*                            <div class="tab-pane active" id="messages" role="tabpanel" aria-expanded="false">*@
+@*                                <p>Here are your messages.</p>*@
+@*                            </div>*@
+@*                        </div>*@
+@*                    </div>*@
+@*                </div>*@
             </div>
         </div>
     </div>

@@ -19,7 +19,7 @@ class BusinessesApi(dbApi: DBApi, ws: WSClient) {
 
       def registerBusiness: Option[Business] = {
         val business =
-          Business(name = newBusiness.businessName, city = "N/A", state = "N/A", phone_number = newBusiness.phoneNumber,
+          Business(name = newBusiness.businessName, email = newBusiness.email,  city = "N/A", state = "N/A", phone_number = newBusiness.phoneNumber,
                    country = "N/A", modified_date = DateTimeNow.getCurrent, created_date = DateTimeNow.getCurrent)
 
         businessesDb
@@ -50,5 +50,17 @@ class BusinessesApi(dbApi: DBApi, ws: WSClient) {
   def businessInfo(businessId: Int): Option[Business] = {
     businessesDb.byId(businessId)
   }
+
+
+
+  def updateBusinessInfoBy(updatedBusiness: Business): Either[String, Business] = {
+    val updatedRows = businessesDb.updateBusinessInfo(updatedBusiness)
+    if(updatedRows == 1) {
+      val updatedClient = businessesDb.byId(updatedBusiness.id.get)
+      Right(updatedClient.get)
+    } else
+      Left("Failed during database update or reading the updated business info back from database")
+  }
+
 
 }

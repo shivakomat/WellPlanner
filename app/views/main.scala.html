@@ -167,11 +167,13 @@
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link btn-rotate" href="#pablo">
-                                        <span><i class="nc-icon nc-settings-gear-65"></i> Settings</span>
-                                        <p>
-                                            <span class="d-lg-none d-md-block">Account</span>
-                                        </p>
+                                    <a class="nav-link btn-rotate" href="/pages/@businessId/business-settings">
+                                        @if(activeMenuItem == "settings") {
+                                            <span class="text-danger"><i class="nc-icon nc-settings-gear-65 text-danger"></i>Settings</span>
+                                        } else {
+                                            <span><i class="nc-icon nc-settings-gear-65"></i> Settings</span>
+                                        }
+                                        <p><span class="d-lg-none d-md-block">Account</span></p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -571,6 +573,7 @@
         <script src="@routes.Assets.versioned("javascripts/angular/projectsController.js")"></script>
         <script src="@routes.Assets.versioned("javascripts/angular/businessFactory.js")"></script>
         <script src="@routes.Assets.versioned("javascripts/angular/dashboardController.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/settingsController.js")"></script>
         <script src="https://cdn.auth0.com/js/auth0-spa-js/1.2/auth0-spa-js.production.js"></script>
 
         <script src="https://cdn.auth0.com/js/auth0/9.11/auth0.min.js"></script>
