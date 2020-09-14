@@ -1,8 +1,8 @@
 package model.api.businesses
 
 import model.api.users.{UsersApi, UsersFacade}
-import model.dataModels.{Business, User}
-import model.databases.BusinessesDb
+import model.dataModels.{Business, TeamMember, User}
+import model.databases.{BusinessesDb, TeamsDbApi, TeamsDbFacade}
 import model.tools.{DateTimeNow, PasswordProtector}
 import org.joda.time.DateTime
 import play.api.db.DBApi
@@ -12,6 +12,7 @@ class BusinessesApi(dbApi: DBApi, ws: WSClient) {
 
   val businessesDb: BusinessesDb =  new BusinessesDb(dbApi)
   val usersApi: UsersApi = new UsersFacade(dbApi)
+  val teamsApi: TeamsDbApi =  new TeamsDbFacade(dbApi)
 
   def signUpBusiness(newBusiness: AdminSignUpMessage): Either[String, (Business, User)] = {
 
@@ -52,7 +53,6 @@ class BusinessesApi(dbApi: DBApi, ws: WSClient) {
   }
 
 
-
   def updateBusinessInfoBy(updatedBusiness: Business): Either[String, Business] = {
     val updatedRows = businessesDb.updateBusinessInfo(updatedBusiness)
     if(updatedRows == 1) {
@@ -60,6 +60,19 @@ class BusinessesApi(dbApi: DBApi, ws: WSClient) {
       Right(updatedClient.get)
     } else
       Left("Failed during database update or reading the updated business info back from database")
+  }
+
+  def addTeamMemberToBusiness(teamMember: TeamMember): Either[String, TeamMember] = {
+    val teamMemberAdded =
+      teamsApi.addNewTeamMember(teamMember)
+
+    val updatedTeam =
+      for {
+        id <- teamMemberAdded
+        team <- teamsApi.byBusinessIdAndMemberId(teamMember.business_id, id.toInt)
+      } yield team
+    if(updatedTeam.nonEmpty) Right(updatedTeam.get)
+    else Left("failed during database insertion or reading the newly created data")
   }
 
 

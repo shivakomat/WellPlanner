@@ -27,4 +27,5 @@ object JsonFormats {
   implicit val budgetBreakdownsFormat = Json.format[BudgetBreakdowns]
   implicit val budgetBreakdownListFormat = Json.format[BudgetBreakdownList]
   implicit val projectsFormat = Json.format[Project]
+  implicit val teamMemberFormat = Json.format[TeamMember]
 }

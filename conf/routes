@@ -111,6 +111,9 @@ GET     /businesses/exists/:businessName    controllers.BusinessController.busin
 GET     /businesses/users/:username/:email  controllers.UsersController.usernameAndEmailExists(username, email)
 GET     /businesses/:businessId             controllers.BusinessController.byId(businessId: Int)
 
++nocsrf
+POST    /businesses/newTeamMember           controllers.BusinessController.addNewMemberToTeamByBusiness()
+
 # # Users
 GET     /users/:username               controllers.UsersController.usernameExists(username)
 GET     /users/:email                  controllers.UsersController.usernameExists(email)

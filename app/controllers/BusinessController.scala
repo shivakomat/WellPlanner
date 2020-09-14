@@ -4,7 +4,7 @@ import com.google.inject.Inject
 import controllers.util.JsonFormats._
 import controllers.util.ResponseTypes._
 import model.api.businesses.{AdminSignUpMessage, BusinessesApi}
-import model.dataModels.Business
+import model.dataModels.{Business, TeamMember}
 import play.api.Logger
 import play.api.db.DBApi
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
@@ -73,6 +73,20 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
     request.body.validate[Business].fold(
       errors => badRequest,
       payload => updateOperation(payload)
+    )
+  }
+
+  def addNewMemberToTeamByBusiness(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+    request.body.validate[TeamMember].fold(
+      errors => badRequest,
+      newMember =>
+      businessesApi.addTeamMemberToBusiness(newMember) match {
+        case Right(data) =>
+          logForSuccess(Json.toJson(data).toString)
+          Future.successful(successResponse(CREATED, Json.toJson(data), Seq(s"Successfully update business ${data.id}")))
+        case Left(errorMsg) =>
+          Future.successful(errorResponse(FOUND, Seq(s"Error: $errorMsg")))
+      }
     )
   }
 
