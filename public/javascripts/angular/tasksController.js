@@ -64,7 +64,7 @@ app.controller('tasksController', function (TasksFactory, $http) {
 app.directive('newTaskListModal',  [NewTaskListModalDirective]);
 function NewTaskListModalDirective() {
     return{
-        templateUrl:  "https://well-wedding-planner.herokuapp.com/assets/javascripts/angular/newTaskListModal.html",
+        template:  '<ng-include src="getNewTaskListModalTemplateUrl()"/>',
         scope: false,
         bindToController: {
             businessId: '=',
@@ -80,7 +80,7 @@ function NewTaskListModalDirective() {
 app.directive('newSubTaskModal',  [NewSubTaskListModalDirective]);
 function NewSubTaskListModalDirective() {
     return{
-        templateUrl:  "https://well-wedding-planner.herokuapp.com/assets/javascripts/angular/newSubTaskModal.html",
+        template:  '<ng-include src="getNewSubTaskModalTemplateUrl()"/>',
         scope: false,
         bindToController: {
             businessId: '=',
@@ -97,7 +97,7 @@ function NewSubTaskListModalDirective() {
 app.directive('deleteTaskListModal',  [DeleteTaskListModalDirective]);
 function DeleteTaskListModalDirective() {
     return{
-        templateUrl:  "https://well-wedding-planner.herokuapp.com/assets/javascripts/angular/deleteTaskListModal.html",
+        template:  '<ng-include src="getDeleteTaskListTemplateUrl()"/>',
         scope: false,
         bindToController: {
             businessId: '=',
@@ -110,9 +110,14 @@ function DeleteTaskListModalDirective() {
 }
 
 app.controller('deleteTaskModalController', [DeleteTaskModalController]);
-function DeleteTaskModalController(TasksFactory) {
+function DeleteTaskModalController(TasksFactory, $scope, templates) {
     var deleteTaskModalController = this;
     deleteTaskModalController.formData = {};
+
+    $scope.getDeleteTaskListTemplateUrl = function () {
+        return templates.deleteTaskListModal;
+    };
+
 
     deleteTaskModalController.deleteTaskList = function () {
         deleteTaskList(deleteTaskModalController.businessId, deleteTaskModalController.projectId, deleteTaskModalController.formData.taskToDelete.parent.id)
@@ -142,7 +147,7 @@ function DeleteTaskModalController(TasksFactory) {
 app.directive('editSubTaskModal',  [EditSubTaskModalDirective]);
 function EditSubTaskModalDirective() {
     return{
-        templateUrl:  "https://well-wedding-planner.herokuapp.com/assets/javascripts/angular/editTaskModal.html",
+        template:  '<ng-include src="getEditSubTaskModalTemplateUrl()"/>',
         scope: false,
         bindToController: {
             businessId: '=',
@@ -156,8 +161,13 @@ function EditSubTaskModalDirective() {
 }
 
 app.controller('editTaskModalController', [EditTaskModalController]);
-function EditTaskModalController(TasksFactory) {
+function EditTaskModalController(TasksFactory, $scope, templates) {
     var editTaskModalController = this;
+
+    $scope.getEditSubTaskModalTemplateUrl = function () {
+        return templates.editTaskModal;
+    };
+
 
     editTaskModalController.updateTask = function () {
         updateTask(editTaskModalController.subTask, "Task updated!", "Woo hoo!");
@@ -176,10 +186,14 @@ function EditTaskModalController(TasksFactory) {
 }
 
 app.controller('newTaskListModalController', [NewTaskListModalController]);
-function NewTaskListModalController(TasksFactory) {
+function NewTaskListModalController(TasksFactory, $scope, templates) {
     var newTaskListModalController = this;
 
     newTaskListModalController.formData = {};
+
+    $scope.getNewTaskListModalTemplateUrl = function () {
+        return templates.newTaskListModal;
+    };
 
 
     newTaskListModalController.createNewTaskList = function () {
@@ -220,10 +234,15 @@ function NewTaskListModalController(TasksFactory) {
 }
 
 app.controller('newSubTaskListModalController', [NewSubTaskListModalController]);
-function NewSubTaskListModalController(TasksFactory,$http) {
+function NewSubTaskListModalController(TasksFactory, $scope, templates) {
     var newSubTaskListModalController = this;
 
     newSubTaskListModalController.formData = {};
+
+    $scope.getNewSubTaskModalTemplateUrl = function () {
+        return templates.newSubTaskModal;
+    };
+
 
     newSubTaskListModalController.createNewSubTask = function () {
         newSubTask()

@@ -22,7 +22,7 @@ app.controller('dashboardController', function(ProjectsFactory, VendorContactsFa
         setTotalProjects(businessId);
         setTotalVendors(businessId);
         setTotalClients(businessId);
-        setBusinessInfo(businessId)
+        setBusinessInfo(businessId);
     };
 
     function setTotalProjects(businessId) {

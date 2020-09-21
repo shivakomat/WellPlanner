@@ -168,7 +168,8 @@ app.filter('phonenumber', function() {
 app.directive('editClientModal',  [EditClientModalDirective]);
 function EditClientModalDirective() {
     return{
-        templateUrl:  "https://well-wedding-planner.herokuapp.com/assets/javascripts/angular/editClientModal.html",
+        template:  '<ng-include src="getEditClientModalTemplateUrl()"/>',
+        // templateUrl:  "http://localhost:7000/assets/javascripts/angular/editClientModal.html",
         scope: false,
         bindToController: {
             businessId: '=',
@@ -181,8 +182,12 @@ function EditClientModalDirective() {
 }
 
 app.controller('editClientModalController', [EditClientModalController]);
-function EditClientModalController(ClientsFactory) {
+function EditClientModalController(ClientsFactory, $scope, templates) {
     var editClientModalController = this;
+
+    $scope.getEditClientModalTemplateUrl = function () {
+        return templates.editClientModal;
+    };
 
     editClientModalController.updateClient = function () {
         updateClient(editClientModalController.currentClient, "Client Info updated!", "Always update!");

@@ -80,7 +80,7 @@ app.controller('vendorContactsController', function(VendorContactsFactory, $http
 app.directive('editVendorModal',  [EditVendorModalDirective]);
 function EditVendorModalDirective() {
     return{
-        templateUrl:  "https://well-wedding-planner.herokuapp.com/assets/javascripts/angular/editVendorModal.html",
+        template:  '<ng-include src="getTemplateUrl()"/>',
         scope: false,
         bindToController: {
             businessId: '=',
@@ -93,8 +93,12 @@ function EditVendorModalDirective() {
 }
 
 app.controller('editVendorModalController', [EditVendorModalController]);
-function EditVendorModalController(VendorContactsFactory) {
+function EditVendorModalController(VendorContactsFactory, $scope, templates) {
     var editVendorModalController = this;
+
+    $scope.getTemplateUrl = function () {
+        return templates.editVendorContactModal;
+    };
 
     editVendorModalController.updateVendor = function () {
         updateVendor(editVendorModalController.currentVendor, "Vendor Info updated!", "Always update!");
