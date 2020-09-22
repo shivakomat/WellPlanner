@@ -90,5 +90,9 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
     )
   }
 
+  def allTeamMembers(businessId: Int) = Action {
+    successResponse(OK, Json.toJson(businessesApi.getAllTeamMembers(businessId)), Seq("Successfully processed"))
+  }
+
 
 }

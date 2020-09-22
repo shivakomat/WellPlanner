@@ -4,101 +4,13 @@
 @main("Well Planner", "settings", "Settings", businessId) {
 
     <div class="content" data-ng-controller="settingsController as controller" data-ng-init="controller.init(@businessId)">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card card-user">
-                    <div class="image">
-                        <img src="@routes.Assets.versioned("template_assets/img/bg/damir-bosnjak.jpg")" alt="...">
-                    </div>
-                    <div class="card-body">
-                        <div class="author">
-                            <a href="#">
-                                <img class="avatar border-gray" src="@routes.Assets.versioned("template_assets/img/mike.jpg")" alt="profile picture">
-                                <h5 class="title text-danger">{{controller.businessInfo.owner_profile_name}}</h5>
-                            </a>
-                            <p class="description">
-                            chetfaker
-                            </p>
-                            <button class="btn btn-default">
-                                <span class="btn-label">
-                                    <i class="nc-icon nc-share-66"></i>
-                                </span>
-                                Upload Image
-                            </button>
-                        </div>
-                    </div>
-@*                    <div class="card-footer">*@
-@*                        <hr>*@
-@*                    </div>*@
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Team Members</h4>
-                        <div class="row">
-                            <div class="col-md-9">
-                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#createList">ADD NEW MEMBER</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
 
-                        <ul class="list-unstyled team-members">
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-2 col-2">
-                                        <div class="avatar">
-                                            <img src="@routes.Assets.versioned("template_assets/img/faces/ayo-ogunseinde-2.jpg")" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-7 col-7">
-                                        DJ Khaled
-                                        <br>
-                                        <span class="text-muted"><small>Offline</small></span>
-                                    </div>
-                                    <div class="col-md-3 col-3 text-right">
-                                        <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-2 col-2">
-                                        <div class="avatar">
-                                            <img src="@routes.Assets.versioned("template_assets/img/faces/joe-gardner-2.jpg")" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-7 col-7">
-                                        Creative Tim
-                                        <br>
-                                        <span class="text-success"><small>Available</small></span>
-                                    </div>
-                                    <div class="col-md-3 col-3 text-right">
-                                        <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="row">
-                                    <div class="col-md-2 col-2">
-                                        <div class="avatar">
-                                            <img src="@routes.Assets.versioned("template_assets/img/faces/clem-onojeghuo-2.jpg")" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                        </div>
-                                    </div>
-                                    <div class="col-ms-7 col-7">
-                                        Flume
-                                        <br>
-                                        <span class="text-danger"><small>Busy</small></span>
-                                    </div>
-                                    <div class="col-md-3 col-3 text-right">
-                                        <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
+        <!-- Add Team Member Modal -->
+        <data-add-new-team-member data-team-members="controller.teamMembers" data-business-id=@businessId></data-add-new-team-member>
+
+        <div class="row">
+
+            <div class="col-md-6 ml-auto mr-auto">
                 <div class="card">
                     <div class="card-header">
                         <h5 class="title">Edit Profile</h5>
@@ -181,6 +93,66 @@
                                 </div>
                             </div>
                         </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 ml-auto mr-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Update Team Members</h4>
+                        <div class="row">
+                            <div class="col-md-9">
+                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#newTeamMember">ADD NEW MEMBER</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class="text-primary">
+                                    <tr>
+                                        <th>
+                                            Member Name
+                                        </th>
+                                        <th>
+                                            Email
+                                        </th>
+                                        <th class="text-center">
+                                            Member Since
+                                        </th>
+                                        <th class="text-right">
+                                            Actions
+                                        </th>
+                                    </tr></thead>
+                                <tbody>
+                                    <tr data-ng-repeat="member in controller.teamMembers">
+                                        <td>
+                                            {{member.member_name}}
+                                        </td>
+                                        <td>
+                                            {{member.email}}
+                                        </td>
+                                        <td class="text-center">
+                                            {{member.created_date}}
+                                        </td>
+                                        <td class="text-right">
+                                            <button type="button" rel="tooltip" class="btn btn-sm btn-outline-success btn-round btn-icon " data-original-title="" title="">
+                                                <i class="fa fa-envelope"></i>
+                                            </button>
+                                            <button type="button" rel="tooltip" class="btn btn-success btn-icon btn-sm " data-original-title="" title="">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                            <button type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm " data-original-title="" title="">
+                                                <i class="fa fa-times"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

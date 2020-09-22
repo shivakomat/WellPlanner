@@ -113,6 +113,7 @@ GET     /businesses/:businessId             controllers.BusinessController.byId(
 
 +nocsrf
 POST    /businesses/newTeamMember           controllers.BusinessController.addNewMemberToTeamByBusiness()
+GET     /businesses/teamMembers/:businessId   controllers.BusinessController.allTeamMembers(businessId: Int)
 
 # # Users
 GET     /users/:username               controllers.UsersController.usernameExists(username)

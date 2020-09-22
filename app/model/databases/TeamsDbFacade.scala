@@ -14,8 +14,8 @@ class TeamsDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) wit
 
   def addNewTeamMember(teamMember: TeamMember): Option[Long] =
     db.withConnection { implicit connection =>
-      SQL("insert into teams(id , business_id , member_name, email, modified_date, created_date) " +
-        "values ({id} , {business_id} , {member_name}, {email}, {modified_date}, {created_date})")
+      SQL("insert into teams(business_id , member_name, email, modified_date, created_date) " +
+        "values ({business_id} , {member_name}, {email}, {modified_date}, {created_date})")
         .on("id"  -> teamMember.id,
           "business_id" -> teamMember.business_id,
           "member_name" -> teamMember.member_name,

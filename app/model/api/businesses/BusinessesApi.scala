@@ -64,16 +64,20 @@ class BusinessesApi(dbApi: DBApi, ws: WSClient) {
 
   def addTeamMemberToBusiness(teamMember: TeamMember): Either[String, TeamMember] = {
     val teamMemberAdded =
-      teamsApi.addNewTeamMember(teamMember)
-
+      teamsApi.addNewTeamMember(teamMember.copy(modified_date = Some(DateTimeNow.getCurrent),
+                                                created_date = Some(DateTimeNow.getCurrent)))
     val updatedTeam =
       for {
         id <- teamMemberAdded
         team <- teamsApi.byBusinessIdAndMemberId(teamMember.business_id, id.toInt)
       } yield team
+
     if(updatedTeam.nonEmpty) Right(updatedTeam.get)
     else Left("failed during database insertion or reading the newly created data")
   }
+
+  def getAllTeamMembers(businessId: Int): Seq[TeamMember] =
+    teamsApi.list(businessId)
 
 
 }
