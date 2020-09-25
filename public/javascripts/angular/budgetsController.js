@@ -144,3 +144,53 @@ function NewBreakdownModalController(BudgetFactory, $scope, templates) {
 
 }
 
+app.directive('deleteBreakdownItemModal',  [DeleteBreakdownListModalDirective]);
+function DeleteBreakdownListModalDirective() {
+    return{
+        template:  '<ng-include src="getDeleteBreakdownModalUrl()"/>',
+        scope: false,
+        bindToController: {
+            businessId: '=',
+            projectId: '=',
+            tasks: '='
+        },
+        controller: DeleteBreakdownItemModalController,
+        controllerAs: 'deleteBreakdownItemModalController'
+    }
+}
+
+app.controller('deleteBreakdownItemModalController', [DeleteBreakdownItemModalController]);
+function DeleteBreakdownItemModalController(BudgetFactory, $scope, templates) {
+    var deleteBreakdownItemModalController = this;
+    deleteBreakdownItemModalController.formData = {};
+    deleteBreakdownItemModalController.breakDownsLists = [];
+
+    $scope.getDeleteBreakdownModalUrl = function () {
+        return templates.deleteTaskListModal;
+    };
+
+    deleteBreakdownItemModalController.deleteBreakdownList = function () {
+        deleteBreakdownList(deleteBreakdownItemModalController.businessId, deleteBreakdownItemModalController.projectId, deleteBreakdownItemModalController.formData.taskToDelete.parent.id)
+    };
+
+    function deleteBreakdownList(businessId, projectId, breakDownListId) {
+        BudgetFactory.deleteBreakDownListBy(projectId, businessId, breakDownListId, function mySuccess() {
+            refresh(businessId, projectId);
+            alerts.autoCloseAlert('success-message', "Task deleted successfully!", "Nice!");
+        }, function myError() {
+            alerts.autoCloseAlert('success-message', 'Error updating task', 'Please try again!');
+        });
+    }
+
+    function refresh(businessId, projectId) {
+        newBreakdownModalController.formData = {};
+        list(businessId, projectId);
+    }
+
+    function list(businessId, projectId) {
+        BudgetFactory.allBreakdowns(businessId, projectId, function (response) {
+            console.log(response.data.data); deleteBreakdownItemModalController.breakDownsLists = response.data.data;
+            }, function (response) { console.log(response.statusText);
+        })
+    }
+}
