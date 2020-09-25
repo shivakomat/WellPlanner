@@ -1,0 +1,146 @@
+app.controller('budgetController', function(BudgetFactory) {
+    var budgetController = this;
+    budgetController.breakDownsLists = {};
+
+    budgetController.init = function (businessId, projectId) {
+        list(businessId, projectId);
+    };
+
+    function list(businessId, projectId) {
+        BudgetFactory.allBreakdowns(businessId, projectId, function (response) {
+                console.log(response.data.data); budgetController.breakDownsLists = response.data.data;
+            }, function (response) { console.log(response.statusText);
+        })
+    }
+});
+
+app.directive('newBudgetBreakdownListModal',  [NewBudgetBreakdownListModalDirective]);
+function NewBudgetBreakdownListModalDirective() {
+    return{
+        template:  '<ng-include src="getNewBudgetBreakdownListModalTemplateUrl()"/>',
+        scope: false,
+        bindToController: {
+            businessId: '=',
+            projectId: '=',
+            tasks: '='
+        },
+        controller: NewBudgetBreakdownListModalController,
+        controllerAs: 'newBudgetBreakdownListModalController'
+
+    }
+}
+
+app.controller('newBudgetBreakdownListModalController', [NewBudgetBreakdownListModalController]);
+function NewBudgetBreakdownListModalController(BudgetFactory, $scope, templates) {
+    var newBudgetBreakdownListModalController = this;
+
+    newBudgetBreakdownListModalController.formData = {};
+
+    $scope.getNewBudgetBreakdownListModalTemplateUrl = function () {
+        return templates.newBudgetBreakdownListModal;
+    };
+
+
+    newBudgetBreakdownListModalController.createNewTaskList = function () {
+        newBreakdownList()
+    };
+
+    function newBreakdownList() {
+        var breakdownList = {};
+        breakdownList = newBudgetBreakdownListModalController.formData;
+        breakdownList.business_id = newBudgetBreakdownListModalController.businessId;
+        breakdownList.project_id = newBudgetBreakdownListModalController.projectId;
+        // breakdownList.parent_task_id = null;
+        // breakdownList.is_category = true;
+        // breakdownList.description = "";
+        // breakdownList.notes = "";
+        // breakdownList.is_completed = false;
+
+        BudgetFactory.addBreakDownList(breakdownList, function mySuccess() {
+            refresh(newBudgetBreakdownListModalController.businessId, newBudgetBreakdownListModalController.projectId);
+            alerts.autoCloseAlert('success-message', 'New list created!!', 'Nice start!');
+        }, function myError() {
+            alerts.autoCloseAlert('success-message', 'Sorry, unable to create a new list', 'Please try again!');
+        });
+    }
+
+    function refresh(businessId, projectId) {
+        list(businessId, projectId);
+        newBudgetBreakdownListModalController.formData = {};
+    }
+
+    function list(businessId, projectId) {
+        BudgetFactory.allBreakdowns(businessId, projectId, function (response) {
+            console.log(response.data.data); budgetController.breakDownsLists = response.data.data;
+        }, function (response) { console.log(response.statusText);
+        })
+    }
+
+}
+
+app.directive('newBreakDownModal',  [NewBreakDownModalDirective]);
+function NewBreakDownModalDirective() {
+    return{
+        template:  '<ng-include src="getNewBreakDownModalTemplateUrl()"/>',
+        scope: false,
+        bindToController: {
+            businessId: '=',
+            projectId: '=',
+            parent: '=',
+            currentSubTask: '=',
+            tasks: '='
+        },
+        controller: NewBreakdownModalController,
+        controllerAs: 'newBreakdownModalController'
+    }
+}
+
+app.controller('newBreakdownModalController', [NewBreakdownModalController]);
+function NewBreakdownModalController(BudgetFactory, $scope, templates) {
+    var newBreakdownModalController = this;
+
+    newBreakdownModalController.formData = {};
+
+    $scope.getNewSubTaskModalTemplateUrl = function () {
+        return templates.newSubTaskModal;
+    };
+
+
+    newBreakdownModalController.createNewBreakdownItem = function () {
+        newBreakdownItem()
+    };
+
+    function newBreakdownItem() {
+        var breakdownItem = {};
+
+        breakdownItem = newBreakdownModalController.formData;
+        breakdownItem.business_id = newBreakdownModalController.businessId;
+        breakdownItem.project_id = newBreakdownModalController.projectId;
+        // breakdownItem.parent_task_id = newBreakdownModalController.parent.id;
+        // breakdownItem.is_category = false;
+        // breakdownItem.title = "";
+        // breakdownItem.notes = "";
+        // breakdownItem.is_completed = false;
+
+        BudgetFactory.addBreakDownList(breakdownItem, function mySuccess() {
+            refresh(newBreakdownModalController.businessId, newBreakdownModalController.projectId);
+            alerts.autoCloseAlert('success-message', 'New task created!!', 'Good job!');
+        }, function myError() {
+            alerts.autoCloseAlert('success-message', 'Sorry, unable to create task', 'Please try again!');
+        });
+    }
+
+    function refresh(businessId, projectId) {
+        newBreakdownModalController.formData = {};
+        list(businessId, projectId);
+    }
+
+    function list(businessId, projectId) {
+        BudgetFactory.allBreakdowns(businessId, projectId, function (response) {
+            console.log(response.data.data); budgetController.breakDownsLists = response.data.data;
+        }, function (response) { console.log(response.statusText);
+        })
+    }
+
+}
+
