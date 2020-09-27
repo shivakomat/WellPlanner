@@ -21,7 +21,7 @@ class BudgetingDbApi @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
 
   def allBudgetBreakdowns(): Seq[BudgetBreakdowns] =
     db.withConnection { implicit connection =>
-      SQL("select * from budget_breakdowns").as(budgetBreakDownParser.*)
+      SQL("select * from  budget_breakdowns").as(budgetBreakDownParser.*)
     }
 
   def byBudgetBreakDownId(id : Long): Option[BudgetBreakdowns] =

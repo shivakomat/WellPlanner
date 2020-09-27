@@ -3,9 +3,11 @@
 @projectMain("Project Budget","budget", "Project Budget", projectId, businessId) {
     <!-- Main Content -->
 
-    <div class="content"  data-ng-controller="budgetController as controller">
+    <div class="content"  data-ng-controller="budgetController as controller" data-ng-init="controller.init(@businessId, @projectId)">
 
 @*        <delete-break-down-list></delete-break-down-list>*@
+        <!-- Modals -->
+        <data-new-budget-breakdown-list-modal data-business-id="@businessId" data-project-id="@projectId" data-breakdown-list="controller.breakDownsLists"></data-new-budget-breakdown-list-modal>
 
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
@@ -114,6 +116,7 @@
             </div>
         </div>
         <div class="row">
+
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
@@ -128,10 +131,10 @@
 @*                            <div class="mt-lg-3">*@
 @*                                <div><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#createList">ADD NEW CATEGORY</button></div>*@
 @*                            </div>*@
-                            <div class="mt-lg-3 card card-plain">
+                            <div class="mt-lg-3 card card-plain" data-ng-repeat="breakDownList in controller.breakDownsLists">
                                 <div class="card-header" role="tab" id="headingOne">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        <h7><b>Wedding Planner</b></h7>
+                                        <h7><b>{{breakDownList.breakDown.title | uppercase}}</b></h7>
                                         <i class="nc-icon nc-minimal-down"></i>
                                     </a>
                                 </div>
@@ -165,75 +168,75 @@
                                                         </th>
                                                     </tr></thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td class="text-center">
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" checked="">
-                                                                    <span class="form-check-sign"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td contenteditable='true' class="text-left">
-                                                            Coordination Fees
-                                                        </td>
-                                                        <td contenteditable='true' class="text-center">
-                                                            $ 7,000.00
-                                                        </td>
-                                                        <td contenteditable='true' class="text-center">
-                                                            -
-                                                        </td>
-                                                        <td class="text-center text-danger">
-                                                            <b>($1)</b>
-                                                        </td>
-                                                        <td contenteditable='true' class="text-center">
-                                                            -
-                                                        </td>
-                                                        <td class="text-center">
-                                                            -
-                                                        </td>
-                                                        <td class="text-center">
+@*                                                    <tr>*@
+@*                                                        <td class="text-center">*@
+@*                                                            <div class="form-check">*@
+@*                                                                <label class="form-check-label">*@
+@*                                                                    <input class="form-check-input" type="checkbox" checked="">*@
+@*                                                                    <span class="form-check-sign"></span>*@
+@*                                                                </label>*@
+@*                                                            </div>*@
+@*                                                        </td>*@
+@*                                                        <td contenteditable='true' class="text-left">*@
+@*                                                            Coordination Fees*@
+@*                                                        </td>*@
+@*                                                        <td contenteditable='true' class="text-center">*@
+@*                                                            $ 7,000.00*@
+@*                                                        </td>*@
+@*                                                        <td contenteditable='true' class="text-center">*@
+@*                                                            -*@
+@*                                                        </td>*@
+@*                                                        <td class="text-center text-danger">*@
+@*                                                            <b>($1)</b>*@
+@*                                                        </td>*@
+@*                                                        <td contenteditable='true' class="text-center">*@
+@*                                                            -*@
+@*                                                        </td>*@
+@*                                                        <td class="text-center">*@
+@*                                                            -*@
+@*                                                        </td>*@
+@*                                                        <td class="text-center">*@
 @*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remainders">*@
 @*                                                                <i class="nc-icon nc-time-alarm"></i>*@
 @*                                                            </button>*@
 @*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Payments">*@
 @*                                                                <i class="nc-icon nc-calendar-60"></i>*@
 @*                                                            </button>*@
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit">
-                                                                <i class="nc-icon nc-ruler-pencil"></i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
-                                                                <i class="nc-icon nc-simple-remove"></i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>
+@*                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit">*@
+@*                                                                <i class="nc-icon nc-ruler-pencil"></i>*@
+@*                                                            </button>*@
+@*                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">*@
+@*                                                                <i class="nc-icon nc-simple-remove"></i>*@
+@*                                                            </button>*@
+@*                                                        </td>*@
+@*                                                    </tr>*@
 
-                                                        <!-- Totals -->
-                                                    <tr>
-                                                        <td class="text-center">
-                                                        </td>
-                                                        <td class="text-right">
-                                                            <i class="nc-icon nc-money-coins"></i>
-                                                        </td>
-                                                        <td class="text-center">
-                                                            <h6>$ 7,000.00</h6>
-                                                        </td>
-                                                        <td  class="text-left">
+@*                                                        <!-- Totals -->*@
+@*                                                    <tr>*@
+@*                                                        <td class="text-center">*@
+@*                                                        </td>*@
+@*                                                        <td class="text-right">*@
+@*                                                            <i class="nc-icon nc-money-coins"></i>*@
+@*                                                        </td>*@
+@*                                                        <td class="text-center">*@
+@*                                                            <h6>$ 7,000.00</h6>*@
+@*                                                        </td>*@
+@*                                                        <td  class="text-left">*@
 
-                                                        </td>
-                                                        <td class="text-left">
+@*                                                        </td>*@
+@*                                                        <td class="text-left">*@
 
-                                                        </td>
-                                                        <td class="text-center">
+@*                                                        </td>*@
+@*                                                        <td class="text-center">*@
 
-                                                        </td>
-                                                        <td class="text-center">
+@*                                                        </td>*@
+@*                                                        <td class="text-center">*@
 
-                                                        </td>
-                                                        <td class="text-center">
-                                                            - -
-                                                        </td>
-                                                    </tr>
+@*                                                        </td>*@
+@*                                                        <td class="text-center">*@
+@*                                                            - -*@
+@*                                                        </td>*@
+@*                                                    </tr>*@
                                                 </tbody>
                                             </table>
                                         </div>

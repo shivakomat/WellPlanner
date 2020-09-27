@@ -12,13 +12,15 @@ class ProjectBudgetingAPI(dbApi: DBApi, ws: WSClient) {
 
   def budgetBreakdownsByProject(projectId: Long, businessId: Long): Seq[BudgetBreakdownList] = {
     val list = breakDownsDb.allBudgetBreakdowns()
-    list
-      .groupBy(e => e.parent_budget_id)
-      .flatMap(b => {
-        if(b._1.get > 0) Some(BudgetBreakdownList(breakDown = list.find(e => e.id.get == b._1.get).get, subBreakDowns = b._2))
-        else None
-      })
-      .toSeq
+
+    val mapOfParentBudgetWithBreakdowns = list.groupBy(e => e.parent_budget_id)
+    val parentBudgetBreakdowns = mapOfParentBudgetWithBreakdowns.get(None)
+
+    if(parentBudgetBreakdowns.nonEmpty)
+        parentBudgetBreakdowns.get.map(parentBudget => BudgetBreakdownList(breakDown = parentBudget, subBreakDowns = mapOfParentBudgetWithBreakdowns.getOrElse(parentBudget.id, Seq.empty[BudgetBreakdowns])))
+    else {
+        Seq.empty[BudgetBreakdownList]
+    }
   }
 
   def addNewBreakDown(breakDown: BudgetBreakdowns): Either[String, BudgetBreakdowns] = {

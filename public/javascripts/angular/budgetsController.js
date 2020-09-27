@@ -22,7 +22,7 @@ function NewBudgetBreakdownListModalDirective() {
         bindToController: {
             businessId: '=',
             projectId: '=',
-            tasks: '='
+            breakdownList: '='
         },
         controller: NewBudgetBreakdownListModalController,
         controllerAs: 'newBudgetBreakdownListModalController'
@@ -40,8 +40,7 @@ function NewBudgetBreakdownListModalController(BudgetFactory, $scope, templates)
         return templates.newBudgetBreakdownListModal;
     };
 
-
-    newBudgetBreakdownListModalController.createNewTaskList = function () {
+    newBudgetBreakdownListModalController.createBreakdownList = function () {
         newBreakdownList()
     };
 
@@ -50,11 +49,10 @@ function NewBudgetBreakdownListModalController(BudgetFactory, $scope, templates)
         breakdownList = newBudgetBreakdownListModalController.formData;
         breakdownList.business_id = newBudgetBreakdownListModalController.businessId;
         breakdownList.project_id = newBudgetBreakdownListModalController.projectId;
-        // breakdownList.parent_task_id = null;
-        // breakdownList.is_category = true;
-        // breakdownList.description = "";
-        // breakdownList.notes = "";
-        // breakdownList.is_completed = false;
+        breakdownList.is_budget_header = true;
+        breakdownList.estimate = 0;
+        breakdownList.actual = 0;
+        breakdownList.parent_budget_id = null;
 
         BudgetFactory.addBreakDownList(breakdownList, function mySuccess() {
             refresh(newBudgetBreakdownListModalController.businessId, newBudgetBreakdownListModalController.projectId);
@@ -71,7 +69,7 @@ function NewBudgetBreakdownListModalController(BudgetFactory, $scope, templates)
 
     function list(businessId, projectId) {
         BudgetFactory.allBreakdowns(businessId, projectId, function (response) {
-            console.log(response.data.data); budgetController.breakDownsLists = response.data.data;
+            console.log(response.data.data); newBudgetBreakdownListModalController.breakdownList = response.data.data;
         }, function (response) { console.log(response.statusText);
         })
     }
@@ -116,11 +114,6 @@ function NewBreakdownModalController(BudgetFactory, $scope, templates) {
         breakdownItem = newBreakdownModalController.formData;
         breakdownItem.business_id = newBreakdownModalController.businessId;
         breakdownItem.project_id = newBreakdownModalController.projectId;
-        // breakdownItem.parent_task_id = newBreakdownModalController.parent.id;
-        // breakdownItem.is_category = false;
-        // breakdownItem.title = "";
-        // breakdownItem.notes = "";
-        // breakdownItem.is_completed = false;
 
         BudgetFactory.addBreakDownList(breakdownItem, function mySuccess() {
             refresh(newBreakdownModalController.businessId, newBreakdownModalController.projectId);
