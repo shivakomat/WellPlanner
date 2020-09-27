@@ -1,27 +1,27 @@
-<div class="modal fade" id="newTask" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="newBreakdownItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h5 class="modal-title" id="exampleModalLabel">Create Task</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Add Item To Breakdown</h5>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="description">Description</label>
-                        <input id="description" type="text" class="form-control">
+                        <label for="itemName">Item Description</label>
+                        <input id="itemName" type="text" class="form-control" data-ng-model="newBreakdownModalController.formData.title">
                     </div>
                     <div class="form-group">
-                        <label for="dueDate">Due Date</label>
-                        <input id="dueDate" type="text" class="form-control datetimepicker" value="10/05/2018">
+                        <label for="estimatedAmount">Estimated Amount</label>
+                        <input id="estimatedAmount" type="number" class="form-control" data-ng-model="newBreakdownModalController.formData.estimate">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">ADD</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="newBreakdownModalController.createNewBreakdownItem()">Add Item</button>
             </div>
         </div>
     </div>

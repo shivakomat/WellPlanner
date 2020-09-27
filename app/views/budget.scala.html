@@ -5,9 +5,12 @@
 
     <div class="content"  data-ng-controller="budgetController as controller" data-ng-init="controller.init(@businessId, @projectId)">
 
-@*        <delete-break-down-list></delete-break-down-list>*@
         <!-- Modals -->
+
         <data-new-budget-breakdown-list-modal data-business-id="@businessId" data-project-id="@projectId" data-breakdown-list="controller.breakDownsLists"></data-new-budget-breakdown-list-modal>
+
+        <data-new-breakdown-modal data-business-id="@businessId" data-parent="controller.currentParentBreakdown" data-project-id="@projectId" data-breakdown-list="controller.breakDownsLists"></data-new-breakdown-modal>
+
 
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
@@ -46,8 +49,8 @@
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">$ 13,540.00</p>
-                                    <p class="card-title">$ 14,300.00</p>
+                                    <p class="card-category">{{controller.breakDownsLists.overallEstimate | currency}}</p>
+                                    <p class="card-title">{{controller.breakDownsLists.overallActual | currency}}</p>
                                     <p></p>
                                 </div>
                             </div>
@@ -68,14 +71,40 @@
                         <div class="row">
                             <div class="col-5 col-md-4">
                                 <div class="icon-big text-center icon-warning">
+                                    <i class="nc-icon nc-alert-circle-i text-info"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 col-md-8">
+                                <div class="numbers">
+                                    <p class="card-category"></p>
+                                    <p class="card-title" data-ng-if="controller.breakDownsLists.overallActual <= 0"> - -</p>
+                                    <p class="card-title" data-ng-if="controller.breakDownsLists.overallActual > 0">{{controller.breakDownsLists.overallActual - controller.breakDownsLists.overallEstimate | currency}}
+                                <p></p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer ">
+                        <hr>
+                        <div class="stats">
+                            Total Savings
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-5 col-md-4">
+                                <div class="icon-big text-center icon-warning">
                                     <i class="nc-icon nc-bank text-danger"></i>
                                 </div>
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">$ 5,000.00</p>
-                                    <p class="card-title">$ 7,000.00
-                                    </p><p>
+                                    <p class="card-category">- -</p>
+                                    <p class="card-title">- -</p><p>
                                 </p></div>
                             </div>
                         </div>
@@ -88,32 +117,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="card card-stats">
-                    <div class="card-body ">
-                        <div class="row">
-                            <div class="col-5 col-md-4">
-                                <div class="icon-big text-center icon-warning">
-                                    <i class="nc-icon nc-alert-circle-i text-info"></i>
-                                </div>
-                            </div>
-                            <div class="col-7 col-md-8">
-                                <div class="numbers">
-                                    <p class="card-category"></p>
-                                    <p class="card-title">$ 3,950.00
-                                    </p><p>
-                                </p></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-footer ">
-                        <hr>
-                        <div class="stats">
-                            Total Savings
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
         <div class="row">
 
@@ -133,12 +137,12 @@
 @*                            </div>*@
                             <div class="mt-lg-3 card card-plain" data-ng-repeat="breakDownList in controller.breakDownsLists">
                                 <div class="card-header" role="tab" id="headingOne">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="{{ '#collapse_' + breakDownList.breakDown.id}}" aria-expanded="true" aria-controls="collapseOne">
                                         <h7><b>{{breakDownList.breakDown.title | uppercase}}</b></h7>
                                         <i class="nc-icon nc-minimal-down"></i>
                                     </a>
                                 </div>
-                                <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                                <div id="{{ 'collapse_' + breakDownList.breakDown.id}}" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                                     <div class="card-body">
                                         <div class="table-responsive">
                                             <table class="table table-striped">
@@ -149,99 +153,103 @@
                                                         <th class="text-left text-warning">
                                                         </th>
                                                         <th class="text-center text-warning">
-                                                            Estimate
+                                                            Estimated
                                                         </th>
                                                         <th class="text-center text-warning">
                                                             Actual
                                                         </th>
                                                         <th class="text-center text-warning">
-                                                            Difference
+                                                            Savings
                                                         </th>
                                                         <th class="text-center text-warning">
-                                                            Paid
+                                                            Amount Paid
                                                         </th>
                                                         <th class="text-center text-warning">
-                                                            Due
+                                                            Balance
                                                         </th>
                                                         <th class="text-center text-warning">
                                                             Actions
                                                         </th>
                                                     </tr></thead>
                                                 <tbody>
-@*                                                    <tr>*@
-@*                                                        <td class="text-center">*@
+                                                    <tr data-ng-repeat="breakdownItem in breakDownList.subBreakDowns">
+                                                        <td class="text-center">
 @*                                                            <div class="form-check">*@
 @*                                                                <label class="form-check-label">*@
 @*                                                                    <input class="form-check-input" type="checkbox" checked="">*@
 @*                                                                    <span class="form-check-sign"></span>*@
 @*                                                                </label>*@
 @*                                                            </div>*@
-@*                                                        </td>*@
-@*                                                        <td contenteditable='true' class="text-left">*@
-@*                                                            Coordination Fees*@
-@*                                                        </td>*@
-@*                                                        <td contenteditable='true' class="text-center">*@
-@*                                                            $ 7,000.00*@
-@*                                                        </td>*@
-@*                                                        <td contenteditable='true' class="text-center">*@
-@*                                                            -*@
-@*                                                        </td>*@
-@*                                                        <td class="text-center text-danger">*@
-@*                                                            <b>($1)</b>*@
-@*                                                        </td>*@
-@*                                                        <td contenteditable='true' class="text-center">*@
-@*                                                            -*@
-@*                                                        </td>*@
-@*                                                        <td class="text-center">*@
-@*                                                            -*@
-@*                                                        </td>*@
-@*                                                        <td class="text-center">*@
-@*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remainders">*@
-@*                                                                <i class="nc-icon nc-time-alarm"></i>*@
-@*                                                            </button>*@
-@*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Payments">*@
-@*                                                                <i class="nc-icon nc-calendar-60"></i>*@
-@*                                                            </button>*@
-@*                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit">*@
-@*                                                                <i class="nc-icon nc-ruler-pencil"></i>*@
-@*                                                            </button>*@
-@*                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">*@
-@*                                                                <i class="nc-icon nc-simple-remove"></i>*@
-@*                                                            </button>*@
-@*                                                        </td>*@
-@*                                                    </tr>*@
+                                                        </td>
+                                                        <td contenteditable='true' class="text-left">
+                                                            {{breakdownItem.title}}
+                                                        </td>
+                                                        <td contenteditable='true' class="text-center">
+                                                            {{breakdownItem.estimate | currency}}
+                                                        </td>
+                                                        <td contenteditable='true' class="text-center" data-ng-if="breakdownItem.actual <= 0">
+                                                            -
+                                                        </td>
+                                                        <td contenteditable='true' class="text-center" data-ng-if="breakdownItem.actual > 0">
+                                                            {{breakdownItem.actual | currency}}
+                                                        </td>
+                                                        <td class="text-center text-danger">
+                                                            <b data-ng-if="(breakdownItem.actual - breakdownItem.estimate) <= 0">-</b>
+                                                            <b data-ng-if="(breakdownItem.actual - breakdownItem.estimate) > 0">{{(breakdownItem.actual - breakdownItem.estimate) | currency}}</b>
+                                                        </td>
+                                                        <td contenteditable='true' class="text-center">
+                                                            -
+                                                        </td>
+                                                        <td class="text-center">
+                                                            -
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remainders">
+                                                                <i class="nc-icon nc-time-alarm"></i>
+                                                            </button>
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Payments">
+                                                                <i class="nc-icon nc-calendar-60"></i>
+                                                            </button>
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit">
+                                                                <i class="nc-icon nc-ruler-pencil"></i>
+                                                            </button>
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
+                                                                <i class="nc-icon nc-simple-remove"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
 
-@*                                                        <!-- Totals -->*@
-@*                                                    <tr>*@
-@*                                                        <td class="text-center">*@
-@*                                                        </td>*@
-@*                                                        <td class="text-right">*@
-@*                                                            <i class="nc-icon nc-money-coins"></i>*@
-@*                                                        </td>*@
-@*                                                        <td class="text-center">*@
-@*                                                            <h6>$ 7,000.00</h6>*@
-@*                                                        </td>*@
-@*                                                        <td  class="text-left">*@
+                                                        <!-- Totals -->
+                                                    <tr>
+                                                        <td class="text-center">
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <i class="nc-icon nc-money-coins"></i>
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <h6>{{breakDownList.totalEstimate | currency}}</h6>
+                                                        </td>
+                                                        <td  class="text-left">
 
-@*                                                        </td>*@
-@*                                                        <td class="text-left">*@
+                                                        </td>
+                                                        <td class="text-left">
 
-@*                                                        </td>*@
-@*                                                        <td class="text-center">*@
+                                                        </td>
+                                                        <td class="text-center">
 
-@*                                                        </td>*@
-@*                                                        <td class="text-center">*@
+                                                        </td>
+                                                        <td class="text-center">
 
-@*                                                        </td>*@
-@*                                                        <td class="text-center">*@
-@*                                                            - -*@
-@*                                                        </td>*@
-@*                                                    </tr>*@
+                                                        </td>
+                                                        <td class="text-center">
+                                                            - -
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                         <div>
-                                            <button type="button" class="btn btn-default btn-round btn-icon btn-icon-mini btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newTask" data-original-title="New Item">
+                                            <button type="button" class="btn btn-default btn-round btn-icon btn-icon-mini btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newBreakdownItem" data-original-title="New Item" data-ng-click="controller.newBreakdownItem(breakDownList.breakDown)">
                                                 <i class="nc-icon nc-simple-add"></i>
                                             </button>
                                         </div>
