@@ -1,14 +1,26 @@
-app.controller('budgetController', function(BudgetFactory) {
+app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
     var budgetController = this;
     budgetController.breakDownsLists = {};
+    budgetController.projectInfo = {};
 
     budgetController.init = function (businessId, projectId) {
         list(businessId, projectId);
+        setProjectInfo(projectId, businessId);
+
     };
 
     budgetController.newBreakdownItem = function (parent) {
         budgetController.currentParentBreakdown = parent;
     };
+
+    function setProjectInfo(projectId, businessId) {
+        ProjectsFactory.getProject(projectId, businessId, function mySuccess (response) {
+            budgetController.projectInfo = response.data.data;
+        }, function myError (response) {
+            console.log(response.statusText);
+            budgetController.projectInfo = {};
+        });
+    }
 
     function setTotalEstimateAndActual() {
         var p;
@@ -32,6 +44,7 @@ app.controller('budgetController', function(BudgetFactory) {
         budgetController.breakDownsLists.overallActual = overallActual;
 
     }
+
 
     function list(businessId, projectId) {
         BudgetFactory.allBreakdowns(businessId, projectId, function (response) {

@@ -12,6 +12,8 @@ trait ProjectsApi {
   def allByBusiness(businessId: Int): Seq[Project]
 
   def deleteProjectById(projectId: Int, businessId: Int): Seq[Project]
+
+  def getProjectById(projectId: Int, businessId: Int): Option[Project]
 }
 
 
@@ -22,6 +24,10 @@ class ProjectsFacade(dbApi: DBApi) extends ProjectsApi {
   def allByBusiness(businessId: Int): Seq[Project] =
     projectsDB.list().filter(_.business_id == businessId)
 
+
+  def getProjectById(projectId: Int, businessId: Int): Option[Project] = {
+    projectsDB.byId(projectId, businessId)
+  }
 
   override def addNewWeddingEventProject(weddingProject: NewWeddingProjectMessage): Either[String, Long] = {
     val eventType = "WEDDING"

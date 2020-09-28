@@ -11,10 +11,14 @@ app.factory('ProjectsFactory', function ProjectsFactory ($http) {
         $http({method: 'DELETE', url: '/businesses/' + businessId + '/projects/' + projectId}).then(successFunction, errorFunction);
     };
 
+    var getProject = function (projectId, businessId, successFunction, errorFunction) {
+        $http({method: 'GET', url: '/businesses/' + businessId + '/projects/' + projectId + '/info'}).then(successFunction, errorFunction)
+    };
 
     return {
         getAllProjects: getAllProjects,
         addProject: addProject,
-        deleteProjectBy: deleteProjectBy
+        deleteProjectBy: deleteProjectBy,
+        getProject: getProject
     }
 });

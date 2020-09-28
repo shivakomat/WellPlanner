@@ -28,6 +28,14 @@ class ProjectsDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) 
     }
   }
 
+  def byId(projectId: Int, businessId: Int): Option[Project] =
+    db.withConnection { implicit connection =>
+      SQL(s"select * from projects where id = {id} and business_id = {businessId}")
+        .on("id" -> businessId, "businessId" -> businessId)
+        .as(parser.singleOpt)
+    }
+
+
   def list(): Seq[Project] =
     db.withConnection { implicit connection =>
       SQL("select * from projects").as(parser.*)

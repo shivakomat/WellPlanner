@@ -8,7 +8,7 @@ trait ProjectsDbAPI {
 
   def list(): Seq[Project]
 
-//  def listByBusinessId(businessId:Long): Seq[Project]
+  def byId(projectId: Int, businessId: Int): Option[Project]
 
   def deleteByProjectIdAndBusinessId(projectId: Int, businessId: Int): Int
 

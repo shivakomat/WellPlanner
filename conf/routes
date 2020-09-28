@@ -74,6 +74,8 @@ POST   /businesses/vendors/update                       controllers.VendorContac
 DELETE /businesses/:businessId/vendors/:vendorId        controllers.VendorContactsController.deleteVendorById(vendorId: Int, businessId : Int)
 
 ###### Project Tasks
+GET /businesses/:businessId/projects/:projectId/info                                                 controllers.ProjectsController.getProjectById(projectId: Int, businessId: Int)
+
 GET /businesses/:businessId/projects/:projectId/tasks                                           controllers.TasksController.tasks(businessId: Int, projectId: Int)
 +nocsrf
 POST /businesses/projects/tasks                                                                 controllers.TasksController.addNewTasks
