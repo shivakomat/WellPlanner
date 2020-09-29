@@ -13,6 +13,15 @@ app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
         budgetController.currentParentBreakdown = parent;
     };
 
+    budgetController.deleteBreakdownItem = function (breakdownItem) {
+        BudgetFactory.deleteBreakDown(breakdownItem.project_id, breakdownItem.business_id, breakdownItem.id, function mySuccess() {
+            budgetController.init(breakdownItem.project_id, breakdownItem.business_id);
+            alerts.autoCloseAlert('success-message', 'Breakdown Item Deleted!!', '');
+        }, function myError() {
+            alerts.autoCloseAlert('title-and-text', 'Error deleting item', 'Please try again!');
+        })
+    };
+
     function setProjectInfo(projectId, businessId) {
         ProjectsFactory.getProject(projectId, businessId, function mySuccess (response) {
             budgetController.projectInfo = response.data.data;
@@ -249,3 +258,24 @@ function DeleteBreakdownItemModalController(BudgetFactory, $scope, templates) {
         })
     }
 }
+
+
+app.directive('capitalization', function () {
+    return {
+        require: 'ngModel',
+        link: function (scope, element, attrs, modelCtrl) {
+
+            modelCtrl.$parsers.push(function (inputValue) {
+
+                var transformedInput = (!!inputValue) ? inputValue.charAt(0).toUpperCase() + inputValue.substr(1).toLowerCase() : '';
+
+                if (transformedInput != inputValue) {
+                    modelCtrl.$setViewValue(transformedInput);
+                    modelCtrl.$render();
+                }
+
+                return transformedInput;
+            });
+        }
+    }
+});

@@ -7,8 +7,8 @@ app.factory('BudgetFactory', function TasksFactory ($http) {
         $http({method: 'POST', url: '/businesses/projects/budget-breakdowns', data: breakDownList}).then(successFunction, errorFunction);
     };
 
-    var deleteBreakDownListBy = function (projectId, businessId, breakDownListId, successFunction, errorFunction) {
-        $http({method: 'DELETE', url: '/businesses/' + businessId + '/projects/' + projectId + '/budget-breakdowns/' + breakDownListId}).then(successFunction, errorFunction);
+    var deleteBreakDown = function (projectId, businessId, breakdownId, successFunction, errorFunction) {
+        $http({method: 'DELETE', url: '/businesses/' + businessId + '/projects/' + projectId + '/budget-breakdowns/' + breakdownId}).then(successFunction, errorFunction);
     };
 
     // var updateTaskBy = function (updatedTask, successFunction, errorFunction) {
@@ -18,7 +18,7 @@ app.factory('BudgetFactory', function TasksFactory ($http) {
     return {
         allBreakdowns: getAllBreakDowns,
         addBreakDownList: addBreakDownList,
-        deleteBreakDownListBy: deleteBreakDownListBy
+        deleteBreakDown: deleteBreakDown
         // updateTaskBy: updateTaskBy
     }
 });
