@@ -11,7 +11,7 @@ class ProjectBudgetingAPI(dbApi: DBApi, ws: WSClient) {
   private val breakDownsDb = new BudgetingDbApi(dbApi)
 
   def budgetBreakdownsByProject(projectId: Long, businessId: Long): Seq[BudgetBreakdownList] = {
-    val list = breakDownsDb.allBudgetBreakdowns()
+    val list = breakDownsDb.allBudgetBreakdowns().filter(bd => bd.business_id == businessId && bd.project_id == projectId)
 
     val mapOfParentBudgetWithBreakdowns = list.groupBy(e => e.parent_budget_id)
     val parentBudgetBreakdowns = mapOfParentBudgetWithBreakdowns.get(None)
@@ -37,7 +37,6 @@ class ProjectBudgetingAPI(dbApi: DBApi, ws: WSClient) {
        case None => Left("failed during database insertion or reading the newly created data")
      }
   }
-
 
   def deleteBreakDown(id: Long, projectId: Long, businessId: Long): Seq[BudgetBreakdownList] = {
     val rowsDeleted = breakDownsDb.deleteBudgetBreakDown(id, projectId, businessId)

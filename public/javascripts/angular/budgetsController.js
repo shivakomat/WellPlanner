@@ -6,7 +6,6 @@ app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
     budgetController.init = function (businessId, projectId) {
         list(businessId, projectId);
         setProjectInfo(projectId, businessId);
-
     };
 
     budgetController.newBreakdownItem = function (parent) {
