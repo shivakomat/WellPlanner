@@ -163,8 +163,6 @@ function EditSubTaskModalDirective() {
 app.controller('editTaskModalController', [EditTaskModalController]);
 function EditTaskModalController(TasksFactory, $scope, templates) {
     var editTaskModalController = this;
-    console.log("Inside edit task controller");
-    console.log(editTaskModalController.parentTask);
 
     $scope.getEditSubTaskModalTemplateUrl = function () {
         return templates.editTaskModal;
