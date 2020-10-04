@@ -8,5 +8,7 @@ trait TeamsDbApi {
   def list(businessId: Int): Seq[TeamMember]
 
   def byBusinessIdAndMemberId(businessId: Int, memberId: Int): Option[TeamMember]
+
+  def updateTeamMemberBy(updatedTeamMember: TeamMember): Int
 }
 

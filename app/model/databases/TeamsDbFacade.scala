@@ -37,5 +37,15 @@ class TeamsDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) wit
         .on("business_id" -> businessId, "member_id" -> memberId)
         .as(parser.singleOpt)
     }
+
+  override def updateTeamMemberBy(updatedTeamMember: TeamMember): Int =
+    db.withConnection { implicit connection =>
+      SQL("update teams set member_name = {member_name}, email = {email}, modified_date = {modified_date}" +
+          " where id = {member_id} and business_id = {business_id}")
+        .on("member_name" -> updatedTeamMember.member_name, "email" -> updatedTeamMember.email,
+            "modified_date" -> updatedTeamMember.modified_date, "business_id" -> updatedTeamMember.business_id,
+            "member_id" -> updatedTeamMember.id)
+        .executeUpdate()
+    }
 }
 

@@ -80,4 +80,14 @@ class BusinessesApi(dbApi: DBApi, ws: WSClient) {
     teamsApi.list(businessId)
 
 
+  def updateTeamMemberBy(updatedTeamMember: TeamMember): Either[String, TeamMember] = {
+    val updatedRows = teamsApi.updateTeamMemberBy(updatedTeamMember)
+    if(updatedRows == 1) {
+      val updatedMember = teamsApi.byBusinessIdAndMemberId(updatedTeamMember.business_id, updatedTeamMember.id.get)
+      Right(updatedMember.get)
+    } else
+      Left("Failed during database update or reading the updated team member info back from database")
+  }
+
+
 }

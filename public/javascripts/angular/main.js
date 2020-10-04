@@ -56,6 +56,7 @@ app.constant('templates', {
         editVendorContactModal: baseUrl + "/editVendorModal.html",
         newVendorContactModal: baseUrl + "/newVendorModal.html",
         newTeamMemberModal: baseUrl + "/newTeamMember.html",
+        editTeamMemberModal: baseUrl + "/editTeamMember.html",
         editClientModal: baseUrl + "/editClientModal.html",
         newClientModal: baseUrl + "/newClientModal.html",
         newBudgetBreakdownListModal: baseUrl + "/newBudgetBreakdownModal.html",

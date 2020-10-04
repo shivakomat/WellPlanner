@@ -7,6 +7,10 @@ app.factory('BusinessFactory', function BusinessFactory ($http) {
         $http({method: 'POST', url: '/businesses/updateInfo', data: updatedBusiness}).then(successFunction, errorFunction);
     };
 
+    var updateTeamMember = function (updatedTeamMember, successFunction, errorFunction) {
+        $http({method: 'POST', url: '/businesses/teamMembers', data: updatedTeamMember}).then(successFunction, errorFunction);
+    };
+
     var newTeamMemberToBusiness = function (newTeamMember, successFunction, errorFunction) {
         $http({method: 'POST', url: '/businesses/newTeamMember', data: newTeamMember}).then(successFunction, errorFunction);
     };
@@ -20,7 +24,8 @@ app.factory('BusinessFactory', function BusinessFactory ($http) {
         getBusiness: getBusiness,
         updateBusinessInfo: updateBusinessInfo,
         newTeamMemberToBusiness: newTeamMemberToBusiness,
-        getBusinessTeamMembers: getBusinessTeamMembers
+        getBusinessTeamMembers: getBusinessTeamMembers,
+        updateTeamMember: updateTeamMember
     }
 });
 

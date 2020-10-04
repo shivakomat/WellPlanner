@@ -8,6 +8,9 @@
         <!-- Add Team Member Modal -->
         <data-add-new-team-member data-team-members="controller.teamMembers" data-business-id=@businessId></data-add-new-team-member>
 
+        <!-- Edit Team Member Modal -->
+        <data-edit-team-member data-team-members="controller.teamMembers" data-current-team-member="controller.currentTeamMember" data-business-id=@businessId></data-edit-team-member>
+
         <div class="row">
 
             <div class="col-md-10 ml-auto mr-auto">
@@ -142,7 +145,7 @@
 @*                                            <button type="button" rel="tooltip" class="btn btn-sm btn-outline-success btn-round btn-icon " data-original-title="" title="">*@
 @*                                                <i class="fa fa-envelope"></i>*@
 @*                                            </button>*@
-                                            <button type="button" rel="tooltip" class="btn btn-warning btn-icon btn-sm " data-original-title="" title="">
+                                            <button type="button" rel="tooltip" class="btn btn-warning btn-icon btn-sm " data-original-title="" data-toggle="modal" data-target="#editTeamMember" title="" data-ng-click="controller.editMember(member)">
                                                 <i class="nc-icon nc-ruler-pencil"></i>
                                             </button>
                                             <button type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm " data-original-title="" title="">

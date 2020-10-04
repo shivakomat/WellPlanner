@@ -6,6 +6,10 @@ app.controller('settingsController', function(BusinessFactory) {
         getAllTeamMembers(businessId);
     };
 
+    settingsController.editMember = function (teamMember) {
+        settingsController.currentTeamMember = teamMember;
+        console.log(settingsController.currentTeamMember);
+    };
 
     function setBusinessInfo(businessId) {
         BusinessFactory.getBusiness(businessId, function mySuccess (response) {
@@ -26,16 +30,64 @@ app.controller('settingsController', function(BusinessFactory) {
     };
 
     function getAllTeamMembers(businessId) {
-        BusinessFactory.getBusinessTeamMembers(businessId, function mySuccess (response) {
-            settingsController.teamMembers  =  response.data.data;
-        }, function myError (response) {
+        BusinessFactory.getBusinessTeamMembers(businessId, function mySuccess(response) {
+            settingsController.teamMembers = response.data.data;
+        }, function myError(response) {
             console.log(response.statusText);
-            settingsController.teamMembers  =  {};
+            settingsController.teamMembers = {};
         });
-    };
+    }
 
 });
 
+app.directive('editTeamMember',  [EditTeamMemberDirective]);
+function EditTeamMemberDirective() {
+    return{
+        template:  '<ng-include src="getEditTeamMemberTemplateUrl()"/>',
+        scope: false,
+        bindToController: {
+            businessId: '=',
+            teamMembers: '=',
+            currentTeamMember: '='
+        },
+        controller: EditTeamMemberController,
+        controllerAs: 'editTeamMemberController'
+    }
+}
+
+app.controller('editTeamMemberController', [EditTeamMemberController]);
+function EditTeamMemberController(BusinessFactory, $scope, templates) {
+    var editTeamMemberController = this;
+
+    $scope.getEditTeamMemberTemplateUrl = function () {
+        return templates.editTeamMemberModal;
+    };
+
+    editTeamMemberController.updateMember = function () {
+        editTeamMemberController.currentTeamMember.business_id = editTeamMemberController.businessId;
+        var memberName = editTeamMemberController.currentTeamMember.member_name;
+        BusinessFactory.updateTeamMember(editTeamMemberController.currentTeamMember, function mySuccess (response) {
+            refresh(editTeamMemberController.currentTeamMember.business_id);
+            alerts.autoCloseAlert('success-message', "successfully updated member " + memberName, "Keep members upto date!!");
+        }, function myError (response) {
+            alerts.autoCloseAlert('success-message', 'Error creating the team member in the system', 'Please try again!');
+        });
+    };
+
+    function refresh(businessId) {
+        allMembers(businessId);
+        editTeamMemberController.formData = {};
+    }
+
+    function allMembers(businessId) {
+        BusinessFactory.getBusinessTeamMembers(businessId, function mySuccess (response) {
+            editTeamMemberController.teamMembers  =  response.data.data;
+        }, function myError (response) {
+            console.log(response.statusText);
+            editTeamMemberController.teamMembers  =  {};
+        });
+    }
+}
 
 app.directive('addNewTeamMember',  [AddNewTeamMemberDirective]);
 function AddNewTeamMemberDirective() {

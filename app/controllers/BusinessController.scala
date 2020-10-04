@@ -76,6 +76,24 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
     )
   }
 
+  def updateTeamMember(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+    println("Updating team info request accepted")
+
+    def updateOperation(newTeamMember: TeamMember): Future[Result] =
+      businessesApi.updateTeamMemberBy(newTeamMember) match {
+        case Right(data) =>
+          logForSuccess(Json.toJson(data).toString)
+          Future.successful(successResponse(CREATED, Json.toJson(data), Seq(s"Successfully updated team member ${data.id}")))
+        case Left(errorMsg) =>
+          Future.successful(errorResponse(FOUND, Seq(s"Error: $errorMsg")))
+      }
+
+    request.body.validate[TeamMember].fold(
+      errors => badRequest,
+      payload => updateOperation(payload)
+    )
+  }
+
   def addNewMemberToTeamByBusiness(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
     request.body.validate[TeamMember].fold(
       errors => badRequest,
