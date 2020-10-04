@@ -1,16 +1,16 @@
 @(title: String, projectId: Int, businessId: Int)
 
 @projectMain("Project Budget","budget", "Project Budget", projectId, businessId) {
-    <!-- Main Content -->
 
+    <!-- Main Content -->
     <div class="content"  data-ng-controller="budgetController as controller" data-ng-init="controller.init(@businessId, @projectId)">
 
         <!-- Modals -->
-
         <data-new-budget-breakdown-list-modal data-business-id="@businessId" data-project-id="@projectId" data-breakdown-list="controller.breakDownsLists"></data-new-budget-breakdown-list-modal>
 
         <data-new-breakdown-modal data-business-id="@businessId" data-parent="controller.currentParentBreakdown" data-project-id="@projectId" data-breakdown-list="controller.breakDownsLists"></data-new-breakdown-modal>
 
+        <data-edit-breakdown-modal data-business-id="@businessId" data-project-id="@projectId" data-current-breakdown-item="controller.currentBreakdown"></data-edit-breakdown-modal>
 
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
@@ -119,6 +119,7 @@
             </div>
 
         </div>
+
         <div class="row">
 
             <div class="col-md-12">
@@ -210,7 +211,7 @@
 @*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Payments">*@
 @*                                                                <i class="nc-icon nc-calendar-60"></i>*@
 @*                                                            </button>*@
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit">
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-target="#editBreakdownModal" data-original-title="edit" data-ng-click="controller.editBreakdownItem(breakdownItem)">
                                                                 <i class="nc-icon nc-ruler-pencil"></i>
                                                             </button>
                                                             <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove" data-ng-click="controller.deleteBreakdownItem(breakdownItem)">

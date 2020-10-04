@@ -25,6 +25,25 @@ class BudgetController @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WS
     Future.successful(errorResponse(BAD_REQUEST, Seq("Unable to recognize request")))
 
 
+  def updateBreakdownInfo(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+    println("Updating task request accepted")
+
+    def updateOperation(breakdown: BudgetBreakdowns): Future[Result] =
+      breakdownsApi.updateBudgetBreakdown(breakdown) match {
+        case Right(data) =>
+          logForSuccess(Json.toJson(data).toString)
+          Future.successful(successResponse(CREATED, Json.toJson(data), Seq(s"Successfully update breakdown item / list ${data.title}")))
+        case Left(errorMsg) =>
+          Future.successful(errorResponse(FOUND, Seq(s"Error: $errorMsg")))
+      }
+
+    request.body.validate[BudgetBreakdowns].fold(
+      errors => badRequest,
+      payload => updateOperation(payload)
+    )
+  }
+
+
   def addNew(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
     def create(newBreakDown: BudgetBreakdowns): Future[Result] = {
       breakdownsApi.addNewBreakDown(newBreakDown) match {

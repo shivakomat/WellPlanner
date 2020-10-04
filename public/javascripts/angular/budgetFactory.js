@@ -11,14 +11,14 @@ app.factory('BudgetFactory', function TasksFactory ($http) {
         $http({method: 'DELETE', url: '/businesses/' + businessId + '/projects/' + projectId + '/budget-breakdowns/' + breakdownId}).then(successFunction, errorFunction);
     };
 
-    // var updateTaskBy = function (updatedTask, successFunction, errorFunction) {
-    //     $http({method: 'POST', url: '/businesses/projects/tasks/update', data: updatedTask}).then(successFunction, errorFunction);
-    // };
+    var updateBreakdownItemBy = function (updatedBreakdown, successFunction, errorFunction) {
+        $http({method: 'POST', url: '/businesses/projects/breakdown/update', data: updatedBreakdown}).then(successFunction, errorFunction);
+    };
 
     return {
         allBreakdowns: getAllBreakDowns,
         addBreakDownList: addBreakDownList,
-        deleteBreakDown: deleteBreakDown
-        // updateTaskBy: updateTaskBy
+        deleteBreakDown: deleteBreakDown,
+        updateBreakdownItemBy: updateBreakdownItemBy
     }
 });

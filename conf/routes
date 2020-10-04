@@ -95,6 +95,9 @@ GET /businesses/:businessId/projects/:projectId/budget-breakdowns               
 POST /businesses/projects/budget-breakdowns                                                     controllers.BudgetController.addNew()
 
 +nocsrf
+POST /businesses/projects/budget-breakdowns/update                                              controllers.BudgetController.updateBreakdownInfo()
+
++nocsrf
 DELETE  /businesses/:businessId/projects/:projectId/budget-breakdowns/:breakdownId              controllers.BudgetController.deleteBudgetBreakdownById(breakdownId: Int, projectId: Int, businessId: Int)
 
 # # User Login system

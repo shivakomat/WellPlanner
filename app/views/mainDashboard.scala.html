@@ -3,117 +3,19 @@
 
 @main("Well Planner", "dashboard", "Main Dashboard", businessId) {
     <div class="content" data-ng-controller="dashboardController as controller" data-ng-init="controller.init(@businessId)">
-@*        <div class="header text-center">*@
-@*            <h1 class="text-danger" >{{controller.businessInfo.name}}</h1>*@
-@*        </div>*@
-@*        <div class="row">*@
-@*            <div class="col-lg-12 col-md-12 col-sm-12">*@
-@*                <div class="card card-stats">*@
-@*                    <div class="card-body ">*@
-@*                        <div class="row">*@
-@*                            <div class="col-5 col-md-4">*@
-@*                                <div class="icon-big text-center icon-warning">*@
-@*                                    <i class="nc-icon nc-tie-bow text-default"></i>*@
-@*                                </div>*@
-@*                            </div>*@
-@*                            <div class="col-7 col-md-8">*@
-@*                                <div class="numbers">*@
-@*                                    <p class="card-title">{{controller.totalProjects}}</p>*@
-@*                                    <p></p>*@
-@*                                </div>*@
-@*                            </div>*@
-@*                        </div>*@
-@*                    </div>*@
-@*                    <div class="card-footer ">*@
-@*                        <hr>*@
-@*                        <div class="stats">*@
-@*                            Total Projects*@
-@*                        </div>*@
-@*                    </div>*@
-@*                </div>*@
-@*            </div>*@
-@*        </div>*@
-@*        <div class="row">*@
-@*            <div class="col-lg-4 col-md-6 col-sm-6">*@
-@*                <div class="card card-stats">*@
-@*                    <div class="card-body ">*@
-@*                        <div class="row">*@
-@*                            <div class="col-5 col-md-4">*@
-@*                                <div class="icon-big text-center icon-warning">*@
-@*                                    <i class="nc-icon nc-tie-bow text-default"></i>*@
-@*                                </div>*@
-@*                            </div>*@
-@*                            <div class="col-7 col-md-8">*@
-@*                                <div class="numbers">*@
-@*                                    <p class="card-title">{{controller.totalProjects}}</p>*@
-@*                                    <p></p>*@
-@*                                </div>*@
-@*                            </div>*@
-@*                        </div>*@
-@*                    </div>*@
-@*                    <div class="card-footer ">*@
-@*                        <hr>*@
-@*                        <div class="stats">*@
-@*                            Total Projects*@
-@*                        </div>*@
-@*                    </div>*@
-@*                </div>*@
-@*            </div>*@
-@*            <div class="col-lg-4 col-md-6 col-sm-6">*@
-@*                <div class="card card-stats">*@
-@*                    <div class="card-body ">*@
-@*                        <div class="row">*@
-@*                            <div class="col-5 col-md-4">*@
-@*                                <div class="icon-big text-center icon-warning">*@
-@*                                    <i class="nc-icon nc-shop text-success"></i>*@
-@*                                </div>*@
-@*                            </div>*@
-@*                            <div class="col-7 col-md-8">*@
-@*                                <div class="numbers">*@
-@*                                    <p class="card-title">{{controller.totalVendors}}</p>*@
-@*                                    <p></p>*@
-@*                                </div>*@
-@*                            </div>*@
-@*                        </div>*@
-@*                    </div>*@
-@*                    <div class="card-footer ">*@
-@*                        <hr>*@
-@*                        <div class="stats">*@
-@*                            Total Vendor Contacts*@
-@*                        </div>*@
-@*                    </div>*@
-@*                </div>*@
-@*            </div>*@
 
-@*            <div class="col-lg-4 col-md-6 col-sm-6">*@
-@*                <div class="card card-stats">*@
-@*                    <div class="card-body ">*@
-@*                        <div class="row">*@
-@*                            <div class="col-5 col-md-4">*@
-@*                                <div class="icon-big text-center icon-warning">*@
-@*                                    <i class="nc-icon nc-circle-10 text-danger"></i>*@
-@*                                </div>*@
-@*                            </div>*@
-@*                            <div class="col-7 col-md-8">*@
-@*                                <div class="numbers">*@
-@*                                    <p class="card-title">{{controller.totalClients}}</p>*@
-@*                                    <p></p>*@
-@*                                </div>*@
-@*                            </div>*@
-@*                        </div>*@
-@*                    </div>*@
-@*                    <div class="card-footer ">*@
-@*                        <hr>*@
-@*                        <div class="stats">*@
-@*                            Total Clients*@
-@*                        </div>*@
-@*                    </div>*@
-@*                </div>*@
-@*                </div>*@
-@*            </div>*@
-@*        </div>*@
+        <!-- New Project Modal -->
+        <data-new-project-modal data-business-id=@businessId></data-new-project-modal>
+
+        <!-- New Client Modal -->
+        <data-new-client-modal data-business-id=@businessId></data-new-client-modal>
+
+        <!-- New Vendor Contact Modal -->
+        <data-new-vendor-modal data-business-id=@businessId></data-new-vendor-modal>
+
+
         <div class="row">
-            <div class="col-md-10 ml-auto mr-auto">
+            <div class="col-md-12 ml-auto mr-auto">
                 <div class="card card-user">
 @*                    <div class="image">*@
 @*                        <img src="@routes.Assets.versioned("template_assets/img/bg/damir-bosnjak.jpg")">*@
@@ -125,18 +27,78 @@
 @*                        <h6>{{ controller.clock  | date:'medium' }}</h6>*@
                     </div>
                     <div class="card-body">
-                        <div class="fileinput fileinput-new text-center" data-provides="fileinput">
-                            <div class="fileinput-new thumbnail">
-                                <img src="@routes.Assets.versioned("template_assets/img/image_placeholder.jpg")" alt="...">
+                        <div class="row">
+                            <div class="col-lg-3 mr-auto">
+                                <div class="fileinput fileinput-new text-left m-5" data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail">
+                                        <img src="@routes.Assets.versioned("template_assets/img/image_placeholder.jpg")" alt="...">
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail"></div>
+                                    <div>
+                                        <span class="btn btn-rose btn-round btn-file">
+                                            <span class="fileinput-new">Select image</span>
+                                            <span class="fileinput-exists">Change</span>
+                                            <input type="file" name="...">
+                                        </span>
+                                        <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="fileinput-preview fileinput-exists thumbnail"></div>
-                            <div>
-                                <span class="btn btn-rose btn-round btn-file">
-                                    <span class="fileinput-new">Select image</span>
-                                    <span class="fileinput-exists">Change</span>
-                                    <input type="file" name="...">
-                                </span>
-                                <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                            <div class="col-lg-3 mr-auto">
+                                <table class="table table-borderless">
+                                    <thead class="">
+                                        <tr>
+                                            <th class="text-left">
+                                                <h5 class="text-danger"><u>Quick Links</u></h5>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th class="text-left">
+                                                <h6><a data-toggle="modal" href="#newProject" class="text-warning">New Project</a></h6>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-left">
+                                                <h6><a data-toggle="modal" href="#newClient" class="text-warning">New Client</a></h6>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-left">
+                                                <h6><a data-toggle="modal" href="#newVendor" class="text-warning">New Vendor</a></h6>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-lg-4">
+                                <table class="table table-borderless">
+                                    <thead class="">
+                                        <tr>
+                                            <th class="text-left">
+                                                <h5 class="text-danger"><u>Today's News</u></h5>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th class="text-left">
+                                                <h6><a href="" class="text-default">4 Inquiries</a></h6>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-left">
+                                                <h6><a href="" class="text-default">3 Tasks Due Today</a></h6>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th class="text-left">
+                                                <h6><a href="" class="text-default">View Calendar</a></h6>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -163,114 +125,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 ml-auto mr-auto">
-@*                <div class="card">*@
-@*                    <div class="card-header">*@
-@*                        <h4 class="card-title">Team Members</h4>*@
-@*                    </div>*@
-@*                    <div class="card-body">*@
-@*                        <ul class="list-unstyled team-members">*@
-@*                            <li>*@
-@*                                <div class="row">*@
-@*                                    <div class="col-md-2 col-2">*@
-@*                                        <div class="avatar">*@
-@*                                            <img src="@routes.Assets.versioned("template_assets/img/faces/ayo-ogunseinde-2.jpg")" alt="Circle Image" class="img-circle img-no-padding img-responsive">*@
-@*                                        </div>*@
-@*                                    </div>*@
-@*                                    <div class="col-md-7 col-7">*@
-@*                                        DJ Khaled*@
-@*                                        <br>*@
-@*                                        <span class="text-muted"><small>Offline</small></span>*@
-@*                                    </div>*@
-@*                                    <div class="col-md-3 col-3 text-right">*@
-@*                                        <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>*@
-@*                                    </div>*@
-@*                                </div>*@
-@*                            </li>*@
-@*                            <li>*@
-@*                                <div class="row">*@
-@*                                    <div class="col-md-2 col-2">*@
-@*                                        <div class="avatar">*@
-@*                                            <img src="@routes.Assets.versioned("template_assets/img/faces/joe-gardner-2.jpg")" alt="Circle Image" class="img-circle img-no-padding img-responsive">*@
-@*                                        </div>*@
-@*                                    </div>*@
-@*                                    <div class="col-md-7 col-7">*@
-@*                                        Creative Tim*@
-@*                                        <br>*@
-@*                                        <span class="text-success"><small>Available</small></span>*@
-@*                                    </div>*@
-@*                                    <div class="col-md-3 col-3 text-right">*@
-@*                                        <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>*@
-@*                                    </div>*@
-@*                                </div>*@
-@*                            </li>*@
-@*                            <li>*@
-@*                                <div class="row">*@
-@*                                    <div class="col-md-2 col-2">*@
-@*                                        <div class="avatar">*@
-@*                                            <img src="@routes.Assets.versioned("template_assets/img/faces/clem-onojeghuo-2.jpg")"  alt="Circle Image" class="img-circle img-no-padding img-responsive">*@
-@*                                        </div>*@
-@*                                    </div>*@
-@*                                    <div class="col-ms-7 col-7">*@
-@*                                        Flume*@
-@*                                        <br>*@
-@*                                        <span class="text-danger"><small>Busy</small></span>*@
-@*                                    </div>*@
-@*                                    <div class="col-md-3 col-3 text-right">*@
-@*                                        <btn class="btn btn-sm btn-outline-success btn-round btn-icon"><i class="fa fa-envelope"></i></btn>*@
-@*                                    </div>*@
-@*                                </div>*@
-@*                            </li>*@
-@*                        </ul>*@
-@*                    </div>*@
-@*                </div>*@
-@*                <div class="card">*@
-@*                    <div class="card-body">*@
-@*                        <div class="nav-tabs-navigation">*@
-@*                            <div class="nav-tabs-wrapper">*@
-@*                                <ul id="tabs" class="nav nav-tabs" role="tablist">*@
-@*                                    <li class="nav-item">*@
-@*                                        <a class="nav-link" data-toggle="tab" href="#home" role="tab" aria-expanded="true" aria-selected="false">Inquires</a>*@
-@*                                    </li>*@
-@*                                    <li class="nav-item">*@
-@*                                        <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-expanded="false" aria-selected="false">Tasks</a>*@
-@*                                    </li>*@
-@*                                    <li class="nav-item">*@
-@*                                        <a class="nav-link active" data-toggle="tab" href="#messages" role="tab" aria-expanded="false" aria-selected="true">Projects</a>*@
-@*                                    </li>*@
-@*                                </ul>*@
-@*                            </div>*@
-@*                        </div>*@
-@*                        <div id="my-tab-content" class="tab-content text-center">*@
-@*                            <div class="tab-pane" id="home" role="tabpanel" aria-expanded="true">*@
-@*                                <div class="table-responsive">*@
-@*                                    <table class="table">*@
-@*                                        <tbody>*@
-@*                                            <tr>*@
-@*                                                <td>USA</td>*@
-@*                                                <td class="text-right">*@
-@*                                                    2.920*@
-@*                                                </td>*@
-@*                                                <td class="text-right">*@
-@*                                                    53.23%*@
-@*                                                </td>*@
-@*                                            </tr>*@
-@*                                        </tbody>*@
-@*                                    </table>*@
-@*                                </div>*@
-@*                            </div>*@
-@*                            <div class="tab-pane" id="profile" role="tabpanel" aria-expanded="false">*@
-@*                                <p>Here is your profile.</p>*@
-@*                            </div>*@
-@*                            <div class="tab-pane active" id="messages" role="tabpanel" aria-expanded="false">*@
-@*                                <p>Here are your messages.</p>*@
-@*                            </div>*@
-@*                        </div>*@
-@*                    </div>*@
-@*                </div>*@
             </div>
         </div>
     </div>

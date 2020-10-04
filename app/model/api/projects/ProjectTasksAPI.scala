@@ -63,7 +63,6 @@ class ProjectTasksAPI(dbApi: DBApi, ws: WSClient) {
   def taskCommentsByTask(businessId: Long, projectId: Long, taskId: Long): Seq[TaskComment] =
     tasksCommentsDb.byTaskId(taskId, businessId, projectId)
 
-
   def deleteTaskComment(taskCommentId: Long, taskId: Long, projectId: Long, businessId: Long): Seq[TaskComment] = {
     val rowsDeleted = tasksCommentsDb.deleteTaskComment(taskCommentId, taskId, projectId, businessId)
     this.taskCommentsByTask(businessId, projectId, taskId)

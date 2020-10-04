@@ -38,6 +38,15 @@ class ProjectBudgetingAPI(dbApi: DBApi, ws: WSClient) {
      }
   }
 
+  def updateBudgetBreakdown(updateBudgetbreakdown: BudgetBreakdowns): Either[String, BudgetBreakdowns] = {
+    val updatedRows = breakDownsDb.updateBreakdownItem(updateBudgetbreakdown)
+    if(updatedRows == 1) {
+      val updatedClient = breakDownsDb.byBudgetBreakDownId(updateBudgetbreakdown.id.get)
+      Right(updatedClient.get)
+    } else
+      Left("Failed during database update or reading the updated breakdown back from database")
+  }
+
   def deleteBreakDown(id: Long, projectId: Long, businessId: Long): Seq[BudgetBreakdownList] = {
     val rowsDeleted = breakDownsDb.deleteBudgetBreakDown(id, projectId, businessId)
     this.budgetBreakdownsByProject(projectId, businessId)

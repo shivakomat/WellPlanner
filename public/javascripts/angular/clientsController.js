@@ -164,6 +164,56 @@ app.filter('phonenumber', function() {
     };
 });
 
+app.directive('newClientModal',  [NewClientModalDirective]);
+function NewClientModalDirective() {
+    return{
+        template: '<ng-include src="getNewClientModalTemplateUrl()"/>',
+        scope: false,
+        bindToController: {
+            businessId: '='
+        },
+        controller: NewClientModalController,
+        controllerAs: 'newClientModalController'
+    }
+}
+
+app.controller('newClientModalController', [NewClientModalController]);
+function NewClientModalController(ClientsFactory, $scope, templates) {
+    var newClientModalController = this;
+
+    $scope.getNewClientModalTemplateUrl = function () {
+        return templates.newClientModal;
+    }
+
+    function refresh(businessId) {
+        newClientModalController.formData = {};
+    }
+
+    newClientModalController.newClient = function () {
+       createAClient(newClientModalController.businessId);
+    };
+
+    function createAClient(businessId) {
+        var newClient = {};
+        newClient = newClientModalController.formData;
+        newClient.businessId = businessId;
+        newClient.notes = '';
+        newClient.status = newClientModalController.formData.status;
+        newClient.eventType = 'WEDDING';
+        newClient.eventDate = '';
+
+        console.log(newClient);
+
+        ClientsFactory.addClient(newClient, function mySuccess() {
+            refresh(businessId);
+            alerts.autoCloseAlert('success-message', 'New client added!!', 'Good luck!');
+        }, function myError() {
+            alerts.autoCloseAlert('success-message', 'Oops something went wrong', 'Please try again!');
+        });
+    }
+
+}
+
 
 app.directive('editClientModal',  [EditClientModalDirective]);
 function EditClientModalDirective() {

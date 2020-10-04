@@ -3,6 +3,10 @@ app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
     budgetController.breakDownsLists = {};
     budgetController.projectInfo = {};
 
+    budgetController.editBreakdownItem = function (breakdownItem) {
+        budgetController.currentBreakdown = breakdownItem
+    };
+
     budgetController.init = function (businessId, projectId) {
         list(businessId, projectId);
         setProjectInfo(projectId, businessId);
@@ -207,6 +211,43 @@ function NewBreakdownModalController(BudgetFactory, $scope, templates) {
 
 }
 
+app.directive('editBreakdownModal',  [EditBreakDownModalDirective]);
+function EditBreakDownModalDirective() {
+    return{
+        template:  '<ng-include src="getEditBreakdownItemModalTemplateUrl()"/>',
+        scope: false,
+        bindToController: {
+            businessId: '=',
+            projectId: '=',
+            currentBreakdownItem: '='
+        },
+        controller: EditBreakdownModalController,
+        controllerAs: 'editBreakdownItemModalController'
+    }
+}
+
+app.controller('editBreakdownItemModalController', [EditBreakdownModalController]);
+function EditBreakdownModalController(BudgetFactory, $scope, templates) {
+    var editBreakdownItemModalController = this;
+
+    $scope.getEditBreakdownItemModalTemplateUrl = function () {
+        return templates.editBreakdownItemModal;
+    };
+
+    editBreakdownItemModalController.updateBreakdownItem = function () {
+        updateBreakDown(editBreakdownItemModalController.subTask, "Breakdown Item updated!", "Woo hoo!");
+    };
+
+    function updateBreakDown(updatedBreakdownItem, msg, msgDesc) {
+        BudgetFactory.updateBreakdownItem(updatedBreakdownItem,
+            function mySuccess() {
+                alerts.autoCloseAlert('success-message', msg, msgDesc);
+            }, function myError() {
+                alerts.autoCloseAlert('success-message', 'Error updating breakdown item amounts', 'Please try again!');
+            })
+    }
+}
+
 app.directive('deleteBreakdownItemModal',  [DeleteBreakdownListModalDirective]);
 function DeleteBreakdownListModalDirective() {
     return{
@@ -258,23 +299,3 @@ function DeleteBreakdownItemModalController(BudgetFactory, $scope, templates) {
     }
 }
 
-
-app.directive('capitalization', function () {
-    return {
-        require: 'ngModel',
-        link: function (scope, element, attrs, modelCtrl) {
-
-            modelCtrl.$parsers.push(function (inputValue) {
-
-                var transformedInput = (!!inputValue) ? inputValue.charAt(0).toUpperCase() + inputValue.substr(1).toLowerCase() : '';
-
-                if (transformedInput != inputValue) {
-                    modelCtrl.$setViewValue(transformedInput);
-                    modelCtrl.$render();
-                }
-
-                return transformedInput;
-            });
-        }
-    }
-});

@@ -1,0 +1,46 @@
+<!-- New Vendor Modal -->
+<div class="modal fade" id="newVendor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="exampleModalLabel">New Vendor Contact</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input id="name" type="text" class="form-control" data-ng-model="newVendorModalController.formData.name">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Contact</label>
+                        <input id="contact" type="text" class="form-control" data-ng-model="newVendorModalController.formData.contact">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input id="description" type="text" class="form-control" data-ng-model="newVendorModalController.formData.description">
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location</label>
+                        <input id="location" type="text" class="form-control" data-ng-model="newVendorModalController.formData.location">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <!--                        <phonenumber-directive model='newVendorModalController.formData.phone_number'></phonenumber-directive>-->
+                        <input id="phone" type="text" class="form-control" data-ng-model="newVendorModalController.formData.phone_number">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input id="email" type="text" class="form-control" data-ng-model="newVendorModalController.formData.email">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="newVendorModalController.addVendor()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

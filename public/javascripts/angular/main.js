@@ -14,6 +14,25 @@ app.config(function ($provide, authProvider, $urlRouterProvider, $httpProvider, 
         ]);
 });
 
+app.directive('capitalization', function () {
+        return {
+                require: 'ngModel',
+                link: function (scope, element, attrs, modelCtrl) {
+
+                        modelCtrl.$parsers.push(function (inputValue) {
+
+                                var transformedInput = (!!inputValue) ? inputValue.charAt(0).toUpperCase() + inputValue.substr(1).toLowerCase() : '';
+
+                                if (transformedInput != inputValue) {
+                                        modelCtrl.$setViewValue(transformedInput);
+                                        modelCtrl.$render();
+                                }
+
+                                return transformedInput;
+                        });
+                }
+        }
+});
 
 // PROD Constants
 app.constant('config', {
@@ -35,8 +54,11 @@ app.constant('templates', {
         deleteTaskListModal: baseUrl + "/deleteTaskListModal.html",
         editTaskModal: baseUrl + "/editTaskModal.html",
         editVendorContactModal: baseUrl + "/editVendorModal.html",
+        newVendorContactModal: baseUrl + "/newVendorModal.html",
         newTeamMemberModal: baseUrl + "/newTeamMember.html",
         editClientModal: baseUrl + "/editClientModal.html",
+        newClientModal: baseUrl + "/newClientModal.html",
         newBudgetBreakdownListModal: baseUrl + "/newBudgetBreakdownModal.html",
-        newBreakdownItemModal: baseUrl + "/newBreakdownItemModal.html"
+        newBreakdownItemModal: baseUrl + "/newBreakdownItemModal.html",
+        editBreakdownItemModal: baseUrl + "/editBreakdownItem.html"
 });

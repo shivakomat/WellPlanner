@@ -152,7 +152,7 @@ function EditSubTaskModalDirective() {
         bindToController: {
             businessId: '=',
             projectId: '=',
-            parent: '=',
+            parentTask: '=',
             subTask: '='
         },
         controller: EditTaskModalController,
@@ -163,11 +163,12 @@ function EditSubTaskModalDirective() {
 app.controller('editTaskModalController', [EditTaskModalController]);
 function EditTaskModalController(TasksFactory, $scope, templates) {
     var editTaskModalController = this;
+    console.log("Inside edit task controller");
+    console.log(editTaskModalController.parentTask);
 
     $scope.getEditSubTaskModalTemplateUrl = function () {
         return templates.editTaskModal;
     };
-
 
     editTaskModalController.updateTask = function () {
         updateTask(editTaskModalController.subTask, "Task updated!", "Woo hoo!");
@@ -182,7 +183,6 @@ function EditTaskModalController(TasksFactory, $scope, templates) {
             alerts.autoCloseAlert('success-message', 'Error updating task', 'Please try again!');
         })
     }
-
 }
 
 app.controller('newTaskListModalController', [NewTaskListModalController]);
@@ -230,7 +230,6 @@ function NewTaskListModalController(TasksFactory, $scope, templates) {
             function myError (response) { console.log(response.statusText) }
         )
     }
-
 }
 
 app.controller('newSubTaskListModalController', [NewSubTaskListModalController]);

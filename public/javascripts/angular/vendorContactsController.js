@@ -76,6 +76,63 @@ app.controller('vendorContactsController', function(VendorContactsFactory, $http
     }
 });
 
+app.directive('newVendorModal',  [NewVendorModalDirective]);
+function NewVendorModalDirective() {
+    return{
+        template:  '<ng-include src="getNewVendorTemplateUrl()"/>',
+        scope: false,
+        bindToController: {
+            businessId: '=',
+            vendors: '='
+        },
+        controller: NewVendorModalController,
+        controllerAs: 'newVendorModalController'
+    }
+}
+
+app.controller('newVendorModalController', [NewVendorModalController]);
+function NewVendorModalController(VendorContactsFactory, $scope, templates) {
+    var newVendorModalController = this;
+
+    $scope.getNewVendorTemplateUrl = function () {
+        return templates.newVendorContactModal;
+    };
+
+    newVendorModalController.addVendor = function () {
+        createAVendor(newVendorModalController.businessId);
+    };
+
+    function refresh(businessId) {
+        allVendors(businessId);
+    }
+
+    function allVendors(businessId) {
+        VendorContactsFactory.getAllVendors(businessId, function mySuccess (response) {
+            newVendorModalController.vendors = response.data.data;
+        }, function myError (response) {
+            console.log(response.statusText)
+        });
+    }
+
+    function createAVendor(businessId) {
+        var newVendor = {};
+        newVendor = newVendorModalController.formData;
+        newVendor.business_id = businessId;
+        newVendor.notes = '';
+        newVendor.vendor_type="local";
+        newVendor.estimated_costs=0.0;
+
+        VendorContactsFactory.addVendor(newVendor, function mySuccess() {
+            refresh(businessId);
+            alerts.autoCloseAlert('success-message', 'New Vendor Contact Created', 'Awesome!');
+        }, function myError() {
+            alerts.autoCloseAlert('success-message', 'Error Creating Vendor Contact', 'Please try again!');
+        });
+    }
+
+}
+
+
 
 app.directive('editVendorModal',  [EditVendorModalDirective]);
 function EditVendorModalDirective() {
