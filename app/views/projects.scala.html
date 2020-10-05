@@ -7,8 +7,8 @@
         <data-new-project-modal data-projects="controller.projects" data-business-id=@businessId></data-new-project-modal>
 
         <div class="row">
-            <div class="col-lg-4 mt-lg-5">
-                <div class="card card-plain text-center" style="width: 25rem;">
+            <div class="col-md-4 p-2">
+                <div class="card card-plain text-center">
                     <div class="card-body">
                         <h4 class="card-title">Create New Project</h4>
                         <button class="btn btn-lg btn-warning"  data-toggle="modal" data-target="#newProject">
@@ -17,12 +17,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 mt-lg-5" data-ng-repeat="project in controller.projects">
-                <div class="card text-center" style="width: 25rem;">
+            <div class="col-md-4 p-2" data-ng-repeat="project in controller.projects">
+                <div class="card text-center">
                     <div class="card-header card-header-primary"></div>
                     <div class="card-body">
                         <h4 class="card-title">{{project.brides_name}} & {{project.grooms_name}}</h4>
-                        <p class="card-text"><i class="nc-icon nc-spaceship"></i>  {{project.event_date}}</p>
+                        <p class="card-text"><i class="nc-icon nc-spaceship"></i>{{project.event_date}}</p>
                         <a href="/pages/{{project.business_id}}/projects/{{project.id}}/tasks" class="btn btn-outline-warning btn-round">
                             <i class="fa fa-heart"></i> Enter
                         </a>
