@@ -4,16 +4,6 @@
 @main("Well Planner", "dashboard", "Main Dashboard", businessId) {
     <div class="content" data-ng-controller="dashboardController as controller" data-ng-init="controller.init(@businessId)">
 
-        <!-- New Project Modal -->
-        <data-new-project-modal data-business-id=@businessId></data-new-project-modal>
-
-        <!-- New Client Modal -->
-        <data-new-client-modal data-business-id=@businessId></data-new-client-modal>
-
-        <!-- New Vendor Contact Modal -->
-        <data-new-vendor-modal data-business-id=@businessId></data-new-vendor-modal>
-
-
         <div class="row">
             <div class="col-md-12 ml-auto mr-auto">
                 <div class="card card-user">
