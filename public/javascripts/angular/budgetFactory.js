@@ -12,7 +12,7 @@ app.factory('BudgetFactory', function TasksFactory ($http) {
     };
 
     var updateBreakdownItemBy = function (updatedBreakdown, successFunction, errorFunction) {
-        $http({method: 'POST', url: '/businesses/projects/breakdown/update', data: updatedBreakdown}).then(successFunction, errorFunction);
+        $http({method: 'POST', url: '/businesses/projects/budget-breakdowns/update', data: updatedBreakdown}).then(successFunction, errorFunction);
     };
 
     return {

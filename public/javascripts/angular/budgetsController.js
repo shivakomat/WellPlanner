@@ -234,12 +234,13 @@ function EditBreakdownModalController(BudgetFactory, $scope, templates) {
         return templates.editBreakdownItemModal;
     };
 
-    editBreakdownItemModalController.updateBreakdownItem = function () {
-        updateBreakDown(editBreakdownItemModalController.subTask, "Breakdown Item updated!", "Woo hoo!");
+    editBreakdownItemModalController.updateItem = function () {
+        console.log(editBreakdownItemModalController.currentBreakdownItem);
+        updateBreakDown(editBreakdownItemModalController.currentBreakdownItem, "Breakdown Item updated!", "Woo hoo!");
     };
 
     function updateBreakDown(updatedBreakdownItem, msg, msgDesc) {
-        BudgetFactory.updateBreakdownItem(updatedBreakdownItem,
+        BudgetFactory.updateBreakdownItemBy(updatedBreakdownItem,
             function mySuccess() {
                 alerts.autoCloseAlert('success-message', msg, msgDesc);
             }, function myError() {
@@ -298,4 +299,3 @@ function DeleteBreakdownItemModalController(BudgetFactory, $scope, templates) {
         })
     }
 }
-

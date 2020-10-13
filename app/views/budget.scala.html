@@ -195,8 +195,8 @@
                                                             {{breakdownItem.actual | currency}}
                                                         </td>
                                                         <td class="text-center text-danger">
-                                                            <b data-ng-if="(breakdownItem.actual - breakdownItem.estimate) <= 0">-</b>
-                                                            <b data-ng-if="(breakdownItem.actual - breakdownItem.estimate) > 0">{{(breakdownItem.actual - breakdownItem.estimate) | currency}}</b>
+                                                            <b data-ng-if="breakdownItem.actual <= 0">-</b>
+                                                            <b data-ng-if="breakdownItem.actual > 0">{{(breakdownItem.estimate - breakdownItem.actual) | currency}}</b>
                                                         </td>
                                                         <td contenteditable='true' class="text-center">
                                                             -
@@ -211,7 +211,7 @@
 @*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Payments">*@
 @*                                                                <i class="nc-icon nc-calendar-60"></i>*@
 @*                                                            </button>*@
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-target="#editBreakdownModal" data-original-title="edit" data-ng-click="controller.editBreakdownItem(breakdownItem)">
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#editBreakdownModal" data-original-title="edit" data-ng-click="controller.editBreakdownItem(breakdownItem)">
                                                                 <i class="nc-icon nc-ruler-pencil"></i>
                                                             </button>
                                                             <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove" data-ng-click="controller.deleteBreakdownItem(breakdownItem)">
