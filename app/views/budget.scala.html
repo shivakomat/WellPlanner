@@ -12,7 +12,15 @@
 
         <data-edit-breakdown-modal data-business-id="@businessId" data-project-id="@projectId" data-current-breakdown-item="controller.currentBreakdown"></data-edit-breakdown-modal>
 
-        <div class="row">
+        <div class="row text-center" data-ng-show="controller.isLoaded == false">
+            <div class="col-md-12 ml-auto mr-auto mt-auto mb-auto">
+                @*                <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>*@
+                <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                <div class="text-default text-center text-capitalize">Loading Projects</div>
+            </div>
+        </div>
+
+        <div class="row" data-ng-show="controller.isLoaded">
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-body ">
@@ -120,7 +128,7 @@
 
         </div>
 
-        <div class="row">
+        <div class="row" data-ng-show="controller.isLoaded">
 
             <div class="col-md-12">
                 <div class="card">

@@ -2,6 +2,7 @@ app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
     var budgetController = this;
     budgetController.breakDownsLists = {};
     budgetController.projectInfo = {};
+    budgetController.isLoaded = false;
 
     budgetController.editBreakdownItem = function (breakdownItem) {
         budgetController.currentBreakdown = breakdownItem
@@ -28,6 +29,7 @@ app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
     function setProjectInfo(projectId, businessId) {
         ProjectsFactory.getProject(projectId, businessId, function mySuccess (response) {
             budgetController.projectInfo = response.data.data;
+            budgetController.isLoaded = true;
         }, function myError (response) {
             console.log(response.statusText);
             budgetController.projectInfo = {};
