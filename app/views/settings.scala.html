@@ -12,7 +12,44 @@
         <data-edit-team-member data-team-members="controller.teamMembers" data-current-team-member="controller.currentTeamMember" data-business-id=@businessId></data-edit-team-member>
 
         <div class="row">
+            <div class="col-md-10 ml-auto mr-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="title">Edit Profile Image</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                    <div class="fileinput-new thumbnail img-circle img-raised">
+@*                                        <img src="https://paper-dashboard-pro-laravel.creative-tim.com/img/No Profile Picture.png" alt="...">*@
+                                        <img src="@routes.Assets.versioned("template_assets/img/placeholder.jpg")" alt="...">
+                                    </div>
+                                    <div class="fileinput-preview fileinput-exists thumbnail img-circle img-raised"></div>
+                                    <div>
+                                        <span class="btn btn-raised btn-round btn-outline-danger btn-file">
+                                            <span class="fileinput-new">Upload</span>
+                                            <span class="fileinput-exists">Change</span>
+                                            <input type="file" name="photo"></span>
+                                        <br>
+                                        <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i>Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer ">
+                        <div class="row">
+@*                            <div class="col-md-12 text-center">*@
+@*                                <button type="submit" class="btn btn-default">Update Profile Image</button>*@
+@*                            </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="row">
             <div class="col-md-10 ml-auto mr-auto">
                 <div class="card">
                     <div class="card-header">
@@ -92,7 +129,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="" data-ng-click="controller.updateInfo(@businessId)">Update Changes</button>
+                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="" data-ng-click="controller.updateInfo(@businessId)">Update Info</button>
                                 </div>
                             </div>
                         </form>
@@ -103,62 +140,69 @@
         </div>
         <div class="row">
             <div class="col-md-10 ml-auto mr-auto">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Update Team Members</h4>
-                        <div class="row">
-                            <div class="col-md-9">
-                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#newTeamMember">ADD NEW MEMBER</button>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="title">Edit Team Members</h5>
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#newTeamMember">ADD NEW MEMBER</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            Member Name
-                                        </th>
-                                        <th>
-                                            Email
-                                        </th>
-                                        <th class="text-center">
-                                            Member Since
-                                        </th>
-                                        <th class="text-right">
-                                            Actions
-                                        </th>
-                                    </tr></thead>
-                                <tbody>
-                                    <tr data-ng-repeat="member in controller.teamMembers">
-                                        <td>
-                                            {{member.member_name}}
-                                        </td>
-                                        <td>
-                                            {{member.email}}
-                                        </td>
-                                        <td class="text-center">
-                                            {{member.created_date}}
-                                        </td>
-                                        <td class="text-right">
-@*                                            <button type="button" rel="tooltip" class="btn btn-sm btn-outline-success btn-round btn-icon " data-original-title="" title="">*@
-@*                                                <i class="fa fa-envelope"></i>*@
-@*                                            </button>*@
-                                            <button type="button" rel="tooltip" class="btn btn-warning btn-icon btn-sm " data-original-title="" data-toggle="modal" data-target="#editTeamMember" title="" data-ng-click="controller.editMember(member)">
-                                                <i class="nc-icon nc-ruler-pencil"></i>
-                                            </button>
-                                            <button type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm " data-original-title="" title="">
-                                                <i class="nc-icon nc-scissors"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    Member Name
+                                                </th>
+                                                <th>
+                                                    Email
+                                                </th>
+                                                <th class="text-center">
+                                                    Member Since
+                                                </th>
+                                                <th class="text-right">
+                                                    Actions
+                                                </th>
+                                            </tr></thead>
+                                        <tbody>
+                                            <tr data-ng-repeat="member in controller.teamMembers">
+                                                <td>
+                                                    {{member.member_name}}
+                                                </td>
+                                                <td>
+                                                    {{member.email}}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{member.created_date}}
+                                                </td>
+                                                <td class="text-right">
+                                                    @*                                            <button type="button" rel="tooltip" class="btn btn-sm btn-outline-success btn-round btn-icon " data-original-title="" title="">*@
+                                                    @*                                                <i class="fa fa-envelope"></i>*@
+                                                    @*                                            </button>*@
+                                                    <button type="button" rel="tooltip" class="btn btn-warning btn-icon btn-sm " data-original-title="" data-toggle="modal" data-target="#editTeamMember" title="" data-ng-click="controller.editMember(member)">
+                                                        <i class="nc-icon nc-ruler-pencil"></i>
+                                                    </button>
+                                                    <button type="button" rel="tooltip" class="btn btn-danger btn-icon btn-sm " data-original-title="" title="">
+                                                        <i class="nc-icon nc-scissors"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+@*        <div class="row">*@
+@*            *@
+@*        </div>*@
     </div>
 }
