@@ -182,23 +182,23 @@
 @*                                                                </label>*@
 @*                                                            </div>*@
                                                         </td>
-                                                        <td contenteditable='true' class="text-left">
+                                                        <td class="text-left">
                                                             {{breakdownItem.title}}
                                                         </td>
-                                                        <td contenteditable='true' class="text-center">
+                                                        <td class="text-center">
                                                             {{breakdownItem.estimate | currency}}
                                                         </td>
-                                                        <td contenteditable='true' class="text-center" data-ng-if="breakdownItem.actual <= 0">
+                                                        <td  class="text-center" data-ng-if="breakdownItem.actual <= 0">
                                                             -
                                                         </td>
-                                                        <td contenteditable='true' class="text-center" data-ng-if="breakdownItem.actual > 0">
+                                                        <td  class="text-center" data-ng-if="breakdownItem.actual > 0">
                                                             {{breakdownItem.actual | currency}}
                                                         </td>
                                                         <td class="text-center text-danger">
                                                             <b data-ng-if="breakdownItem.actual <= 0">-</b>
                                                             <b data-ng-if="breakdownItem.actual > 0">{{(breakdownItem.estimate - breakdownItem.actual) | currency}}</b>
                                                         </td>
-                                                        <td contenteditable='true' class="text-center">
+                                                        <td  class="text-center">
                                                             -
                                                         </td>
                                                         <td class="text-center">
