@@ -1,0 +1,30 @@
+<!-- Add Vendor Manager Modal -->
+<div class="modal fade" id="newVendorManage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="exampleModalLabel">New Vendor Contact</h5>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Choose From Your Vendor Contacts</label>
+                        <select id="name" class="form-control" data-ng-model="addVendorManageModalController.formData.selectedVendor" data-ng-options= "vendor.name for vendor in addVendorManageModalController.vendors"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Choose From Your Categories</label>
+                        <select id="category" class="form-control" data-ng-model="addVendorManageModalController.formData.selectedCategory" data-ng-options= "category.name for category in addVendorManageModalController.projectVendorCategories"></select>
+                    </div>
+<!--                    <input id="contact" type="text" value="Amsterdam,Washington,Sydney,Beijing" data-ng-model="addVendorManageModalController.formData.categories" class="tagsinput" data-role="tagsinput" data-color="danger" style="display: none;">-->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="addVendorManageModalController.addVendor()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

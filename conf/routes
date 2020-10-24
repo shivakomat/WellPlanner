@@ -35,6 +35,8 @@ GET     /pages/:businessId/projects/:projectId/budget               controllers.
 GET     /pages/:businessId/projects/:projectId/overview-dashboard   controllers.HomeController.projectOverviewDashboard(projectId: Int, businessId: Int)
 GET     /pages/:businessId/business-settings                        controllers.HomeController.businessSettingsPage(businessId: Int)
 
+GET     /pages/:businessId/projects/:projectId/vendors-shortlists   controllers.HomeController.projectVendorsShortlists(projectId: Int, businessId: Int)
+
 
 
 # REST API Routes for data
@@ -99,6 +101,11 @@ POST /businesses/projects/budget-breakdowns/update                              
 
 +nocsrf
 DELETE  /businesses/:businessId/projects/:projectId/budget-breakdowns/:breakdownId              controllers.BudgetController.deleteBudgetBreakdownById(breakdownId: Int, projectId: Int, businessId: Int)
+
+
+####### Project Vendors Shortlistings
+
+
 
 # # User Login system
 GET     /login                      controllers.ApplicationController.login

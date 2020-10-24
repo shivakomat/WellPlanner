@@ -3,6 +3,8 @@ package model.databases
 import anorm.{Macro, RowParser, _}
 import javax.inject.Inject
 import model.dataModels.VendorContact
+import model.dataModels.VendorManage
+import model.dataModels.VendorCategory
 import play.api.db.DBApi
 
 @javax.inject.Singleton
@@ -58,4 +60,23 @@ class VendorContactsDB @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) 
         .on("contactId" -> contactId, "businessId" -> businessId)
         .executeUpdate()
     }
+
+  override def addVendorToManage(vendorManage: VendorManage): Option[Long] =
+    db.withConnection { implicit connection =>
+      SQL("insert into vendor_manage(vendor_contact_id, project_id, business_id, modified_date, created_date) " +
+        "values ({vendor_contact_id} , {project_id}, {business_id}, {modified_date}, {created_date})")
+        .on("vendor_contact_id"  -> vendorManage.vendor_contact_id, "project_id" -> vendorManage.project_id,  "business_id" -> vendorManage.business_id,
+          "modified_date" -> vendorManage.modified_date, "created_date" -> vendorManage.created_date)
+        .executeInsert()
+    }
+
+  override def addVendorCategory(vendorCategory: VendorCategory): Option[Long] =
+    db.withConnection { implicit connection =>
+      SQL("insert into vendor_categories(name, project_id, business_id, modified_date, created_date) " +
+        "values ({name} , {project_id}, {business_id}, {modified_date}, {created_date})")
+        .on("name"  -> vendorCategory.name, "project_id" -> vendorCategory.project_id, "business_id" -> vendorCategory.business_id,
+          "modified_date" -> vendorCategory.modified_date, "created_date" -> vendorCategory.created_date)
+        .executeInsert()
+    }
+
 }

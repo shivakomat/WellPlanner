@@ -157,5 +157,6 @@ app.constant('templates', {
         newClientModal: baseUrl + "/newClientModal.html",
         newBudgetBreakdownListModal: baseUrl + "/newBudgetBreakdownModal.html",
         newBreakdownItemModal: baseUrl + "/newBreakdownItemModal.html",
-        editBreakdownItemModal: baseUrl + "/editBreakdownItem.html"
+        editBreakdownItemModal: baseUrl + "/editBreakdownItem.html",
+        addVendorManageModal: baseUrl + "/newVendorManager.html",
 });

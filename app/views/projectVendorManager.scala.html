@@ -1,0 +1,90 @@
+@(title: String, projectId: Int, businessId: Int)
+@projectMain("Vendor Manager","vendor-shortlists", "Vendor Manager", projectId, businessId) {
+
+    <!-- Main Content -->
+    <div class="content" data-ng-controller="vendorManageController as controller" data-ng-init="controller.init(@businessId)">
+
+        <data-add-vendor-to-manage data-vendors="controller.vendors" data-project-vendor-categories="controller.projectVendorCategories" data-project-id="@projectId" data-business-id=@businessId></data-add-vendor-to-manage>
+
+        <div class="row">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#newVendorManage" data-ng-click="controller.addVendorToManage(@businessId)">Add Vendor To Manage</button>
+            </div>
+            <div class="col-md-8 text-right pull-right">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-outline-danger">Filter By Category</button>
+                    <button type="button" class="btn btn-outline-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="javascript:;">DJ</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="javascript:;">Wedding Venue</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="javascript:;">Reception Venue</a>
+
+                    </div>
+                </div>
+                @*                                <select id="category" class="form-control" data-ng-model="controller.filters.selectedCategory" data-ng-options="category.name for category in controller.projectVendorCategories"></select>*@
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-left mt-lg-2 mb-lg-3">
+                            <div class="col-md-2 text-left pull-left">
+@*                                <button type="button" class="btn btn-danger">Add Category</button>*@
+                                <button class="btn btn-danger" data-toggle="modal" data-target="#newVendorCategory">Add Category</button>
+                            </div>
+
+                        </div>
+                        <div class="row col-md-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center"></th>
+                                        <th class="text-center">Vendor Name</th>
+                                        <th class="text-center">Phone</th>
+                                        <th class="text-center">Categories</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="vendorManager in controller.vendorManagers">
+                                        <th class="text-center">
+                                            <div class="form-check">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="checkbox" checked="">
+                                                    <span class="form-check-sign"></span>
+                                                </label>
+                                            </div>
+                                        </th>
+                                        <td class="text-center">{{vendorManager.name}}</td>
+                                        <td class="text-center">{{vendorManager.phone_number | phonenumber}}</td>
+                                        <td class="text-center">
+                                            <button class="btn btn-danger btn-round">{{vendorManager.category}}</button>
+
+                                            @*                                            <input id="contact" type="text" value="Amsterdam,Washington,Sydney,Beijing" data-ng-model="addVendorManageModalController.formData.categories" class="tagsinput" data-role="tagsinput" data-color="danger" style="display: none;">*@
+                                        </td>
+                                        <td class="td-actions text-center">
+                                            <button class="btn btn-warning" rel="tooltip" data-original-title="Edit" data-toggle="modal" data-target="#editvendorManager" data-ng-click="controller.editvendorManager(vendorManager)">
+                                                <span class="btn-label">
+                                                    <i class="nc-icon nc-ruler-pencil"></i>
+                                                </span>
+                                            </button>
+                                            <button class="btn btn-danger" rel="tooltip" data-original-title="Remove" data-ng-click="controller.removevendorManager(@businessId, vendorManager.id)">
+                                                <i class="nc-icon nc-scissors"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

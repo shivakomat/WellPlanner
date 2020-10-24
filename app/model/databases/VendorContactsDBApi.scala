@@ -1,6 +1,8 @@
 package model.databases
 
 import model.dataModels.VendorContact
+import model.dataModels.VendorManage
+import model.dataModels.VendorCategory
 
 trait VendorContactsDBApi {
 
@@ -15,4 +17,8 @@ trait VendorContactsDBApi {
     def list(): Seq[VendorContact]
 
     def deleteByVendorIdAndBusinessId(contactId: Int, businessId: Int): Int
+
+    def addVendorToManage(vendorManage: VendorManage): Option[Long]
+
+    def addVendorCategory(vendorCategory: VendorCategory): Option[Long]
 }
