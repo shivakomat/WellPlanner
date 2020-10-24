@@ -1,8 +1,9 @@
-app.controller('projectsController', function ProjectsController (ProjectsFactory, $http) {
+app.controller('projectsController', function ProjectsController (ProjectsFactory, $scope) {
     var projectsController = this;
 
     projectsController.projects = [];
     projectsController.projectsHtml = "";
+    projectsController.isLoaded = false;
 
     function refresh(businessId) {
         allProjects(businessId);
@@ -29,6 +30,7 @@ app.controller('projectsController', function ProjectsController (ProjectsFactor
         ProjectsFactory.getAllProjects(businessId,
             function mySuccess (response) {
                 projectsController.projects = response.data.data;
+                projectsController.isLoaded = true;
             }, function myError (response) {
                 console.log(response.statusText)
         });

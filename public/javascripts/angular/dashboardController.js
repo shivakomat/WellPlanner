@@ -4,6 +4,7 @@ app.controller('dashboardController', function(ProjectsFactory, VendorContactsFa
 
     dashboardController.clock = "loading clock..."; // initialise the time variable
     dashboardController.tickInterval = 1000; //ms
+    dashboardController.isLoaded = false;
 
     var tick = function() {
         dashboardController.clock = Date.now(); // get the current time
@@ -56,6 +57,8 @@ app.controller('dashboardController', function(ProjectsFactory, VendorContactsFa
     function setBusinessInfo(businessId) {
         BusinessFactory.getBusiness(businessId, function mySuccess (response) {
             dashboardController.businessInfo = response.data.data;
+            setTimeout(() => { dashboardController.isLoaded = true; }, 500);
+
         }, function myError (response) {
             console.log(response.statusText);
             dashboardController.businessInfo = {};
