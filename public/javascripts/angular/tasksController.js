@@ -69,11 +69,61 @@ function NewTaskListModalDirective() {
         bindToController: {
             businessId: '=',
             projectId: '=',
-            tasks: '='
+            allTasks: '='
         },
         controller: NewTaskListModalController,
         controllerAs: 'newTaskListModalController'
 
+    }
+}
+
+app.controller('newTaskListModalController', [NewTaskListModalController]);
+function NewTaskListModalController(TasksFactory, $scope, templates) {
+    var newTaskListModalController = this;
+
+    newTaskListModalController.formData = {};
+
+    $scope.getNewTaskListModalTemplateUrl = function () {
+        return templates.newTaskListModal;
+    };
+
+
+    newTaskListModalController.createNewTaskList = function () {
+        newTaskList()
+    };
+
+    function newTaskList() {
+        var taskList = {};
+        taskList = newTaskListModalController.formData;
+        taskList.business_id = newTaskListModalController.businessId;
+        taskList.project_id = newTaskListModalController.projectId;
+        taskList.parent_task_id = null;
+        taskList.is_category = true;
+        taskList.description = "";
+        taskList.notes = "";
+        taskList.is_completed = false;
+
+        TasksFactory.addTask(taskList, function mySuccess() {
+            refresh(newTaskListModalController.businessId, newTaskListModalController.projectId);
+            alerts.autoCloseAlert('success-message', 'New list created!!', 'Nice start!');
+        }, function myError() {
+            alerts.autoCloseAlert('success-message', 'Sorry, unable to create a new list', 'Please try again!');
+        });
+    }
+
+    function refresh(businessId, projectId) {
+        newTaskListModalController.formData = {};
+        allTasks(businessId, projectId);
+    }
+
+    function allTasks(businessId, projectId) {
+        TasksFactory.allTasks(businessId, projectId,
+            function mySuccess (response) {
+                console.log(newTaskListModalController.allTasks);
+                newTaskListModalController.allTasks = response.data.data;
+            },
+            function myError (response) { console.log(response.statusText) }
+        )
     }
 }
 
@@ -183,52 +233,7 @@ function EditTaskModalController(TasksFactory, $scope, templates) {
     }
 }
 
-app.controller('newTaskListModalController', [NewTaskListModalController]);
-function NewTaskListModalController(TasksFactory, $scope, templates) {
-    var newTaskListModalController = this;
 
-    newTaskListModalController.formData = {};
-
-    $scope.getNewTaskListModalTemplateUrl = function () {
-        return templates.newTaskListModal;
-    };
-
-
-    newTaskListModalController.createNewTaskList = function () {
-        newTaskList()
-    };
-
-    function newTaskList() {
-        var taskList = {};
-        taskList = newTaskListModalController.formData;
-        taskList.business_id = newTaskListModalController.businessId;
-        taskList.project_id = newTaskListModalController.projectId;
-        taskList.parent_task_id = null;
-        taskList.is_category = true;
-        taskList.description = "";
-        taskList.notes = "";
-        taskList.is_completed = false;
-
-        TasksFactory.addTask(taskList, function mySuccess() {
-            refresh(newTaskListModalController.businessId, newTaskListModalController.projectId);
-            alerts.autoCloseAlert('success-message', 'New list created!!', 'Nice start!');
-        }, function myError() {
-            alerts.autoCloseAlert('success-message', 'Sorry, unable to create a new list', 'Please try again!');
-        });
-    }
-
-    function refresh(businessId, projectId) {
-        allTasks(businessId, projectId);
-        newTaskListModalController.formData = {};
-    }
-
-    function allTasks(businessId, projectId) {
-        TasksFactory.allTasks(businessId, projectId,
-            function mySuccess (response) { newTaskListModalController.tasks = response.data.data; },
-            function myError (response) { console.log(response.statusText) }
-        )
-    }
-}
 
 app.controller('newSubTaskListModalController', [NewSubTaskListModalController]);
 function NewSubTaskListModalController(TasksFactory, $scope, templates) {

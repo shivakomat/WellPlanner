@@ -11,19 +11,19 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="name">Choose From Your Vendor Contacts</label>
-                        <select id="name" class="form-control" data-ng-model="addVendorManageModalController.formData.selectedVendor" data-ng-options= "vendor.name for vendor in addVendorManageModalController.vendors"></select>
+                        <label for="vendor-manage-name">Choose From Your Vendor Contacts</label>
+                        <select id="vendor-manage-name" class="form-control" data-ng-model="addVendorManageModalController.formData.selectedVendor" data-ng-options= "vendor.name for vendor in addVendorManageModalController.vendors"></select>
                     </div>
                     <div class="form-group">
-                        <label for="category">Choose From Your Categories</label>
-                        <select id="category" class="form-control" data-ng-model="addVendorManageModalController.formData.selectedCategory" data-ng-options= "category.name for category in addVendorManageModalController.projectVendorCategories"></select>
+                        <label for="vendor-manage-category">Choose From Your Categories</label>
+                        <select id="vendor-manage-category" class="form-control" data-ng-model="addVendorManageModalController.formData.selectedCategory" data-ng-options= "category.name for category in addVendorManageModalController.projectVendorCategories"></select>
                     </div>
 <!--                    <input id="contact" type="text" value="Amsterdam,Washington,Sydney,Beijing" data-ng-model="addVendorManageModalController.formData.categories" class="tagsinput" data-role="tagsinput" data-color="danger" style="display: none;">-->
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="addVendorManageModalController.addVendor()">Add</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="addVendorManageModalController.addNewVendorToManage()">Add</button>
             </div>
         </div>
     </div>
