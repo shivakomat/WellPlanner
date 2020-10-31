@@ -30,14 +30,14 @@
                             </thead>
                             <tbody>
                                 <tr data-ng-if="controller.showNewItem">
-                                    <th class="text-center">
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" checked="">
-                                                <span class="form-check-sign"></span>
-                                            </label>
-                                        </div>
-                                    </th>
+@*                                    <th class="text-center">*@
+@*                                        <div class="form-check">*@
+@*                                            <label class="form-check-label">*@
+@*                                                <input class="form-check-input" type="checkbox" checked="">*@
+@*                                                <span class="form-check-sign"></span>*@
+@*                                            </label>*@
+@*                                        </div>*@
+@*                                    </th>*@
                                     <td class="text-center">
                                         <input type="text" style="text-align:center;" class="form-control" data-ng-model="controller.formData.name">
                                     </td>
@@ -69,12 +69,12 @@
                                 </tr>
                                 <tr data-ng-repeat="vendor in controller.vendors">
                                     <th class="text-center">
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" checked="">
-                                                <span class="form-check-sign"></span>
-                                            </label>
-                                        </div>
+@*                                        <div class="form-check">*@
+@*                                            <label class="form-check-label">*@
+@*                                                <input class="form-check-input" type="checkbox" checked="">*@
+@*                                                <span class="form-check-sign"></span>*@
+@*                                            </label>*@
+@*                                        </div>*@
                                     </th>
                                     <td class="text-center">{{vendor.name}}</td>
                                     <td class="text-center">{{vendor.contact}}</td>

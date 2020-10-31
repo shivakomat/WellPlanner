@@ -7,7 +7,6 @@
         <!-- Edit Client Modal -->
         <data-edit-client-modal data-clients="controller.clients" data-current-client="controller.currentClient" data-business-id=@businessId></data-edit-client-modal>
 
-
         <!-- New Project Modal -->
         <data-new-project-modal data-projects="controller.projects" data-business-id=@businessId></data-new-project-modal>
 
@@ -16,6 +15,7 @@
                 <button type="button" class="btn btn-default" data-toggle="modal" data-id="@businessId" data-target="#newCustomer" data-ng-click="controller.newItem()">New Client</button>
             </div>
         </div>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -75,12 +75,12 @@
                                 </tr>
                                 <tr data-ng-repeat="client in controller.clients">
                                     <th class="text-center">
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" checked="">
-                                                <span class="form-check-sign"></span>
-                                            </label>
-                                        </div>
+@*                                        <div class="form-check">*@
+@*                                            <label class="form-check-label">*@
+@*                                                <input class="form-check-input" type="checkbox" checked="">*@
+@*                                                <span class="form-check-sign"></span>*@
+@*                                            </label>*@
+@*                                        </div>*@
                                     </th>
                                     <td class="text-center">{{client.name}}</td>
                                     <td class="text-center">{{client.phone_number | phonenumber}}</td>

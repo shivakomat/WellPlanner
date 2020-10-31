@@ -24,7 +24,7 @@
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            Project Progress
+                            Task Completions
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,8 @@
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-title">$ 50,000.00</p>
+                                    <p class="card-category">{{controller.projectInfo.totalEstimate | currency}}</p>
+                                    <p class="card-title">{{controller.projectInfo.totalActual | currency}}</p>
                                     <p></p>
                                 </div>
                             </div>
@@ -49,83 +50,42 @@
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            Actual / Total Budget
+                            Estimate / Actual
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="card card-stats">
-                        <div class="card-body ">
-                            <div class="row">
-                                <div class="col-5 col-md-4">
-                                    <div class="icon-big text-center icon-warning">
-                                        <i class="nc-icon nc-bank text-danger"></i>
-                                    </div>
-                                </div>
-                                <div class="col-7 col-md-8">
-                                    <div class="numbers">
-                                        <p class="card-category">$ 5,000.00</p>
-                                        <p class="card-title">$ 7,000.00
-                                        </p><p>
-                                    </p></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer ">
-                            <hr>
-                            <div class="stats">
-                                Paid / Un Paid
-                            </div>
-                        </div>
-                    </div>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card  card-tasks">
-                    <div class="card-header ">
-                        <h4 class="card-title">Tasks</h4>
-                        <h5 class="card-category">Backend development</h5>
-                    </div>
+                <div class="card card-stats">
                     <div class="card-body ">
-                        <div class="table-full-width table-responsive">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <div class="form-check">
-                                                <label class="form-check-label">
-                                                    <input class="form-check-input" type="checkbox" checked="">
-                                                    <span class="form-check-sign"></span>
-                                                </label>
-                                            </div>
-                                        </td>
-                                        <td class="text-left">Sign contract for "What are conference organizers afraid of?"</td>
-                                        <td class="td-actions text-right">
-                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Edit Task">
-                                                <i class="nc-icon nc-ruler-pencil"></i>
-                                            </button>
-                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove">
-                                                <i class="nc-icon nc-simple-remove"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="row">
+                            <div class="col-5 col-md-4">
+                                <div class="icon-big text-center icon-warning">
+                                    <i class="nc-icon nc-bank text-danger"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 col-md-8">
+                                <div class="numbers">
+                                    <p class="card-category">- -</p>
+                                    <p class="card-title">- -
+                                    </p><p>
+                                </p></div>
+                            </div>
                         </div>
                     </div>
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            <i class="fa fa-refresh spin"></i> Updated 3 minutes ago
+                            Paid / Un Paid
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-8">
+            </div>
+        </div>
     </div>
-
 }
