@@ -5,10 +5,12 @@ import model.databases.ClientsDB
 import model.tools.DateTimeNow
 import play.api.db.DBApi
 import play.api.libs.ws.WSClient
+import model.api.projects._
 
 class ClientsApi(dbApi: DBApi, ws: WSClient) {
 
   private val clientsDb = new ClientsDB(dbApi)
+  private val projectsApi = new ProjectsFacade(dbApi)
 
   object ClientStatuses {
     val New = "New"
@@ -85,9 +87,21 @@ class ClientsApi(dbApi: DBApi, ws: WSClient) {
     }
   }
 
-
-  def allClientsByBusiness(businessId: Int): Seq[Client] =
-    clientsDb.list().filter(_.business_id == businessId)
+  def allClientsByBusiness(businessId: Int): Map[Client, Option[Int]] = {
+    val allClients = clientsDb.list().filter(_.business_id == businessId)
+    val allProjectsOfBusiness = projectsApi.allByBusiness(businessId)
+    val clientIdToProjectIdMappings = allProjectsOfBusiness.groupBy(project => project.client_id).mapValues(_.head.id)
+    val allClientMessages = allClients map {
+      client => {
+        if(clientIdToProjectIdMappings.get(client.id.get).nonEmpty) {
+          val clientAssociatedProjectId = clientIdToProjectIdMappings.get(client.id.get).get
+          if (clientAssociatedProjectId.nonEmpty) (client, clientAssociatedProjectId) else (client, None)
+        }
+        else (client, None)
+      }
+    }
+    allClientMessages.toMap
+  }
 
 
   def deleteClientById(clientId: Int, businessId: Int): Seq[Client] = {

@@ -1,4 +1,4 @@
-app.controller('projectsController', function ProjectsController (ProjectsFactory, $scope) {
+app.controller('projectsController', function ProjectsController (ProjectsFactory) {
     var projectsController = this;
 
     projectsController.projects = [];

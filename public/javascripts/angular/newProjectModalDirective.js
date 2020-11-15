@@ -4,8 +4,10 @@ function NewProjectModalDirective() {
         template:  '<ng-include src="getTemplateUrl()"/>',
         scope: false,
         bindToController: {
+            clientId: '=',
             businessId: '=',
-            projects: '='
+            projects: '=',
+            clients: '='
         },
         controller: NewProjectController,
         controllerAs: 'newProjectController'
@@ -14,9 +16,12 @@ function NewProjectModalDirective() {
 }
 
 app.controller('newProjectController', [NewProjectController]);
-function NewProjectController(ProjectsFactory, $scope, templates) {
+function NewProjectController(ClientsFactory, ProjectsFactory, $scope, templates) {
     var newProjectController = this;
     newProjectController.formData = {};
+
+    newProjectController.formData.currentDate = new Date();
+    newProjectController.options = '{format:"DD.MM.YYYY HH:mm"}'
 
     $scope.getTemplateUrl = function () {
         return templates.newProjectModal;
@@ -31,6 +36,7 @@ function NewProjectController(ProjectsFactory, $scope, templates) {
         var newProject = {};
         newProject = newProjectController.formData;
         newProject.businessId = newProjectController.businessId;
+        newProject.clientId = newProjectController.clientId;
 
         ProjectsFactory.addProject(newProject, function mySuccess() {
             refresh(newProjectController.businessId);
@@ -40,9 +46,18 @@ function NewProjectController(ProjectsFactory, $scope, templates) {
         });
     }
 
+    function allClients(businessId) {
+        ClientsFactory.getAllClients(businessId, function mySuccess (response) {
+            newProjectController.clients = response.data.data;
+        }, function myError (response) {
+            console.log(response.statusText)
+        });
+    }
+
     function refresh(businessId) {
         newProjectController.formData = {};
         allProjects(businessId);
+        allClients(businessId);
     }
 
     function allProjects(businessId) {

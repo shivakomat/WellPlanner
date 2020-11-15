@@ -2,6 +2,7 @@ package controllers.util
 
 import model.api.businesses.AdminSignUpMessage
 import model.api.clients.NewClientMessage
+import model.api.clients.ClientMessage
 import model.api.projects.{BudgetBreakdownList, NewWeddingProjectMessage, TaskList}
 import model.api.users.UserMessage
 import model.dataModels._
@@ -28,4 +29,5 @@ object JsonFormats {
   implicit val budgetBreakdownListFormat = Json.format[BudgetBreakdownList]
   implicit val projectsFormat = Json.format[Project]
   implicit val teamMemberFormat = Json.format[TeamMember]
+  implicit val clientMessageFormat = Json.format[ClientMessage]
 }

@@ -1,6 +1,7 @@
 app.controller('clientsController', function(ClientsFactory) {
     var clientController = this;
     clientController.clients = [];
+    clientController.currentClientId = null;
     clientController.formData = {};
     clientController.clientStatuses = [
         {"type": "New"},
@@ -36,6 +37,10 @@ app.controller('clientsController', function(ClientsFactory) {
 
     clientController.creatNewClient = function (businessId) {
         createAClient(businessId)
+    };
+
+    clientController.setCurrentClient = function (clientId) {
+        clientController.currentClientId = clientId;
     };
 
     clientController.removeClient = function (businessId, clientId) {

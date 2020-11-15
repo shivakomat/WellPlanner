@@ -37,6 +37,7 @@ class ProjectsFacade(dbApi: DBApi) extends ProjectsApi {
       grooms_name = Some(weddingProject.groom),
       event_date = weddingProject.eventDate,
       budget = weddingProject.budget,
+      client_id = weddingProject.clientId,
       business_id = weddingProject.businessId,
       modified_date = DateTimeNow.getCurrent,
       created_date = DateTimeNow.getCurrent)
