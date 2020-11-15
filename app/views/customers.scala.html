@@ -37,12 +37,12 @@
                             <tbody>
                                 <tr data-ng-show="controller.showNewItem">
                                     <th class="text-center">
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" checked="">
-                                                <span class="form-check-sign"></span>
-                                            </label>
-                                        </div>
+@*                                        <div class="form-check">*@
+@*                                            <label class="form-check-label">*@
+@*                                                <input class="form-check-input" type="checkbox" checked="">*@
+@*                                                <span class="form-check-sign"></span>*@
+@*                                            </label>*@
+@*                                        </div>*@
                                     </th>
                                     <td class="text-center">
                                         <input type="text" style="text-align:center;" class="form-control" data-ng-model="controller.formData.customerName">
@@ -61,7 +61,6 @@
                                     </td>
                                     <td class="td-actions text-center">
                                     </td>
-                                    <td class="text-center"></td>
                                     <td class="td-actions text-center">
                                         <button class="btn btn-success" data-ng-click="controller.saveItem(@businessId)">
                                             <span class="btn-label">
