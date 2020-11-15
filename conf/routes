@@ -14,7 +14,6 @@ GET     /pages/settings             controllers.HomeController.settingsPage
 
 
 
-
 GET     /pages/invoices             controllers.HomeController.invoicesPage
 GET     /pages/calendar             controllers.HomeController.businessCalendar
 GET     /pages/login                controllers.HomeController.loginPage
@@ -36,6 +35,8 @@ GET     /pages/:businessId/projects/:projectId/overview-dashboard   controllers.
 GET     /pages/:businessId/business-settings                        controllers.HomeController.businessSettingsPage(businessId: Int)
 
 GET     /pages/:businessId/projects/:projectId/vendors-shortlists   controllers.HomeController.projectVendorsShortlists(projectId: Int, businessId: Int)
+
+GET     /pages/:businessId/projects/:projectId/timeline             controllers.HomeController.timelinePage(projectId: Int, businessId: Int)
 
 
 
