@@ -104,7 +104,7 @@
                                                 <i class="nc-icon nc-ruler-pencil"></i>
                                             </span>
                                         </button>
-                                        <button class="btn btn-danger" rel="tooltip" data-original-title="Remove" data-ng-click="controller.removeClient(@businessId, client[0].id)" >
+                                        <button data-ng-if="client[1] === null" class="btn btn-danger" rel="tooltip" data-original-title="Remove" data-ng-click="controller.removeClient(@businessId, client[0].id)" >
                                             <i class="nc-icon nc-scissors"></i>
                                         </button>
                                     </td>

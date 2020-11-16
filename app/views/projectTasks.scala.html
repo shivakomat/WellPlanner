@@ -86,10 +86,10 @@
                 <div class="card">
                     <div class="card-body">
                         <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
-                            <h4 class="card-title">Task Management</h4>
+                            <h4 class="card-title">Task Management By Milestones</h4>
                             <div class="mt-lg-8">
-                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#createList">ADD NEW LIST</button>
-                                <button type="button" data-ng-show="controller.tasks.length > 0" class="btn btn-outline-default btn-sm" data-toggle="modal" data-target="#deleteTaskList">DELETE LIST</button>
+                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#createList">CREATE MILESTONE</button>
+                                <button type="button" data-ng-show="controller.tasks.length > 0" class="btn btn-outline-default btn-sm" data-toggle="modal" data-target="#deleteTaskList">DELETE</button>
                             </div>
 
                             <div class="mt-lg-3 card card-plain" data-ng-repeat="task in controller.tasks">
@@ -138,7 +138,7 @@
                                             </table>
                                         </div>
                                         <div>
-                                            <button type="button" class="btn btn-default btn-round btn-icon btn-icon-mini btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newTask" data-original-title="New Task" data-ng-click="controller.newSubtask(task.parent)">
+                                            <button type="button" class="btn btn-default btn-round btn-outline-default btn-icon btn-icon-mini btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newTask" data-original-title="New Task" data-ng-click="controller.newSubtask(task.parent)">
                                                 <i class="nc-icon nc-simple-add"></i>
                                             </button>
                                         </div>
