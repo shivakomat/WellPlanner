@@ -4,6 +4,7 @@ app.controller('registerBusinessController', function($http, $window, CommonsFac
 
     pageController.businessName = "";
     pageController.phoneNumber = "";
+    pageController.socialMediaUrl = "";
 
     pageController.password = "";
     pageController.email = "";
@@ -61,7 +62,7 @@ app.controller('registerBusinessController', function($http, $window, CommonsFac
         data.businessName = pageController.businessName;
         data.password = pageController.password;
         data.email = pageController.email;
-        data.phoneNumber = pageController.phoneNumber;
+        data.socialMediaUrl = pageController.socialMediaUrl;
 
         // console.log("incoming data -> " + JSON.stringify(data));
 
@@ -85,7 +86,7 @@ app.controller('registerBusinessController', function($http, $window, CommonsFac
             newBusiness.email = response.data.email;
             newBusiness.password = data.password;
             newBusiness.businessName = data.businessName;
-            newBusiness.phoneNumber = data.phoneNumber.toString();
+            newBusiness.socialMediaUrl = data.socialMediaUrl;
             newBusiness.auth0Id = response.data._id;
 
             $http({

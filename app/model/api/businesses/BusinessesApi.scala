@@ -20,7 +20,8 @@ class BusinessesApi(dbApi: DBApi, ws: WSClient) {
 
       def registerBusiness: Option[Business] = {
         val business =
-          Business(name = newBusiness.businessName, email = newBusiness.email,  city = "N/A", state = "N/A", phone_number = newBusiness.phoneNumber,
+          Business(name = newBusiness.businessName, email = newBusiness.email,  city = "N/A",
+                   state = "N/A", phone_number = "", social_media_link = newBusiness.socialMediaUrl,
                    country = "N/A", modified_date = DateTimeNow.getCurrent, created_date = DateTimeNow.getCurrent)
 
         businessesDb

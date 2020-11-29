@@ -1,3 +1,3 @@
 package model.api.businesses
 
-case class AdminSignUpMessage(email: String, businessName: String, phoneNumber: String, password: String, auth0Id: String)
+case class AdminSignUpMessage(email: String, businessName: String, socialMediaUrl: String, password: String, auth0Id: String)
