@@ -24,77 +24,21 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-3 mr-auto">
-                                <div class="fileinput fileinput-new text-left m-5" data-provides="fileinput">
+                            <div class="col-lg-6 mr-auto ml-auto text-center">
+                                <div class="fileinput fileinput-new" data-provides="fileinput">
                                     <div class="fileinput-new thumbnail">
                                         <img src="@routes.Assets.versioned("template_assets/img/image_placeholder.jpg")" alt="...">
                                     </div>
                                     <div class="fileinput-preview fileinput-exists thumbnail"></div>
                                     <div>
                                         <span class="btn btn-rose btn-round btn-file">
-                                            <span class="fileinput-new">Select image</span>
+                                            <span class="fileinput-new">Select Your Business Logo</span>
                                             <span class="fileinput-exists">Change</span>
                                             <input type="file" name="...">
                                         </span>
                                         <a href="javascript:;" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-3 mr-auto">
-                                <table class="table table-borderless">
-                                    <thead class="">
-                                        <tr>
-                                            <th class="text-left">
-                                                <h5 class="text-danger"><u>Quick Links</u></h5>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th class="text-left">
-                                                <h6><a data-toggle="modal" href="#newProject" class="text-warning">Add New Project</a></h6>
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-left">
-                                                <h6><a data-toggle="modal" href="#newClient" class="text-warning">Add New Client</a></h6>
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-left">
-                                                <h6><a data-toggle="modal" href="#newVendor" class="text-warning">Add New Vendor</a></h6>
-                                            </th>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="col-lg-4">
-                                <table class="table table-borderless">
-                                    <thead class="">
-                                        <tr>
-                                            <th class="text-left">
-                                                <h5 class="text-danger"><u>Latest News</u></h5>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th class="text-left">
-                                                <h6><a href="" class="text-default">3 New Clients</a></h6>
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-left">
-                                                <h6><a href="" class="text-default">2 New Projects</a></h6>
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-left">
-                                                <h6><a href="" class="text-default">2 Tasks Completed</a></h6>
-                                            </th>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
                         </div>
                     </div>
@@ -104,17 +48,17 @@
                             <div class="row">
                                 <div class="col-lg-3 col-md-6 col-6 ml-auto">
                                     <h3><i class="nc-icon nc-tie-bow text-warning"></i></h3>
-                                    <h3>{{controller.totalProjects}}</h3>
+                                    <h3><a href="/pages/projects/@businessId" style="color: #0f0f0f">{{controller.totalProjects}}</a></h3>
                                     <h5><a href="/pages/projects/@businessId" style="color: #0f0f0f">Total Projects</a></h5>
                                 </div>
                                 <div class="col-lg-4 col-md-6 col-6 ml-auto mr-auto">
                                     <h3><i class="nc-icon nc-shop text-success"></i></h3>
-                                    <h3>{{controller.totalClients}}</h3>
+                                    <h3><a href="/pages/customers/@businessId" style="color: #0f0f0f">{{controller.totalClients}}</a></h3>
                                     <h5><a href="/pages/customers/@businessId" style="color: #0f0f0f">Total Clients</a></h5>
                                 </div>
                                 <div class="col-lg-3 mr-auto">
                                     <h3><i class="nc-icon nc-circle-10 text-danger"></i></h3>
-                                    <h3>{{controller.totalVendors}}</h3>
+                                    <h3><a href="/pages/vendors/@businessId" style="color: #0f0f0f">{{controller.totalVendors}}</a></h3>
                                     <h5 class="text-default"><a href="/pages/vendors/@businessId" style="color: #0f0f0f">Total Vendor Contacts</a></h5>
                                 </div>
                             </div>
