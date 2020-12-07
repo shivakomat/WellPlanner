@@ -95,8 +95,13 @@
                             <div class="mt-lg-3 card card-plain" data-ng-repeat="task in controller.tasks">
                                 <div class="card-header" role="tab" id="headingOne">
                                     <a data-toggle="collapse" data-parent="#accordion" href="{{ '#collapse_' + task.parent.id}}" aria-expanded="true" aria-controls="collapseOne">
-                                        <h7><b>{{task.parent.title | uppercase}}</b></h7>
-                                        <i class="nc-icon nc-minimal-down"></i>
+                                        <div class="row ml-0">
+                                            <div class="col-lg-5"><h7><b>{{task.parent.title | uppercase}}</b></h7></div>
+                                            <div class="col-lg-2 text-right"><h7> due date </h7></div>
+                                            <div class="col-lg-3 text-center"><h7>{{task.parent.due_date}}</h7></div>
+                                            <div class="col-lg-2 right-side"><i class="nc-icon nc-minimal-down"></i></div>
+
+                                        </div>
                                     </a>
                                 </div>
                                 <div id="{{ 'collapse_' + task.parent.id}}" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
@@ -122,6 +127,10 @@
                                                         <td data-ng-if="subTask.is_completed" class="text-left"><strike>{{subTask.description}}</strike></td>
                                                         <td class="text-left">{{subTask.due_date}}</td>
                                                         <td class="td-actions text-right">
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="#editTask" data-original-title="Edit Task" data-ng-click="controller.editTask(subTask)">
+                                                                <i class="nc-icon nc-ruler-pencil"></i>
+                                                            </button>
+
                                                             <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#taskDetails" data-original-title="Comments">
                                                                 <i class="nc-icon nc-chat-33"></i>
                                                             </button>
@@ -137,10 +146,14 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <div>
-                                            <button type="button" class="btn btn-default btn-round btn-outline-default btn-icon btn-icon-mini btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newTask" data-original-title="New Task" data-ng-click="controller.newSubtask(task.parent)">
-                                                <i class="nc-icon nc-simple-add"></i>
-                                            </button>
+                                        <div class="row">
+                                            <div class="col-lg-5 text-left">
+                                                <div>
+                                                    <button type="button" class="btn btn-default btn-round btn-outline-default  btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newTask" data-original-title="New Task" data-ng-click="controller.newSubtask(task.parent)">
+                                                         Add task
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

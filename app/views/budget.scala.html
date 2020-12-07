@@ -168,13 +168,12 @@
                                                             Actual
                                                         </th>
                                                         <th class="text-center text-warning">
-                                                            Savings
-                                                        </th>
-                                                        <th class="text-center text-warning">
                                                             Amount Paid
                                                         </th>
                                                         <th class="text-center text-warning">
                                                             Balance
+                                                        </th>
+                                                        <th class="text-center text-warning">
                                                         </th>
                                                         <th class="text-center text-warning">
                                                             Actions
@@ -202,15 +201,13 @@
                                                         <td  class="text-center" data-ng-if="breakdownItem.actual > 0">
                                                             {{breakdownItem.actual | currency}}
                                                         </td>
-                                                        <td class="text-center text-danger">
-                                                            <b data-ng-if="breakdownItem.actual <= 0">-</b>
-                                                            <b data-ng-if="breakdownItem.actual > 0">{{(breakdownItem.estimate - breakdownItem.actual) | currency}}</b>
-                                                        </td>
                                                         <td  class="text-center">
                                                             -
                                                         </td>
                                                         <td class="text-center">
                                                             -
+                                                        </td>
+                                                        <td class="text-center">
                                                         </td>
                                                         <td class="text-center">
 @*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remainders">*@

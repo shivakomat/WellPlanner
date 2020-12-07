@@ -195,6 +195,7 @@ function NewClientModalController(ClientsFactory, $scope, templates) {
     }
 
     newClientModalController.newClient = function () {
+       console.log(newClientModalController.formData.eventDate);
        createAClient(newClientModalController.businessId);
     };
 
