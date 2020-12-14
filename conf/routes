@@ -79,8 +79,18 @@ DELETE /businesses/:businessId/vendors/:vendorId        controllers.VendorContac
 GET /businesses/:businessId/projects/:projectId/info                                            controllers.ProjectsController.getProjectById(projectId: Int, businessId: Int)
 
 GET /businesses/:businessId/projects/:projectId/tasks                                           controllers.TasksController.tasks(businessId: Int, projectId: Int)
+
+GET /businesses/:businessId/projects/:projectId/tasks/:taskId/taskItems                         controllers.TasksController.taskItems(businessId: Int, projectId: Int, taskId: Int)
+
 +nocsrf
 POST /businesses/projects/tasks                                                                 controllers.TasksController.addNewTasks
+
++nocsrf
+POST /businesses/projects/tasks/taskItems                                                       controllers.TasksController.addTaskItemToTask
+
++nocsrf
+DELETE /businesses/:businessId/projects/:projectId/tasks/:taskId/taskItems/:taskItemId          controllers.TasksController.deleteTaskItemById(taskItemId: Int, taskId: Int, projectId: Int, businessId: Int)
+
 +nocsrf
 POST /businesses/projects/tasks/update                                                          controllers.TasksController.updateTask()
 +nocsrf

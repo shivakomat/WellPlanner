@@ -1,6 +1,6 @@
 package model.api.projects
 
-import model.dataModels.{Task, TaskComment}
+import model.dataModels.{Task, TaskComment, TaskItem}
 import model.databases.{TaskCommentsDbFacade, TasksDbFacade}
 import model.tools.DateTimeNow
 import play.api.db.DBApi
@@ -25,6 +25,24 @@ class ProjectTasksAPI(dbApi: DBApi, ws: WSClient) {
     else Left("failed during database insertion or reading the newly created data")
   }
 
+  def addTaskItem(newTaskItem: TaskItem): Either[String, TaskItem] = {
+
+    print(newTaskItem);
+
+    val newTaskItemAdded = tasksListDb
+      .addNewTaskItem(newTaskItem.copy(modified_date = Some(DateTimeNow.getCurrent),
+                                    created_date = Some(DateTimeNow.getCurrent)))
+    val newTaskItemExecution =
+      for {
+        id <- newTaskItemAdded
+        taskItem <- tasksListDb.byTaskItemId(id)
+      } yield (taskItem)
+
+    if(newTaskItemExecution.nonEmpty) Right(newTaskItemExecution.get)
+    else Left("Failed during database insertion or reading the newly created data")
+
+  }
+
   def allTasks(projectId: Long, businessId: Long): Seq[TaskList] = {
     val listOfTasks = tasksListDb.list(projectId, businessId)
 
@@ -36,6 +54,9 @@ class ProjectTasksAPI(dbApi: DBApi, ws: WSClient) {
     else
         Seq.empty[TaskList]
   }
+
+  def taskItemsByTask(taskId: Long, projectId: Long, businessId: Long): Seq[TaskItem] =
+    tasksListDb.listOfTaskItem(taskId, projectId, businessId)
 
   def addCommentToTask(taskComment: TaskComment): Either[String, TaskComment] = {
     val newTaskCommentAdded =
@@ -71,6 +92,11 @@ class ProjectTasksAPI(dbApi: DBApi, ws: WSClient) {
   def deleteTask(taskId: Long, projectId: Long, businessId: Long): Seq[TaskList] = {
     val rowsDeleted = tasksListDb.deleteTask(taskId,projectId, businessId)
     this.allTasks(projectId, businessId)
+  }
+
+  def deleteTaskItem(taskItemId: Long, taskId: Long, projectId: Long, businessId: Long): Seq[TaskItem] = {
+    val rowsDeleted = tasksListDb.deleteTaskItem(taskItemId, taskId, projectId, businessId)
+    this.taskItemsByTask(taskId, projectId, businessId)
   }
 
 }

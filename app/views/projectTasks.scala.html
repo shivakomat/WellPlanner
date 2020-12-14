@@ -65,7 +65,6 @@
         </div>
     </div>
 
-
     <!-- Main Content -->
     <div class="content" data-ng-controller="tasksController as controller" data-ng-init="controller.getAllTasks(@projectId, @businessId)">
 
@@ -80,6 +79,9 @@
 
             <!-- Delete Task Modal -->
         <data-delete-task-list-modal data-tasks="controller.tasks" data-project-id=@projectId data-business-id=@businessId></data-delete-task-list-modal>
+
+            <!-- Task Items Modal -->
+        <data-task-items-modal data-task="controller.currentSubTask" data-task-items="controller.subTaskItems" data-project-id=@projectId data-business-id=@businessId></data-task-items-modal>
 
         <div class="row">
             <div class="col-md-12">
@@ -97,7 +99,7 @@
                                     <a data-toggle="collapse" data-parent="#accordion" href="{{ '#collapse_' + task.parent.id}}" aria-expanded="true" aria-controls="collapseOne">
                                         <div class="row ml-0">
                                             <div class="col-lg-5"><h7><b>{{task.parent.title | uppercase}}</b></h7></div>
-                                            <div class="col-lg-2 text-right"><h7> due date </h7></div>
+                                            <div class="col-lg-2 text-right text-danger"><h7> due by </h7></div>
                                             <div class="col-lg-3 text-center"><h7>{{task.parent.due_date}}</h7></div>
                                             <div class="col-lg-2 right-side"><i class="nc-icon nc-minimal-down"></i></div>
 
@@ -125,10 +127,10 @@
                                                         </td>
                                                         <td data-ng-if="subTask.is_completed == false" class="text-left">{{subTask.description}}</td>
                                                         <td data-ng-if="subTask.is_completed" class="text-left"><strike>{{subTask.description}}</strike></td>
-                                                        <td class="text-left">{{subTask.due_date}}</td>
+                                                        <td class="text-left">{{subTask.due_date | date:'mediumDate'}}</td>
                                                         <td class="td-actions text-right">
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="#editTask" data-original-title="Edit Task" data-ng-click="controller.editTask(subTask)">
-                                                                <i class="nc-icon nc-ruler-pencil"></i>
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="#taskItemsModal" data-original-title="View Task Items" data-ng-click="controller.setSubTaskForTaskItems(subTask)">
+                                                                <i class="nc-icon nc-bullet-list-67"></i>
                                                             </button>
 
                                                             <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#taskDetails" data-original-title="Comments">

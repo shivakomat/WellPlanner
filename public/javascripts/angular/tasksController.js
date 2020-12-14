@@ -4,6 +4,7 @@ app.controller('tasksController', function (TasksFactory, $http) {
     tasksController.tasks = [];
     tasksController.currentParentTask = {};
     tasksController.currentSubTask = {};
+    tasksController.subTaskItems = [];
 
     function refresh(businessId, projectId) {
         allTasks(businessId, projectId);
@@ -19,6 +20,23 @@ app.controller('tasksController', function (TasksFactory, $http) {
 
     tasksController.newSubtask = function(parentTask) {
         tasksController.currentParentTask = parentTask;
+    };
+
+    tasksController.setSubTaskForTaskItems = function (subTask) {
+        console.log("Inside set current sub task" + ": " + subTask.business_id + " " + subTask.project_id + " " + subTask.id)
+
+        tasksController.currentSubTask = subTask;
+
+        TasksFactory.getTaskItemsByTask(subTask.business_id, subTask.project_id, subTask.id,
+            function mySuccess (response) {
+                tasksController.subTaskItems = response.data.data;
+                console.log(tasksController.subTaskItems);
+            },
+            function myError (response) {
+                alerts.autoCloseAlert('success-message', 'Error loading task items', 'Please try again!');
+                console.log(response.statusText)
+            }
+        )
     };
 
     tasksController.editTask = function (subTask) {
@@ -59,7 +77,84 @@ app.controller('tasksController', function (TasksFactory, $http) {
     }
 });
 
+app.directive('taskItemsModal',  [TaskItemsModalDirective]);
+function TaskItemsModalDirective() {
+    return{
+        template:  '<ng-include src="getTaskItemsTemplateUrl()"/>',
+        scope: false,
+        bindToController: {
+            businessId: '=',
+            projectId: '=',
+            taskItems: '=',
+            task: '='
+        },
+        controller: TaskItemsModalController,
+        controllerAs: 'taskItemsModalController'
+    }
+}
 
+app.controller('taskItemsModalController', [TaskItemsModalController]);
+function TaskItemsModalController(TasksFactory, $scope, templates) {
+    var taskItemsModalController = this;
+
+    taskItemsModalController.showNewItem = false;
+    taskItemsModalController.formData = {};
+
+    $scope.getTaskItemsTemplateUrl = function () {
+        return templates.taskItemsModal;
+    };
+
+    function refresh(taskId) {
+        taskItemsModalController.showNewItem = false;
+        taskItemsModalController.formData = {};
+
+        TasksFactory.getTaskItemsByTask(taskItemsModalController.businessId, taskItemsModalController.projectId, taskId,
+            function mySuccess (response) {
+                taskItemsModalController.taskItems = response.data.data;
+                console.log(taskItemsModalController.taskItems);
+            },
+            function myError (response) {
+                alerts.autoCloseAlert('success-message', 'Error loading task items', 'Please try again!');
+                console.log(response.statusText)
+            }
+        )
+    }
+
+    taskItemsModalController.addNewItem = function () {
+        var newTaskItem = {};
+        newTaskItem.description = taskItemsModalController.formData.description;
+        newTaskItem.business_id = taskItemsModalController.businessId;
+        newTaskItem.project_id = taskItemsModalController.projectId;
+        newTaskItem.task_id = taskItemsModalController.task.id;
+        newTaskItem.is_completed = false;
+
+        TasksFactory.addTaskItem(newTaskItem, function mySuccess(response) {
+            console.log(response.data.data);
+            refresh(response.data.data.task_id);
+            alerts.autoCloseAlert('success-message', "Task Item Added!!", "Great job!!");
+        }, function myError() {
+            alerts.autoCloseAlert('success-message', 'Unable to add new item, oops!', 'Please try again!');
+        });
+    };
+
+    taskItemsModalController.deleteItem = function (taskItemId) {
+        TasksFactory.deleteTaskItemBy(taskItemId, taskItemsModalController.task.id,
+            taskItemsModalController.projectId, taskItemsModalController.businessId, function mySuccess() {
+                refresh(taskItemsModalController.task.id);
+                alerts.autoCloseAlert('success-message', "Deleted!", "Item removed!!");
+            }, function myError() {
+                alerts.autoCloseAlert('success-message', 'Unable to add new item, oops!', 'Please try again!');
+            });
+    }
+
+    taskItemsModalController.showAddNewItem = function () {
+        taskItemsModalController.showNewItem = true;
+    };
+
+    taskItemsModalController.cancelItem = function () {
+        taskItemsModalController.showNewItem = false;
+    };
+}
 
 app.directive('newTaskListModal',  [NewTaskListModalDirective]);
 function NewTaskListModalDirective() {
@@ -86,7 +181,6 @@ function NewTaskListModalController(TasksFactory, $scope, templates) {
     $scope.getNewTaskListModalTemplateUrl = function () {
         return templates.newTaskListModal;
     };
-
 
     newTaskListModalController.createNewTaskList = function () {
         newTaskList()

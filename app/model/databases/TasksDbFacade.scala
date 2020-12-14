@@ -3,6 +3,7 @@ package model.databases
 import anorm.{Macro, RowParser, _}
 import javax.inject.Inject
 import model.dataModels.Task
+import model.dataModels.TaskItem
 import model.tools.AnormExtension._
 import play.api.db.DBApi
 
@@ -10,6 +11,7 @@ import play.api.db.DBApi
 class TasksDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
 
   val parser: RowParser[Task] = Macro.namedParser[Task]
+  val parserTaskItem: RowParser[TaskItem] = Macro.namedParser[TaskItem]
 
   def addNewTask(task: Task): Option[Long] =
     db.withConnection { implicit connection =>
@@ -21,6 +23,17 @@ class TasksDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
             "is_category" -> task.is_category, "is_completed" -> task.is_completed, "due_date" -> task.due_date, "project_id" -> task.project_id,
             "parent_task_id" -> task.parent_task_id, "business_id" -> task.business_id,
             "modified_date" -> task.modified_date, "created_date" -> task.created_date)
+        .executeInsert()
+    }
+
+  def addNewTaskItem(taskItem: TaskItem): Option[Long] =
+    db.withConnection { implicit connection =>
+      SQL("insert into task_items(description , is_completed, task_id, project_id, business_id, modified_date, created_date) " +
+        "values ({description} , {is_completed}, {task_id}, {project_id}, {business_id}," +
+        " {modified_date}, {created_date})")
+        .on("description" -> taskItem.description, "is_completed" -> taskItem.is_completed, "project_id" -> taskItem.project_id,
+          "task_id" -> taskItem.task_id, "business_id" -> taskItem.business_id,
+          "modified_date" -> taskItem.modified_date, "created_date" -> taskItem.created_date)
         .executeInsert()
     }
 
@@ -44,11 +57,25 @@ class TasksDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
         .as(parser.singleOpt)
     }
 
+  def byTaskItemId(itemId : Long): Option[TaskItem] =
+    db.withConnection { implicit connection =>
+      SQL(s"select * from task_items where id = {id}")
+        .on("id" -> itemId)
+        .as(parserTaskItem.singleOpt)
+    }
+
   def list(projectId: Long, businessId: Long): Seq[Task] =
     db.withConnection { implicit connection =>
       SQL("select * from tasks where business_id = {businessId} and project_id = {projectId}")
         .on( "projectId" -> projectId, "businessId" -> businessId)
         .as(parser.*)
+    }
+
+  def listOfTaskItem(taskId: Long, projectId: Long, businessId: Long): Seq[TaskItem] =
+    db.withConnection { implicit connection =>
+      SQL("select * from task_items where business_id = {businessId} and project_id = {projectId} and task_id = {taskId}")
+        .on( "projectId" -> projectId, "businessId" -> businessId, "taskId" -> taskId)
+        .as(parserTaskItem.*)
     }
 
 
@@ -60,4 +87,10 @@ class TasksDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
     }
   }
 
+  def deleteTaskItem(taskItemId: Long, taskId: Long, projectId: Long, businessId: Long): Int =
+    db.withConnection { implicit connection =>
+      SQL("delete from task_items where id = {taskItemId} and task_id = {taskId} and business_id = {businessId} and project_id = {projectId}")
+        .on("taskItemId" -> taskItemId,"taskId" -> taskId, "projectId" -> projectId, "businessId" -> businessId)
+        .executeUpdate()
+    }
 }

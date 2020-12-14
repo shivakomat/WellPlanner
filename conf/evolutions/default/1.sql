@@ -9,6 +9,7 @@ DROP TABLE "vendor_buckets";
 DROP TABLE "budget_breakdowns";
 DROP TABLE "vendor_contacts";
 DROP TABLE "task_comments";
+DROP TABLE "task_items";
 DROP TABLE "tasks";
 DROP TABLE "projects";
 DROP TABLE "clients";

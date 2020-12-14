@@ -21,14 +21,13 @@ class JsonFormats {
 
 
 //  implicit val BusinessRowFormat = Json.format[BusinessesRow]
-
-
 //  implicit val CustomersRowFormat = Json.format[Customers]
 //  implicit val ProjectsRowFormat = Json.format[Projects]
 //
 //  implicit val TasksRowFormat = Json.format[TasksRow]
 //  implicit val TaskcommentsRowFormat = Json.format[Taskcomments]
 //  implicit val UsersRowFormat = Json.format[Users]
+
 }
 
 

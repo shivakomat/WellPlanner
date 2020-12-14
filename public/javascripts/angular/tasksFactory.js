@@ -7,8 +7,20 @@ app.factory('TasksFactory', function TasksFactory ($http) {
         $http({method: 'POST', url: '/businesses/projects/tasks', data: taskList}).then(successFunction, errorFunction);
     };
 
+    var addTaskItem = function (taskItem, successFunction, errorFunction) {
+        $http({method: 'POST', url: '/businesses/projects/tasks/taskItems', data: taskItem}).then(successFunction, errorFunction);
+    };
+
+    var getTaskItemsByTask = function (businessId, projectId, taskId, successFunction, errorFunction) {
+        $http({method: 'GET', url: '/businesses/'+ businessId + "/projects/" + projectId + "/tasks/" + taskId + "/taskItems"}).then(successFunction, errorFunction);
+    };
+
     var deleteTaskBy = function (projectId, businessId, taskId, successFunction, errorFunction) {
         $http({method: 'DELETE', url: '/businesses/' + businessId + '/projects/' + projectId + '/tasks/' + taskId}).then(successFunction, errorFunction);
+    };
+
+    var deleteTaskItemBy = function (taskItemId, taskId, projectId, businessId, successFunction, errorFunction) {
+        $http({method: 'DELETE', url: '/businesses/' + businessId + '/projects/' + projectId + '/tasks/' + taskId + '/taskItems/' + taskItemId}).then(successFunction, errorFunction);
     };
 
     var updateTaskBy = function (updatedTask, successFunction, errorFunction) {
@@ -18,7 +30,10 @@ app.factory('TasksFactory', function TasksFactory ($http) {
     return {
         allTasks: getAllTasks,
         addTask: addTask,
+        addTaskItem: addTaskItem,
         deleteTaskBy: deleteTaskBy,
-        updateTaskBy: updateTaskBy
+        updateTaskBy: updateTaskBy,
+        getTaskItemsByTask: getTaskItemsByTask,
+        deleteTaskItemBy: deleteTaskItemBy
     }
 });
