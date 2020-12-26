@@ -11,16 +11,15 @@ class ClientsDB @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with Cl
 
   val parser: RowParser[Client] = Macro.namedParser[Client]
 
-  def addNewClient(client: Client): Option[Long] = {
+  def addNewClient(client: Client): Option[Long] =
     db.withConnection { implicit connection =>
-      SQL("insert into clients(name , event_type , phone_number, email, notes, budget, status, business_id, modified_date, created_date) " +
-        "values ({name} , {event_type} , {phone_number}, {email}, {notes}, {budget}, {status}, {business_id}, {modified_date}, {created_date})")
-        .on("name"  -> client.name, "phone_number" -> client.phone_number, "event_type" -> client.event_type, "email" -> client.email,
+      SQL("insert into clients(name , event_type , event_date, phone_number, email, notes, budget, status, business_id, modified_date, created_date) " +
+        "values ({name} , {event_type} , {event_date},{phone_number}, {email}, {notes}, {budget}, {status}, {business_id}, {modified_date}, {created_date})")
+        .on("name"  -> client.name, "phone_number" -> client.phone_number, "event_type" -> client.event_type, "event_date" -> client.event_date, "email" -> client.email,
           "notes" -> client.notes, "budget" -> client.budget, "status" -> client.status, "business_id" -> client.business_id,
           "modified_date" -> client.modified_date, "created_date" -> client.created_date)
         .executeInsert()
     }
-  }
 
   def updateBasicClientInfo(updateClient: Client): Int =
     db.withConnection { implicit connection =>
@@ -28,7 +27,7 @@ class ClientsDB @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with Cl
         " phone_number = {phone_number}, budget = {budget}, notes = {notes}, status = {status}, modified_date = {modified_date}" +
         " where id = {client_id} and business_id = {business_id}")
         .on("name" -> updateClient.name, "email" -> updateClient.email,"phone_number" -> updateClient.phone_number, "budget" -> updateClient.budget, "status" -> updateClient.status,
-          "modified_date" -> updateClient.modified_date, "business_id" -> updateClient.business_id, "client_id" -> updateClient.id, "notes" -> updateClient.notes)
+          "event_date" -> updateClient.event_date, "modified_date" -> updateClient.modified_date, "business_id" -> updateClient.business_id, "client_id" -> updateClient.id, "notes" -> updateClient.notes)
         .executeUpdate()
     }
 
@@ -52,12 +51,10 @@ class ClientsDB @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with Cl
       SQL("select * from clients").as(parser.*)
     }
 
-  def deleteByClientIdAndBusinessId(clientId: Int, businessId: Int): Int = {
+  def deleteByClientIdAndBusinessId(clientId: Int, businessId: Int): Int =
     db.withConnection { implicit connection =>
         SQL("delete from clients where id = {client_id} and business_id = {business_id}")
           .on("client_id" -> clientId, "business_id" -> businessId)
       .executeUpdate()
     }
-  }
-
 }

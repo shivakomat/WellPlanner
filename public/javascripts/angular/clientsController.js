@@ -50,6 +50,9 @@ app.controller('clientsController', function(ClientsFactory) {
     function allClients(businessId) {
         ClientsFactory.getAllClients(businessId, function mySuccess (response) {
             clientController.clients = response.data.data;
+            for (var i=0; i < clientController.clients.length; i++) {
+                clientController.clients[i][0].event_date_display = moment(clientController.clients[i][0].event_date, "YYYYMMDD").format("MMM-DD-YYYY")
+            }
         }, function myError (response) {
             console.log(response.statusText)
         });
@@ -65,13 +68,16 @@ app.controller('clientsController', function(ClientsFactory) {
     }
 
     function createAClient(businessId) {
+        console.log(clientController.formData)
         var newClient = {};
         newClient = clientController.formData;
         newClient.businessId = businessId;
         newClient.notes = '';
         newClient.status = clientController.formData.status.type;
         newClient.eventType = 'WEDDING';
-        newClient.eventDate = '';
+        console.log(clientController.formData.eventDate.format('YYYYMMDD'));
+        newClient.eventDate = parseInt(clientController.formData.eventDate.format('YYYYMMDD'));
+        console.log(newClient)
 
         ClientsFactory.addClient(newClient, function mySuccess() {
             refresh(businessId);
@@ -186,6 +192,8 @@ app.controller('newClientModalController', [NewClientModalController]);
 function NewClientModalController(ClientsFactory, $scope, templates) {
     var newClientModalController = this;
 
+    newClientModalController.eventDate = null;
+
     $scope.getNewClientModalTemplateUrl = function () {
         return templates.newClientModal;
     }
@@ -196,6 +204,7 @@ function NewClientModalController(ClientsFactory, $scope, templates) {
 
     newClientModalController.newClient = function () {
        console.log(newClientModalController.formData.eventDate);
+       console.log(newClientModalController.eventDate);
        createAClient(newClientModalController.businessId);
     };
 

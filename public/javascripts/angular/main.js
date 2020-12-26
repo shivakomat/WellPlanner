@@ -158,39 +158,6 @@ app.directive('inputCurrency', function ($filter, $locale) {
         };
 });
 
-
-app.directive('psDatetimePicker', function () {
-        var format = 'MM/DD/YYYY hh:mm A';
-
-        return {
-                restrict: 'A',
-                require: 'ngModel',
-                link: function (scope, element, attributes, modelCtrl) {
-                        element.datetimepicker({
-                                format: format
-                        });
-                        var picker = element.data("DateTimePicker");
-
-                        modelCtrl.$formatters.push(function (value) {
-                                var date = moment(value);
-                                if (date.isValid()) {
-                                        return date.format(format);
-                                }
-                                return 'Not Valid Date';
-                        });
-
-                        element.on('change', function (event) {
-                                scope.$apply(function() {
-                                        var date = picker.getDate();
-                                        modelCtrl.$setViewValue(date.valueOf())
-                                        scope.inputValue = data.valueOf()
-                                });
-                        });
-                }
-        };
-});
-
-
 // PROD Constants
 app.constant('config', {
         appHost: 'https://well-wedding-planner.herokuapp.com',

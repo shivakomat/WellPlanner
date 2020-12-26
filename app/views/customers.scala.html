@@ -27,7 +27,8 @@
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Phone Number</th>
                                     <th class="text-center">Email Address</th>
-                                    <th class="text-center">Initial Budget</th>
+                                    <th class="text-center">Budget</th>
+                                    <th class="text-center">Event Date</th>
                                     <th class="text-center">Status</th>
 @*                                    <th class="text-center">Notes</th>*@
                                     <th class="text-center">Project</th>
@@ -55,6 +56,9 @@
                                     </td>
                                     <td class="text-center">
                                         <input type="text" style="text-align:center;" class="form-control" data-ng-model="controller.formData.budget" data-input-currency>
+                                    </td>
+                                    <td class="text-center">
+                                        <input id="event_date"  size="30" class="form-control" ng-model="controller.formData.eventDate" ng-model-options="{ updateOn: 'blur' }"  moment-picker="controller.formData.eventDate" format="YYYY-MM-DD" start-view="year">
                                     </td>
                                     <td class="text-center">
                                         <select class="form-control" data-ng-model="controller.formData.status" ng-options= "item.type for item in controller.clientStatuses"></select>
@@ -85,6 +89,7 @@
                                     <td class="text-center">{{client[0].phone_number | phonenumber}}</td>
                                     <td class="text-center">{{client[0].email}}</td>
                                     <td class="text-center">{{client[0].budget | currency}}</td>
+                                    <td class="text-center">{{client[0].event_date_display}}</td>
                                     <td class="text-center">
                                         <button class="btn btn-primary btn-round">{{client[0].status}}</button>
                                     </td>

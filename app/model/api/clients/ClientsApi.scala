@@ -34,6 +34,7 @@ class ClientsApi(dbApi: DBApi, ws: WSClient) {
     val newClientId = clientsDb.addNewClient(
       Client(name = Some(newClientMessage.customerName),
         event_type = Some(newClientMessage.eventType),
+        event_date = newClientMessage.eventDate,
         phone_number = newClientMessage.phoneNumber.toString,
         email = Some(newClientMessage.emailAddress),
         notes = Some(""),
@@ -64,6 +65,7 @@ class ClientsApi(dbApi: DBApi, ws: WSClient) {
              phone_number = updateClientMessage.phoneNumber.toString,
              email = Some(updateClientMessage.emailAddress),
              event_type = Some(updateClientMessage.eventType),
+             event_date =  updateClientMessage.eventDate,
              notes = updateClientMessage.notes,
              budget = Some(updateClientMessage.budget),
              status = Some(updateClientMessage.status),
