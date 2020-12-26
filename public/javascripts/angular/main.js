@@ -1,7 +1,7 @@
 'use strict';
 
 var app =
-    angular.module('wellPlanner', ['auth0', 'angular-storage', 'angular-jwt', 'ngMaterial', 'ui.router']);
+    angular.module('wellPlanner', ['auth0', 'angular-storage', 'angular-jwt', 'ngMaterial', 'ui.router', 'moment-picker']);
 
 app.config(function ($provide, authProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider, $sceDelegateProvider) {
         $urlRouterProvider.otherwise('/');
@@ -13,6 +13,34 @@ app.config(function ($provide, authProvider, $urlRouterProvider, $httpProvider, 
                 'https://well-wedding-planner.herokuapp.com/assets/**'
         ]);
 });
+
+app.config(['momentPickerProvider', function (momentPickerProvider) {
+        momentPickerProvider.options({
+                /* Picker properties */
+                locale:        'en',
+                format:        'L LTS',
+                minView:       'decade',
+                maxView:       'day',
+                startView:     'month',
+                autoclose:     true,
+                today:         true,
+                keyboard:      false,
+
+                /* Extra: Views properties */
+                leftArrow:     '&larr;',
+                rightArrow:    '&rarr;',
+                yearsFormat:   'YYYY',
+                monthsFormat:  'MMM',
+                daysFormat:    'D',
+                hoursFormat:   'HH:[00]',
+                minutesFormat: moment.localeData().longDateFormat('LT').replace(/[aA]/, ''),
+                secondsFormat: 'ss',
+                minutesStep:   5,
+                secondsStep:   1
+        });
+}]);
+
+
 
 app.directive('capitalization', function () {
         return {
@@ -129,6 +157,39 @@ app.directive('inputCurrency', function ($filter, $locale) {
                 }
         };
 });
+
+
+app.directive('psDatetimePicker', function () {
+        var format = 'MM/DD/YYYY hh:mm A';
+
+        return {
+                restrict: 'A',
+                require: 'ngModel',
+                link: function (scope, element, attributes, modelCtrl) {
+                        element.datetimepicker({
+                                format: format
+                        });
+                        var picker = element.data("DateTimePicker");
+
+                        modelCtrl.$formatters.push(function (value) {
+                                var date = moment(value);
+                                if (date.isValid()) {
+                                        return date.format(format);
+                                }
+                                return 'Not Valid Date';
+                        });
+
+                        element.on('change', function (event) {
+                                scope.$apply(function() {
+                                        var date = picker.getDate();
+                                        modelCtrl.$setViewValue(date.valueOf())
+                                        scope.inputValue = data.valueOf()
+                                });
+                        });
+                }
+        };
+});
+
 
 // PROD Constants
 app.constant('config', {

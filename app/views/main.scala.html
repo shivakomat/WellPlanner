@@ -21,9 +21,6 @@
         <link href="@routes.Assets.versioned("template_assets/css/bootstrap.min.css")" rel="stylesheet" />
         <link href="@routes.Assets.versioned("template_assets/css/paper-dashboard.css?v=2.0.1")" rel="stylesheet" />
 
-            <!-- CSS Just for demo purpose, don't include it in your project -->
-        <link href="@routes.Assets.versioned("template_assets/demo/demo.css")" rel="stylesheet" />
-
 @*        <link href="@routes.Assets.versioned("template_assets/css/loading_bar/hearLoading.css")" rel="stylesheet" />*@
         <style>
                 .lds-grid {
@@ -238,6 +235,8 @@
                 }
 
         </style>
+
+        <link href="@routes.Assets.versioned("template_assets/css/angular-moment-picker.min.css")" rel="stylesheet" />
 
 
     </head>
@@ -473,6 +472,9 @@
 
         <script src="@routes.Assets.versioned("template_assets/js/plugins/moment.min.js")"></script>
 
+@*        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.js"></script>*@
+
+
             <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
         <script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-switch.js")"></script>
 
@@ -489,7 +491,7 @@
 
             <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
 
-        <script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-datetimepicker.js")"></script>
+@*        <script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-datetimepicker.js")"></script>*@
 
             <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
 
@@ -562,10 +564,13 @@
         <script src="@routes.Assets.versioned("node_modules/angular-ui-router/release/angular-ui-router.js")"></script>
         <script src="@routes.Assets.versioned("node_modules/auth0-angular/build/auth0-angular.js")"></script>
         <script src="@routes.Assets.versioned("node_modules/auth0-js/build/auth0.js")"></script>
+
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/angular-moment-picker.min.js")"></script>
+
+@*        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.js"></script>*@
 @*        <script src="@routes.Assets.versioned("node_modules/angular-loading-bar/build/loading-bar.js")"></script>*@
 @*        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap-tpls.min.js"></script>*@
 @*        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap.min.js"></script>*@
-@*        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.0/angular-route.min.js"></script>*@
         <script>
             alerts = {
                 autoCloseAlert: function(type, _title, _desc) {

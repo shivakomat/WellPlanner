@@ -25,7 +25,8 @@
         <link href="@routes.Assets.versioned("template_assets/css/paper-dashboard.css?v=2.0.1")" rel="stylesheet" />
 
             <!-- CSS Just for demo purpose, don't include it in your project -->
-        <link href="@routes.Assets.versioned("template_assets/demo/demo.css")" rel="stylesheet" />
+@*        <link href="@routes.Assets.versioned("template_assets/demo/demo.css")" rel="stylesheet" />*@
+
 
         <style>
                 .lds-grid {
@@ -240,6 +241,9 @@
                 }
 
         </style>
+
+        <link href="@routes.Assets.versioned("template_assets/css/angular-moment-picker.min.css")" rel="stylesheet" />
+
     </head>
     <body class="" data-ng-app="wellPlanner" data-ng-cloak>
         <div class="wrapper ">
@@ -629,6 +633,8 @@
         <script src="@routes.Assets.versioned("node_modules/angular-ui-router/release/angular-ui-router.js")"></script>
         <script src="@routes.Assets.versioned("node_modules/auth0-angular/build/auth0-angular.js")"></script>
         <script src="@routes.Assets.versioned("node_modules/auth0-js/build/auth0.js")"></script>
+
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/angular-moment-picker.min.js")"></script>
 @*        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap-tpls.min.js"></script>*@
 @*        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.6/ui-bootstrap.min.js"></script>*@
         @*        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-route/1.8.0/angular-route.min.js"></script>*@
