@@ -24,7 +24,7 @@ app.config(['momentPickerProvider', function (momentPickerProvider) {
                 startView:     'month',
                 autoclose:     true,
                 today:         true,
-                keyboard:      false,
+                keyboard:      true,
 
                 /* Extra: Views properties */
                 leftArrow:     '&larr;',

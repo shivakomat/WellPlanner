@@ -68,16 +68,15 @@ app.controller('clientsController', function(ClientsFactory) {
     }
 
     function createAClient(businessId) {
-        console.log(clientController.formData)
         var newClient = {};
         newClient = clientController.formData;
         newClient.businessId = businessId;
         newClient.notes = '';
         newClient.status = clientController.formData.status.type;
         newClient.eventType = 'WEDDING';
-        console.log(clientController.formData.eventDate.format('YYYYMMDD'));
+        // console.log(clientController.formData.eventDate.format('YYYYMMDD'));
         newClient.eventDate = parseInt(clientController.formData.eventDate.format('YYYYMMDD'));
-        console.log(newClient)
+        // console.log(newClient)
 
         ClientsFactory.addClient(newClient, function mySuccess() {
             refresh(businessId);
@@ -194,6 +193,18 @@ function NewClientModalController(ClientsFactory, $scope, templates) {
 
     newClientModalController.eventDate = null;
 
+    newClientModalController.clientStatuses = [
+        {"type": "New"},
+        {"type": "Followed Up"},
+        {"type": "Consultation Scheduled"},
+        {"type": "Proposal Sent"},
+        {"type": "Proposal Accepted"},
+        {"type": "Contract Sent"},
+        {"type": "Contract Accepted"},
+        {"type": "Booked"},
+        {"type": "Lost"}
+    ];
+
     $scope.getNewClientModalTemplateUrl = function () {
         return templates.newClientModal;
     }
@@ -204,7 +215,6 @@ function NewClientModalController(ClientsFactory, $scope, templates) {
 
     newClientModalController.newClient = function () {
        console.log(newClientModalController.formData.eventDate);
-       console.log(newClientModalController.eventDate);
        createAClient(newClientModalController.businessId);
     };
 
@@ -213,9 +223,11 @@ function NewClientModalController(ClientsFactory, $scope, templates) {
         newClient = newClientModalController.formData;
         newClient.businessId = businessId;
         newClient.notes = '';
-        newClient.status = newClientModalController.formData.status;
+        newClient.status = newClientModalController.formData.status.type;
         newClient.eventType = 'WEDDING';
-        newClient.eventDate = '';
+        var reformattedEventDate = newClientModalController.formData.eventDate.format('YYYYMMDD');
+        console.log(reformattedEventDate)
+        newClient.eventDate = parseInt(reformattedEventDate);
 
         console.log(newClient);
 
