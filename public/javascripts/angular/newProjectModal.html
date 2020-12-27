@@ -20,9 +20,8 @@
                         <input id="budgetApproximation" type="text" class="form-control" data-ng-model="newProjectController.formData.budget" data-input-currency>
                     </div>
                     <div class="form-group">
-                        <label for="dueDate">Event Date</label>
-                        <input id="dueDate" type="number" class="form-control" data-ng-model="newProjectController.formData.eventDate">
-    <!--                    <input id="dueDate" type="text" class="form-control datetimepicker" value="10/05/2018" >-->
+                        <label>Event Date</label>
+                        <input id="project_event_date"  size="30" class="form-control" ng-model="newProjectController.formData.eventDate" ng-model-options="{ updateOn: 'blur' }"  moment-picker="newProjectController.formData.eventDate" format="YYYY-MM-DD" start-view="year">
                     </div>
                 </form>
             </div>
