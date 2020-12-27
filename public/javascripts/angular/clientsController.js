@@ -226,7 +226,6 @@ function NewClientModalController(ClientsFactory, $scope, templates) {
         newClient.status = newClientModalController.formData.status.type;
         newClient.eventType = 'WEDDING';
         var reformattedEventDate = newClientModalController.formData.eventDate.format('YYYYMMDD');
-        console.log(reformattedEventDate)
         newClient.eventDate = parseInt(reformattedEventDate);
 
         console.log(newClient);
