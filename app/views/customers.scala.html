@@ -102,7 +102,7 @@
                                         <a data-ng-if="client[1] != null" href="/pages/{{client[0].business_id}}/projects/{{client[1]}}/overview-dashboard" class="btn btn-outline-warning btn-round">
                                         <i class="fa fa-heart"></i> View Project
                                     </a>
-                                        <button data-ng-if="client[1] === null" type="button" rel="tooltip" data-original-title="Create New Project" class="btn btn-outline-default"  data-toggle="modal" data-target="#newProject" data-ng-click="controller.setCurrentClient(client[0].id)">CREATE</button></td>
+                                        <button data-ng-if="client[1] === null" type="button" rel="tooltip" data-original-title="Create New Project" class="btn btn-outline-default"  data-toggle="modal" data-target="#newProject" data-ng-click="controller.setCurrentClient(client[0].id)">START</button></td>
                                     <td class="td-actions text-center">
                                         <button class="btn btn-warning" rel="tooltip" data-original-title="Edit" data-toggle="modal" data-target="#editClient" data-ng-click="controller.updateClient(client[0])">
                                             <span class="btn-label">

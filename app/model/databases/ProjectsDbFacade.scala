@@ -13,14 +13,15 @@ class ProjectsDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) 
 
   def addNewProject(project: Project): Option[Long] = {
     db.withConnection { implicit connection =>
-      SQL("insert into Projects(name , event_type , brides_name, budget, event_date, grooms_name, business_id, modified_date, created_date) " +
-        "values ({name} , {event_type} , {brides_name}, {budget}, {event_date}, {grooms_name}, {business_id}, {modified_date}, {created_date})")
+      SQL("insert into Projects(name , event_type , brides_name, budget, event_date, grooms_name, client_id, business_id, modified_date, created_date) " +
+        "values ({name} , {event_type} , {brides_name}, {budget}, {event_date}, {grooms_name}, {client_id}, {business_id}, {modified_date}, {created_date})")
         .on("name"  -> project.name,
           "event_type" -> project.event_type,
           "brides_name" -> project.brides_name,
           "grooms_name" -> project.grooms_name,
           "event_date" -> project.event_date,
           "budget" -> project.budget,
+          "client_id" -> project.client_id,
           "business_id" -> project.business_id,
           "modified_date" -> project.modified_date,
           "created_date" -> project.created_date)

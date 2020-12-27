@@ -37,6 +37,7 @@ function NewProjectController(ClientsFactory, ProjectsFactory, $scope, templates
         newProject = newProjectController.formData;
         newProject.businessId = newProjectController.businessId;
         newProject.clientId = newProjectController.clientId;
+        newProject.eventDate = parseInt(newProjectController.formData.eventDate.format('YYYYMMDD'));
 
         ProjectsFactory.addProject(newProject, function mySuccess() {
             refresh(newProjectController.businessId);
