@@ -27,6 +27,14 @@
                         <input id="client-contact" type="text" class="form-control" data-ng-model="newClientModalController.formData.budget" data-input-currency>
                     </div>
                     <div class="form-group">
+                        <label>Event Date</label>
+                        <input id="modal_event_date"  size="30" class="form-control" ng-model="newClientModalController.formData.eventDate" ng-model-options="{ updateOn: 'blur' }"  moment-picker="newClientModalController.formData.eventDate" format="YYYY-MM-DD" start-view="year">
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control" selected="New" data-ng-model="newClientModalController.formData.status" ng-options= "item.type for item in newClientModalController.clientStatuses"></select>
+                    </div>
+                    <div class="form-group">
                         <label for="client-notes">Notes</label>
                         <textarea id="client-notes" rows="4" cols="80" class="form-control textarea" data-ng-model="newClientModalController.formData.notes"></textarea>
                     </div>
