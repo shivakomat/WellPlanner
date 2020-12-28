@@ -1,3 +1,17 @@
+var utils = {
+    formatDueDate: function (allTasks) {
+        var tasks =  allTasks;
+        for (var i=0; i < tasks.length; i++) {
+            tasks[i].parent.due_date_display = moment(tasks[i].parent.due_date, "YYYYMMDD").format("MMM-DD-YYYY")
+            for(var j=0; j < tasks[i].subTasks.length; j++) {
+                tasks[i].subTasks[j].due_date_display = moment(tasks[i].subTasks[j].due_date, "YYYYMMDD").format("MMM-DD-YYYY")
+            }
+        }
+        return tasks;
+    }
+}
+
+
 app.controller('tasksController', function (TasksFactory, $http) {
     var tasksController = this;
 
@@ -71,14 +85,7 @@ app.controller('tasksController', function (TasksFactory, $http) {
     function allTasks(businessId, projectId) {
         TasksFactory.allTasks(businessId, projectId,
             function mySuccess (response) {
-                tasksController.tasks = response.data.data;
-                for (var i=0; i < tasksController.tasks.length; i++) {
-                    tasksController.tasks[i].parent.due_date_display = moment(tasksController.tasks[i].parent.due_date, "YYYYMMDD").format("MMM-DD-YYYY")
-                    for(var j=0; j < tasksController.tasks[i].subTasks.length; j++) {
-                        tasksController.tasks[i].subTasks[j].due_date_display = moment(tasksController.tasks[i].subTasks[j].due_date, "YYYYMMDD").format("MMM-DD-YYYY")
-                    }
-                }
-                console.log(tasksController.tasks);
+                tasksController.tasks = utils.formatDueDate(response.data.data);
             },
             function myError (response) { console.log(response.statusText) }
         )
@@ -220,14 +227,12 @@ function NewTaskListModalController(TasksFactory, $scope, templates) {
         allTasks(businessId, projectId);
     }
 
+
     function allTasks(businessId, projectId) {
         TasksFactory.allTasks(businessId, projectId,
             function mySuccess (response) {
+                newTaskListModalController.allTasks = utils.formatDueDate(response.data.data)
                 console.log(newTaskListModalController.allTasks);
-                newTaskListModalController.allTasks = response.data.data;
-                for (var i=0; i < newTaskListModalController.allTasks.length; i++) {
-                    newTaskListModalController.allTasks[i].due_date = moment(newTaskListModalController.allTasks[i].due_date, "YYYYMMDD").format("MMM-DD-YYYY")
-                }
             },
             function myError (response) { console.log(response.statusText) }
         )
@@ -295,7 +300,9 @@ function DeleteTaskModalController(TasksFactory, $scope, templates) {
 
     function allTasks(businessId, projectId) {
         TasksFactory.allTasks(businessId, projectId,
-            function mySuccess (response) { deleteTaskModalController.tasks = response.data.data; },
+            function mySuccess (response) {
+                deleteTaskModalController.tasks = utils.formatDueDate(response.data.data);
+            },
             function myError (response) { console.log(response.statusText) }
         )
     }
@@ -310,7 +317,8 @@ function EditSubTaskModalDirective() {
             businessId: '=',
             projectId: '=',
             parentTask: '=',
-            subTask: '='
+            subTask: '=',
+            allTasks: '='
         },
         controller: EditTaskModalController,
         controllerAs: 'editTaskModalController'
@@ -330,13 +338,30 @@ function EditTaskModalController(TasksFactory, $scope, templates) {
     };
 
     function updateTask(updatedSubTask, msg, msgDesc) {
-        console.log(updatedSubTask);
+        var reformattedEventDate = updatedSubTask.due_date.format('YYYYMMDD');
+        updatedSubTask.due_date = parseInt(reformattedEventDate);
+
         TasksFactory.updateTaskBy(updatedSubTask,
            function mySuccess() {
+            refresh(editTaskModalController.businessId, editTaskModalController.projectId)
+            // editTaskModalController.subask = updatedSubTask
             alerts.autoCloseAlert('success-message', msg, msgDesc);
         }, function myError() {
             alerts.autoCloseAlert('success-message', 'Error updating task', 'Please try again!');
         })
+    }
+
+    function refresh(businessId, projectId) {
+        allTasks(businessId, projectId);
+    }
+
+    function allTasks(businessId, projectId) {
+        TasksFactory.allTasks(businessId, projectId,
+            function mySuccess (response) {
+                editTaskModalController.allTasks = utils.formatDueDate(response.data.data);
+            },
+            function myError (response) { console.log(response.statusText) }
+        )
     }
 }
 
@@ -387,14 +412,7 @@ function NewSubTaskListModalController(TasksFactory, $scope, templates) {
     function allTasks(businessId, projectId) {
         TasksFactory.allTasks(businessId, projectId,
             function mySuccess (response) {
-                newSubTaskListModalController.tasks = response.data.data;
-                for (var i=0; i < newSubTaskListModalController.tasks.length; i++) {
-                    newSubTaskListModalController.tasks[i].parent.due_date_display = moment(newSubTaskListModalController.tasks[i].parent.due_date, "YYYYMMDD").format("MMM-DD-YYYY")
-                    for(var j=0; j < newSubTaskListModalController.tasks[i].subTasks.length; j++) {
-                        newSubTaskListModalController.tasks[i].subTasks[j].due_date_display = moment(newSubTaskListModalController.tasks[i].subTasks[j].due_date, "YYYYMMDD").format("MMM-DD-YYYY")
-                    }
-                }
-                console.log(newSubTaskListModalController.tasks);
+                newSubTaskListModalController.tasks = utils.formatDueDate(response.data.data);
             },
             function myError (response) { console.log(response.statusText) }
         )

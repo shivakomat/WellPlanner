@@ -16,9 +16,8 @@
                         <input id="description" type="text" class="form-control" data-ng-model="editTaskModalController.subTask.description">
                     </div>
                     <div class="form-group">
-                        <label for="dueDate">Task Due Date</label>
-                        <input id="dueDate" type="number" class="form-control" data-ng-model="editTaskModalController.subTask.due_date">
-                        <!--                    <input id="dueDate" type="text" class="form-control datetimepicker" value="10/05/2018">-->
+                        <label for="edit_subTask_dueDate">Task Due Date</label>
+                        <input id="edit_subTask_dueDate"  size="30" class="form-control" ng-model="editTaskModalController.subTask.due_date" ng-model-options="{ updateOn: 'blur' }"  moment-picker="editTaskModalController.subTask.due_date" format="YYYY-MM-DD" start-view="month">
                     </div>
                 </form>
             </div>

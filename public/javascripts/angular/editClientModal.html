@@ -28,8 +28,9 @@
                         <input id="contact" type="text" class="form-control" data-ng-model="editClientModalController.currentClient.budget" data-input-currency>
                     </div>
                     <div class="form-group">
-                        <label for="description">Status</label>
-                        <input id="description" type="text" class="form-control" data-ng-model="editClientModalController.currentClient.status">
+                        <label for="status">Status</label>
+                        <select id="status" class="form-control" data-ng-model="editClientModalController.currentClient.status" ng-options= "item.type for item in newClientModalController.clientStatuses"></select>
+<!--                        <input id="description" type="text" class="form-control" data-ng-model="editClientModalController.currentClient.status">-->
                     </div>
                     <div class="form-group">
                         <label for="notes">Notes</label>

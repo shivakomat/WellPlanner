@@ -1,19 +1,22 @@
+var Global_Constants = {};
+Global_Constants.clientStatuses =  [
+    {"type": "New"},
+    {"type": "Followed Up"},
+    {"type": "Consultation Scheduled"},
+    {"type": "Proposal Sent"},
+    {"type": "Proposal Accepted"},
+    {"type": "Contract Sent"},
+    {"type": "Contract Accepted"},
+    {"type": "Booked"},
+    {"type": "Lost"}
+];
+
 app.controller('clientsController', function(ClientsFactory) {
     var clientController = this;
     clientController.clients = [];
     clientController.currentClientId = null;
     clientController.formData = {};
-    clientController.clientStatuses = [
-        {"type": "New"},
-        {"type": "Followed Up"},
-        {"type": "Consultation Scheduled"},
-        {"type": "Proposal Sent"},
-        {"type": "Proposal Accepted"},
-        {"type": "Contract Sent"},
-        {"type": "Contract Accepted"},
-        {"type": "Booked"},
-        {"type": "Lost"}
-    ];
+    clientController.clientStatuses = Global_Constants.clientStatuses;
 
     clientController.showNewItem = false;
 
@@ -193,17 +196,7 @@ function NewClientModalController(ClientsFactory, $scope, templates) {
 
     newClientModalController.eventDate = null;
 
-    newClientModalController.clientStatuses = [
-        {"type": "New"},
-        {"type": "Followed Up"},
-        {"type": "Consultation Scheduled"},
-        {"type": "Proposal Sent"},
-        {"type": "Proposal Accepted"},
-        {"type": "Contract Sent"},
-        {"type": "Contract Accepted"},
-        {"type": "Booked"},
-        {"type": "Lost"}
-    ];
+    newClientModalController.clientStatuses = Global_Constants.clientStatuses;
 
     $scope.getNewClientModalTemplateUrl = function () {
         return templates.newClientModal;
@@ -261,6 +254,8 @@ app.controller('editClientModalController', [EditClientModalController]);
 function EditClientModalController(ClientsFactory, $scope, templates) {
     var editClientModalController = this;
 
+    editClientModalController.clientStatuses = Global_Constants.clientStatuses;
+
     $scope.getEditClientModalTemplateUrl = function () {
         return templates.editClientModal;
     };
@@ -293,6 +288,8 @@ function EditClientModalController(ClientsFactory, $scope, templates) {
         newClient.phoneNumber = updatedClient.phone_number;
         newClient.customerName = updatedClient.name;
         newClient.clientId = updatedClient.id;
+        // var reformattedEventDate = updatedClient.event_date.format('YYYYMMDD');
+        // newClient.eventDate = parseInt(reformattedEventDate);
 
         console.log(newClient);
         ClientsFactory.updateClientBy(newClient,
