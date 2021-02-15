@@ -10,7 +10,7 @@
 
         <data-new-breakdown-modal data-business-id="@businessId" data-parent="controller.currentParentBreakdown" data-project-id="@projectId" data-breakdown-list="controller.breakDownsLists"></data-new-breakdown-modal>
 
-        <data-edit-breakdown-modal data-business-id="@businessId" data-project-id="@projectId" data-current-breakdown-item="controller.currentBreakdown"></data-edit-breakdown-modal>
+        <data-edit-breakdown-modal data-business-id="@businessId" data-project-id="@projectId" data-current-breakdown-item="controller.currentBreakdown"  data-breakdown-list="controller.breakDownsLists"></data-edit-breakdown-modal>
 
         <div class="row text-center" data-ng-show="controller.isLoaded == false">
             <div class="col-md-12 ml-auto mr-auto mt-auto mb-auto">
@@ -85,8 +85,8 @@
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
                                     <p class="card-category"></p>
-                                    <p class="card-title" data-ng-if="controller.breakDownsLists.overallActual <= 0"> - -</p>
-                                    <p class="card-title" data-ng-if="controller.breakDownsLists.overallActual > 0">{{controller.breakDownsLists.overallActual - controller.breakDownsLists.overallEstimate | currency}}
+                                    <p class="card-title" data-ng-if="controller.breakDownsLists.totalSavings > 0">{{controller.breakDownsLists.totalSavings | currency}}
+                                    <p class="card-title text-danger" data-ng-if="controller.breakDownsLists.totalSavings < 0">{{controller.breakDownsLists.totalSavings | currency}}
                                 <p></p></div>
                             </div>
                         </div>
@@ -235,8 +235,8 @@
                                                         <td class="text-center">
                                                             <h6>{{breakDownList.totalEstimate | currency}}</h6>
                                                         </td>
-                                                        <td  class="text-left">
-
+                                                        <td  class="text-center">
+                                                            <h6>{{breakDownList.totalActual | currency}}</h6>
                                                         </td>
                                                         <td class="text-left">
 

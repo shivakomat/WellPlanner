@@ -36,39 +36,38 @@ app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
         });
     }
 
-    function setTotalEstimateAndActual() {
-        var p;
-        var overallEstimate = 0;
-        var overallActual = 0;
-        for (p = 0; p < budgetController.breakDownsLists.length; p++) {
-            var x;
-            var totalEstimated = 0;
-            var totalActual = 0;
-            for(x = 0; x < budgetController.breakDownsLists[p].subBreakDowns.length; x++) {
-                totalEstimated = totalEstimated + budgetController.breakDownsLists[p].subBreakDowns[x].estimate
-                totalActual = totalActual + budgetController.breakDownsLists[p].subBreakDowns[x].actual
-            }
-            budgetController.breakDownsLists[p].totalEstimate =  totalEstimated;
-            budgetController.breakDownsLists[p].totalActual =  totalActual;
-            overallEstimate = overallEstimate + totalEstimated;
-            overallActual = overallActual + totalActual;
-        }
-
-        budgetController.breakDownsLists.overallEstimate = overallEstimate;
-        budgetController.breakDownsLists.overallActual = overallActual;
-
-    }
-
-
     function list(businessId, projectId) {
         BudgetFactory.allBreakdowns(businessId, projectId, function (response) {
-                budgetController.breakDownsLists = response.data.data;
-                setTotalEstimateAndActual();
-                console.log(budgetController.breakDownsLists);
-            }, function (response) { console.log(response.statusText);
+            budgetController.breakDownsLists = response.data.data;
+            budgetController.breakDownsLists = calcTotalEstimateAndActual(budgetController.breakDownsLists);
+            console.log(budgetController.breakDownsLists);
+        }, function (response) { console.log(response.statusText);
         })
     }
 });
+
+function calcTotalEstimateAndActual(breakdownList) {
+    var p;
+    var overallEstimate = 0;
+    var overallActual = 0;
+    for (p = 0; p < breakdownList.length; p++) {
+        var x;
+        var totalEstimated = 0;
+        var totalActual = 0;
+        for(x = 0; x < breakdownList[p].subBreakDowns.length; x++) {
+            totalEstimated = totalEstimated + breakdownList[p].subBreakDowns[x].estimate
+            totalActual = totalActual + breakdownList[p].subBreakDowns[x].actual
+        }
+        breakdownList[p].totalEstimate =  totalEstimated;
+        breakdownList[p].totalActual =  totalActual;
+        overallEstimate = overallEstimate + totalEstimated;
+        overallActual = overallActual + totalActual;
+    }
+    breakdownList.overallEstimate = overallEstimate;
+    breakdownList.overallActual = overallActual;
+    breakdownList.totalSavings = breakdownList.overallEstimate - breakdownList.overallActual;
+    return breakdownList;
+}
 
 app.directive('newBudgetBreakdownListModal',  [NewBudgetBreakdownListModalDirective]);
 function NewBudgetBreakdownListModalDirective() {
@@ -125,7 +124,9 @@ function NewBudgetBreakdownListModalController(BudgetFactory, $scope, templates)
 
     function list(businessId, projectId) {
         BudgetFactory.allBreakdowns(businessId, projectId, function (response) {
-            console.log(response.data.data); newBudgetBreakdownListModalController.breakdownList = response.data.data;
+            console.log(response.data.data);
+            newBudgetBreakdownListModalController.breakdownList = response.data.data;
+            newBudgetBreakdownListModalController.breakdownList = calcTotalEstimateAndActual(newBudgetBreakdownListModalController.breakdownList);
         }, function (response) { console.log(response.statusText);
         })
     }
@@ -147,6 +148,8 @@ function NewBreakdownModalDirective() {
         controllerAs: 'newBreakdownModalController'
     }
 }
+
+
 
 app.controller('newBreakdownModalController', [NewBreakdownModalController]);
 function NewBreakdownModalController(BudgetFactory, $scope, templates) {
@@ -184,28 +187,10 @@ function NewBreakdownModalController(BudgetFactory, $scope, templates) {
         list(businessId, projectId);
     }
 
-    function setTotalEstimateAndActual() {
-        var p;
-        for (p = 0; p < newBreakdownModalController.breakdownList.length; p++) {
-            var x;
-            var totalEstimated = 0;
-            var totalActual = 0;
-            for(x = 0; x < newBreakdownModalController.breakdownList[p].subBreakDowns.length; x++) {
-                totalEstimated = totalEstimated + newBreakdownModalController.breakdownList[p].subBreakDowns[x].estimate
-                totalActual = totalActual + newBreakdownModalController.breakdownList[p].subBreakDowns[x].actual
-            }
-            newBreakdownModalController.breakdownList[p].totalEstimate =  totalEstimated;
-            newBreakdownModalController.breakdownList[p].totalActual =  totalActual;
-            console.log(newBreakdownModalController.breakdownList[p].totalEstimate);
-            console.log(newBreakdownModalController.breakdownList[p].totalActual);
-        }
-
-    }
-
     function list(businessId, projectId) {
         BudgetFactory.allBreakdowns(businessId, projectId, function (response) {
             newBreakdownModalController.breakdownList = response.data.data;
-            setTotalEstimateAndActual();
+            newBreakdownModalController.breakdownList = calcTotalEstimateAndActual(newBreakdownModalController.breakdownList);
         }, function (response) {
             console.log(response.statusText);
         })
@@ -221,7 +206,8 @@ function EditBreakDownModalDirective() {
         bindToController: {
             businessId: '=',
             projectId: '=',
-            currentBreakdownItem: '='
+            currentBreakdownItem: '=',
+            breakdownList: '='
         },
         controller: EditBreakdownModalController,
         controllerAs: 'editBreakdownItemModalController'
@@ -245,9 +231,19 @@ function EditBreakdownModalController(BudgetFactory, $scope, templates) {
         BudgetFactory.updateBreakdownItemBy(updatedBreakdownItem,
             function mySuccess() {
                 alerts.autoCloseAlert('success-message', msg, msgDesc);
+                list(editBreakdownItemModalController.businessId, editBreakdownItemModalController.projectId);
             }, function myError() {
                 alerts.autoCloseAlert('success-message', 'Error updating breakdown item amounts', 'Please try again!');
             })
+    }
+
+    function list(businessId, projectId) {
+        BudgetFactory.allBreakdowns(businessId, projectId, function (response) {
+            editBreakdownItemModalController.breakdownList = response.data.data;
+            editBreakdownItemModalController.breakdownList = calcTotalEstimateAndActual(editBreakdownItemModalController.breakdownList);
+        }, function (response) {
+            console.log(response.statusText);
+        })
     }
 }
 
@@ -297,7 +293,7 @@ function DeleteBreakdownItemModalController(BudgetFactory, $scope, templates) {
     function list(businessId, projectId) {
         BudgetFactory.allBreakdowns(businessId, projectId, function (response) {
             console.log(response.data.data); deleteBreakdownItemModalController.breakDownsLists = response.data.data;
-            }, function (response) { console.log(response.statusText);
+           }, function (response) { console.log(response.statusText);
         })
     }
 }
