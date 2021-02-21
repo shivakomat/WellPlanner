@@ -27,6 +27,19 @@ app.factory('TasksFactory', function TasksFactory ($http) {
         $http({method: 'POST', url: '/businesses/projects/tasks/update', data: updatedTask}).then(successFunction, errorFunction);
     };
 
+    var getTaskCommentsByTask = function (businessId, projectId, taskId, successFunction, errorFunction) {
+        $http({method: 'GET', url: '/businesses/'+ businessId + "/projects/" + projectId + "/tasks/" + taskId + "/taskComments"}).then(successFunction, errorFunction);
+    };
+
+    var addTaskComment = function (comment, successFunction, errorFunction) {
+        $http({method: 'POST', url: '/businesses/projects/tasks/taskComments', data: comment}).then(successFunction, errorFunction);
+    };
+
+    var deleteTaskComment = function (projectId, businessId, taskId, taskCommentId, successFunction, errorFunction) {
+        $http({method: 'DELETE', url: '/businesses/' + businessId + '/projects/' + projectId + '/tasks/' + taskId + 'taskComments/' + taskCommentId}).then(successFunction, errorFunction);
+    };
+
+
     return {
         allTasks: getAllTasks,
         addTask: addTask,
@@ -34,6 +47,9 @@ app.factory('TasksFactory', function TasksFactory ($http) {
         deleteTaskBy: deleteTaskBy,
         updateTaskBy: updateTaskBy,
         getTaskItemsByTask: getTaskItemsByTask,
-        deleteTaskItemBy: deleteTaskItemBy
+        deleteTaskItemBy: deleteTaskItemBy,
+        getTaskCommentsByTask: getTaskCommentsByTask,
+        addTaskCommentToTask: addTaskComment,
+        deleteTaskComment: deleteTaskComment
     }
 });

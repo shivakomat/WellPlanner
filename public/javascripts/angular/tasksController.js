@@ -9,7 +9,7 @@ var utils = {
         }
         return tasks;
     }
-}
+};
 
 
 app.controller('tasksController', function (TasksFactory, $http) {
@@ -19,6 +19,7 @@ app.controller('tasksController', function (TasksFactory, $http) {
     tasksController.currentParentTask = {};
     tasksController.currentSubTask = {};
     tasksController.subTaskItems = [];
+    tasksController.currentTaskComments = [];
 
     function refresh(businessId, projectId) {
         allTasks(businessId, projectId);
@@ -34,6 +35,22 @@ app.controller('tasksController', function (TasksFactory, $http) {
 
     tasksController.newSubtask = function(parentTask) {
         tasksController.currentParentTask = parentTask;
+    };
+
+    tasksController.setTaskComments = function(projectId, businessId, subTask) {
+        console.log("Inside Set Task Comments");
+
+        tasksController.currentSubTask = subTask;
+        tasksController.currentSubTask.due_date = moment(subTask.due_date, "YYYYMMDD").format("MMM-DD-YYYY");
+        console.log(tasksController.currentSubTask);
+        TasksFactory.getTaskCommentsByTask(businessId, projectId, subTask.id,
+            function mySuccess (response) {
+                tasksController.currentTaskComments= response.data.data;
+                console.log(tasksController.currentTaskComments);
+            },
+            function myError (response) { console.log(response.statusText) }
+        );
+
     };
 
     tasksController.setSubTaskForTaskItems = function (subTask) {
@@ -418,4 +435,60 @@ function NewSubTaskListModalController(TasksFactory, $scope, templates) {
         )
     }
 
+}
+
+
+app.directive('taskNotesModal',  [TaskNotesModalDirective]);
+function TaskNotesModalDirective() {
+    return{
+        template:  '<ng-include src="getTaskItemsTemplateUrl()"/>',
+        scope: false,
+        bindToController: {
+            businessId: '=',
+            projectId: '=',
+            taskItems: '=',
+            task: '='
+        },
+        controller: TaskNotesModalController,
+        controllerAs: 'taskNotesModalController'
+    }
+}
+
+app.controller('taskNotesModalController', [TaskNotesModalController]);
+function TaskNotesModalController(TasksFactory, $scope, templates) {
+    var taskNotesModalController = this;
+
+    $scope.getEditSubTaskModalTemplateUrl = function () {
+        return templates.editTaskModal;
+    };
+
+    taskNotesModalController.updateTask = function () {
+        updateTask(taskNotesModalController.subTask, "Task notes updated!", "Woo hoo!");
+    };
+
+    function updateTask(updatedSubTask, msg, msgDesc) {
+        var reformattedEventDate = updatedSubTask.due_date.format('YYYYMMDD');
+        updatedSubTask.due_date = parseInt(reformattedEventDate);
+
+        TasksFactory.updateTaskBy(updatedSubTask,
+            function mySuccess() {
+                refresh(editTaskModalController.businessId, editTaskModalController.projectId);
+                alerts.autoCloseAlert('success-message', msg, msgDesc);
+            }, function myError() {
+                alerts.autoCloseAlert('success-message', 'Error updating task', 'Please try again!');
+            })
+    }
+
+    function refresh(businessId, projectId) {
+        allTasks(businessId, projectId);
+    }
+
+    function allTasks(businessId, projectId) {
+        TasksFactory.allTasks(businessId, projectId,
+            function mySuccess (response) {
+                editTaskModalController.allTasks = utils.formatDueDate(response.data.data);
+            },
+            function myError (response) { console.log(response.statusText) }
+        )
+    }
 }

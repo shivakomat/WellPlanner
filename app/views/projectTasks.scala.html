@@ -2,69 +2,6 @@
 
 @projectMain("Project Tasks","tasks", "Project Tasks", projectId, businessId) {
 
-
-    <!-- Task Comments Modal -->
-    <div class="modal fade bd-example-modal-lg" id="taskDetails" tabindex="-1" role="dialog" aria-labelledby="taskDetailsLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <h5 class="modal-title" id="exampleModalLongTitle">Task Comments</h5>
-                </div>
-                <div class="modal-body">
-                    <h5>Customer to Sign Contract</h5>
-                    <br>
-                    <h5>Due Date: 23 June 2020</h5>
-                    <blockquote class="blockquote">
-                        <p>What is Lorem Ipsum?
-                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-
-                        <p class="text-left"><b>by Shiva</b></p>
-                        <p class="text-right"><i>Jan 23, 2020 | 12:00 AM</i></p>
-
-                    </blockquote>
-                    <blockquote class="blockquote">
-                        <p class="mb-0">Why do we use it?
-                            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
-                        <br>
-                        <p class="text-left"><b>by Shiva</b></p>
-                        <p class="text-right"><i>Jan 23, 2020 | 12:00 AM</i></p>
-                    </blockquote>
-                    <blockquote class="blockquote">
-                        <p class="mb-0">Sure I will take care of it but I need something from the client first</p>
-                        <br>
-                        <p class="text-left"><b>by Shiva</b></p>
-                        <p class="text-right"><i>Jan 23, 2020 | 12:00 AM</i></p>
-                    </blockquote>
-                    <blockquote class="blockquote">
-                        <p class="mb-0">Sure I will take care of it but I need something from the client first</p>
-                        <br>
-                        <p class="text-left"><b>by Shiva</b></p>
-                        <p class="text-right"><i>Jan 23, 2020 | 12:00 AM</i></p>
-                    </blockquote>
-                    <blockquote class="blockquote">
-                        <p class="mb-0">Sure I will take care of it but I need something from the client first</p>
-                        <br>
-                        <p class="text-left"><b>by Shiva</b></p>
-                        <p class="text-right"><i>Jan 23, 2020 | 12:00 AM</i></p>
-                    </blockquote>
-                    <form>
-                        <div class="form-group">
-                            <label for="exampleFormControlTextarea1">Enter Comment</label>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Add Comment</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Main Content -->
     <div class="content" data-ng-controller="tasksController as controller" data-ng-init="controller.getAllTasks(@projectId, @businessId)">
 
@@ -82,6 +19,10 @@
 
             <!-- Task Items Modal -->
         <data-task-items-modal data-task="controller.currentSubTask" data-task-items="controller.subTaskItems" data-project-id=@projectId data-business-id=@businessId></data-task-items-modal>
+
+            <!-- Task Comments Modal -->
+        <data-task-comments-modal data-task-comments="controller.currentTaskComments" data-sub-task="controller.currentSubTask" data-project-id=@projectId data-business-id=@businessId></data-task-comments-modal>
+
 
         <div class="row">
             <div class="col-md-12">
@@ -115,6 +56,7 @@
                                                         <td></td>
                                                         <td  class="text-left"><u>Description</u></td>
                                                         <td  class="text-left"><u>Due Date</u></td>
+                                                        <td  class="text-center"><u>Actions</u></td>
                                                     </tr>
                                                     <tr data-ng-repeat="subTask in task.subTasks">
                                                         <td>
@@ -128,12 +70,12 @@
                                                         <td data-ng-if="subTask.is_completed == false" class="text-left">{{subTask.description}}</td>
                                                         <td data-ng-if="subTask.is_completed" class="text-left"><strike>{{subTask.description}}</strike></td>
                                                         <td class="text-left">{{subTask.due_date_display}}</td>
-                                                        <td class="td-actions text-right">
+                                                        <td class="td-actions text-center" data-ng-if="subTask.is_completed === false" >
                                                             <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="#taskItemsModal" data-original-title="View Task Items" data-ng-click="controller.setSubTaskForTaskItems(subTask)">
                                                                 <i class="nc-icon nc-bullet-list-67"></i>
                                                             </button>
 
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#taskDetails" data-original-title="Comments">
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#taskComments" data-original-title="Comments" data-ng-click="controller.setTaskComments(subTask.project_id, subTask.business_id, subTask)">
                                                                 <i class="nc-icon nc-chat-33"></i>
                                                             </button>
 

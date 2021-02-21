@@ -1,0 +1,37 @@
+<!-- Task Comments Modal -->
+<div class="modal fade bd-example-modal-lg" id="taskComments" tabindex="-1" role="dialog" aria-labelledby="taskDetailsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="modal-title" id="exampleModalLongTitle">Task Comments</h5>
+            </div>
+            <div class="modal-body">
+                <h5>{{taskCommentsController.subTask.description}}</h5>
+                <br>
+                <p>Due Date: {{taskCommentsController.subTask.due_date}}</p>
+                <br>
+                <br>
+                <blockquote class="blockquote" data-ng-repeat="taskComment in taskCommentsController.taskComments">
+                    <p>{{taskComment.comment_text}}</p>
+
+                    <p class="text-left"><b>by business</b></p>
+                    <p class="text-right"><i>{{taskComment.created_date}}</i></p>
+
+                </blockquote>
+                <form>
+                    <div class="form-group">
+                        <label for="comment">Enter Comment</label>
+                        <textarea class="form-control" id="comment" rows="8" data-ng-model="taskCommentsController.formData.newComment"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-ng-click="taskCommentsController.addComment()">Add Comment</button>
+            </div>
+        </div>
+    </div>
+</div>
