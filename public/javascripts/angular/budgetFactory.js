@@ -15,10 +15,15 @@ app.factory('BudgetFactory', function TasksFactory ($http) {
         $http({method: 'POST', url: '/businesses/projects/budget-breakdowns/update', data: updatedBreakdown}).then(successFunction, errorFunction);
     };
 
+    var addPayment = function (newPayment, successFunction, errorFunction) {
+        $http({method: 'POST', url: '/businesses/projects/budget-breakdowns/payments', data: newPayment}).then(successFunction, errorFunction);
+    };
+
     return {
         allBreakdowns: getAllBreakDowns,
         addBreakDownList: addBreakDownList,
         deleteBreakDown: deleteBreakDown,
-        updateBreakdownItemBy: updateBreakdownItemBy
+        updateBreakdownItemBy: updateBreakdownItemBy,
+        addPayment: addPayment
     }
 });

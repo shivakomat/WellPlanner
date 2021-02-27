@@ -40,6 +40,7 @@ GET     /pages/:businessId/projects/:projectId/timeline             controllers.
 
 
 
+
 # REST API Routes for data
 
 
@@ -112,6 +113,22 @@ POST /businesses/projects/budget-breakdowns/update                              
 
 +nocsrf
 DELETE  /businesses/:businessId/projects/:projectId/budget-breakdowns/:breakdownId              controllers.BudgetController.deleteBudgetBreakdownById(breakdownId: Int, projectId: Int, businessId: Int)
+
+
+
++nocsrf
+POST /businesses/projects/budget-breakdowns/payments                                            controllers.BudgetController.addNewPayment()
+
+GET /businesses/:businessId/projects/:projectId/budget-breakdowns/:budgetId/payments            controllers.BudgetController.payments(budgetId: Long, projectId: Int, businessId: Int)
+
++nocsrf
+POST /businesses/projects/budget-breakdowns/payments/update                                     controllers.BudgetController.updatePayment()
+
+
++nocsrf
+DELETE  /businesses/:businessId/projects/:projectId/budget-breakdowns/:breakdownId/payments/:paymentId              controllers.BudgetController.deletePaymentById(paymentId: Int,  projectId: Int, businessId: Int, breakdownId: Int)
+
+
 
 
 ####### Project Vendors Shortlistings

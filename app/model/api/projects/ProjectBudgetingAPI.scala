@@ -1,7 +1,8 @@
 package model.api.projects
 
 import model.dataModels.BudgetBreakdowns
-import model.databases.BudgetingDbApi
+import model.dataModels.Payment
+import model.databases.{BudgetingDbApi, PaymentsDbApi}
 import model.tools.DateTimeNow
 import play.api.db.DBApi
 import play.api.libs.ws.WSClient
@@ -9,6 +10,36 @@ import play.api.libs.ws.WSClient
 class ProjectBudgetingAPI(dbApi: DBApi, ws: WSClient) {
 
   private val breakDownsDb = new BudgetingDbApi(dbApi)
+  private val paymentsDb = new PaymentsDbApi(dbApi)
+
+  def addPaymentToBudgetItem(payment: Payment): Either[String, Payment] = {
+    val newPaymentAdded =
+      paymentsDb.addPayment(payment.copy(modified_date = Some(DateTimeNow.getCurrent), created_date = Some(DateTimeNow.getCurrent)))
+    val newPayment =
+      for {
+        id <- newPaymentAdded
+        payment <- paymentsDb.byId(id)
+      } yield (payment)
+
+    newPayment match {
+      case Some(_) => Right(newPayment.get)
+      case None => Left("failed during database insertion or reading the newly created data")
+    }
+  }
+
+  def updatePayment(updatedPayment: Payment): Either[String, Payment] = {
+    val updatedRows = paymentsDb.updatePayment(updatedPayment)
+    if(updatedRows == 1) {
+      val paymentUpated = paymentsDb.byId(updatedPayment.id.get)
+      Right(paymentUpated.get)
+    } else
+      Left("Failed during database update or reading the updated payment back from database")
+  }
+
+  def paymentsByBudgetItem(budgetId: Long, projectId: Long, businessId: Long): Seq[Payment] =
+    paymentsDb.allPayments.filter(bd => bd.business_id == businessId && bd.project_id == projectId
+                                  && bd.budget_id == budgetId)
+
 
   def budgetBreakdownsByProject(projectId: Long, businessId: Long): Seq[BudgetBreakdownList] = {
     val list = breakDownsDb.allBudgetBreakdowns().filter(bd => bd.business_id == businessId && bd.project_id == projectId)
@@ -50,6 +81,11 @@ class ProjectBudgetingAPI(dbApi: DBApi, ws: WSClient) {
   def deleteBreakDown(id: Long, projectId: Long, businessId: Long): Seq[BudgetBreakdownList] = {
     val rowsDeleted = breakDownsDb.deleteBudgetBreakDown(id, projectId, businessId)
     this.budgetBreakdownsByProject(projectId, businessId)
+  }
+
+  def deletePayment(id: Long, projectId: Long, businessId: Long, budgetId: Long): Seq[Payment] = {
+    val rowsDeleted = paymentsDb.deletePayment(id, projectId, businessId, budgetId)
+    this.paymentsByBudgetItem(businessId, projectId, budgetId)
   }
 
 }
