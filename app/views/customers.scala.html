@@ -11,9 +11,23 @@
         <data-new-project-modal data-projects="controller.projects" data-client-id="controller.currentClientId" data-clients="controller.clients" data-business-id=@businessId></data-new-project-modal>
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <button type="button" class="btn btn-default" data-toggle="modal" data-id="@businessId" data-target="#newCustomer" data-ng-click="controller.newItem()">New Client</button>
             </div>
+            <div class="col-md-4 pull-right">
+                <div class="input-group no-border">
+                    <input type="text" value="" class="form-control" placeholder="Search..." ng-model="searchText">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <i class="nc-icon nc-zoom-split"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
         </div>
 
         <div class="row">
@@ -76,7 +90,7 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr data-ng-repeat="client in controller.clients">
+                                <tr data-ng-repeat="client in controller.clients | filter:searchText">
                                     <th class="text-center">
 @*                                        <div class="form-check">*@
 @*                                            <label class="form-check-label">*@
