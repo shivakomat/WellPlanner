@@ -7,7 +7,7 @@
 
         <div class="row">
             <div class="col-md-8">
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="" data-ng-click="controller.newItem()">New Vendor Contact</button>
+                <button type="button" class="btn btn-default" data-toggle="modal" rel="tooltip" data-original-title="Add New Vendor"  data-ng-click="controller.newItem()" tooltip>New Vendor Contact</button>
             </div>
             <div class="col-md-4 pull-right">
                 <div class="input-group no-border">
@@ -102,12 +102,12 @@
                                     <td class="text-center">{{vendor.phone_number | phonenumber}}</td>
                                     <td class="text-center">{{vendor.email}}</td>
                                     <td class="td-actions text-center">
-                                        <button class="btn btn-warning" rel="tooltip" data-original-title="Edit" data-toggle="modal" data-target="#editVendor" data-ng-click="controller.editVendor(vendor)">
+                                        <button class="btn btn-warning" rel="tooltip" data-original-title="Edit Vendor Info" data-toggle="modal" data-target="#editVendor" data-ng-click="controller.editVendor(vendor)" tooltip>
                                             <span class="btn-label">
                                                 <i class="nc-icon nc-ruler-pencil"></i>
                                             </span>
                                         </button>
-                                        <button class="btn btn-danger" rel="tooltip" data-original-title="Remove" data-ng-click="controller.removeVendor(@businessId, vendor.id)">
+                                        <button class="btn btn-danger" rel="tooltip" data-original-title="Delete Vendor Contact" data-ng-click="controller.removeVendor(@businessId, vendor.id)" tooltip>
                                             <i class="nc-icon nc-scissors"></i>
                                         </button>
                                     </td>

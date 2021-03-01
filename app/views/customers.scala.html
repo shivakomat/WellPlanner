@@ -12,7 +12,7 @@
 
         <div class="row">
             <div class="col-md-8">
-                <button type="button" class="btn btn-default" data-toggle="modal" data-id="@businessId" data-target="#newCustomer" data-ng-click="controller.newItem()">New Client</button>
+                <button type="button" rel="tooltip" data-original-title="Add New Client" class="btn btn-default" data-toggle="modal" data-id="@businessId" data-target="#newCustomer" data-ng-click="controller.newItem()" tooltip>New Client</button>
             </div>
             <div class="col-md-4 pull-right">
                 <div class="input-group no-border">
@@ -80,12 +80,12 @@
                                     <td class="td-actions text-center">
                                     </td>
                                     <td class="td-actions text-center">
-                                        <button class="btn btn-success" data-ng-click="controller.saveItem(@businessId)">
+                                        <button class="btn btn-success" rel="tooltip" data-original-title="Create Client" data-ng-click="controller.saveItem(@businessId)" tooltip>
                                             <span class="btn-label">
                                                 <i class="nc-icon nc-check-2"></i>
                                             </span>
                                         </button>
-                                        <button class="btn btn-danger" data-ng-click="controller.cancelItem()">
+                                        <button class="btn btn-danger" rel="tooltip" data-original-title="Cancel" data-ng-click="controller.cancelItem()" tooltip>
                                             <i class="nc-icon nc-scissors"></i>
                                         </button>
                                     </td>
@@ -118,12 +118,12 @@
                                     </a>
                                         <button data-ng-if="client[1] === null" type="button" rel="tooltip" data-original-title="Create New Project" class="btn btn-outline-default"  data-toggle="modal" data-target="#newProject" data-ng-click="controller.setCurrentClient(client[0].id)">START</button></td>
                                     <td class="td-actions text-center">
-                                        <button class="btn btn-warning" rel="tooltip" data-original-title="Edit" data-toggle="modal" data-target="#editClient" data-ng-click="controller.updateClient(client[0])">
+                                        <button class="btn btn-warning" rel="tooltip" data-original-title="Edit Client" data-toggle="modal" data-target="#editClient" data-ng-click="controller.updateClient(client[0])" tooltip>
                                             <span class="btn-label">
                                                 <i class="nc-icon nc-ruler-pencil"></i>
                                             </span>
                                         </button>
-                                        <button data-ng-if="client[1] === null" class="btn btn-danger" rel="tooltip" data-original-title="Remove" data-ng-click="controller.removeClient(@businessId, client[0].id)" >
+                                        <button data-ng-if="client[1] === null" class="btn btn-danger" rel="tooltip" data-original-title="Remove Client" data-ng-click="controller.removeClient(@businessId, client[0].id)" tooltip>
                                             <i class="nc-icon nc-scissors"></i>
                                         </button>
                                     </td>

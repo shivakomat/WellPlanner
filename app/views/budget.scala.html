@@ -8,6 +8,8 @@
         <!-- Modals -->
         <data-new-budget-breakdown-list-modal data-business-id="@businessId" data-project-id="@projectId" data-breakdown-list="controller.breakDownsLists"></data-new-budget-breakdown-list-modal>
 
+        <data-new-payment-modal data-business-id="@businessId" data-project-id="@projectId"></data-new-payment-modal>
+
         <data-new-breakdown-modal data-business-id="@businessId" data-parent="controller.currentParentBreakdown" data-project-id="@projectId" data-breakdown-list="controller.breakDownsLists"></data-new-breakdown-modal>
 
         <data-edit-breakdown-modal data-business-id="@businessId" data-project-id="@projectId" data-current-breakdown-item="controller.currentBreakdown"  data-breakdown-list="controller.breakDownsLists"></data-edit-breakdown-modal>
@@ -160,6 +162,7 @@
                                                         <th class="text-center">
                                                         </th>
                                                         <th class="text-left text-warning">
+
                                                         </th>
                                                         <th class="text-center text-warning">
                                                             Estimated
@@ -182,12 +185,6 @@
                                                 <tbody>
                                                     <tr data-ng-repeat="breakdownItem in breakDownList.subBreakDowns">
                                                         <td class="text-center">
-@*                                                            <div class="form-check">*@
-@*                                                                <label class="form-check-label">*@
-@*                                                                    <input class="form-check-input" type="checkbox" checked="">*@
-@*                                                                    <span class="form-check-sign"></span>*@
-@*                                                                </label>*@
-@*                                                            </div>*@
                                                         </td>
                                                         <td class="text-left">
                                                             {{breakdownItem.title}}
@@ -213,13 +210,72 @@
 @*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remainders">*@
 @*                                                                <i class="nc-icon nc-time-alarm"></i>*@
 @*                                                            </button>*@
-@*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Payments">*@
-@*                                                                <i class="nc-icon nc-calendar-60"></i>*@
-@*                                                            </button>*@
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#editBreakdownModal" data-original-title="edit" data-ng-click="controller.editBreakdownItem(breakdownItem)">
+                                                              <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#paymentsModal" data-original-title="View / Add Payments" tooltip>
+                                                                   <i class="nc-icon nc-simple-add"></i>
+                                                              </button>
+                                                            <button type="button" rel="tooltip"  class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#editBreakdownModal" data-original-title="Edit Amounts" data-ng-click="controller.editBreakdownItem(breakdownItem)" tooltip>
                                                                 <i class="nc-icon nc-ruler-pencil"></i>
                                                             </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove" data-ng-click="controller.deleteBreakdownItem(breakdownItem)">
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Delete Item" data-ng-click="controller.deleteBreakdownItem(breakdownItem)" tooltip>
+                                                                <i class="nc-icon nc-simple-remove"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+@*                                                    <tr data-ng-if="controller.isNewPayment">*@
+@*                                                    <tr>*@
+@*                                                        <td class="text-center">*@
+@*                                                        </td>*@
+@*                                                        <td class="text-left">*@
+@*                                                            <input type="text" placeholder="payment date" size="25" style="text-align:center;" class="form-control" data-ng-model="controller.formData.payment_date">*@
+@*                                                        </td>*@
+@*                                                        <td class="text-left">*@
+
+@*                                                        </td>*@
+@*                                                        <td class="text-center">*@
+@*                                                            -*@
+@*                                                        </td>*@
+@*                                                        <td  class="text-center">*@
+@*                                                            <input type="number" placeholder="payment amount" size="10" style="text-align:center;" class="form-control" data-ng-model="controller.formData.payment_amount">*@
+@*                                                        </td>*@
+@*                                                        <td  class="text-center">*@
+@*                                                            -*@
+@*                                                        </td>*@
+@*                                                        <td class="text-center">*@
+@*                                                        </td>*@
+@*                                                        <td class="text-center">*@
+@*                                                            <button type="button" rel="tooltip" title="edit-amounts" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#editBreakdownModal" data-original-title="edit" data-ng-click="controller.editBreakdownItem(breakdownItem)">*@
+@*                                                                <i class="nc-icon nc-ruler-pencil"></i>*@
+@*                                                            </button>*@
+@*                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove" data-ng-click="controller.deleteBreakdownItem(breakdownItem)">*@
+@*                                                                <i class="nc-icon nc-simple-remove"></i>*@
+@*                                                            </button>*@
+@*                                                        </td>*@
+@*                                                    </tr>*@
+                                                    <tr>
+                                                        <td class="text-center">
+                                                        </td>
+                                                        <td class="text-left">
+
+                                                        </td>
+                                                        <td class="text-left">
+                                                            {{payment.title}}
+                                                        </td>
+                                                        <td class="text-center">
+                                                            -
+                                                        </td>
+                                                        <td  class="text-center">
+                                                            -
+                                                        </td>
+                                                        <td  class="text-center">
+                                                            -
+                                                        </td>
+                                                        <td class="text-center">
+                                                        </td>
+                                                        <td class="text-center">
+                                                            <button type="button" rel="tooltip"  class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#editBreakdownModal" data-original-title="Edit Amounts" data-ng-click="controller.editBreakdownItem(breakdownItem)" tooltip>
+                                                                <i class="nc-icon nc-ruler-pencil"></i>
+                                                            </button>
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove Item" data-ng-click="controller.deleteBreakdownItem(breakdownItem)" tooltip>
                                                                 <i class="nc-icon nc-simple-remove"></i>
                                                             </button>
                                                         </td>
@@ -255,7 +311,7 @@
                                             </table>
                                         </div>
                                         <div>
-                                            <button type="button" class="btn btn-default btn-round btn-icon btn-icon-mini btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newBreakdownItem" data-original-title="New Item" data-ng-click="controller.newBreakdownItem(breakDownList.breakDown)">
+                                            <button type="button" class="btn btn-default btn-round btn-icon btn-icon-mini btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newBreakdownItem" data-original-title="New Item" data-ng-click="controller.newBreakdownItem(breakDownList.breakDown)" tooltip>
                                                 <i class="nc-icon nc-simple-add"></i>
                                             </button>
                                         </div>

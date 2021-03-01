@@ -158,6 +158,21 @@ app.directive('inputCurrency', function ($filter, $locale) {
         };
 });
 
+app.directive('tooltip', function(){
+        return {
+                restrict: 'A',
+                link: function(scope, element, attrs){
+                        element.hover(function(){
+                                // on mouseenter
+                                element.tooltip('show');
+                        }, function(){
+                                // on mouseleave
+                                element.tooltip('hide');
+                        });
+                }
+        };
+});
+
 // PROD Constants
 app.constant('config', {
         appHost: 'https://well-wedding-planner.herokuapp.com',
