@@ -30,6 +30,10 @@ app.controller('projectsController', function ProjectsController (ProjectsFactor
         ProjectsFactory.getAllProjects(businessId,
             function mySuccess (response) {
                 projectsController.projects = response.data.data;
+                for (var i=0; i < projectsController.projects.length; i++) {
+                    projectsController.projects[i].event_date_display = moment(projectsController.projects[i].event_date, "YYYYMMDD").format("MMM-DD-YYYY");
+                    projectsController.projects[i].created_date_display = moment(projectsController.projects[i].created_date, "YYYYMMDD").format("MMM-DD-YYYY");
+                }
                 projectsController.isLoaded = true;
             }, function myError (response) {
                 console.log(response.statusText)
