@@ -6,8 +6,18 @@
         <data-edit-vendor-modal data-vendors="controller.vendors" data-current-vendor="controller.currentVendor" data-business-id=@businessId></data-edit-vendor-modal>
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="" data-ng-click="controller.newItem()">New Vendor Contact</button>
+            </div>
+            <div class="col-md-4 pull-right">
+                <div class="input-group no-border">
+                    <input type="text" value="" class="form-control" placeholder="Search..." ng-model="searchText">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <i class="nc-icon nc-zoom-split"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -76,7 +86,7 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr data-ng-repeat="vendor in controller.vendors">
+                                <tr data-ng-repeat="vendor in controller.vendors | filter:searchText">
                                     <th class="text-center">
 @*                                        <div class="form-check">*@
 @*                                            <label class="form-check-label">*@
