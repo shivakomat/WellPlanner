@@ -2,7 +2,7 @@ package model.dataModels
 
 
 case class TimelineItem(id: Option[Int] = None,
-                          projectId: Int,
+                          project_id: Int,
                           business_id: Int,
                           time: String,
                           duration: Double,
@@ -11,4 +11,4 @@ case class TimelineItem(id: Option[Int] = None,
                           contact: String,
                           notes: String,
                           modified_date: Option[Int] = None,
-                          create_date: Option[Int] = None)
+                          created_date: Option[Int] = None)

@@ -1,17 +1,17 @@
 package model.api.projects
 
 import model.dataModels.TimelineItem
-import model.databases.TimelineItemsDbApi
+import model.databases.TimelineDBApi
 import model.tools.DateTimeNow
 import play.api.db.DBApi
 import play.api.libs.ws.WSClient
 
-class TimelineAPI(dbApi: DBApi, ws: WSClient) {
+class ProjectTimelineAPI(dbApi: DBApi, ws: WSClient) {
 
-  private val timelineItemsDb = new TimelineItemsDbApi(dbApi)
+  private val timelineItemsDb = new TimelineDBApi(dbApi)
 
-  def timelineItemByProject(projectId: Long, businessId: Int): Seq[TimelineItem] =
-    timelineItemsDb.allItems().filter(_.business_id == businessId && _.project_id == projectId)
+  def timelineItemByProject(projectId: Long, businessId: Long): Seq[TimelineItem] =
+    timelineItemsDb.allItems().filter(t => t.business_id == businessId && t.project_id == projectId)
 
 
   def addNewItem(item: TimelineItem): Either[String, TimelineItem] = {
@@ -39,8 +39,8 @@ class TimelineAPI(dbApi: DBApi, ws: WSClient) {
   }
 
   def deleteTimelineItem(id: Long, projectId: Long, businessId: Long, budgetId: Long): Seq[TimelineItem] = {
-    val rowsDeleted = TimelineItemsDb.deleteTimelineItem(id, projectId, businessId, budgetId)
-    this.TimelineItemsByBudgetItem(businessId, projectId, budgetId)
+    val rowsDeleted = timelineItemsDb.deleteTimelineItem(id, projectId, businessId)
+    this.timelineItemByProject(projectId, businessId)
   }
 
 }

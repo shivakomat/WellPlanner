@@ -32,4 +32,5 @@ object JsonFormats {
   implicit val teamMemberFormat = Json.format[TeamMember]
   implicit val clientMessageFormat = Json.format[ClientMessage]
   implicit val paymentFormat = Json.format[Payment]
+  implicit val timelineItemFormat = Json.format[TimelineItem]
 }

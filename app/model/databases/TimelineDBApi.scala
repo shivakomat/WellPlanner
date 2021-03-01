@@ -5,7 +5,7 @@ import javax.inject.Inject
 import model.dataModels.TimelineItem
 import play.api.db.DBApi
 
-class TimelineItemsDbApi @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
+class TimelineDBApi @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
 
   val timelineItemParser: RowParser[TimelineItem] = Macro.namedParser[TimelineItem]
 
@@ -15,7 +15,7 @@ class TimelineItemsDbApi @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi
         "values ({business_id} , {project_id}, {time}, {date}, {duration}, {contact}, {notes}, {modified_date}, {created_date})")
         .on("project_id" -> timelineItem.project_id,  "business_id" -> timelineItem.business_id, "duration"  -> timelineItem.duration, "date" -> timelineItem.date,
           "time" -> timelineItem.time, "date" -> timelineItem.date, "duration" -> timelineItem.duration, "contact" -> timelineItem.contact, "notes" -> timelineItem.notes,
-          "modified_date" -> payment.modified_date, "created_date" -> payment.created_date)
+          "modified_date" -> timelineItem.modified_date, "created_date" -> timelineItem.created_date)
         .executeInsert()
     }
 
@@ -33,14 +33,14 @@ class TimelineItemsDbApi @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi
     db.withConnection { implicit connection =>
       SQL("update timeline_items set time = {time}, date = {date}, duration = {duration}, description = {description}" +
         " contact = {contact}, notes = {notes}, modified_date = {modified_date} where id = {id} and budget_id = {budget_id}")
-        .on("payment_amount" -> updatedPayment.payment_amount, "payment_date"  -> updatedPayment.payment_date,
-          "modified_date" -> updatedPayment.modified_date, "id" -> updatedPayment.id, "budget_id" -> updatedPayment.budget_id)
+        .on("time" -> updatedTimelineItem.time, "date"  -> updatedTimelineItem.date, "duration" -> updatedTimelineItem.duration, "description" -> updatedTimelineItem.description,
+          "contact" -> updatedTimelineItem.contact, "notes" -> updatedTimelineItem.notes, "modified_date" -> updatedTimelineItem.modified_date, "created_date" -> updatedTimelineItem.created_date)
         .executeUpdate()
     }
 
   def deleteTimelineItem(id: Long, projectId: Long, businessId: Long): Int =
     db.withConnection { implicit connection =>
-      SQL("delete from timeline_items where id = {id} and business_id = {business_id} and budget_id = {budgetId}")
+      SQL("delete from timeline_items where id = {id} and business_id = {business_id} and project_id = {project_id}")
         .on("id" -> id, "projectId" -> projectId, "business_id" -> businessId)
         .executeUpdate()
     }
