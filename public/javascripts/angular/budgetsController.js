@@ -222,6 +222,10 @@ function EditBreakdownModalController(BudgetFactory, $scope, templates) {
         return templates.editBreakdownItemModal;
     };
 
+    editBreakdownItemModalController.close = function () {
+        list(editBreakdownItemModalController.businessId, editBreakdownItemModalController.projectId);
+    };
+
     editBreakdownItemModalController.updateItem = function () {
         console.log(editBreakdownItemModalController.currentBreakdownItem);
         updateBreakDown(editBreakdownItemModalController.currentBreakdownItem, "Breakdown Item updated!", "Woo hoo!");

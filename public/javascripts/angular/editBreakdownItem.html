@@ -11,16 +11,16 @@
                 <form>
                     <div class="form-group">
                         <label for="estimatedAmount">Estimated Amount</label>
-                        <input id="estimatedAmount" type="text" class="form-control" data-ng-model="editBreakdownItemModalController.currentBreakdownItem.estimate" data-input-currency>
+                        <input id="estimatedAmount" type="number" class="form-control" data-ng-model="editBreakdownItemModalController.currentBreakdownItem.estimate">
                     </div>
                     <div class="form-group">
                         <label for="actualAmount">Actual Amount</label>
-                        <input id="actualAmount" type="text" class="form-control" data-ng-model="editBreakdownItemModalController.currentBreakdownItem.actual" data-input-currency>
+                        <input id="actualAmount" type="number" class="form-control" data-ng-model="editBreakdownItemModalController.currentBreakdownItem.actual">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" data-ng-click="editBreakdownItemModalController.close()">Close</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="editBreakdownItemModalController.updateItem()">Update Amounts</button>
             </div>
         </div>
