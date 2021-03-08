@@ -29,6 +29,13 @@ class PaymentsDbApi @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
       SQL("select * from  payments").as(paymentsParser.*)
     }
 
+  def allPaymentsByBusinessIdAndProjectId(businessId: Long, projectId: Long): Seq[Payment] =
+    db.withConnection { implicit connection =>
+      SQL("select * from  payments where business_id = {business_id} and project_id = {project_id}")
+        .on("business_id" -> businessId, "project_id" -> projectId)
+        .as(paymentsParser.*)
+    }
+
 
   def updatePayment(updatedPayment: Payment): Int =
     db.withConnection { implicit connection =>
@@ -41,7 +48,7 @@ class PaymentsDbApi @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
 
   def deletePayment(id: Long, projectId: Long, businessId: Long, budgetId: Long): Int =
     db.withConnection { implicit connection =>
-      SQL("delete from budget_breakdowns where id = {id} and business_id = {business_id} and budget_id = {budgetId}")
+      SQL("delete from budget_breakdowns where id = {id} and business_id = {business_id} and budget_id = {budgetId} and project_id = {project_id}")
         .on("id" -> id, "projectId" -> projectId, "business_id" -> businessId, "budgetId" -> budgetId)
         .executeUpdate()
     }

@@ -3,6 +3,7 @@ app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
     budgetController.breakDownsLists = {};
     budgetController.projectInfo = {};
     budgetController.isLoaded = false;
+    budgetController.currentPayments = [];
 
     budgetController.editBreakdownItem = function (breakdownItem) {
         budgetController.currentBreakdown = breakdownItem
@@ -24,6 +25,11 @@ app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
         }, function myError() {
             alerts.autoCloseAlert('title-and-text', 'Error deleting item', 'Please try again!');
         })
+    };
+
+    budgetController.setCurrentPayments = function (payments) {
+        budgetController.currentPayments =  payments;
+        console.log(budgetController.currentPayments);
     };
 
     function setProjectInfo(projectId, businessId) {
@@ -50,22 +56,36 @@ function calcTotalEstimateAndActual(breakdownList) {
     var p;
     var overallEstimate = 0;
     var overallActual = 0;
+    var overallAmountPaid = 0;
     for (p = 0; p < breakdownList.length; p++) {
         var x;
         var totalEstimated = 0;
         var totalActual = 0;
+        var totalPaid = 0;
         for(x = 0; x < breakdownList[p].subBreakDowns.length; x++) {
-            totalEstimated = totalEstimated + breakdownList[p].subBreakDowns[x].estimate
-            totalActual = totalActual + breakdownList[p].subBreakDowns[x].actual
+            totalEstimated = totalEstimated + breakdownList[p].subBreakDowns[x].breakdownItem.estimate;
+            totalActual = totalActual + breakdownList[p].subBreakDowns[x].breakdownItem.actual;
+            var totalAmountPaid = 0;
+            for(j = 0; j < breakdownList[p].subBreakDowns[x].payments.length; j++) {
+                totalAmountPaid = breakdownList[p].subBreakDowns[x].payments[j].payment_amount + totalAmountPaid;
+                breakdownList[p].subBreakDowns[x].payments[j].payment_date_display = moment(breakdownList[p].subBreakDowns[x].payments[j].payment_date, "YYYYMMDD").format("MMM-DD-YYYY");
+            }
+            breakdownList[p].subBreakDowns[x].breakdownItem.amountPaid = totalAmountPaid;
+            totalPaid = totalAmountPaid + totalPaid;
         }
         breakdownList[p].totalEstimate =  totalEstimated;
         breakdownList[p].totalActual =  totalActual;
+        breakdownList[p].totalPaid =  totalPaid;
+        breakdownList[p].totalBalance =  totalActual - totalPaid;
         overallEstimate = overallEstimate + totalEstimated;
         overallActual = overallActual + totalActual;
+        overallAmountPaid = totalPaid + overallAmountPaid;
     }
     breakdownList.overallEstimate = overallEstimate;
     breakdownList.overallActual = overallActual;
     breakdownList.totalSavings = breakdownList.overallEstimate - breakdownList.overallActual;
+    breakdownList.overallAmountPaid = overallAmountPaid;
+    breakdownList.overallAmountUnPaid = overallActual - overallAmountPaid;
     return breakdownList;
 }
 

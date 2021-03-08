@@ -43,12 +43,20 @@ class ProjectBudgetingAPI(dbApi: DBApi, ws: WSClient) {
 
   def budgetBreakdownsByProject(projectId: Long, businessId: Long): Seq[BudgetBreakdownList] = {
     val list = breakDownsDb.allBudgetBreakdowns().filter(bd => bd.business_id == businessId && bd.project_id == projectId)
+    val listOfPayments = paymentsDb.allPaymentsByBusinessIdAndProjectId(businessId, projectId)
 
     val mapOfParentBudgetWithBreakdowns = list.groupBy(e => e.parent_budget_id)
     val parentBudgetBreakdowns = mapOfParentBudgetWithBreakdowns.get(None)
 
     if(parentBudgetBreakdowns.nonEmpty)
-        parentBudgetBreakdowns.get.map(parentBudget => BudgetBreakdownList(breakDown = parentBudget, subBreakDowns = mapOfParentBudgetWithBreakdowns.getOrElse(parentBudget.id, Seq.empty[BudgetBreakdowns])))
+        parentBudgetBreakdowns.get.map(parentBudget => {
+          val subBreakDowns = mapOfParentBudgetWithBreakdowns.getOrElse(parentBudget.id, Seq.empty[BudgetBreakdowns])
+          val subBreakDownsWithPayments = subBreakDowns.map(subItem => {
+            val payments = listOfPayments.filter(p => p.budget_id == subItem.id.get)
+            SubBreakDownWithPayments(subItem, payments)
+          })
+          BudgetBreakdownList(parentBudget, subBreakDownsWithPayments)
+        })
     else {
         Seq.empty[BudgetBreakdownList]
     }

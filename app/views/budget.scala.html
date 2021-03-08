@@ -10,6 +10,8 @@
 
         <data-new-payment-modal data-business-id="@businessId" data-project-id="@projectId"></data-new-payment-modal>
 
+        <data-payments-modal data-business-id="@businessId" data-project-id="@projectId" data-payments="controller.currentPayments"></data-payments-modal>
+
         <data-new-breakdown-modal data-business-id="@businessId" data-parent="controller.currentParentBreakdown" data-project-id="@projectId" data-breakdown-list="controller.breakDownsLists"></data-new-breakdown-modal>
 
         <data-edit-breakdown-modal data-business-id="@businessId" data-project-id="@projectId" data-current-breakdown-item="controller.currentBreakdown"  data-breakdown-list="controller.breakDownsLists"></data-edit-breakdown-modal>
@@ -113,8 +115,8 @@
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-category">- -</p>
-                                    <p class="card-title">- -</p><p>
+                                    <p class="card-category">{{controller.breakDownsLists.overallAmountPaid | currency}}</p>
+                                    <p class="card-title">{{controller.breakDownsLists.overallAmountUnPaid | currency}}</p><p>
                                 </p></div>
                             </div>
                         </div>
@@ -187,22 +189,22 @@
                                                         <td class="text-center">
                                                         </td>
                                                         <td class="text-left">
-                                                            {{breakdownItem.title}}
+                                                            {{breakdownItem.breakdownItem.title}}
                                                         </td>
                                                         <td class="text-center">
-                                                            {{breakdownItem.estimate | currency}}
+                                                            {{breakdownItem.breakdownItem.estimate | currency}}
                                                         </td>
-                                                        <td  class="text-center" data-ng-if="breakdownItem.actual <= 0">
+                                                        <td  class="text-center" data-ng-if="breakdownItem.breakdownItem.actual <= 0">
                                                             -
                                                         </td>
-                                                        <td  class="text-center" data-ng-if="breakdownItem.actual > 0">
-                                                            {{breakdownItem.actual | currency}}
+                                                        <td  class="text-center" data-ng-if="breakdownItem.breakdownItem.actual > 0">
+                                                            {{breakdownItem.breakdownItem.actual | currency}}
                                                         </td>
                                                         <td  class="text-center">
-                                                            -
+                                                            {{breakdownItem.breakdownItem.amountPaid | currency}}
                                                         </td>
                                                         <td class="text-center">
-                                                            -
+                                                            {{(breakdownItem.breakdownItem.actual - breakdownItem.breakdownItem.amountPaid) | currency}}
                                                         </td>
                                                         <td class="text-center">
                                                         </td>
@@ -210,13 +212,13 @@
 @*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remainders">*@
 @*                                                                <i class="nc-icon nc-time-alarm"></i>*@
 @*                                                            </button>*@
-                                                              <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#paymentsModal" data-original-title="View / Add Payments" tooltip>
-                                                                   <i class="nc-icon nc-simple-add"></i>
+                                                              <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#paymentsModal" data-original-title="View / Add Payments" data-ng-click="controller.setCurrentPayments(breakdownItem.payments)" tooltip>
+                                                                   <i class="nc-icon nc-money-coins"></i>
                                                               </button>
-                                                            <button type="button" rel="tooltip"  class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#editBreakdownModal" data-original-title="Edit Amounts" data-ng-click="controller.editBreakdownItem(breakdownItem)" tooltip>
+                                                            <button type="button" rel="tooltip"  class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#editBreakdownModal" data-original-title="Edit Amounts" data-ng-click="controller.editBreakdownItem(breakdownItem.breakdownItem)" tooltip>
                                                                 <i class="nc-icon nc-ruler-pencil"></i>
                                                             </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Delete Item" data-ng-click="controller.deleteBreakdownItem(breakdownItem)" tooltip>
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Delete Item" data-ng-click="controller.deleteBreakdownItem(breakdownItem.breakdownItem)" tooltip>
                                                                 <i class="nc-icon nc-simple-remove"></i>
                                                             </button>
                                                         </td>
@@ -294,14 +296,13 @@
                                                         <td  class="text-center">
                                                             <h6>{{breakDownList.totalActual | currency}}</h6>
                                                         </td>
-                                                        <td class="text-left">
-
+                                                        <td class="text-center">
+                                                            <h6>{{breakDownList.totalPaid | currency}}</h6>
                                                         </td>
                                                         <td class="text-center">
-
+                                                            <h6>{{breakDownList.totalBalance | currency}}</h6>
                                                         </td>
                                                         <td class="text-center">
-
                                                         </td>
                                                         <td class="text-center">
                                                             - -
