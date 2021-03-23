@@ -177,7 +177,7 @@ function TaskItemsModalController(TasksFactory, $scope, templates) {
             }, function myError() {
                 alerts.autoCloseAlert('success-message', 'Unable to add new item, oops!', 'Please try again!');
             });
-    }
+    };
 
     taskItemsModalController.showAddNewItem = function () {
         taskItemsModalController.showNewItem = true;
@@ -371,6 +371,7 @@ function EditTaskModalController(TasksFactory, $scope, templates) {
     function refresh(businessId, projectId) {
         allTasks(businessId, projectId);
     }
+
 
     function allTasks(businessId, projectId) {
         TasksFactory.allTasks(businessId, projectId,

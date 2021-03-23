@@ -27,9 +27,15 @@ app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
         })
     };
 
-    budgetController.setCurrentPayments = function (payments) {
+    budgetController.setCurrentPayments = function (payments, breakDownListId, breakDownItemId, breakDownsLists) {
         budgetController.currentPayments =  payments;
-        console.log(budgetController.currentPayments);
+        budgetController.currentBreakDownItemId =  breakDownItemId;
+        budgetController.currentBreakdownLists = breakDownsLists;
+        budgetController.currentBreakdownListId = breakDownListId;
+        // console.log(budgetController.currentBreakDownItemId);
+        // console.log(budgetController.currentBreakdownListId);
+        // console.log(budgetController.currentBreakdownLists);
+        // console.log(budgetController.currentPayments);
     };
 
     function setProjectInfo(projectId, businessId) {

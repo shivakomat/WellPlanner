@@ -19,11 +19,16 @@ app.factory('BudgetFactory', function TasksFactory ($http) {
         $http({method: 'POST', url: '/businesses/projects/budget-breakdowns/payments', data: newPayment}).then(successFunction, errorFunction);
     };
 
+    var deletePayment = function (projectId, businessId, breakdownId, paymentId, successFunction, errorFunction) {
+        $http({method: 'DELETE', url: '/businesses/' + businessId + '/projects/' + projectId + '/budget-breakdowns/' + breakdownId + '/payments/' + paymentId}).then(successFunction, errorFunction);
+    };
+
     return {
         allBreakdowns: getAllBreakDowns,
         addBreakDownList: addBreakDownList,
         deleteBreakDown: deleteBreakDown,
         updateBreakdownItemBy: updateBreakdownItemBy,
-        addPayment: addPayment
+        addPayment: addPayment,
+        deletePayment: deletePayment
     }
 });
