@@ -51,9 +51,9 @@
                                             <table class="table">
                                                 <tbody>
                                                     <tr>
-                                                        <td  class="text-left"><u>Is Completed</u></td>
+                                                        <td  class="text-left"><u>Is Done</u></td>
                                                         <td  class="text-left"><u>Description</u></td>
-                                                        <td  class="text-left"><u>Due Date</u></td>
+                                                        <td  class="text-left"><u>Event Time</u></td>
                                                         <td  class="text-center"><u>Actions</u></td>
                                                     </tr>
                                                     <tr data-ng-repeat="subTask in task.subTasks">
@@ -69,13 +69,13 @@
                                                         <td data-ng-if="subTask.is_completed" class="text-left"><strike>{{subTask.description}}</strike></td>
                                                         <td class="text-left">{{subTask.due_date_display}}</td>
                                                         <td class="td-actions text-center" data-ng-if="subTask.is_completed === false" >
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="#taskItemsModal" data-original-title="View Task Items" data-ng-click="controller.setSubTaskForTaskItems(subTask)" tooltip>
-                                                                <i class="nc-icon nc-bullet-list-67"></i>
-                                                            </button>
+@*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="#taskItemsModal" data-original-title="View Task Items" data-ng-click="controller.setSubTaskForTaskItems(subTask)" tooltip>*@
+@*                                                                <i class="nc-icon nc-bullet-list-67"></i>*@
+@*                                                            </button>*@
 
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#taskComments" data-original-title="Comments" data-ng-click="controller.setTaskComments(subTask.project_id, subTask.business_id, subTask)" tooltip>
-                                                                <i class="nc-icon nc-chat-33"></i>
-                                                            </button>
+@*                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#taskComments" data-original-title="Comments" data-ng-click="controller.setTaskComments(subTask.project_id, subTask.business_id, subTask)" tooltip>*@
+@*                                                                <i class="nc-icon nc-chat-33"></i>*@
+@*                                                            </button>*@
 
                                                             <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="#editTask" data-original-title="Edit Task" data-ng-click="controller.editTask(subTask)" tooltip>
                                                                 <i class="nc-icon nc-ruler-pencil"></i>
@@ -92,7 +92,7 @@
                                             <div class="col-lg-5 text-left">
                                                 <div>
                                                     <button type="button" class="btn btn-default btn-round btn-outline-default  btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newTask" data-original-title="New Task" data-ng-click="controller.newSubtask(task.parent)">
-                                                        Add task
+                                                        Add timeline item
                                                     </button>
                                                 </div>
                                             </div>
