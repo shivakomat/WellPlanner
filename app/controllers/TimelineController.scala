@@ -40,4 +40,31 @@ class TimelineController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
     )
   }
 
+  def timelineItems(businessId: Int, projectId: Int) =  Action {
+    successResponse(OK, Json.toJson(timelineApi.timelineItemsByProject(projectId, businessId)), Seq("Successfully processed"))
+  }
+
+  def deleteTimelineItemById(timelineItemId: Int, projectId: Int, businessId: Int) = Action {
+    successResponse(OK, Json.toJson(timelineApi.deleteTimelineItem(timelineItemId, projectId, businessId)), Seq("Successfully processed"))
+  }
+
+
+  def updateTimelineItem(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+    println("Updating timeline item request accepted")
+
+    def updateOperation(timelineItem: TimelineItem): Future[Result] =
+      timelineApi.updateItem(timelineItem) match {
+        case Right(data) =>
+          logForSuccess(Json.toJson(data).toString)
+          Future.successful(successResponse(CREATED, Json.toJson(data), Seq(s"Successfully update task ${data.description}")))
+        case Left(errorMsg) =>
+          Future.successful(errorResponse(FOUND, Seq(s"Error: $errorMsg")))
+      }
+
+    request.body.validate[TimelineItem].fold(
+      errors => badRequest,
+      payload => updateOperation(payload)
+    )
+  }
+
 }

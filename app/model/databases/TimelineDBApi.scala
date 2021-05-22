@@ -11,10 +11,11 @@ class TimelineDBApi @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
 
   def addTimelineItem(timelineItem: TimelineItem): Option[Long] =
     db.withConnection { implicit connection =>
-      SQL("insert into timeline_items(business_id, project_id, time, date, duration, description, contact, notes, modified_date, created_date) " +
-        "values ({business_id} , {project_id}, {time}, {date}, {duration}, {contact}, {notes}, {modified_date}, {created_date})")
-        .on("project_id" -> timelineItem.project_id,  "business_id" -> timelineItem.business_id, "duration"  -> timelineItem.duration, "date" -> timelineItem.date,
-          "time" -> timelineItem.time, "date" -> timelineItem.date, "duration" -> timelineItem.duration, "contact" -> timelineItem.contact, "notes" -> timelineItem.notes,
+      SQL("insert into timeline_items(business_id, project_id, parent_id, time, date, duration, description, contact, notes, modified_date, created_date) " +
+        "values ({business_id} , {project_id}, {parent_id}, {time}, {date}, {duration}, {contact}, {notes}, {modified_date}, {created_date})")
+        .on("project_id" -> timelineItem.project_id,  "business_id" -> timelineItem.business_id, "parent_id" -> timelineItem.parent_id,
+          "duration"  -> timelineItem.duration, "date" -> timelineItem.date, "time" -> timelineItem.time, "date" -> timelineItem.date,
+          "duration" -> timelineItem.duration, "contact" -> timelineItem.contact, "notes" -> timelineItem.notes,
           "modified_date" -> timelineItem.modified_date, "created_date" -> timelineItem.created_date)
         .executeInsert()
     }
@@ -28,6 +29,11 @@ class TimelineDBApi @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
     db.withConnection { implicit connection =>
       SQL("select * from  timeline_items").as(timelineItemParser.*)
     }
+
+
+  def timelineBy(businessId: Int, projectId: Int): Seq[TimelineItem] =
+    allItems().filter(item => (item.business_id == businessId && item.project_id == projectId))
+
 
   def updateItem(updatedTimelineItem: TimelineItem): Int =
     db.withConnection { implicit connection =>

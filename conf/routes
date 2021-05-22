@@ -86,14 +86,27 @@ GET /businesses/:businessId/projects/:projectId/tasks/:taskId/taskItems         
 +nocsrf
 POST /businesses/projects/tasks                                                                 controllers.TasksController.addNewTasks
 
+GET /businesses/:businessId/projects/:projectId/timelineItems                                    controllers.TimelineController.timelineItems(businessId: Int, projectId: Int)
+
++nocsrf
+POST /businesses/projects/timelineItems                                                          controllers.TimelineController.newTimelineItem
+
++nocsrf
+POST /businesses/projects/timelineItems/update                                                   controllers.TimelineController.updateTimelineItem
+
++nocsrf
+DELETE /businesses/:businessId/projects/:projectId/timelineItems/:timelineItemId                 controllers.TimelineController.deleteTimelineItemById(timelineItemId: Int, projectId: Int, businessId: Int)
+
 +nocsrf
 POST /businesses/projects/tasks/taskItems                                                       controllers.TasksController.addTaskItemToTask
+
 
 +nocsrf
 DELETE /businesses/:businessId/projects/:projectId/tasks/:taskId/taskItems/:taskItemId          controllers.TasksController.deleteTaskItemById(taskItemId: Int, taskId: Int, projectId: Int, businessId: Int)
 
 +nocsrf
 POST /businesses/projects/tasks/update                                                          controllers.TasksController.updateTask()
+
 +nocsrf
 DELETE /businesses/:businessId/projects/:projectId/tasks/:taskId                                controllers.TasksController.deleteTaskById(taskId: Int, projectId: Int, businessId: Int)
 +nocsrf

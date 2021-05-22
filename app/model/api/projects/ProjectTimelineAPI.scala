@@ -10,7 +10,7 @@ class ProjectTimelineAPI(dbApi: DBApi, ws: WSClient) {
 
   private val timelineItemsDb = new TimelineDBApi(dbApi)
 
-  def timelineItemByProject(projectId: Long, businessId: Long): Seq[TimelineItem] =
+  def timelineItemsByProject(projectId: Long, businessId: Long): Seq[TimelineItem] =
     timelineItemsDb.allItems().filter(t => t.business_id == businessId && t.project_id == projectId)
 
 
@@ -38,9 +38,9 @@ class ProjectTimelineAPI(dbApi: DBApi, ws: WSClient) {
       Left("Failed during database update or reading the updated breakdown back from database")
   }
 
-  def deleteTimelineItem(id: Long, projectId: Long, businessId: Long, budgetId: Long): Seq[TimelineItem] = {
+  def deleteTimelineItem(id: Long, projectId: Long, businessId: Long): Seq[TimelineItem] = {
     val rowsDeleted = timelineItemsDb.deleteTimelineItem(id, projectId, businessId)
-    this.timelineItemByProject(projectId, businessId)
+    this.timelineItemsByProject(projectId, businessId)
   }
 
 }
