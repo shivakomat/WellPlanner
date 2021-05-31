@@ -188,10 +188,13 @@ var baseUrl = "https://well-wedding-planner.herokuapp.com/assets/javascripts/ang
 
 app.constant('templates', {
         newProjectModal:  baseUrl + "/newProjectModal.html",
+        newTimelineItemListModal: baseUrl + "/newTimelineItemList.html",
+        newTimelineItemModal: baseUrl + "/newTimelineItem.html",
         newTaskListModal: baseUrl + "/newTaskListModal.html",
         taskItemsModal: baseUrl + "/taskItemsModal.html",
         newSubTaskModal: baseUrl + "/newSubTaskModal.html",
         deleteTaskListModal: baseUrl + "/deleteTaskListModal.html",
+        deleteTimelineItemListModal: baseUrl + "/deleteTimelineItemListModal.html",
         editTaskModal: baseUrl + "/editTaskModal.html",
         editVendorContactModal: baseUrl + "/editVendorModal.html",
         newVendorContactModal: baseUrl + "/newVendorModal.html",

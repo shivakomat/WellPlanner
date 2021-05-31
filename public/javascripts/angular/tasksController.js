@@ -45,7 +45,7 @@ app.controller('tasksController', function (TasksFactory, $http) {
         console.log(tasksController.currentSubTask);
         TasksFactory.getTaskCommentsByTask(businessId, projectId, subTask.id,
             function mySuccess (response) {
-                tasksController.currentTaskComments= response.data.data;
+                tasksController.currentTaskComments= utils.formatDueDate(response.data.data);
                 console.log(tasksController.currentTaskComments);
             },
             function myError (response) { console.log(response.statusText) }
@@ -248,7 +248,7 @@ function NewTaskListModalController(TasksFactory, $scope, templates) {
     function allTasks(businessId, projectId) {
         TasksFactory.allTasks(businessId, projectId,
             function mySuccess (response) {
-                newTaskListModalController.allTasks = utils.formatDueDate(response.data.data)
+                newTaskListModalController.allTasks = utils.formatDueDate(response.data.data);
                 console.log(newTaskListModalController.allTasks);
             },
             function myError (response) { console.log(response.statusText) }

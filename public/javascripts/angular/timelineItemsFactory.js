@@ -1,5 +1,5 @@
 
-app.factory('TimelineItemsFactory', function TasksFactory ($http) {
+app.factory('TimelineItemsFactory', function TimelineItemsFactory ($http) {
     var getAllTimelineItems = function (businessId, projectId, successFunction, errorFunction) {
         $http({method: 'GET', url: '/businesses/'+ businessId + "/projects/" + projectId + "/timelineItems"}).then(successFunction, errorFunction)
     };

@@ -3,25 +3,22 @@
 @projectMain("Wedding Day Timeline", "wedding-day-timeline", "Wedding Day Timeline", projectId, businessId) {
 
     <!-- Main Content -->
-    <div class="content" data-ng-controller="tasksController as controller" data-ng-init="controller.getAllTasks(@projectId, @businessId)">
+    <div class="content" data-ng-controller="timelineController as controller" data-ng-init="controller.getAllTimelines(@projectId, @businessId)">
 
             <!-- New List Modal -->
-        <data-new-task-list-modal data-all-tasks="controller.tasks" data-project-id=@projectId data-business-id=@businessId></data-new-task-list-modal>
+          <data-new-timeline-item-list-modal data-all-timeline-items-lists="controller.timelineItems" data-project-id=@projectId data-business-id=@businessId></data-new-timeline-item-list-modal>
 
-            <!-- New Sub Task Modal -->
-        <data-new-sub-task-modal data-tasks="controller.tasks" data-parent="controller.currentParentTask"  data-project-id=@projectId data-business-id=@businessId></data-new-sub-task-modal>
+            <!-- New Item Modal -->
+          <data-new-timeline-item-modal data-all-timeline-items-lists="controller.timelineItems"  data-parent-timeline-item-id="controller.parentId" data-project-id=@projectId data-business-id=@businessId></data-new-timeline-item-modal>
 
             <!-- Edit Task Modal -->
-        <data-edit-sub-task-modal data-all-tasks="controller.tasks" data-parent-task="controller.currentParentTask"  data-sub-task="controller.currentSubTask" data-project-id=@projectId data-business-id=@businessId></data-edit-sub-task-modal>
+@*        <data-edit-timeline-item-modal data-all-timelines="controller.tasks" data-parent-timeline="controller.currentParentTask"  data-timeline-item="controller.currentSubTask" data-project-id=@projectId data-business-id=@businessId></data-edit-timeline-item-modal>*@
 
             <!-- Delete Task Modal -->
-        <data-delete-task-list-modal data-tasks="controller.tasks" data-project-id=@projectId data-business-id=@businessId></data-delete-task-list-modal>
-
-            <!-- Task Items Modal -->
-        <data-task-items-modal data-task="controller.currentSubTask" data-task-items="controller.subTaskItems" data-project-id=@projectId data-business-id=@businessId></data-task-items-modal>
+        <data-delete-timeline-item-list-modal data-all-timeline-items-lists="controller.timelineItems" data-project-id=@projectId data-business-id=@businessId></data-delete-timeline-item-list-modal>
 
             <!-- Task Comments Modal -->
-        <data-task-comments-modal data-task-comments="controller.currentTaskComments" data-sub-task="controller.currentSubTask" data-project-id=@projectId data-business-id=@businessId></data-task-comments-modal>
+@*        <data-task-comments-modal data-task-comments="controller.currentTaskComments" data-sub-task="controller.currentSubTask" data-project-id=@projectId data-business-id=@businessId></data-task-comments-modal>*@
 
         <div class="row">
             <div class="col-md-12">
@@ -30,45 +27,48 @@
                         <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
                             <h4 class="card-title">Wedding Day Timeline</h4>
                             <div class="mt-lg-8">
-                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#createList">CREATE TIMELINE EVENT</button>
-                                <button type="button" data-ng-show="controller.tasks.length > 0" class="btn btn-outline-default btn-sm" data-toggle="modal" data-target="#deleteTaskList">DELETE</button>
+                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#createTimelineItemsList">CREATE TIMELINE EVENT</button>
+                                <button type="button" data-ng-show="controller.timelineItems.length > 0" class="btn btn-outline-default btn-sm" data-toggle="modal" data-target="#deleteTimelineItemList">DELETE</button>
                             </div>
 
-                            <div class="mt-lg-3 card card-plain" data-ng-repeat="task in controller.tasks">
+                            <div class="mt-lg-3 card card-plain" data-ng-repeat="timeline in controller.timelineItems">
                                 <div class="card-header" role="tab" id="headingOne">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="{{ '#collapse_' + task.parent.id}}" aria-expanded="true" aria-controls="collapseOne">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="{{ '#collapse_' + timeline.parent.id}}" aria-expanded="true" aria-controls="collapseOne">
                                         <div class="row ml-0">
-                                            <div class="col-lg-5"><h7><b>{{task.parent.title | uppercase}}</b></h7></div>
+                                            <div class="col-lg-5"><h7><b>{{timeline.parent.description | uppercase}}</b></h7></div>
                                             <div class="col-lg-2 text-right text-danger"><h7> on date </h7></div>
-                                            <div class="col-lg-3 text-center"><h7>{{task.parent.due_date_display}}</h7></div>
+                                            <div class="col-lg-3 text-center"><h7>{{timeline.parent.date_display}}</h7></div>
                                             <div class="col-lg-2 right-side"><i class="nc-icon nc-minimal-down"></i></div>
                                         </div>
                                     </a>
                                 </div>
-                                <div id="{{ 'collapse_' + task.parent.id}}" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                                <div id="{{ 'collapse_' + timeline.parent.id}}" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
                                     <div class="card-body">
                                         <div class="table-borderless table-responsive">
                                             <table class="table">
                                                 <tbody>
                                                     <tr>
-                                                        <td  class="text-left"><u>Is Done</u></td>
+@*                                                        <td  class="text-left"><u>Is Done</u></td>*@
                                                         <td  class="text-left"><u>Description</u></td>
-                                                        <td  class="text-left"><u>Event Time</u></td>
+                                                        <td  class="text-left"><u>Time</u></td>
+                                                        <td  class="text-left"><u>Duration (in minutes)</u></td>
+                                                        <td  class="text-left"><u>Contact</u></td>
                                                         <td  class="text-center"><u>Actions</u></td>
                                                     </tr>
-                                                    <tr data-ng-repeat="subTask in task.subTasks">
-                                                        <td>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label">
-                                                                    <input class="form-check-input" type="checkbox" data-ng-checked="subTask.is_completed" data-ng-model="subTask.is_completed" data-ng-change="controller.completeTask(subTask)" checked>
-                                                                    <span class="form-check-sign"></span>
-                                                                </label>
-                                                            </div>
-                                                        </td>
-                                                        <td data-ng-if="subTask.is_completed == false" class="text-left">{{subTask.description}}</td>
-                                                        <td data-ng-if="subTask.is_completed" class="text-left"><strike>{{subTask.description}}</strike></td>
-                                                        <td class="text-left">{{subTask.due_date_display}}</td>
-                                                        <td class="td-actions text-center" data-ng-if="subTask.is_completed === false" >
+                                                    <tr data-ng-repeat="subItem in timeline.subItems">
+@*                                                        <td>*@
+@*                                                            <div class="form-check">*@
+@*                                                                <label class="form-check-label">*@
+@*                                                                    <input class="form-check-input" type="checkbox" data-ng-checked="subItem.is_completed" data-ng-model="subItem.is_completed" data-ng-change="controller.completeTask(subTask)" checked>*@
+@*                                                                    <span class="form-check-sign"></span>*@
+@*                                                                </label>*@
+@*                                                            </div>*@
+@*                                                        </td>*@
+                                                        <td class="text-left">{{subItem.description}}</td>
+                                                        <td class="text-left">{{subItem.time}}</td>
+                                                        <td class="text-left">{{subItem.duration}}</td>
+                                                        <td class="text-left">{{subItem.contact}}</td>
+                                                        <td class="td-actions text-center">
 @*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="#taskItemsModal" data-original-title="View Task Items" data-ng-click="controller.setSubTaskForTaskItems(subTask)" tooltip>*@
 @*                                                                <i class="nc-icon nc-bullet-list-67"></i>*@
 @*                                                            </button>*@
@@ -77,10 +77,10 @@
 @*                                                                <i class="nc-icon nc-chat-33"></i>*@
 @*                                                            </button>*@
 
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="#editTask" data-original-title="Edit Task" data-ng-click="controller.editTask(subTask)" tooltip>
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="" data-original-title="Edit Item" data-ng-click="controller.editTask(subItem)" tooltip>
                                                                 <i class="nc-icon nc-ruler-pencil"></i>
                                                             </button>
-                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Delete Task" data-ng-click="controller.removeTask(subTask.project_id, subTask.business_id, subTask.id)" tooltip>
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Delete Item" data-ng-click="controller.removeTimelineItem(subItem.project_id, subItem.business_id, subItem.id)" tooltip>
                                                                 <i class="nc-icon nc-simple-remove"></i>
                                                             </button>
                                                         </td>
@@ -91,7 +91,7 @@
                                         <div class="row">
                                             <div class="col-lg-5 text-left">
                                                 <div>
-                                                    <button type="button" class="btn btn-default btn-round btn-outline-default  btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newTask" data-original-title="New Task" data-ng-click="controller.newSubtask(task.parent)">
+                                                    <button type="button" class="btn btn-default btn-round btn-outline-default  btn-neutral" rel="tooltip" data-toggle="modal" data-target="#createItem" data-original-title="New Timeline Item" data-ng-click="controller.setParentTimelineItemId(timeline.parent.id)">
                                                         Add timeline item
                                                     </button>
                                                 </div>

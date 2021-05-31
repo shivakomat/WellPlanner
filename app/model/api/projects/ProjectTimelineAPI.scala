@@ -14,6 +14,19 @@ class ProjectTimelineAPI(dbApi: DBApi, ws: WSClient) {
     timelineItemsDb.allItems().filter(t => t.business_id == businessId && t.project_id == projectId)
 
 
+  def allTimelineItems(projectId: Long, businessId: Long): Seq[TimelineItemsList] = {
+    val listOfTimelineItems = timelineItemsDb.allItems().filter(t => t.business_id == businessId && t.project_id == projectId)
+
+    val mapOfParentTimelineItemsWithSubItems = listOfTimelineItems.groupBy(_.parent_id)
+    val parentTimelineItems: Option[Seq[TimelineItem]] = mapOfParentTimelineItemsWithSubItems.get(None)
+
+    if(parentTimelineItems.nonEmpty)
+      parentTimelineItems.get.map(parentTimelineItem => TimelineItemsList(parent = parentTimelineItem, subItems = mapOfParentTimelineItemsWithSubItems.getOrElse(parentTimelineItem.id, Seq.empty[TimelineItem])))
+    else
+      Seq.empty[TimelineItemsList]
+  }
+
+
   def addNewItem(item: TimelineItem): Either[String, TimelineItem] = {
     val newitemAdded =
       timelineItemsDb.addTimelineItem(item.copy(modified_date = Some(DateTimeNow.getCurrent), created_date = Some(DateTimeNow.getCurrent)))

@@ -41,7 +41,7 @@ class TimelineController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
   }
 
   def timelineItems(businessId: Int, projectId: Int) =  Action {
-    successResponse(OK, Json.toJson(timelineApi.timelineItemsByProject(projectId, businessId)), Seq("Successfully processed"))
+    successResponse(OK, Json.toJson(timelineApi.allTimelineItems(projectId, businessId)), Seq("Successfully processed"))
   }
 
   def deleteTimelineItemById(timelineItemId: Int, projectId: Int, businessId: Int) = Action {

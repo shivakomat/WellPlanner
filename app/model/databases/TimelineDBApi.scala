@@ -12,10 +12,10 @@ class TimelineDBApi @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
   def addTimelineItem(timelineItem: TimelineItem): Option[Long] =
     db.withConnection { implicit connection =>
       SQL("insert into timeline_items(business_id, project_id, parent_id, time, date, duration, description, contact, notes, modified_date, created_date) " +
-        "values ({business_id} , {project_id}, {parent_id}, {time}, {date}, {duration}, {contact}, {notes}, {modified_date}, {created_date})")
+        "values ({business_id} , {project_id}, {parent_id}, {time}, {date}, {duration}, {description}, {contact}, {notes}, {modified_date}, {created_date})")
         .on("project_id" -> timelineItem.project_id,  "business_id" -> timelineItem.business_id, "parent_id" -> timelineItem.parent_id,
-          "duration"  -> timelineItem.duration, "date" -> timelineItem.date, "time" -> timelineItem.time, "date" -> timelineItem.date,
-          "duration" -> timelineItem.duration, "contact" -> timelineItem.contact, "notes" -> timelineItem.notes,
+          "time" -> timelineItem.time, "date" -> timelineItem.date,  "duration"  -> timelineItem.duration,
+          "description" -> timelineItem.description, "contact" -> timelineItem.contact, "notes" -> timelineItem.notes,
           "modified_date" -> timelineItem.modified_date, "created_date" -> timelineItem.created_date)
         .executeInsert()
     }
@@ -47,7 +47,7 @@ class TimelineDBApi @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
   def deleteTimelineItem(id: Long, projectId: Long, businessId: Long): Int =
     db.withConnection { implicit connection =>
       SQL("delete from timeline_items where id = {id} and business_id = {business_id} and project_id = {project_id}")
-        .on("id" -> id, "projectId" -> projectId, "business_id" -> businessId)
+        .on("id" -> id, "project_id" -> projectId, "business_id" -> businessId)
         .executeUpdate()
     }
 }
