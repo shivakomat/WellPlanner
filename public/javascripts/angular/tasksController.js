@@ -8,6 +8,13 @@ var utils = {
             }
         }
         return tasks;
+    },
+    formatTaskCommentsDate: function (allTaskComments) {
+        var taskComments =  allTaskComments;
+        for (var i=0; i < taskComments.length; i++) {
+            taskComments[i].created_date_display = moment(taskComments[i].created_date, "YYYYMMDD").format("MMM-DD-YYYY")
+        }
+        return taskComments;
     }
 };
 
@@ -39,13 +46,11 @@ app.controller('tasksController', function (TasksFactory, $http) {
 
     tasksController.setTaskComments = function(projectId, businessId, subTask) {
         console.log("Inside Set Task Comments");
-
         tasksController.currentSubTask = subTask;
-        tasksController.currentSubTask.due_date = moment(subTask.due_date, "YYYYMMDD").format("MMM-DD-YYYY");
         console.log(tasksController.currentSubTask);
-        TasksFactory.getTaskCommentsByTask(businessId, projectId, subTask.id,
+        TasksFactory.getTaskCommentsByTask(tasksController.currentSubTask.business_id, tasksController.currentSubTask.project_id, subTask.id,
             function mySuccess (response) {
-                tasksController.currentTaskComments= utils.formatDueDate(response.data.data);
+                tasksController.currentTaskComments= utils.formatTaskCommentsDate(response.data.data);
                 console.log(tasksController.currentTaskComments);
             },
             function myError (response) { console.log(response.statusText) }

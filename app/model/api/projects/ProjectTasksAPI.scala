@@ -81,7 +81,7 @@ class ProjectTasksAPI(dbApi: DBApi, ws: WSClient) {
       Left("Failed during database update or reading the updated task back from database")
   }
 
-  def taskCommentsByTask(businessId: Long, projectId: Long, taskId: Long): Seq[TaskComment] =
+  def taskCommentsByTask(projectId: Long, businessId: Long, taskId: Long): Seq[TaskComment] =
     tasksCommentsDb.byTaskId(taskId, businessId, projectId)
 
   def deleteTaskComment(taskCommentId: Long, taskId: Long, projectId: Long, businessId: Long): Seq[TaskComment] = {
