@@ -4,6 +4,16 @@
 @projectMain("Project Dashboard", "project-dashboard", "Project Overview Dashboard", projectId, businessId) {
     <div class="content" data-ng-controller="projectDashboardController as controller" data-ng-init="controller.init(@businessId, @projectId)">
         <div class="row">
+            <div class="col-md-12 ml-auto mr-auto">
+                <div class="card card-user">
+
+                    <div class="card-header text-center">
+                        <h2 class="card-title text-danger">{{controller.projectInfo.name}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="card card-stats">
                     <div class="card-body ">
