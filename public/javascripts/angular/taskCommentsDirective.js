@@ -1,7 +1,7 @@
 app.directive('taskCommentsModal',  [TaskCommentsModalDirective]);
 function TaskCommentsModalDirective() {
     return{
-        template:  '<ng-include src="getTemplateUrl()"/>',
+        template:  '<ng-include src="getTemplateTaskCommentsUrl()"/>',
         scope: false,
         bindToController: {
             taskComments: '=',
@@ -22,7 +22,7 @@ function TaskCommentsModalController(TasksFactory, $scope, templates) {
     taskCommentsController.formData = {};
     taskCommentsController.formData.newComment = "";
 
-    $scope.getTemplateUrl = function () {
+    $scope.getTemplateTaskCommentsUrl = function () {
         return templates.taskCommentsModal;
     };
 
