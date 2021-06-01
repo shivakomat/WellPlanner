@@ -32,6 +32,10 @@ function NewProjectController(ClientsFactory, ProjectsFactory, $scope, templates
         newProject()
     };
 
+    function clearData() {
+        newProjectController.formData = {};
+    }
+
     function newProject() {
         var newProject = {};
         newProject = newProjectController.formData;
@@ -41,8 +45,10 @@ function NewProjectController(ClientsFactory, ProjectsFactory, $scope, templates
 
         ProjectsFactory.addProject(newProject, function mySuccess() {
             refresh(newProjectController.businessId);
+            clearData();
             alerts.autoCloseAlert('success-message', 'New Project has been created', 'Awesome!');
         }, function myError() {
+            clearData();
             alerts.autoCloseAlert('success-message', 'Error Creating new project', 'Please try again!');
         });
     }

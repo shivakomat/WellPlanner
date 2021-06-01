@@ -114,6 +114,10 @@ function NewVendorModalController(VendorContactsFactory, $scope, templates) {
         });
     }
 
+    function clearFormData() {
+        newVendorModalController.formData = {};
+    }
+
     function createAVendor(businessId) {
         var newVendor = {};
         newVendor = newVendorModalController.formData;
@@ -124,14 +128,15 @@ function NewVendorModalController(VendorContactsFactory, $scope, templates) {
 
         VendorContactsFactory.addVendor(newVendor, function mySuccess() {
             refresh(businessId);
+            clearFormData();
             alerts.autoCloseAlert('success-message', 'New Vendor Contact Created', 'Awesome!');
         }, function myError() {
+            clearFormData();
             alerts.autoCloseAlert('success-message', 'Error Creating Vendor Contact', 'Please try again!');
         });
     }
 
 }
-
 
 
 app.directive('editVendorModal',  [EditVendorModalDirective]);
