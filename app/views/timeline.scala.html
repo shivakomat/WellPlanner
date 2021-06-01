@@ -53,6 +53,7 @@
                                                         <td  class="text-left"><u>Time</u></td>
                                                         <td  class="text-left"><u>Duration (in minutes)</u></td>
                                                         <td  class="text-left"><u>Contact</u></td>
+                                                        <td  class="text-left"><u>Category</u></td>
                                                         <td  class="text-center"><u>Actions</u></td>
                                                     </tr>
                                                     <tr data-ng-repeat="subItem in timeline.subItems">
@@ -68,6 +69,7 @@
                                                         <td class="text-left">{{subItem.time}}</td>
                                                         <td class="text-left">{{subItem.duration}}</td>
                                                         <td class="text-left">{{subItem.contact}}</td>
+                                                        <td class="text-left">{{subItem.category}}</td>
                                                         <td class="td-actions text-center">
 @*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="#taskItemsModal" data-original-title="View Task Items" data-ng-click="controller.setSubTaskForTaskItems(subTask)" tooltip>*@
 @*                                                                <i class="nc-icon nc-bullet-list-67"></i>*@

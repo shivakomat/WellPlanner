@@ -186,6 +186,7 @@ function NewTimelineItemListModalController(TimelineItemsFactory, $scope, templa
         timelineItemsList.parent_id = null;
         timelineItemsList.duration = 0;
         timelineItemsList.contact = "none";
+        timelineItemsList.category = "none";
         timelineItemsList.time = "none";
         timelineItemsList.notes = "none";
         var reformattedEventDate = newTimelineItemListModalController.eventDateDisplay.format('YYYYMMDD');

@@ -11,12 +11,12 @@ class TimelineDBApi @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
 
   def addTimelineItem(timelineItem: TimelineItem): Option[Long] =
     db.withConnection { implicit connection =>
-      SQL("insert into timeline_items(business_id, project_id, parent_id, time, date, duration, description, contact, notes, modified_date, created_date) " +
-        "values ({business_id} , {project_id}, {parent_id}, {time}, {date}, {duration}, {description}, {contact}, {notes}, {modified_date}, {created_date})")
+      SQL("insert into timeline_items(business_id, project_id, parent_id, time, date, duration, description, contact, category, notes, modified_date, created_date) " +
+        "values ({business_id} , {project_id}, {parent_id}, {time}, {date}, {duration}, {description}, {contact}, {category}, {notes}, {modified_date}, {created_date})")
         .on("project_id" -> timelineItem.project_id,  "business_id" -> timelineItem.business_id, "parent_id" -> timelineItem.parent_id,
           "time" -> timelineItem.time, "date" -> timelineItem.date,  "duration"  -> timelineItem.duration,
-          "description" -> timelineItem.description, "contact" -> timelineItem.contact, "notes" -> timelineItem.notes,
-          "modified_date" -> timelineItem.modified_date, "created_date" -> timelineItem.created_date)
+          "description" -> timelineItem.description, "contact" -> timelineItem.contact, "category" -> timelineItem.category,
+          "notes" -> timelineItem.notes, "modified_date" -> timelineItem.modified_date, "created_date" -> timelineItem.created_date)
         .executeInsert()
     }
 
@@ -38,9 +38,10 @@ class TimelineDBApi @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) {
   def updateItem(updatedTimelineItem: TimelineItem): Int =
     db.withConnection { implicit connection =>
       SQL("update timeline_items set time = {time}, date = {date}, duration = {duration}, description = {description}" +
-        " contact = {contact}, notes = {notes}, modified_date = {modified_date} where id = {id} and budget_id = {budget_id}")
+        " contact = {contact}, category = {category}, notes = {notes}, modified_date = {modified_date} where id = {id} and budget_id = {budget_id}")
         .on("time" -> updatedTimelineItem.time, "date"  -> updatedTimelineItem.date, "duration" -> updatedTimelineItem.duration, "description" -> updatedTimelineItem.description,
-          "contact" -> updatedTimelineItem.contact, "notes" -> updatedTimelineItem.notes, "modified_date" -> updatedTimelineItem.modified_date, "created_date" -> updatedTimelineItem.created_date)
+          "contact" -> updatedTimelineItem.contact, "category" -> updatedTimelineItem.category, "notes" -> updatedTimelineItem.notes,
+          "modified_date" -> updatedTimelineItem.modified_date, "created_date" -> updatedTimelineItem.created_date)
         .executeUpdate()
     }
 

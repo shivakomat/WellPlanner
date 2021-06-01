@@ -10,6 +10,7 @@ case class TimelineItem(id: Option[Int] = None,
                         description: String,
                         date: Int,
                         contact: String,
+                        category: String,
                         notes: String,
                         modified_date: Option[Int] = None,
                         created_date: Option[Int] = None)
