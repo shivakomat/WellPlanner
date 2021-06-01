@@ -138,6 +138,33 @@
 
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-10 ml-auto mr-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="title">Safely Delete Projects</h5>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6 col-auto">
+                                    <div class="form-group">
+                                        <label for="projects">Select Project</label>
+                                        <select id="projects" class="form-control" data-ng-model="controller.formData.selectedCategory" data-ng-options= "project.name for project in controller.projects"></select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="" data-ng-click="controller.deleteProjectBy(@businessId)">Safe Delete</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
 @*        <div class="row">*@
 @*            <div class="col-md-10 ml-auto mr-auto">*@
 @*                <div class="row">*@

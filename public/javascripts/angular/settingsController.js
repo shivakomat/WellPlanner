@@ -1,9 +1,10 @@
-app.controller('settingsController', function(BusinessFactory) {
+app.controller('settingsController', function(BusinessFactory, ProjectsFactory) {
     var settingsController = this;
 
     settingsController.init = function (businessId) {
         setBusinessInfo(businessId);
         getAllTeamMembers(businessId);
+        allProjects(businessId);
     };
 
     settingsController.editMember = function (teamMember) {
@@ -36,6 +37,20 @@ app.controller('settingsController', function(BusinessFactory) {
             console.log(response.statusText);
             settingsController.teamMembers = {};
         });
+    }
+
+    function allProjects(businessId) {
+        ProjectsFactory.getAllProjects(businessId,
+            function mySuccess (response) {
+                settingsController.projects = response.data.data;
+                for (var i=0; i < projectsController.projects.length; i++) {
+                    settingsController.projects[i].event_date_display = moment(settingsController.projects[i].event_date, "YYYYMMDD").format("MMM-DD-YYYY");
+                    settingsController.projects[i].created_date_display = moment(settingsController.projects[i].created_date, "YYYYMMDD").format("MMM-DD-YYYY");
+                }
+                // settingsController.isLoaded = true;
+            }, function myError (response) {
+                console.log(response.statusText)
+            });
     }
 
 });
