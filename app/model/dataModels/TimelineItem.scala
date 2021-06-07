@@ -12,5 +12,6 @@ case class TimelineItem(id: Option[Int] = None,
                         contact: String,
                         category: String,
                         notes: String,
+                        is_completed: Boolean = false,
                         modified_date: Option[Int] = None,
                         created_date: Option[Int] = None)

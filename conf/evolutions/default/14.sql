@@ -11,7 +11,7 @@ FOREIGN KEY("project_id") REFERENCES "projects"(id), FOREIGN KEY("business_id") 
 
 
 CREATE TABLE "timeline_items" ("id" SERIAL PRIMARY KEY, "business_id" SERIAL, "project_id" SERIAL, "parent_id" NUMERIC, "duration" NUMERIC, "description" VARCHAR(200), "time" VARCHAR(10), "date" NUMERIC, "contact" VARCHAR(100),
-"notes" VARCHAR(1000), "category" VARCHAR(100),
+"notes" VARCHAR(1000), "category" VARCHAR(100), "is_completed" boolean,
 FOREIGN KEY("project_id") REFERENCES "projects"(id), FOREIGN KEY("business_id") REFERENCES "businesses"(id),  "modified_date" NUMERIC, "created_date" NUMERIC);
 
 # --- !Downs

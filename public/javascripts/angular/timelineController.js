@@ -46,6 +46,15 @@ app.controller('timelineController', function (TimelineItemsFactory, $http) {
         deleteTimelineItemBy(projectId, businessId, timelineItemId);
     };
 
+    timelineController.completeTimelineItem = function (timelineItem) {
+        console.log(timelineItem);
+        if(timelineItem.is_completed === true) {
+            updateTimelineItem(timelineItem,"Timeline task mark completed!!", "Good job!");
+        } else {
+            updateTimelineItem(timelineItem,"Timeline task not completed!!", "oh uh!");
+        }
+    };
+
     function updateTimelineItem(updatedTimelineItem, msg, msgDesc) {
         TimelineItemsFactory.updateTimelineItemBy(updatedTimelineItem, function mySuccess() {
             refresh(updatedTimelineItem.business_id, updatedTimelineItem.project_id);
@@ -116,6 +125,7 @@ function NewTimelineItemModalController(TimelineItemsFactory, $scope, templates)
         var reformattedEventDate = newTimelineItemModalController.eventDateDisplay.format('YYYYMMDD');
         timelineItemsList.date = parseInt(reformattedEventDate);
         timelineItemsList.duration = parseInt(timelineItemsList.duration);
+        timelineItemsList.is_completed = false;
         console.log("Inside newTimelineItem ");
         console.log(timelineItemsList);
 
@@ -189,6 +199,7 @@ function NewTimelineItemListModalController(TimelineItemsFactory, $scope, templa
         timelineItemsList.category = "none";
         timelineItemsList.time = "none";
         timelineItemsList.notes = "none";
+        timelineItemsList.is_completed = false;
         var reformattedEventDate = newTimelineItemListModalController.eventDateDisplay.format('YYYYMMDD');
         timelineItemsList.date = parseInt(reformattedEventDate);
         console.log(timelineItemsList);

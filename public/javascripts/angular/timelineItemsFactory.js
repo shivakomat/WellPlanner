@@ -13,7 +13,7 @@ app.factory('TimelineItemsFactory', function TimelineItemsFactory ($http) {
     };
 
     var updateTimelineItemBy = function (updatedTimelineItem, successFunction, errorFunction) {
-        $http({method: 'POST', url: '/businesses/projects/tasks/update', data: updatedTimelineItem}).then(successFunction, errorFunction);
+        $http({method: 'POST', url: '/businesses/projects/timelineItems/update', data: updatedTimelineItem}).then(successFunction, errorFunction);
     };
 
     return {

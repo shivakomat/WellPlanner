@@ -17,8 +17,6 @@
             <!-- Delete Task Modal -->
         <data-delete-timeline-item-list-modal data-all-timeline-items-lists="controller.timelineItems" data-project-id=@projectId data-business-id=@businessId></data-delete-timeline-item-list-modal>
 
-            <!-- Task Comments Modal -->
-@*        <data-task-comments-modal data-task-comments="controller.currentTaskComments" data-sub-task="controller.currentSubTask" data-project-id=@projectId data-business-id=@businessId></data-task-comments-modal>*@
 
         <div class="row">
             <div class="col-md-12">
@@ -48,7 +46,7 @@
                                             <table class="table">
                                                 <tbody>
                                                     <tr>
-@*                                                        <td  class="text-left"><u>Is Done</u></td>*@
+                                                        <td  class="text-left"><u>Is Done</u></td>
                                                         <td  class="text-left"><u>Description</u></td>
                                                         <td  class="text-left"><u>Time</u></td>
                                                         <td  class="text-left"><u>Duration (in minutes)</u></td>
@@ -57,28 +55,21 @@
                                                         <td  class="text-center"><u>Actions</u></td>
                                                     </tr>
                                                     <tr data-ng-repeat="subItem in timeline.subItems">
-@*                                                        <td>*@
-@*                                                            <div class="form-check">*@
-@*                                                                <label class="form-check-label">*@
-@*                                                                    <input class="form-check-input" type="checkbox" data-ng-checked="subItem.is_completed" data-ng-model="subItem.is_completed" data-ng-change="controller.completeTask(subTask)" checked>*@
-@*                                                                    <span class="form-check-sign"></span>*@
-@*                                                                </label>*@
-@*                                                            </div>*@
-@*                                                        </td>*@
-                                                        <td class="text-left">{{subItem.description}}</td>
+                                                        <td>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label">
+                                                                    <input class="form-check-input" type="checkbox" data-ng-checked="subItem.is_completed" data-ng-model="subItem.is_completed" data-ng-change="controller.completeTimelineItem(subItem)" checked>
+                                                                    <span class="form-check-sign"></span>
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td data-ng-if="subItem.is_completed == false" class="text-left">{{subItem.description}}</td>
+                                                        <td data-ng-if="subItem.is_completed" class="text-left"><strike>{{subItem.description}}</strike></td>
                                                         <td class="text-left">{{subItem.time}}</td>
                                                         <td class="text-left">{{subItem.duration}}</td>
                                                         <td class="text-left">{{subItem.contact}}</td>
                                                         <td class="text-left">{{subItem.category}}</td>
                                                         <td class="td-actions text-center">
-@*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="#taskItemsModal" data-original-title="View Task Items" data-ng-click="controller.setSubTaskForTaskItems(subTask)" tooltip>*@
-@*                                                                <i class="nc-icon nc-bullet-list-67"></i>*@
-@*                                                            </button>*@
-
-@*                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#taskComments" data-original-title="Comments" data-ng-click="controller.setTaskComments(subTask.project_id, subTask.business_id, subTask)" tooltip>*@
-@*                                                                <i class="nc-icon nc-chat-33"></i>*@
-@*                                                            </button>*@
-
                                                             <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="" data-original-title="Edit Item" data-ng-click="controller.editTask(subItem)" tooltip>
                                                                 <i class="nc-icon nc-ruler-pencil"></i>
                                                             </button>
