@@ -31,6 +31,10 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.timeline("Wedding Day Timeline", projectId, businessId))
   }
 
+  def projectSettings(projectId: Int, businessId: Int) = Action {
+    Ok(views.html.projectSettings("Project Settings", projectId, businessId))
+  }
+
   def projectVendorsShortlists(projectId: Int, businessId: Int) = Action {
     Ok(views.html.projectVendorManager("Project Vendors Shortlists", projectId, businessId))
   }
@@ -50,10 +54,6 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   // TODO temporary page render, this needs to be replaced with profile page which has user authentication built in
   def mainDashboard(businessId: Int) = Action {
     Ok(views.html.mainDashboard(JsNull, 0, businessId))
-  }
-
-  def settingsPage = Action {
-    Ok(views.html.projectSettings("Company Settings"))
   }
 
   def businessSettingsPage(businessId: Int) = Action {

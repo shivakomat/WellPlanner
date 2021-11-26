@@ -1,15 +1,59 @@
-@(title: String)
+@import play.api.libs.json.JsValue
+@(title: String, projectId: Int, businessId: Int)
 
-@projectMain("Project Tasks","tasks", "Project Settings", 0, 0) {
-    <div class="content">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-body">
-                        Helle world
+    @projectMain("Project Settings", "project-settings", "Project Settings", projectId, businessId) {
+@*        <div class="content" data-ng-controller="projectSettingsController as controller" data-ng-init="controller.init(@businessId, @projectId)">*@
+        <div class="content">
+            <div class="row">
+                <div class="col-md-10 ml-auto mr-auto">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="title">Client Access Settings</h5>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="row">
+                                    <div class="col-md-5 pr-1">
+                                        <div class="form-group">
+                                            <label>Client's Username</label>
+                                            <input type="text" class="form-control" placeholder="" value=""  data-ng-model="controller.name">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 pr-1">
+                                        <div class="form-group">
+                                            <label>Client's Password</label>
+                                            <input type="text" class="form-control" placeholder="" value=""  data-ng-model="controller.client.name">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5 pr-1">
+                                        <div class="form-group">
+                                            <label>Client's Email address</label>
+                                            <input type="email"  class="form-control" placeholder="Email Address" data-ng-model="controller.email" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-5 pr-1">
+                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="" data-ng-click="controller.updateInfo(@businessId, @projectId)">Save Access Settings</button>
+                                    </div>
+                                    <div class="col-md-5 pr-1">
+                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="" data-ng-click="controller.updateInfo(@businessId, @projectId)">Send Email</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-}
+    }
+
+
+
+@*                                <div class="row">*@
+@*                                    <div class="col-md-12">*@
+@*                                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="" data-ng-click="controller.updateInfo(@businessId, @projectId)">Send Email</button>*@
+@*                                    </div>*@
+@*                                </div>*@

@@ -349,6 +349,16 @@
                                 <p>Budget</p>
                             </a>
                         </li>
+                        @if(activeMenuItem == "project-settings") {
+                            <li class="active">
+                        } else {
+                            <li>
+                            }
+                        <a href="/pages/@businessId/projects/@projectId/projectSettings">
+                            <i class="nc-icon nc-money-coins"></i>
+                            <p>Project Settings</p>
+                        </a>
+                    </li>
                     </ul>
                 </div>
             </div>

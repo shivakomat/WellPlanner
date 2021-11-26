@@ -10,7 +10,7 @@ GET     /register-business-user     controllers.HomeController.businessUserRegis
 GET     /register-team-users        controllers.HomeController.businessTeamUsersSettingsPage
 GET     /profile                    controllers.HomeController.profile
 
-GET     /pages/settings             controllers.HomeController.settingsPage
+#GET     /pages/settings             controllers.HomeController.settingsPage
 
 
 
@@ -37,6 +37,7 @@ GET     /pages/:businessId/business-settings                        controllers.
 GET     /pages/:businessId/projects/:projectId/vendors-shortlists   controllers.HomeController.projectVendorsShortlists(projectId: Int, businessId: Int)
 
 GET     /pages/:businessId/projects/:projectId/timeline             controllers.HomeController.timelinePage(projectId: Int, businessId: Int)
+GET     /pages/:businessId/projects/:projectId/projectSettings      controllers.HomeController.projectSettings(projectId: Int, businessId: Int)
 
 
 
