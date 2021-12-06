@@ -1,8 +1,7 @@
 package controllers.util
 
 import model.api.businesses.AdminSignUpMessage
-import model.api.clients.NewClientMessage
-import model.api.clients.ClientMessage
+import model.api.clients.{ClientLoginMessage, ClientMessage, NewClientMessage}
 import model.api.projects.{BudgetBreakdownList, NewWeddingProjectMessage, SubBreakDownWithPayments, TaskList, TimelineItemsList}
 import model.api.users.UserMessage
 import model.dataModels._
@@ -36,4 +35,5 @@ object JsonFormats {
   implicit val timelineItemFormat = Json.format[TimelineItem]
   implicit val timelineItemsListFormat = Json.format[TimelineItemsList]
   implicit val clientAccessFormat = Json.format[ClientAccess]
+  implicit val clientLoginMessageFormat = Json.format[ClientLoginMessage]
 }

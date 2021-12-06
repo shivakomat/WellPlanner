@@ -23,6 +23,9 @@ GET     /pages/profile             controllers.ProfileController.profilePage
 
 # REST API Routes for web pages
 
+GET     /pages/client-portal-access/login      controllers.HomeController.clientPortalPage
+GET     /pages/client-portal/:businessId/projects/:projectId      controllers.HomeController.clientPortalMainPage(projectId: Int, businessId: Int)
+
 GET     /pages/customers/:businessId            controllers.HomeController.customerPage(businessId: Int)
 GET     /pages/dashboard/:businessId           controllers.HomeController.mainDashboard(businessId: Int)
 GET     /pages/vendors/:businessId             controllers.HomeController.vendors(businessId: Int)
@@ -43,6 +46,11 @@ GET     /pages/:businessId/projects/:projectId/projectSettings      controllers.
 
 
 # REST API Routes for data
+
+# # Client Portal
++nocsrf
+POST /client-accesses/login              controllers.ClientsAccessController.loginSuccessfully
+
 
 
 # # Projects
@@ -83,6 +91,14 @@ GET /businesses/:businessId/projects/:projectId/info                            
 GET /businesses/:businessId/projects/:projectId/tasks                                           controllers.TasksController.tasks(businessId: Int, projectId: Int)
 
 GET /businesses/:businessId/projects/:projectId/tasks/:taskId/taskItems                         controllers.TasksController.taskItems(businessId: Int, projectId: Int, taskId: Int)
+
++nocsrf
+POST /businesses/projects/clientAccess                                                          controllers.ClientsAccessController.addAccess
+
++nocsrf
+POST /businesses/projects/clientAccess/update                                                   controllers.ClientsAccessController.updateClientAccess
+
+GET /businesses/:businessId/projects/:projectId/clientAccess                                    controllers.ClientsAccessController.getAccess(businessId: Int, projectId: Int)
 
 +nocsrf
 POST /businesses/projects/tasks                                                                 controllers.TasksController.addNewTasks

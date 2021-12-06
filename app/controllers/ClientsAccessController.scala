@@ -2,7 +2,7 @@ package controllers
 
 import com.google.inject.Inject
 import controllers.util.ResponseTypes.{errorResponse, successResponse}
-import model.api.clients.ClientAccessApi
+import model.api.clients.{ClientAccessApi, ClientLoginMessage}
 import model.dataModels.ClientAccess
 import play.api.Logger
 import play.api.db.DBApi
@@ -25,8 +25,7 @@ class ClientsAccessController @Inject() (dbApi: DBApi, cc: ControllerComponents,
   private def badRequest: Future[Result] =
     Future.successful(errorResponse(BAD_REQUEST, Seq("Unable to recognize request")))
 
-
-  def addNewTasks(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def addAccess(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
     def createTask(access: ClientAccess): Future[Result] = {
       clientAccessApi.addClientAccess(access) match {
         case Right(data) =>
@@ -42,6 +41,48 @@ class ClientsAccessController @Inject() (dbApi: DBApi, cc: ControllerComponents,
     )
   }
 
+  def getAccess(businessId: Int, projectId: Int) =  Action {
+    successResponse(OK, Json.toJson(clientAccessApi.getAccessBy(projectId, businessId)), Seq("Successfully processed"))
+  }
 
+  def loginSuccessfully() =  Action.async(BodyParsers.parse.json) { request =>
+
+    def tryLoggingClient(loginMsg: ClientLoginMessage): Future[Result] = {
+      clientAccessApi.loginClient(loginMsg) match {
+      case Right(data) =>
+        logForSuccess(data.username)
+        Future.successful(successResponse(OK, Json.toJson(data), Seq("Successfully logged in")))
+      case Left(errorMsg) =>
+        Future.successful(errorResponse(FOUND, Seq(s"Error: $errorMsg")))
+      }
+    }
+
+    request.body.validate[ClientLoginMessage].fold(
+      errors => badRequest,
+      payload => tryLoggingClient(payload)
+    )
+
+  }
+
+
+  def updateClientAccess(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+    println("Updated client request incoming")
+//    Redirect(routes.HomeController.clientTasksPage(2, 1))
+//      .withSession("hello world")
+
+    def update(clientAccess: ClientAccess): Future[Result] =
+      clientAccessApi.updateClientAccess(clientAccess) match {
+        case Right(data) =>
+          logForSuccess(Json.toJson(data).toString)
+          Future.successful(successResponse(CREATED, Json.toJson(data), Seq(s"Successfully update client access for ${data.username}")))
+        case Left(errorMsg) =>
+          Future.successful(errorResponse(FOUND, Seq(s"Error: $errorMsg")))
+      }
+
+    request.body.validate[ClientAccess].fold(
+      errors => badRequest,
+      payload => update(payload)
+    )
+  }
 
 }
