@@ -6,6 +6,7 @@ app.controller('clientLoginController', function($http, $window, ClientAccessFac
         var loginInfo = clientLoginController.loginFormData;
         ClientAccessFactory.loginClient(loginInfo, function mySuccess(response) {
             clientLoginController.loginFormData = {};
+            console.log(response.data.data);
             $window.location.href =
                 "https://" + $window.location.host + "/pages/client-portal/" + response.data.data.businessId +  "/projects/" + response.data.data.projectId
         }, function myError(errMsg) {
