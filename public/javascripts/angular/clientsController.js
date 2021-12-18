@@ -62,6 +62,10 @@ app.controller('clientsController', function(ClientsFactory) {
     }
 
     clientController.updateClient = function editClient(client) {
+        var event_date_year = parseInt(client.event_date .toString().substr(0, 4));
+        var event_date_month = parseInt(client.event_date .toString().substr(4, 2));
+        var event_date_day = parseInt(client.event_date .toString().substr(6, 2));
+        client.event_date_moment_js = moment.utc([event_date_year, (event_date_month - 1), event_date_day]);
         clientController.currentClient = client;
     };
 
@@ -256,6 +260,9 @@ function EditClientModalController(ClientsFactory, $scope, templates) {
 
     editClientModalController.clientStatuses = Global_Constants.clientStatuses;
 
+
+
+
     $scope.getEditClientModalTemplateUrl = function () {
         return templates.editClientModal;
     };
@@ -270,7 +277,7 @@ function EditClientModalController(ClientsFactory, $scope, templates) {
 
     function allClients(businessId) {
         ClientsFactory.getAllClients(businessId, function mySuccess (response) {
-            editVendorModalController.vendors = response.data.data;
+            editClientModalController.clients = response.data.data;
         }, function myError (response) {
             console.log(response.statusText)
         });
@@ -280,17 +287,17 @@ function EditClientModalController(ClientsFactory, $scope, templates) {
         var newClient = {};
         newClient.businessId = updatedClient.business_id;
         newClient.notes = updatedClient.notes;
-        newClient.status = updatedClient.status;
+        newClient.status = updatedClient.status.type;
         newClient.eventType = updatedClient.event_type;
         newClient.budget = updatedClient.budget;
-        newClient.eventDate = '';
+        console.log(newClient.eventDate);
+        console.log(editClientModalController.currentClient);
+        console.log(updatedClient.eventDate);
+        newClient.eventDate = parseInt(updatedClient.event_date_moment_js.format('YYYYMMDD'));
         newClient.emailAddress = updatedClient.email;
         newClient.phoneNumber = updatedClient.phone_number;
         newClient.customerName = updatedClient.name;
         newClient.clientId = updatedClient.id;
-        // var reformattedEventDate = updatedClient.event_date.format('YYYYMMDD');
-        // newClient.eventDate = parseInt(reformattedEventDate);
-
         console.log(newClient);
         ClientsFactory.updateClientBy(newClient,
             function mySuccess() {

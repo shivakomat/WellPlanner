@@ -24,12 +24,16 @@
                         <input id="email" type="text" class="form-control" data-ng-model="editClientModalController.currentClient.email">
                     </div>
                     <div class="form-group">
+                        <label>Event Date </label>
+                        <input id="project_event_date"  size="30" class="form-control" ng-model="editClientModalController.currentClient.event_date_moment_js"  ng-model-options="{ updateOn: 'blur' }"  moment-picker="editClientModalController.currentClient.event_date_moment_js" format="YYYY-MM-DD" start-view="year">
+                    </div>
+                    <div class="form-group">
                         <label for="contact">Initial Budget</label>
                         <input id="contact" type="text" class="form-control" data-ng-model="editClientModalController.currentClient.budget" data-input-currency>
                     </div>
                     <div class="form-group">
                         <label for="status">Status</label>
-                        <select id="status" class="form-control" data-ng-model="editClientModalController.currentClient.status" ng-options= "item.type for item in newClientModalController.clientStatuses"></select>
+                        <select id="status" class="form-control" data-ng-init="editClientModalController.currentClient.status.type" data-ng-model="editClientModalController.currentClient.status" ng-options= "item.type for item in newClientModalController.clientStatuses"></select>
 <!--                        <input id="description" type="text" class="form-control" data-ng-model="editClientModalController.currentClient.status">-->
                     </div>
                     <div class="form-group">
