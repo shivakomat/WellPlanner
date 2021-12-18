@@ -74,7 +74,7 @@
                                         <input id="event_date"  size="30" class="form-control" ng-model="controller.formData.eventDate" ng-model-options="{ updateOn: 'blur' }"  moment-picker="controller.formData.eventDate" format="YYYY-MM-DD" start-view="year">
                                     </td>
                                     <td class="text-center">
-                                        <select class="form-control" data-ng-model="controller.formData.status" ng-options= "item for item in controller.clientStatuses"></select>
+                                        <select class="form-control" data-ng-model="controller.formData.status" ng-options= "item.type for item in controller.clientStatuses"></select>
                                     </td>
                                     <td class="td-actions text-center">
                                     </td>

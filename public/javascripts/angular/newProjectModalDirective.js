@@ -20,9 +20,6 @@ function NewProjectController(ClientsFactory, ProjectsFactory, $scope, templates
     var newProjectController = this;
     newProjectController.formData = {};
 
-    newProjectController.formData.currentDate = new Date();
-    newProjectController.options = '{format:"DD.MM.YYYY HH:mm"}'
-
     $scope.getTemplateUrl = function () {
         return templates.newProjectModal;
     };
@@ -41,7 +38,8 @@ function NewProjectController(ClientsFactory, ProjectsFactory, $scope, templates
         newProject = newProjectController.formData;
         newProject.businessId = newProjectController.businessId;
         newProject.clientId = newProjectController.clientId;
-        newProject.eventDate = parseInt(newProjectController.formData.eventDate.format('YYYYMMDD'));
+        newProject.budget = newProjectController.clientBudget;
+        newProject.eventDate = parseInt(newProjectController.clientEventDate.format('YYYYMMDD'));
 
         ProjectsFactory.addProject(newProject, function mySuccess() {
             refresh(newProjectController.businessId);

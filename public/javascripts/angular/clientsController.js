@@ -80,10 +80,8 @@ app.controller('clientsController', function(ClientsFactory) {
         newClient.businessId = businessId;
         newClient.notes = '';
         newClient.status = clientController.formData.status.type;
-        newClient.eventType = 'WEDDING';
-        // console.log(clientController.formData.eventDate.format('YYYYMMDD'));
+        newClient.eventType = 'WEDDING';;
         newClient.eventDate = parseInt(clientController.formData.eventDate.format('YYYYMMDD'));
-        // console.log(newClient)
 
         ClientsFactory.addClient(newClient, function mySuccess() {
             refresh(businessId);
@@ -289,7 +287,10 @@ function EditClientModalController(ClientsFactory, $scope, templates) {
         var newClient = {};
         newClient.businessId = updatedClient.business_id;
         newClient.notes = updatedClient.notes;
-        newClient.status = updatedClient.new_status.type;
+
+        if(updatedClient.new_status !== undefined) newClient.status = updatedClient.new_status.type;
+        else newClient.status = updatedClient.status;
+
         newClient.eventType = updatedClient.event_type;
         newClient.budget = updatedClient.budget;
         console.log(newClient.eventDate);

@@ -16,7 +16,7 @@
                     </div>
                     <div class="form-group">
                         <label>Phone</label>
-                        <!--                        <phonenumber-directive model='editVendorModalController.currentClient.phone_number'></phonenumber-directive>-->
+
                         <input id="phone" type="text" class="form-control" data-ng-model="editClientModalController.currentClient.phone_number" data-phone-number-format>
                     </div>
                     <div class="form-group">
@@ -32,13 +32,13 @@
                         <input id="contact" type="text" class="form-control" data-ng-model="editClientModalController.currentClient.budget" data-input-currency>
                     </div>
                     <div class="form-group">
-                        <label for="status">Status</label>
-                        <select id="status" class="form-control" data-ng-init="editClientModalController.currentClient.status.type" data-ng-model="editClientModalController.currentClient.new_status" ng-options= "item.type for item in newClientModalController.clientStatuses"></select>
+                        <label for="status">Client's status is  <b>{{editClientModalController.currentClient.status}} </b>    -- use drop down to switch --</label>
+                        <select id="status" class="form-control"  data-ng-model="editClientModalController.currentClient.new_status" ng-options= "item.type for item in newClientModalController.clientStatuses"></select>
+
                     </div>
                     <div class="form-group">
                         <label for="notes">Notes</label>
                         <textarea id="notes" rows="4" cols="80" class="form-control textarea" data-ng-model="editClientModalController.currentClient.notes"></textarea>
-<!--                        <input id="location" type="text-area" class="form-control" data-ng-model="editClientModalController.currentClient.notes">-->
                     </div>
                 </form>
             </div>
