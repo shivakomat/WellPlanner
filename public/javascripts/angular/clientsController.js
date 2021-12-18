@@ -242,7 +242,6 @@ app.directive('editClientModal',  [EditClientModalDirective]);
 function EditClientModalDirective() {
     return{
         template:  '<ng-include src="getEditClientModalTemplateUrl()"/>',
-        // templateUrl:  "http://localhost:7000/assets/javascripts/angular/editClientModal.html",
         scope: false,
         bindToController: {
             businessId: '=',
@@ -278,6 +277,9 @@ function EditClientModalController(ClientsFactory, $scope, templates) {
     function allClients(businessId) {
         ClientsFactory.getAllClients(businessId, function mySuccess (response) {
             editClientModalController.clients = response.data.data;
+            for (var i=0; i < editClientModalController.clients.length; i++) {
+                editClientModalController.clients[i][0].event_date_display = moment(editClientModalController.clients[i][0].event_date, "YYYYMMDD").format("MMM-DD-YYYY")
+            }
         }, function myError (response) {
             console.log(response.statusText)
         });
@@ -287,7 +289,7 @@ function EditClientModalController(ClientsFactory, $scope, templates) {
         var newClient = {};
         newClient.businessId = updatedClient.business_id;
         newClient.notes = updatedClient.notes;
-        newClient.status = updatedClient.status.type;
+        newClient.status = updatedClient.new_status.type;
         newClient.eventType = updatedClient.event_type;
         newClient.budget = updatedClient.budget;
         console.log(newClient.eventDate);
