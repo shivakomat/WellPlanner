@@ -80,7 +80,7 @@ app.controller('clientsController', function(ClientsFactory) {
         newClient.businessId = businessId;
         newClient.notes = '';
         newClient.status = clientController.formData.status.type;
-        newClient.eventType = 'WEDDING';;
+        newClient.eventType = 'WEDDING';
         newClient.eventDate = parseInt(clientController.formData.eventDate.format('YYYYMMDD'));
 
         ClientsFactory.addClient(newClient, function mySuccess() {

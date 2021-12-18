@@ -33,7 +33,7 @@ class ProjectsFacade(dbApi: DBApi) extends ProjectsApi {
   override def addNewWeddingEventProject(weddingProject: NewWeddingProjectMessage): Either[String, Long] = {
     val eventType = "WEDDING"
     print(weddingProject.toString)
-    val newProject = Project(name = weddingProject.groom.concat(weddingProject.bride),
+    val newProject = Project(name = weddingProject.groom.concat(" & " + weddingProject.bride),
       event_type = Some(eventType),
       brides_name = Some(weddingProject.bride),
       grooms_name = Some(weddingProject.groom),
