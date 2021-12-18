@@ -76,6 +76,10 @@ app.controller('tasksController', function (TasksFactory, $http) {
 
     tasksController.editTask = function (subTask) {
         tasksController.currentSubTask = subTask;
+        var due_date_year = parseInt(subTask.due_date .toString().substr(0, 4));
+        var due_date_month = parseInt(subTask.due_date .toString().substr(4, 2));
+        var due_date_day = parseInt(subTask.due_date .toString().substr(6, 2));
+        tasksController.currentSubTask.due_date_moment_js = moment.utc([due_date_year, (due_date_month - 1), due_date_day]);
     };
 
     tasksController.getAllTasks = function (projectId, businessId) {
@@ -360,13 +364,12 @@ function EditTaskModalController(TasksFactory, $scope, templates) {
     };
 
     function updateTask(updatedSubTask, msg, msgDesc) {
-        var reformattedEventDate = updatedSubTask.due_date.format('YYYYMMDD');
-        updatedSubTask.due_date = parseInt(reformattedEventDate);
+        var reformattedDueDate = updatedSubTask.due_date_moment_js.format('YYYYMMDD');
+        updatedSubTask.due_date = parseInt(reformattedDueDate);
 
         TasksFactory.updateTaskBy(updatedSubTask,
            function mySuccess() {
-            refresh(editTaskModalController.businessId, editTaskModalController.projectId)
-            // editTaskModalController.subask = updatedSubTask
+            refresh(editTaskModalController.businessId, editTaskModalController.projectId);
             alerts.autoCloseAlert('success-message', msg, msgDesc);
         }, function myError() {
             alerts.autoCloseAlert('success-message', 'Error updating task', 'Please try again!');
