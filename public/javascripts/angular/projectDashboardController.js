@@ -14,11 +14,9 @@ app.controller('projectDashboardController', function(TasksFactory, ProjectsFact
 
 
     function setProjectInfo(projectId, businessId) {
-        console.log("Inside project info")
         ProjectsFactory.getProject(projectId, businessId, function mySuccess (response) {
             projectDashboardController.projectInfo = response.data.data;
         }, function myError (response) {
-            console.log(response.statusText);
             projectDashboardController.projectInfo = {};
         });
     }
