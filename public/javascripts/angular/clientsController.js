@@ -53,9 +53,40 @@ app.controller('clientsController', function(ClientsFactory) {
     function allClients(businessId) {
         ClientsFactory.getAllClients(businessId, function mySuccess (response) {
             clientController.clients = response.data.data;
+            clientController.totalNew = 0;
+            clientController.totalProposalSent = 0;
+            clientController.totalLost = 0;
+            clientController.totalFollowedUp = 0;
+            clientController.totalConsultationsScheduled = 0;
+            clientController.totalProposalAccepted = 0;
+            clientController.totalContractSent = 0;
+            clientController.totalContractAccepted = 0;
+            clientController.totalBooked = 0;
+
             for (var i=0; i < clientController.clients.length; i++) {
-                clientController.clients[i][0].event_date_display = moment(clientController.clients[i][0].event_date, "YYYYMMDD").format("MMM-DD-YYYY")
+                clientController.clients[i][0].event_date_display = moment(clientController.clients[i][0].event_date, "YYYYMMDD").format("MMM-DD-YYYY");
+
+                if(clientController.clients[i][0].status === 'New') {
+                    clientController.totalNew++;
+                } else if(clientController.clients[i][0].status === 'Lost') {
+                    clientController.totalLost++;
+                } else if(clientController.clients[i][0].status === 'Proposal Sent') {
+                    clientController.totalProposalSent++;
+                } else if(clientController.clients[i][0].status === 'Proposal Accepted') {
+                    clientController.totalProposalSent++;
+                } else if(clientController.clients[i][0].status === 'Contract Sent') {
+                    clientController.totalContractSent++;
+                } else if(clientController.clients[i][0].status === 'Contract Accepted') {
+                    clientController.totalContractAccepted++;
+                } else if(clientController.clients[i][0].status === 'Consultation Scheduled') {
+                    clientController.totalConsultationsScheduled++;
+                } else if(clientController.clients[i][0].status === 'Booked') {
+                    clientController.totalBooked++;
+                } else if(clientController.clients[i][0].status === 'Followed Up') {
+                    clientController.totalFollowedUp++;
+                }
             }
+            console.log(clientController.totalNew);
         }, function myError (response) {
             console.log(response.statusText)
         });
