@@ -20,5 +20,9 @@ trait VendorContactsDBApi {
 
     def addVendorToManage(vendorManage: VendorManage): Option[Long]
 
+    def byVendorManageId(vendorManageId: Long): Option[VendorManage]
+
     def addVendorCategory(vendorCategory: VendorCategory): Option[Long]
+
+    def getVendorManageByProject(projectId: Long, businessId: Long): Seq[VendorManage]
 }

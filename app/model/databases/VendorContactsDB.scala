@@ -11,6 +11,7 @@ import play.api.db.DBApi
 class VendorContactsDB @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with VendorContactsDBApi  {
 
   val parser: RowParser[VendorContact] = Macro.namedParser[VendorContact]
+  val vendorManageParser: RowParser[VendorManage] = Macro.namedParser[VendorManage]
 
   override def addNewVendorContact(contact: VendorContact): Option[Long] = {
     db.withConnection { implicit connection =>
@@ -28,6 +29,13 @@ class VendorContactsDB @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) 
       SQL(s"select * from vendor_contacts where id = {contactId}")
         .on("contactId" -> contactId)
         .as(parser.singleOpt)
+    }
+
+  override def getVendorManageByProject(projectId: Long, businessId: Long): Seq[VendorManage] =
+    db.withConnection { implicit connection =>
+      SQL(s"select * from vendor_manage where project_id = {projectId} and business_id = {businessId}")
+        .on("projectId" -> projectId, "businessId" -> businessId)
+        .as(vendorManageParser.*)
     }
 
   override def updateBasicVendorInfo(updatedContact: VendorContact): Int =
@@ -77,6 +85,13 @@ class VendorContactsDB @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) 
         .on("name"  -> vendorCategory.name, "project_id" -> vendorCategory.project_id, "business_id" -> vendorCategory.business_id,
           "modified_date" -> vendorCategory.modified_date, "created_date" -> vendorCategory.created_date)
         .executeInsert()
+    }
+
+  override def byVendorManageId(vendorManageId: Long): Option[VendorManage] =
+    db.withConnection { implicit connection =>
+      SQL(s"select * from vendor_manage where id = {vendorManageId}")
+        .on("vendorManageId" -> vendorManageId)
+        .as(vendorManageParser.singleOpt)
     }
 
 }

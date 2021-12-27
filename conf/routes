@@ -165,10 +165,11 @@ DELETE  /businesses/:businessId/projects/:projectId/budget-breakdowns/:breakdown
 
 
 
-
 ####### Project Vendors Shortlistings
++nocsrf
+POST /businesses/projects/vendor-manages                                  controllers.VendorContactsController.newVendorManage()
 
-
+GET /businesses/:businessId/projects/:projectId/vendor-manages                                  controllers.VendorContactsController.vendorManagesBy(projectId: Int, businessId: Int)
 
 # # User Login system
 GET     /login                      controllers.ApplicationController.login

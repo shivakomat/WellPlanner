@@ -5,6 +5,7 @@ import controllers.util.JsonFormats._
 import controllers.util.ResponseTypes.{errorResponse, successResponse}
 import model.api.vendors.VendorContactsApi
 import model.dataModels.VendorContact
+import model.dataModels.VendorManage
 import play.api.Logger
 import play.api.db.DBApi
 import play.api.libs.json.{JsValue, Json}
@@ -40,6 +41,28 @@ class VendorContactsController  @Inject()(dbApi: DBApi, cc: ControllerComponents
     request.body.validate[VendorContact].fold(
       errors => badRequest,
       payload => createContact(payload)
+    )
+  }
+
+  def vendorManagesBy(projectId: Int, businessId: Int) =  Action {
+    successResponse(OK, Json.toJson(vendorContactsApi.getAllVendoMangeBy(projectId, businessId)), Seq("Successfully processed"))
+  }
+
+  def newVendorManage(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+    println("A new vendor manage request accepted ")
+
+    def createVendorManage(newVendorManageItem: VendorManage): Future[Result] =
+      vendorContactsApi.addNewVendorManage(newVendorManageItem) match {
+        case Right(data) =>
+          logForSuccess(Json.toJson(data).toString)
+          Future.successful(successResponse(CREATED, Json.toJson(data), Seq(s"Successfully created vendor to manage ${data.id}")))
+        case Left(errorMsg) =>
+          Future.successful(errorResponse(FOUND, Seq(s"Error: $errorMsg")))
+      }
+
+    request.body.validate[VendorManage].fold(
+      errors => badRequest,
+      payload => createVendorManage(payload)
     )
   }
 

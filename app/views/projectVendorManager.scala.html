@@ -2,7 +2,7 @@
 @projectMain("Vendor Manager","vendor-shortlists", "Vendor Manager", projectId, businessId) {
 
     <!-- Main Content -->
-    <div class="content" data-ng-controller="vendorManageController as controller" data-ng-init="controller.init(@businessId)">
+    <div class="content" data-ng-controller="vendorManageController as controller" data-ng-init="controller.init(@businessId, @projectId)">
 
         <data-add-vendor-to-manage data-vendors="controller.vendors" data-project-vendor-categories="controller.projectVendorCategories" data-project-id="@projectId" data-business-id=@businessId></data-add-vendor-to-manage>
 

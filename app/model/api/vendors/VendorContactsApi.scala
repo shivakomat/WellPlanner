@@ -5,10 +5,32 @@ import model.databases.VendorContactsDB
 import model.tools.DateTimeNow
 import play.api.db.DBApi
 import play.api.libs.ws.WSClient
+import model.dataModels.VendorManage
 
 class VendorContactsApi(dbApi: DBApi, ws: WSClient) {
 
   val vendorContactDbApi = new VendorContactsDB(dbApi)
+
+  def getAllVendoMangeBy(projectId: Int, businessId: Int): Seq[VendorManage] =
+    vendorContactDbApi.getVendorManageByProject(projectId, businessId)
+
+
+  def addNewVendorManage(newVendorManage: VendorManage): Either[String, VendorManage] = {
+    val newVendorManageAdded =
+      vendorContactDbApi.addVendorToManage(
+        newVendorManage.copy(modified_date = Some(DateTimeNow.getCurrent), created_date = Some(DateTimeNow.getCurrent)))
+
+    val vendorManage =
+      for {
+        id <- newVendorManageAdded
+        vendorManageData <- vendorContactDbApi.byVendorManageId(id)
+      } yield vendorManageData
+
+    if(vendorManage.nonEmpty)
+      Right(vendorManage.get)
+    else
+      Left("Failed during database insertion or reading the newly created data")
+  }
 
   def addNew(newContact: VendorContact): Either[String, VendorContact] = {
     val newContactAdded =
@@ -46,7 +68,6 @@ class VendorContactsApi(dbApi: DBApi, ws: WSClient) {
     }
   }
 
-
   def allByBusiness(businessId: Int): Seq[VendorContact] =
     vendorContactDbApi.list().filter(_.business_id == businessId)
 
@@ -55,6 +76,5 @@ class VendorContactsApi(dbApi: DBApi, ws: WSClient) {
     val rowsDeleted = vendorContactDbApi.deleteByVendorIdAndBusinessId(contactId, businessId)
     vendorContactDbApi.list()
   }
-
 
 }
