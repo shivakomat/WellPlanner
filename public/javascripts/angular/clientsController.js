@@ -17,6 +17,7 @@ app.controller('clientsController', function(ClientsFactory) {
     clientController.currentClientId = null;
     clientController.formData = {};
     clientController.clientStatuses = Global_Constants.clientStatuses;
+    clientController.totals = {};
 
     clientController.showNewItem = false;
 
@@ -53,37 +54,37 @@ app.controller('clientsController', function(ClientsFactory) {
     function allClients(businessId) {
         ClientsFactory.getAllClients(businessId, function mySuccess (response) {
             clientController.clients = response.data.data;
-            clientController.totalNew = 0;
-            clientController.totalProposalSent = 0;
-            clientController.totalLost = 0;
-            clientController.totalFollowedUp = 0;
-            clientController.totalConsultationsScheduled = 0;
-            clientController.totalProposalAccepted = 0;
-            clientController.totalContractSent = 0;
-            clientController.totalContractAccepted = 0;
-            clientController.totalBooked = 0;
+            clientController.totals.totalNew = 0;
+            clientController.totals.totalProposalSent = 0;
+            clientController.totals.totalLost = 0;
+            clientController.totals.totalFollowedUp = 0;
+            clientController.totals.totalConsultationsScheduled = 0;
+            clientController.totals.totalProposalAccepted = 0;
+            clientController.totals.totalContractSent = 0;
+            clientController.totals.totalContractAccepted = 0;
+            clientController.totals.totalBooked = 0;
 
             for (var i=0; i < clientController.clients.length; i++) {
                 clientController.clients[i][0].event_date_display = moment(clientController.clients[i][0].event_date, "YYYYMMDD").format("MMM-DD-YYYY");
 
                 if(clientController.clients[i][0].status === 'New') {
-                    clientController.totalNew++;
+                    clientController.totals.totalNew++;
                 } else if(clientController.clients[i][0].status === 'Lost') {
-                    clientController.totalLost++;
+                    clientController.totals.totalLost++;
                 } else if(clientController.clients[i][0].status === 'Proposal Sent') {
-                    clientController.totalProposalSent++;
+                    clientController.totals.totalProposalSent++;
                 } else if(clientController.clients[i][0].status === 'Proposal Accepted') {
-                    clientController.totalProposalSent++;
+                    clientController.totals.totalProposalAccepted++;
                 } else if(clientController.clients[i][0].status === 'Contract Sent') {
-                    clientController.totalContractSent++;
+                    clientController.totals.totalContractSent++;
                 } else if(clientController.clients[i][0].status === 'Contract Accepted') {
-                    clientController.totalContractAccepted++;
+                    clientController.totals.totalContractAccepted++;
                 } else if(clientController.clients[i][0].status === 'Consultation Scheduled') {
-                    clientController.totalConsultationsScheduled++;
+                    clientController.totals.totalConsultationsScheduled++;
                 } else if(clientController.clients[i][0].status === 'Booked') {
-                    clientController.totalBooked++;
+                    clientController.totals.totalBooked++;
                 } else if(clientController.clients[i][0].status === 'Followed Up') {
-                    clientController.totalFollowedUp++;
+                    clientController.totals.totalFollowedUp++;
                 }
             }
             console.log(clientController.totalNew);
@@ -275,7 +276,8 @@ function EditClientModalDirective() {
         bindToController: {
             businessId: '=',
             currentClient: '=',
-            clients: '='
+            clients: '=',
+            totals: '='
         },
         controller: EditClientModalController,
         controllerAs: 'editClientModalController'
@@ -306,8 +308,37 @@ function EditClientModalController(ClientsFactory, $scope, templates) {
     function allClients(businessId) {
         ClientsFactory.getAllClients(businessId, function mySuccess (response) {
             editClientModalController.clients = response.data.data;
+            editClientModalController.totals.totalNew = 0;
+            editClientModalController.totals.totalProposalSent = 0;
+            editClientModalController.totals.totalLost = 0;
+            editClientModalController.totals.totalFollowedUp = 0;
+            editClientModalController.totals.totalConsultationsScheduled = 0;
+            editClientModalController.totals.totalProposalAccepted = 0;
+            editClientModalController.totals.totalContractSent = 0;
+            editClientModalController.totals.totalContractAccepted = 0;
+            editClientModalController.totals.totalBooked = 0;
             for (var i=0; i < editClientModalController.clients.length; i++) {
-                editClientModalController.clients[i][0].event_date_display = moment(editClientModalController.clients[i][0].event_date, "YYYYMMDD").format("MMM-DD-YYYY")
+                editClientModalController.clients[i][0].event_date_display = moment(editClientModalController.clients[i][0].event_date, "YYYYMMDD").format("MMM-DD-YYYY");
+
+                if(editClientModalController.clients[i][0].status === 'New') {
+                    editClientModalController.totals.totalNew++;
+                } else if(editClientModalController.clients[i][0].status === 'Lost') {
+                    editClientModalController.totals.totalLost++;
+                } else if(editClientModalController.clients[i][0].status === 'Proposal Sent') {
+                    editClientModalController.totals.totalProposalSent++;
+                } else if(editClientModalController.clients[i][0].status === 'Proposal Accepted') {
+                    editClientModalController.totals.totalProposalAccepted++;
+                } else if(editClientModalController.clients[i][0].status === 'Contract Sent') {
+                    editClientModalController.totals.totalContractSent++;
+                } else if(editClientModalController.clients[i][0].status === 'Contract Accepted') {
+                    editClientModalController.totals.totalContractAccepted++;
+                } else if(editClientModalController.clients[i][0].status === 'Consultation Scheduled') {
+                    editClientModalController.totals.totalConsultationsScheduled++;
+                } else if(editClientModalController.clients[i][0].status === 'Booked') {
+                    editClientModalController.totals.totalBooked++;
+                } else if(editClientModalController.clients[i][0].status === 'Followed Up') {
+                    editClientModalController.totals.totalFollowedUp++;
+                }
             }
         }, function myError (response) {
             console.log(response.statusText)

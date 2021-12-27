@@ -1,11 +1,11 @@
 @(message: String, businessId: Int)
 
-@main("Well Planner", "customers", "Clients", businessId) {
+@main("Well Planner", "customers", "Clients - Track clients from new to booked", businessId) {
     <!-- New Project Modal -->
     <div class="content" data-ng-controller="clientsController as controller" data-ng-init="controller.getAllClients(@businessId)">
 
         <!-- Edit Client Modal -->
-        <data-edit-client-modal data-clients="controller.clients" data-current-client="controller.currentClient" data-business-id=@businessId></data-edit-client-modal>
+        <data-edit-client-modal data-clients="controller.clients" data-totals="controller.totals" data-current-client="controller.currentClient" data-business-id=@businessId></data-edit-client-modal>
 
         <!-- New Project Modal -->
         <data-new-project-modal data-projects="controller.projects" data-client-id="controller.currentClientId" data-client-budget="controller.currentClientBudget" data-clients="controller.clients" data-client-event-date="controller.currentClientEventDate" data-business-id=@businessId></data-new-project-modal>
@@ -35,7 +35,7 @@
                         <div class="row">
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-title ng-binding">{{ controller.totalNew }}</p>
+                                    <p class="card-title ng-binding">{{ controller.totals.totalNew }}</p>
                                     <p></p>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                         <div class="row">
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-title ng-binding">{{ controller.totalFollowedUp }}</p>
+                                    <p class="card-title ng-binding">{{ controller.totals.totalFollowedUp }}</p>
                                     <p></p>
                                 </div>
                             </div>
@@ -76,7 +76,7 @@
                         <div class="row">
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-title ng-binding">{{ controller.totalConsultationsScheduled }}</p>
+                                    <p class="card-title ng-binding">{{ controller.totals.totalConsultationsScheduled }}</p>
                                     <p></p>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                         <div class="row">
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-title ng-binding">{{ controller.totalProposalSent }}</p>
+                                    <p class="card-title ng-binding">{{ controller.totals.totalProposalSent }}</p>
                                     <p></p>
                                 </div>
                             </div>
@@ -117,7 +117,7 @@
                         <div class="row">
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-title ng-binding">{{ controller.totalProposalAccepted }}</p>
+                                    <p class="card-title ng-binding">{{ controller.totals.totalProposalAccepted }}</p>
                                     <p></p>
                                 </div>
                             </div>
@@ -138,7 +138,7 @@
                         <div class="row">
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-title ng-binding">{{ controller.totalContractSent }}</p>
+                                    <p class="card-title ng-binding">{{ controller.totals.totalContractSent }}</p>
                                     <p></p>
                                 </div>
                             </div>
@@ -159,7 +159,7 @@
                         <div class="row">
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-title ng-binding">{{ controller.totalContractAccepted }}</p>
+                                    <p class="card-title ng-binding">{{ controller.totals.totalContractAccepted }}</p>
                                     <p></p>
                                 </div>
                             </div>
@@ -179,7 +179,7 @@
                         <div class="row">
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-title ng-binding">{{ controller.totalBooked }}</p>
+                                    <p class="card-title ng-binding">{{ controller.totals.totalBooked }}</p>
                                     <p></p>
                                 </div>
                             </div>
@@ -200,7 +200,7 @@
                         <div class="row">
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-title ng-binding">{{ controller.totalLost }}</p>
+                                    <p class="card-title ng-binding">{{ controller.totals.totalLost }}</p>
                                     <p></p>
                                 </div>
                             </div>
