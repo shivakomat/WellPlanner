@@ -6,6 +6,9 @@
     <div class="content"  data-ng-controller="budgetController as controller" data-ng-init="controller.init(@businessId, @projectId)">
 
         <!-- Modals -->
+            <!-- Delete Break Down List Modal -->
+        <data-delete-breakdown-list-modal data-project-id="@projectId" data-business-id="@businessId" data-breakdowns-lists="controller.breakDownsLists"></data-delete-breakdown-list-modal>
+
         <data-new-budget-breakdown-list-modal data-business-id="@businessId" data-project-id="@projectId" data-breakdown-list="controller.breakDownsLists"></data-new-budget-breakdown-list-modal>
 
         <data-new-payment-modal data-business-id="@businessId" data-project-id="@projectId"></data-new-payment-modal>
@@ -138,8 +141,9 @@
                     <div class="card-body">
                         <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
                             <h4 class="card-title">Breakdowns</h4>
-                              <div class="mt-lg-3">
-                                  <div><button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#createBreakDownList">ADD NEW BREAKDOWN</button></div>
+                              <div class="mt-lg-8">
+                                  <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#createBreakDownList">ADD NEW BREAKDOWN</button>
+                                  <button type="button" data-ng-show="controller.breakDownsLists.length > 0" class="btn btn-outline-default btn-sm" data-toggle="modal" data-target="#removeBreakdownList">DELETE</button>
                               </div>
                             <div class="mt-lg-3 card card-plain" data-ng-repeat="breakDownList in controller.breakDownsLists">
                                 <div class="card-header" role="tab" id="headingOne">

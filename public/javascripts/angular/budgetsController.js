@@ -1,6 +1,6 @@
 app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
     var budgetController = this;
-    budgetController.breakDownsLists = {};
+    budgetController.breakDownsLists = [];
     budgetController.projectInfo = {};
     budgetController.isLoaded = false;
     budgetController.currentPayments = [];
@@ -277,39 +277,41 @@ function EditBreakdownModalController(BudgetFactory, $scope, templates) {
     }
 }
 
-app.directive('deleteBreakdownItemModal',  [DeleteBreakdownListModalDirective]);
+app.directive('deleteBreakdownsListItemModal',  [DeleteBreakdownListModalDirective]);
 function DeleteBreakdownListModalDirective() {
     return{
-        template:  '<ng-include src="getDeleteBreakdownModalUrl()"/>',
+        template:  '<ng-include src="getDeleteBreakdownsListModalTemplateUrl()"/>',
         scope: false,
         bindToController: {
             businessId: '=',
             projectId: '=',
-            tasks: '='
+            breakdownsLists: '='
         },
-        controller: DeleteBreakdownItemModalController,
-        controllerAs: 'deleteBreakdownItemModalController'
+        controller: DeleteBreakdownsListItemModalController,
+        controllerAs: 'deleteBreakdownsListItemModalController'
     }
 }
 
-app.controller('deleteBreakdownItemModalController', [DeleteBreakdownItemModalController]);
-function DeleteBreakdownItemModalController(BudgetFactory, $scope, templates) {
-    var deleteBreakdownItemModalController = this;
-    deleteBreakdownItemModalController.formData = {};
-    deleteBreakdownItemModalController.breakDownsLists = [];
+app.controller('deleteBreakdownsListItemModalController', [DeleteBreakdownsListItemModalController]);
+function DeleteBreakdownsListItemModalController(BudgetFactory, $scope, templates) {
+    var deleteBreakdownsListItemModalController = this;
+    deleteBreakdownsListItemModalController.formData = {};
+    deleteBreakdownsListItemModalController.breakdownsLists = [];
 
-    $scope.getDeleteBreakdownModalUrl = function () {
-        return templates.deleteTaskListModal;
+
+    $scope.getDeleteBreakdownsListModalTemplateUrl = function () {
+        return templates.deleteBreakdownsListModal;
     };
 
-    deleteBreakdownItemModalController.deleteBreakdownList = function () {
-        deleteBreakdownList(deleteBreakdownItemModalController.businessId, deleteBreakdownItemModalController.projectId, deleteBreakdownItemModalController.formData.taskToDelete.parent.id)
+    deleteBreakdownsListItemModalController.deleteBreakdownList = function () {
+        console.log(deleteBreakdownsListItemModalController.formData.breakdownListToDelete);
+        deleteBreakdownList(deleteBreakdownsListItemModalController.businessId, deleteBreakdownsListItemModalController.projectId, deleteBreakdownsListItemModalController.formData.breakdownListToDelete.parent_budget_id)
     };
 
     function deleteBreakdownList(businessId, projectId, breakDownListId) {
-        BudgetFactory.deleteBreakDownListBy(projectId, businessId, breakDownListId, function mySuccess() {
+        BudgetFactory.deleteBreakdownItem(projectId, businessId, breakDownListId, function mySuccess() {
             refresh(businessId, projectId);
-            alerts.autoCloseAlert('success-message', "Task deleted successfully!", "Nice!");
+            alerts.autoCloseAlert('success-message', "Task Breakdown List Deleted Successfully!", "Nice!");
         }, function myError() {
             alerts.autoCloseAlert('success-message', 'Error updating task', 'Please try again!');
         });

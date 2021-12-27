@@ -204,6 +204,7 @@ app.constant('templates', {
         newClientModal: baseUrl + "/newClientModal.html",
         newBudgetBreakdownListModal: baseUrl + "/newBudgetBreakdownModal.html",
         newBreakdownItemModal: baseUrl + "/newBreakdownItemModal.html",
+        deleteBreakdownsListModal: baseUrl + "/deleteBreakdownListModal.html",
         editBreakdownItemModal: baseUrl + "/editBreakdownItem.html",
         addVendorManageModal: baseUrl + "/newVendorManager.html",
 });
