@@ -1,6 +1,6 @@
 @(message: String, businessId: Int)
 
-@main("Well Planner", "customers", "Clients - Track clients from new to booked", businessId) {
+@main("Well Planner", "customers", "Clients - Manage & Track Clients", businessId) {
     <!-- New Project Modal -->
     <div class="content" data-ng-controller="clientsController as controller" data-ng-init="controller.getAllClients(@businessId)">
 
@@ -307,12 +307,12 @@
                                     </a>
                                         <button data-ng-if="client[1] === null" type="button" rel="tooltip" data-original-title="Create New Project" class="btn btn-outline-default"  data-toggle="modal" data-target="#newProject" data-ng-click="controller.setCurrentClient(client[0].id)">START</button></td>
                                     <td class="td-actions text-center">
-                                        <button class="btn btn-outline-info" rel="tooltip" data-original-title="Proposal Document Link" data-toggle="modal" data-target="#proposalDocLink" tooltip>
+                                        <button class="btn btn-info" rel="tooltip" data-original-title="Proposal Document Link" data-toggle="modal" data-target="#proposalDocLink" tooltip>
                                             <span class="btn-label">
                                               <i class="nc-icon nc-paper"></i>
                                             </span>
                                         </button>
-                                        <button class="btn btn-outline-info" rel="tooltip" data-original-title="Contract Agreement Document Link" data-toggle="modal" data-target="#clientContractAgreement" tooltip>
+                                        <button class="btn btn-info" rel="tooltip" data-original-title="Contract Agreement Document Link" data-toggle="modal" data-target="#clientContractAgreement" tooltip>
                                             <span class="btn-label">
                                                 <i class="nc-icon nc-share-66"></i>
                                             </span>
