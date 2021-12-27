@@ -18,7 +18,6 @@
 
         <div class="row text-center" data-ng-show="controller.isLoaded == false">
             <div class="col-md-12 ml-auto mr-auto mt-auto mb-auto">
-                @*                <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>*@
                 <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
                 <div class="text-default text-center text-capitalize">Loading Projects</div>
             </div>
@@ -147,10 +146,6 @@
                                     <a data-toggle="collapse" data-parent="#accordion" href="{{ '#collapse_' + breakDownList.breakDown.id}}" aria-expanded="true" aria-controls="collapseOne">
                                         <div class="row ml-0">
                                             <div class="col-lg-3"><h7><b>{{breakDownList.breakDown.title | uppercase}}</b></h7></div>
-                                            <div class="col-lg-2 text-left"><h7>{{breakDownList.totalEstimate | currency}}</h7> </div>
-                                            <div class="col-lg-2 text-left"><h7>{{breakDownList.totalActual | currency}} </h7></div>
-                                            <div class="col-lg-2 text-left"><h7>{{breakDownList.totalPaid | currency}}</h7></div>
-                                            <div class="col-lg-2 text-left"><h7>{{breakDownList.totalBalance | currency}}</h7></div>
                                             <div class="col-lg-2 text-left"></div>
                                         </div>
 
@@ -166,7 +161,7 @@
                                                         <th class="text-center">
                                                         </th>
                                                         <th class="text-left text-warning">
-
+                                                            Item Name
                                                         </th>
                                                         <th class="text-center text-warning">
                                                             Estimated
@@ -288,9 +283,10 @@
                                                         <!-- Totals -->
                                                     <tr>
                                                         <td class="text-center">
+
                                                         </td>
                                                         <td class="text-right">
-                                                            <i class="nc-icon nc-money-coins"></i>
+                                                            <i class="nc-icon nc-money-coins"></i>  Totals
                                                         </td>
                                                         <td class="text-center">
                                                             <h6>{{breakDownList.totalEstimate | currency}}</h6>
@@ -314,8 +310,8 @@
                                             </table>
                                         </div>
                                         <div>
-                                            <button type="button" class="btn btn-default btn-round btn-icon btn-icon-mini btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newBreakdownItem" data-original-title="New Item" data-ng-click="controller.newBreakdownItem(breakDownList.breakDown)" tooltip>
-                                                <i class="nc-icon nc-simple-add"></i>
+                                            <button type="button" class="btn btn-default btn-round btn-outline-default btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newBreakdownItem" data-original-title="New Item" data-ng-click="controller.newBreakdownItem(breakDownList.breakDown)" tooltip>
+                                                Add Item
                                             </button>
                                         </div>
                                     </div>
