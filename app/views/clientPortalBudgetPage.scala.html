@@ -1,0 +1,555 @@
+@(title: String, projectId: Int, businessId: Int)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+
+    <link rel="apple-touch-icon" sizes="76x76" href="@routes.Assets.versioned("template_assets/img/apple-icon.png")">
+    <link rel="icon" type="image/png" href="@routes.Assets.versioned("template_assets/img/favicon.png")">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+    <title>@title</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- CSS Files -->
+    <link href="@routes.Assets.versioned("template_assets/css/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@routes.Assets.versioned("template_assets/css/paper-dashboard.css?v=2.0.1")" rel="stylesheet" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="@routes.Assets.versioned("template_assets/demo/demo.css")" rel="stylesheet" />
+</head>
+<body class="" data-ng-app="wellPlanner">
+<div class="wrapper ">
+    <div class="sidebar" data-color="white" data-active-color="danger">
+        <div class="logo">
+            <a href="/" class="simple-text logo-normal text-center">
+                Well Planner
+            </a>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li>
+                    <a href="/pages/client-portal/@businessId/projects/@projectId">
+                        <i class="nc-icon nc-tile-56"></i>
+                        <p>My Wedding Specs</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="/pages/client-portal/@businessId/projects/@projectId">
+                        <i class="nc-icon nc-bullet-list-67"></i>
+                        <p>Wedding Tasks</p>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="/pages/client-portal/@businessId/projects/@projectId/budget">
+                        <i class="nc-icon nc-money-coins"></i>
+                        <p>Budget Breakdowns</p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+            <div class="container-fluid">
+                <div class="navbar-wrapper">
+                    <div class="navbar-toggle">
+                        <button type="button" class="navbar-toggler">
+                            <span class="navbar-toggler-bar bar1"></span>
+                            <span class="navbar-toggler-bar bar2"></span>
+                            <span class="navbar-toggler-bar bar3"></span>
+                        </button>
+                    </div>
+                    <a class="navbar-brand" href="#pablo">Client Portal</a>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-bar navbar-kebab"></span>
+                    <span class="navbar-toggler-bar navbar-kebab"></span>
+                    <span class="navbar-toggler-bar navbar-kebab"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navigation">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link btn-rotate" href="">
+                                <span><i class="nc-icon nc-button-power"></i>Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- End Navbar -->
+        <div class="content"  data-ng-controller="budgetController as controller" data-ng-init="controller.init(@businessId, @projectId)">
+
+                <!-- Modals -->
+                <!-- Delete Break Down List Modal -->
+            <data-delete-breakdowns-list-modal data-project-id="@projectId" data-business-id="@businessId" data-breakdowns-lists="controller.breakDownsLists"></data-delete-breakdowns-list-modal>
+
+            <data-new-budget-breakdown-list-modal data-business-id="@businessId" data-project-id="@projectId" data-breakdown-list="controller.breakDownsLists"></data-new-budget-breakdown-list-modal>
+
+            <data-new-payment-modal data-business-id="@businessId" data-project-id="@projectId"></data-new-payment-modal>
+
+            <data-payments-modal data-business-id="@businessId" data-project-id="@projectId" data-payments="controller.currentPayments" data-break-down-list-id="controller.currentBreakdownListId" data-break-down-item-id="controller.currentBreakDownItemId" data-break-downs-lists="controller.currentBreakdownLists"></data-payments-modal>
+
+            <data-new-breakdown-modal data-business-id="@businessId" data-parent="controller.currentParentBreakdown" data-project-id="@projectId" data-breakdown-list="controller.breakDownsLists"></data-new-breakdown-modal>
+
+            <data-edit-breakdown-modal data-business-id="@businessId" data-project-id="@projectId" data-current-breakdown-item="controller.currentBreakdown"  data-breakdown-list="controller.breakDownsLists"></data-edit-breakdown-modal>
+
+            <div class="row text-center" data-ng-show="controller.isLoaded == false">
+                <div class="col-md-12 ml-auto mr-auto mt-auto mb-auto">
+                    <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                    <div class="text-default text-center text-capitalize">Loading Projects</div>
+                </div>
+            </div>
+
+            <div class="row" data-ng-show="controller.isLoaded">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5 col-md-4">
+                                    <div class="icon-big text-center icon-warning">
+                                        <i class="nc-icon nc-bold text-default"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 col-md-8">
+                                    <div class="numbers">
+                                        <p class="card-title">{{controller.projectInfo.budget |  currency}}</p>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                            <hr>
+                            <div class="stats">
+                                Total Budget
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5 col-md-4">
+                                    <div class="icon-big text-center icon-warning">
+                                        <i class="nc-icon nc-money-coins text-success"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 col-md-8">
+                                    <div class="numbers">
+                                        <p class="card-category">{{controller.breakDownsLists.overallEstimate | currency}}</p>
+                                        <p class="card-title">{{controller.breakDownsLists.overallActual | currency}}</p>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                            <hr>
+                            <div class="stats">
+                                Total Estimate / Actual
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5 col-md-4">
+                                    <div class="icon-big text-center icon-warning">
+                                        <i class="nc-icon nc-alert-circle-i text-info"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 col-md-8">
+                                    <div class="numbers">
+                                        <p class="card-category"></p>
+                                        <p class="card-title" data-ng-if="controller.breakDownsLists.totalSavings > 0">{{controller.breakDownsLists.totalSavings | currency}}
+                                    <p class="card-title text-danger" data-ng-if="controller.breakDownsLists.totalSavings < 0">{{controller.breakDownsLists.totalSavings | currency}}
+                                        <p></p></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                            <hr>
+                            <div class="stats">
+                                Total Savings
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="card card-stats">
+                        <div class="card-body ">
+                            <div class="row">
+                                <div class="col-5 col-md-4">
+                                    <div class="icon-big text-center icon-warning">
+                                        <i class="nc-icon nc-bank text-danger"></i>
+                                    </div>
+                                </div>
+                                <div class="col-7 col-md-8">
+                                    <div class="numbers">
+                                        <p class="card-category">{{controller.breakDownsLists.overallAmountPaid | currency}}</p>
+                                        <p class="card-title">{{controller.breakDownsLists.overallAmountUnPaid | currency}}</p><p>
+                                    </p></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                            <hr>
+                            <div class="stats">
+                                Paid / Un Paid
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row" data-ng-show="controller.isLoaded">
+
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
+                                <h4 class="card-title">Breakdowns</h4>
+                                <div class="mt-lg-8">
+                                    <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#createBreakDownList">ADD NEW BREAKDOWN</button>
+                                    <button type="button" data-ng-show="controller.breakDownsLists.length > 0" class="btn btn-outline-default btn-sm" data-toggle="modal" data-target="#removeBreakdownList">DELETE</button>
+                                </div>
+                                <div class="mt-lg-3 card card-plain" data-ng-repeat="breakDownList in controller.breakDownsLists">
+                                    <div class="card-header" role="tab" id="headingOne">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="{{ '#collapse_' + breakDownList.breakDown.id}}" aria-expanded="true" aria-controls="collapseOne">
+                                            <div class="row ml-0">
+                                                <div class="col-lg-3"><h7><b>{{breakDownList.breakDown.title | uppercase}}</b></h7></div>
+                                                <div class="col-lg-2 text-left"></div>
+                                            </div>
+
+                                            <i class="nc-icon nc-minimal-down"></i>
+                                        </a>
+                                    </div>
+                                    <div id="{{ 'collapse_' + breakDownList.breakDown.id}}" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-striped">
+                                                    <thead class="text-primary">
+                                                        <tr>
+                                                            <th class="text-center">
+                                                            </th>
+                                                            <th class="text-left text-warning">
+                                                                Item Name
+                                                            </th>
+                                                            <th class="text-center text-warning">
+                                                                Estimated
+                                                            </th>
+                                                            <th class="text-center text-warning">
+                                                                Actual
+                                                            </th>
+                                                            <th class="text-center text-warning">
+                                                                Amount Paid
+                                                            </th>
+                                                            <th class="text-center text-warning">
+                                                                Balance
+                                                            </th>
+                                                            <th class="text-center text-warning">
+                                                            </th>
+                                                            <th class="text-center text-warning">
+                                                                Actions
+                                                            </th>
+                                                        </tr></thead>
+                                                    <tbody>
+                                                        <tr data-ng-repeat="breakdownItem in breakDownList.subBreakDowns">
+                                                            <td class="text-center">
+                                                            </td>
+                                                            <td class="text-left">
+                                                                {{breakdownItem.breakdownItem.title}}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                {{breakdownItem.breakdownItem.estimate | currency}}
+                                                            </td>
+                                                            <td  class="text-center" data-ng-if="breakdownItem.breakdownItem.actual <= 0">
+                                                                -
+                                                            </td>
+                                                            <td  class="text-center" data-ng-if="breakdownItem.breakdownItem.actual > 0">
+                                                                {{breakdownItem.breakdownItem.actual | currency}}
+                                                            </td>
+                                                            <td  class="text-center">
+                                                                {{breakdownItem.breakdownItem.amountPaid | currency}}
+                                                            </td>
+                                                            <td class="text-center">
+                                                                {{(breakdownItem.breakdownItem.actual - breakdownItem.breakdownItem.amountPaid) | currency}}
+                                                            </td>
+                                                            <td class="text-center">
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @*                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remainders">*@
+                                                                @*                                                                <i class="nc-icon nc-time-alarm"></i>*@
+                                                                @*                                                            </button>*@
+                                                                <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#paymentsModal" data-original-title="View / Add Payments" data-ng-click="controller.setCurrentPayments(breakdownItem.payments, breakDownList.breakDown.id, breakdownItem.breakdownItem.id, controller.breakDownsLists)" tooltip>
+                                                                    <i class="nc-icon nc-money-coins"></i>
+                                                                </button>
+                                                                <button type="button" rel="tooltip"  class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#editBreakdownModal" data-original-title="Edit Amounts" data-ng-click="controller.editBreakdownItem(breakdownItem.breakdownItem)" tooltip>
+                                                                    <i class="nc-icon nc-ruler-pencil"></i>
+                                                                </button>
+                                                                <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Delete Item" data-ng-click="controller.deleteBreakdownItem(breakdownItem.breakdownItem)" tooltip>
+                                                                    <i class="nc-icon nc-simple-remove"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                        @*                                                    <tr data-ng-if="controller.isNewPayment">*@
+                                                        @*                                                    <tr>*@
+                                                        @*                                                        <td class="text-center">*@
+                                                        @*                                                        </td>*@
+                                                        @*                                                        <td class="text-left">*@
+                                                        @*                                                            <input type="text" placeholder="payment date" size="25" style="text-align:center;" class="form-control" data-ng-model="controller.formData.payment_date">*@
+                                                        @*                                                        </td>*@
+                                                        @*                                                        <td class="text-left">*@
+
+                                                        @*                                                        </td>*@
+                                                        @*                                                        <td class="text-center">*@
+                                                        @*                                                            -*@
+                                                        @*                                                        </td>*@
+                                                        @*                                                        <td  class="text-center">*@
+                                                        @*                                                            <input type="number" placeholder="payment amount" size="10" style="text-align:center;" class="form-control" data-ng-model="controller.formData.payment_amount">*@
+                                                        @*                                                        </td>*@
+                                                        @*                                                        <td  class="text-center">*@
+                                                        @*                                                            -*@
+                                                        @*                                                        </td>*@
+                                                        @*                                                        <td class="text-center">*@
+                                                        @*                                                        </td>*@
+                                                        @*                                                        <td class="text-center">*@
+                                                        @*                                                            <button type="button" rel="tooltip" title="edit-amounts" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#editBreakdownModal" data-original-title="edit" data-ng-click="controller.editBreakdownItem(breakdownItem)">*@
+                                                        @*                                                                <i class="nc-icon nc-ruler-pencil"></i>*@
+                                                        @*                                                            </button>*@
+                                                        @*                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove" data-ng-click="controller.deleteBreakdownItem(breakdownItem)">*@
+                                                        @*                                                                <i class="nc-icon nc-simple-remove"></i>*@
+                                                        @*                                                            </button>*@
+                                                        @*                                                        </td>*@
+                                                        @*                                                    </tr>*@
+                                                        @*                                                    <tr>*@
+                                                        @*                                                        <td class="text-center">*@
+                                                        @*                                                        </td>*@
+                                                        @*                                                        <td class="text-left">*@
+
+                                                        @*                                                        </td>*@
+                                                        @*                                                        <td class="text-left">*@
+                                                        @*                                                            {{payment.title}}*@
+                                                        @*                                                        </td>*@
+                                                        @*                                                        <td class="text-center">*@
+                                                        @*                                                            -*@
+                                                        @*                                                        </td>*@
+                                                        @*                                                        <td  class="text-center">*@
+                                                        @*                                                            -*@
+                                                        @*                                                        </td>*@
+                                                        @*                                                        <td  class="text-center">*@
+                                                        @*                                                            -*@
+                                                        @*                                                        </td>*@
+                                                        @*                                                        <td class="text-center">*@
+                                                        @*                                                        </td>*@
+                                                        @*                                                        <td class="text-center">*@
+                                                        @*                                                            <button type="button" rel="tooltip"  class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#editBreakdownModal" data-original-title="Edit Amounts" data-ng-click="controller.editBreakdownItem(breakdownItem)" tooltip>*@
+                                                        @*                                                                <i class="nc-icon nc-ruler-pencil"></i>*@
+                                                        @*                                                            </button>*@
+                                                        @*                                                            <button type="button" rel="tooltip" title="" class="btn btn-danger btn-round btn-icon btn-icon-mini btn-neutral" data-original-title="Remove Item" data-ng-click="controller.deleteBreakdownItem(breakdownItem)" tooltip>*@
+                                                        @*                                                                <i class="nc-icon nc-simple-remove"></i>*@
+                                                        @*                                                            </button>*@
+                                                        @*                                                        </td>*@
+                                                        @*                                                    </tr>*@
+
+                                                            <!-- Totals -->
+                                                        <tr>
+                                                            <td class="text-center">
+
+                                                            </td>
+                                                            <td class="text-right">
+                                                                <i class="nc-icon nc-money-coins"></i>  Totals
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <h6>{{breakDownList.totalEstimate | currency}}</h6>
+                                                            </td>
+                                                            <td  class="text-center">
+                                                                <h6>{{breakDownList.totalActual | currency}}</h6>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <h6>{{breakDownList.totalPaid | currency}}</h6>
+                                                            </td>
+                                                            <td class="text-center">
+                                                                <h6>{{breakDownList.totalBalance | currency}}</h6>
+                                                            </td>
+                                                            <td class="text-center">
+                                                            </td>
+                                                            <td class="text-center">
+                                                                - -
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div>
+                                                <button type="button" class="btn btn-default btn-round btn-outline-default btn-neutral" rel="tooltip" data-toggle="modal" data-target="#newBreakdownItem" data-original-title="New Item" data-ng-click="controller.newBreakdownItem(breakDownList.breakDown)" tooltip>
+                                                    Add Item
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer footer-black  footer-white ">
+            <div class="container-fluid">
+                <div class="row">
+                    <nav class="footer-nav">
+                        <ul>
+                        </ul>
+                    </nav>
+                    <div class="credits ml-auto">
+                                <span class="copyright">
+                                    ©
+                                    <script>
+                                            document.write(new Date().getFullYear())
+                                    </script>, made with <i class="fa fa-heart heart"></i>  by Shiva Komatreddy
+                                </span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<!--   Core JS Files   -->
+<script src="@routes.Assets.versioned("template_assets/js/core/jquery.min.js")"></script>
+
+<script src="@routes.Assets.versioned("template_assets/js/core/popper.min.js")"></script>
+
+<script src="@routes.Assets.versioned("template_assets/js/core/bootstrap.min.js")"></script>
+
+<script src="@routes.Assets.versioned("template_assets/js/plugins/perfect-scrollbar.jquery.min.js")"></script>
+
+<script src="@routes.Assets.versioned("template_assets/js/plugins/moment.min.js")"></script>
+
+<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+    <script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-switch.js")"></script>
+
+<!--  Plugin for Sweet Alert -->
+<script src="@routes.Assets.versioned("template_assets/js/plugins/sweetalert2.min.js")"></script>
+<!-- Forms Validations Plugin -->
+@*        <script src="@routes.Assets.versioned("template_assets/js/plugins/jquery.validate.min.js")"></script>*@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+@*        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>*@
+
+
+<!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+<script src="@routes.Assets.versioned("template_assets/js/plugins/jquery.bootstrap-wizard.js")"></script>
+
+<!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+    <script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-selectpicker.js")"></script>
+
+<!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+
+<script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-datetimepicker.js")"></script>
+
+<!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+
+    <script src="@routes.Assets.versioned("template_assets/js/plugins/jquery.dataTables.min.js")"></script>
+<!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+<script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-tagsinput.js")"></script>
+<!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+
+    <script src="@routes.Assets.versioned("template_assets/js/plugins/jasny-bootstrap.min.js")"></script>
+<!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+
+<script src="@routes.Assets.versioned("template_assets/js/plugins/fullcalendar.min.js")"></script>
+<!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+    <script src="@routes.Assets.versioned("template_assets/js/plugins/jquery-jvectormap.js")" ></script>
+<!--  Plugin for the Bootstrap Table -->
+<script src="@routes.Assets.versioned("template_assets/js/plugins/nouislider.min.js")" ></script>
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!-- Chart JS -->
+<script src="@routes.Assets.versioned("template_assets/js/plugins/chartjs.min.js")"></script>
+<!--  Notifications Plugin    -->
+<script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-notify.js")" ></script>
+<!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="@routes.Assets.versioned("template_assets/js/paper-dashboard.min.js?v=2.0.1")" type="text/javascript"></script>
+<!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+<script src="@routes.Assets.versioned("template_assets/demo/demo.js")"></script>
+
+<script src="@routes.Assets.versioned("node_modules/angular/angular.js")"></script>
+<script src="@routes.Assets.versioned("node_modules/angular-animate/angular-animate.js")"></script>
+<script src="@routes.Assets.versioned("node_modules/angular-aria/angular-aria.js")"></script>
+<script src="@routes.Assets.versioned("node_modules/angular-material/angular-material.js")"></script>
+<script src="@routes.Assets.versioned("node_modules/angular-jwt/dist/angular-jwt.js")"></script>
+<script src="@routes.Assets.versioned("node_modules/angular-storage/dist/angular-storage.js")"></script>
+<script src="@routes.Assets.versioned("node_modules/angular-ui-router/release/angular-ui-router.js")"></script>
+<script src="@routes.Assets.versioned("node_modules/auth0-angular/build/auth0-angular.js")"></script>
+<script src="@routes.Assets.versioned("node_modules/auth0-js/build/auth0.js")"></script>
+<script src="@routes.Assets.versioned("javascripts/angular/wellPlannerValidators.js")"></script>
+
+
+<script src="@routes.Assets.versioned("javascripts/angular/main.js")"></script>
+<script src="@routes.Assets.versioned("javascripts/angular/clientLoginController.js")"></script>
+<script src="@routes.Assets.versioned("javascripts/angular/clientAccessFactory.js")"></script>
+<script src="@routes.Assets.versioned("template_assets/js/plugins/angular-moment-picker.min.js")"></script>
+<script>
+
+
+    <!-- javascript for Toggle Button Swtiches -->
+    $('.bootstrap-switch').each(function(){
+        $this = $(this);
+        data_on_label = $this.data('on-label') || '';
+        data_off_label = $this.data('off-label') || '';
+
+        $this.bootstrapSwitch({
+            onText: data_on_label,
+            offText: data_off_label
+        });
+    });
+
+    <!-- javascript for Date Time Picker -->
+    $('.datetimepicker').datetimepicker({
+        icons: {
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-chevron-up",
+            down: "fa fa-chevron-down",
+            previous: 'fa fa-chevron-left',
+            next: 'fa fa-chevron-right',
+            today: 'fa fa-screenshot',
+            clear: 'fa fa-trash',
+            close: 'fa fa-remove'
+        }
+    });
+</script>
+
+<script src="@routes.Assets.versioned("javascripts/angular/tasksFactory.js")"></script>
+<script src="@routes.Assets.versioned("javascripts/angular/tasksController.js")"></script>
+<script src="@routes.Assets.versioned("javascripts/angular/taskCommentsDirective.js")"></script>
+<script src="@routes.Assets.versioned("javascripts/angular/paymentsDirective.js")"></script>
+<script src="@routes.Assets.versioned("javascripts/angular/timelineItemsFactory.js")"></script>
+<script src="@routes.Assets.versioned("javascripts/angular/clientAccessFactory.js")"></script>
+
+<script src="@routes.Assets.versioned("javascripts/angular/projectDashboardController.js")"></script>
+<script src="@routes.Assets.versioned("javascripts/angular/budgetFactory.js")"></script>
+<script src="@routes.Assets.versioned("javascripts/angular/budgetsController.js")"></script>
+<script src="@routes.Assets.versioned("javascripts/angular/timelineController.js")"></script>
+
+
+</body>
+
+</html>

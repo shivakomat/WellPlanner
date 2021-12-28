@@ -25,6 +25,7 @@ GET     /pages/profile             controllers.ProfileController.profilePage
 
 GET     /pages/client-portal-access/login      controllers.HomeController.clientPortalPage
 GET     /pages/client-portal/:businessId/projects/:projectId      controllers.HomeController.clientPortalMainPage(projectId: Int, businessId: Int)
+GET     /pages/client-portal/:businessId/projects/:projectId/budget   controllers.HomeController.clientPortalBudgetPage(projectId: Int, businessId: Int)
 
 GET     /pages/customers/:businessId            controllers.HomeController.customerPage(businessId: Int)
 GET     /pages/dashboard/:businessId           controllers.HomeController.mainDashboard(businessId: Int)
