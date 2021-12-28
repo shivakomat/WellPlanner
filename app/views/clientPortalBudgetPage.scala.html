@@ -24,7 +24,7 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="@routes.Assets.versioned("template_assets/demo/demo.css")" rel="stylesheet" />
 </head>
-<body class="" data-ng-app="wellPlanner">
+<body class="" data-ng-app="wellPlanner" data-ng-controller="budgetController as controller" data-ng-init="controller.init(@businessId, @projectId)">
 <div class="wrapper ">
     <div class="sidebar" data-color="white" data-active-color="danger">
         <div class="logo">
@@ -87,7 +87,7 @@
             </div>
         </nav>
         <!-- End Navbar -->
-        <div class="content"  data-ng-controller="budgetController as controller" data-ng-init="controller.init(@businessId, @projectId)">
+        <div class="content" >
 
                 <!-- Modals -->
                 <!-- Delete Break Down List Modal -->
