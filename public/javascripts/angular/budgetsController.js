@@ -20,8 +20,8 @@ app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
 
     budgetController.deleteBreakdownItem = function (breakdownItem) {
         BudgetFactory.deleteBreakDown(breakdownItem.project_id, breakdownItem.business_id, breakdownItem.id, function mySuccess() {
-            budgetController.init(breakdownItem.project_id, breakdownItem.business_id);
-            alerts.autoCloseAlert('success-message', 'Breakdown Item Deleted!!', '');
+            init(breakdownItem.business_id, breakdownItem.project_id);
+            alerts.autoCloseAlert('success-message', 'Breakdown Item Deleted!!', 'Perfect');
         }, function myError() {
             alerts.autoCloseAlert('title-and-text', 'Error deleting item', 'Please try again!');
         })
@@ -32,10 +32,6 @@ app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
         budgetController.currentBreakDownItemId =  breakDownItemId;
         budgetController.currentBreakdownLists = breakDownsLists;
         budgetController.currentBreakdownListId = breakDownListId;
-        // console.log(budgetController.currentBreakDownItemId);
-        // console.log(budgetController.currentBreakdownListId);
-        // console.log(budgetController.currentBreakdownLists);
-        // console.log(budgetController.currentPayments);
     };
 
     function setProjectInfo(projectId, businessId) {
@@ -43,16 +39,14 @@ app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
             budgetController.projectInfo = response.data.data;
             budgetController.isLoaded = true;
         }, function myError (response) {
-            console.log(response.statusText);
             budgetController.projectInfo = {};
         });
     }
 
     function list(businessId, projectId) {
         BudgetFactory.allBreakdowns(businessId, projectId, function (response) {
-            budgetController.breakDownsLists = response.data.data;
+            budgetController.breakDownsLists  = response.data.data;
             budgetController.breakDownsLists = calcTotalEstimateAndActual(budgetController.breakDownsLists);
-            console.log(budgetController.breakDownsLists);
         }, function (response) { console.log(response.statusText);
         })
     }
@@ -150,7 +144,6 @@ function NewBudgetBreakdownListModalController(BudgetFactory, $scope, templates)
 
     function list(businessId, projectId) {
         BudgetFactory.allBreakdowns(businessId, projectId, function (response) {
-            console.log(response.data.data);
             newBudgetBreakdownListModalController.breakdownList = response.data.data;
             newBudgetBreakdownListModalController.breakdownList = calcTotalEstimateAndActual(newBudgetBreakdownListModalController.breakdownList);
         }, function (response) { console.log(response.statusText);
@@ -253,7 +246,6 @@ function EditBreakdownModalController(BudgetFactory, $scope, templates) {
     };
 
     editBreakdownItemModalController.updateItem = function () {
-        console.log(editBreakdownItemModalController.currentBreakdownItem);
         updateBreakDown(editBreakdownItemModalController.currentBreakdownItem, "Breakdown Item updated!", "Woo hoo!");
     };
 
@@ -277,7 +269,7 @@ function EditBreakdownModalController(BudgetFactory, $scope, templates) {
     }
 }
 
-app.directive('deleteBreakdownsListItemModal',  [DeleteBreakdownListModalDirective]);
+app.directive('deleteBreakdownsListModal',  [DeleteBreakdownListModalDirective]);
 function DeleteBreakdownListModalDirective() {
     return{
         template:  '<ng-include src="getDeleteBreakdownsListModalTemplateUrl()"/>',
@@ -287,29 +279,28 @@ function DeleteBreakdownListModalDirective() {
             projectId: '=',
             breakdownsLists: '='
         },
-        controller: DeleteBreakdownsListItemModalController,
-        controllerAs: 'deleteBreakdownsListItemModalController'
+        controller: DeleteBreakdownsListModalController,
+        controllerAs: 'deleteBreakdownsListModalController'
     }
 }
 
-app.controller('deleteBreakdownsListItemModalController', [DeleteBreakdownsListItemModalController]);
-function DeleteBreakdownsListItemModalController(BudgetFactory, $scope, templates) {
-    var deleteBreakdownsListItemModalController = this;
-    deleteBreakdownsListItemModalController.formData = {};
-    deleteBreakdownsListItemModalController.breakdownsLists = [];
+app.controller('deleteBreakdownsListModalController', [DeleteBreakdownsListModalController]);
+function DeleteBreakdownsListModalController(BudgetFactory, $scope, templates) {
+    var deleteBreakdownsListModalController = this;
+    deleteBreakdownsListModalController.formData = {};
+    deleteBreakdownsListModalController.breakdownsLists = [];
 
 
     $scope.getDeleteBreakdownsListModalTemplateUrl = function () {
         return templates.deleteBreakdownsListModal;
     };
 
-    deleteBreakdownsListItemModalController.deleteBreakdownList = function () {
-        console.log(deleteBreakdownsListItemModalController.formData.breakdownListToDelete);
-        deleteBreakdownList(deleteBreakdownsListItemModalController.businessId, deleteBreakdownsListItemModalController.projectId, deleteBreakdownsListItemModalController.formData.breakdownListToDelete.parent_budget_id)
+    deleteBreakdownsListModalController.deleteBreakdownList = function () {
+        deleteBreakdownList(deleteBreakdownsListModalController.businessId, deleteBreakdownsListModalController.projectId, deleteBreakdownsListModalController.formData.breakdownListToDelete.breakDown.id)
     };
 
     function deleteBreakdownList(businessId, projectId, breakDownListId) {
-        BudgetFactory.deleteBreakdownItem(projectId, businessId, breakDownListId, function mySuccess() {
+        BudgetFactory.deleteBreakDown(projectId, businessId, breakDownListId, function mySuccess() {
             refresh(businessId, projectId);
             alerts.autoCloseAlert('success-message', "Task Breakdown List Deleted Successfully!", "Nice!");
         }, function myError() {
@@ -318,14 +309,15 @@ function DeleteBreakdownsListItemModalController(BudgetFactory, $scope, template
     }
 
     function refresh(businessId, projectId) {
-        newBreakdownModalController.formData = {};
+        deleteBreakdownsListModalController.formData = {};
         list(businessId, projectId);
     }
 
     function list(businessId, projectId) {
         BudgetFactory.allBreakdowns(businessId, projectId, function (response) {
-            console.log(response.data.data); deleteBreakdownItemModalController.breakDownsLists = response.data.data;
-           }, function (response) { console.log(response.statusText);
+            deleteBreakdownsListModalController.breakdownsLists  = response.data.data;
+            deleteBreakdownsListModalController.breakdownsLists = calcTotalEstimateAndActual(deleteBreakdownsListModalController.breakdownsLists);
+        }, function (response) { console.log(response.statusText);
         })
     }
 }

@@ -1,5 +1,5 @@
 <div class="modal fade" id="removeBreakdownList" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -10,13 +10,13 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <select class="form-control" data-ng-model="deleteBreakdownsListItemModalController.formData.breakdownListToDelete" data-ng-options= "breakdown.title for breakdown in deleteBreakdownsListItemModalController.breakdownsLists"></select>
+                        <select class="form-control" data-ng-model="deleteBreakdownsListModalController.formData.breakdownListToDelete" data-ng-options= "breakdown.breakDown.title for breakdown in deleteBreakdownsListModalController.breakdownsLists"></select>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="deleteBreakdownsListItemModalController.deleteBreakdownList()">Delete</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" data-ng-click="deleteBreakdownsListModalController.deleteBreakdownList()">Delete</button>
             </div>
         </div>
     </div>
