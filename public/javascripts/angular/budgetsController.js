@@ -20,7 +20,7 @@ app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
 
     budgetController.deleteBreakdownItem = function (breakdownItem) {
         BudgetFactory.deleteBreakDown(breakdownItem.project_id, breakdownItem.business_id, breakdownItem.id, function mySuccess() {
-            init(breakdownItem.business_id, breakdownItem.project_id);
+            budgetController.init(breakdownItem.business_id, breakdownItem.project_id);
             alerts.autoCloseAlert('success-message', 'Breakdown Item Deleted!!', 'Perfect');
         }, function myError() {
             alerts.autoCloseAlert('title-and-text', 'Error deleting item', 'Please try again!');
