@@ -24,14 +24,15 @@ class ProjectsDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) 
           "client_id" -> project.client_id,
           "business_id" -> project.business_id,
           "modified_date" -> project.modified_date,
-          "created_date" -> project.created_date)
+          "created_date" -> project.created_date,
+          "is_deleted" -> project.is_deleted)
         .executeInsert()
     }
   }
 
   def byId(projectId: Int, businessId: Int): Option[Project] =
     db.withConnection { implicit connection =>
-      SQL(s"select * from projects where id = {id} and business_id = {businessId}")
+      SQL(s"select * from projects where id = {id} and business_id = {businessId} and is_deleted = false")
         .on("id" -> projectId, "businessId" -> businessId)
         .as(parser.singleOpt)
     }
@@ -39,12 +40,12 @@ class ProjectsDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) 
 
   def list(): Seq[Project] =
     db.withConnection { implicit connection =>
-      SQL("select * from projects").as(parser.*)
+      SQL("select * from projects where is_deleted = false").as(parser.*)
     }
 
-  def deleteByProjectIdAndBusinessId(projectId: Int, businessId: Int): Int =
+  def softDeleteByProjectIdAndBusinessId(projectId: Int, businessId: Int): Int =
     db.withConnection { implicit connection =>
-      SQL("delete from projects where id = {project_id} and business_id = {business_id}")
+      SQL("update projects set is_deleted = true where id = {project_id} and business_id = {business_id}")
         .on("project_id" -> projectId, "business_id" -> businessId)
         .executeUpdate()
     }

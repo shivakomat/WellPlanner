@@ -1,5 +1,6 @@
 app.controller('settingsController', function(BusinessFactory, ProjectsFactory) {
     var settingsController = this;
+    settingsController.formData = {};
 
     settingsController.init = function (businessId) {
         setBusinessInfo(businessId);
@@ -20,6 +21,17 @@ app.controller('settingsController', function(BusinessFactory, ProjectsFactory) 
             settingsController.businessInfo  =  {};
         });
     }
+
+    settingsController.safeDeleteProject = function(businessId) {
+        console.log(settingsController.formData.selectedProjectToDelete);
+        ProjectsFactory.deleteProjectBy(settingsController.formData.selectedProjectToDelete.id, businessId,
+           function mySuccess (response) {
+            allProjects(businessId);
+            alerts.autoCloseAlert('success-message', "successfully deleted", "always safely delete!");
+        }, function myError (response) {
+            alerts.autoCloseAlert('success-message', 'Error deleting project', 'Please try again!');
+        });
+    };
 
     settingsController.updateInfo = function (businessId) {
         settingsController.businessInfo.business_id = businessId;
@@ -43,11 +55,6 @@ app.controller('settingsController', function(BusinessFactory, ProjectsFactory) 
         ProjectsFactory.getAllProjects(businessId,
             function mySuccess (response) {
                 settingsController.projects = response.data.data;
-                for (var i=0; i < projectsController.projects.length; i++) {
-                    settingsController.projects[i].event_date_display = moment(settingsController.projects[i].event_date, "YYYYMMDD").format("MMM-DD-YYYY");
-                    settingsController.projects[i].created_date_display = moment(settingsController.projects[i].created_date, "YYYYMMDD").format("MMM-DD-YYYY");
-                }
-                // settingsController.isLoaded = true;
             }, function myError (response) {
                 console.log(response.statusText)
             });

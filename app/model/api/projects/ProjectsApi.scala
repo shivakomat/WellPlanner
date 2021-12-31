@@ -60,7 +60,7 @@ class ProjectsFacade(dbApi: DBApi) extends ProjectsApi {
   }
 
   def deleteProjectById(projectId: Int, businessId: Int): Seq[Project] = {
-    val rowsDeleted = projectsDB.deleteByProjectIdAndBusinessId(projectId, businessId)
+    val rowsDeleted = projectsDB.softDeleteByProjectIdAndBusinessId(projectId, businessId)
     projectsDB.list()
   }
 }

@@ -10,6 +10,6 @@ trait ProjectsDbAPI {
 
   def byId(projectId: Int, businessId: Int): Option[Project]
 
-  def deleteByProjectIdAndBusinessId(projectId: Int, businessId: Int): Int
+  def softDeleteByProjectIdAndBusinessId(projectId: Int, businessId: Int): Int
 
 }
