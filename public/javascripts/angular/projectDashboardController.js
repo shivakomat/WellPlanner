@@ -8,6 +8,8 @@ app.controller('projectDashboardController', function(TasksFactory, ProjectsFact
 
 
     projectDashboardController.init = function (businessId, projectId) {
+        projectDashboardController.totalCompletedTasks = 0;
+        projectDashboardController.totalTasks = 0;
         setTotalTasks(businessId, projectId);
         setProjectInfo(projectId, businessId);
     };
@@ -26,12 +28,13 @@ app.controller('projectDashboardController', function(TasksFactory, ProjectsFact
         TasksFactory.allTasks(businessId, projectId,
             function mySuccess (response) {
                 var tasks = response.data.data;
-                tasks.forEach(myFunction);
-                function myFunction(task, index) {
-                    if(task.is_completed === true) {
-                        projectDashboardController.totalCompletedTasks ++;
-                    } else {
-                        projectDashboardController.totalUnCompletedTasks ++;
+                for(var x = 0; x < tasks.length; x++) {
+                    for(var y = 0; y < tasks[x].subTasks.length; y++) {
+                        var currSubTask = tasks[x].subTasks[y];
+                        projectDashboardController.totalTasks ++;
+                        if(currSubTask.is_completed === true) {
+                            projectDashboardController.totalCompletedTasks ++;
+                        }
                     }
                 }
             }, function myError (response) {

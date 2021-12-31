@@ -6,13 +6,13 @@
         <div class="row">
             <div class="col-md-12 ml-auto mr-auto">
                 <div class="card card-user">
-
                     <div class="card-header text-center">
-                        <h2 class="card-title text-danger">{{controller.projectInfo.name}}</h2>
+                        <h2 class="card-title text-danger"> ~ {{controller.projectInfo.name}} ~</h2>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="card card-stats">
@@ -25,7 +25,7 @@
                             </div>
                             <div class="col-7 col-md-8">
                                 <div class="numbers">
-                                    <p class="card-title">{{controller.totalCompletedTasks}} / {{controller.totalUnCompletedTasks}}</p>
+                                    <p class="card-title">{{controller.totalCompletedTasks}} / {{controller.totalTasks}}</p>
                                     <p></p>
                                 </div>
                             </div>
@@ -34,7 +34,7 @@
                     <div class="card-footer ">
                         <hr>
                         <div class="stats">
-                            Task Completions
+                            Completed Tasks / Total Tasks
                         </div>
                     </div>
                 </div>
