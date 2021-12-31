@@ -15,6 +15,7 @@ app.controller('clientsController', function(ClientsFactory) {
     var clientController = this;
     clientController.clients = [];
     clientController.currentClientId = null;
+    clientController.currentClient = null;
     clientController.formData = {};
     clientController.clientStatuses = Global_Constants.clientStatuses;
     clientController.totals = {};
@@ -43,8 +44,14 @@ app.controller('clientsController', function(ClientsFactory) {
         createAClient(businessId)
     };
 
-    clientController.setCurrentClient = function (clientId) {
-        clientController.currentClientId = clientId;
+    clientController.setCurrentClient = function (client) {
+        clientController.currentClientId = client.id;
+        clientController.currentClientBudget = client.budget;
+        var event_date_year = parseInt(client.event_date .toString().substr(0, 4));
+        var event_date_month = parseInt(client.event_date .toString().substr(4, 2));
+        var event_date_day = parseInt(client.event_date .toString().substr(6, 2));
+        client.event_date_moment_js = moment.utc([event_date_year, (event_date_month - 1), event_date_day]);
+        clientController.currentClientEventDate = client.event_date_moment_js;
     };
 
     clientController.removeClient = function (businessId, clientId) {
@@ -106,6 +113,10 @@ app.controller('clientsController', function(ClientsFactory) {
         allClients(businessId);
     }
 
+    function clearFormData() {
+        clientController.formData = {};
+    }
+
     function createAClient(businessId) {
         var newClient = {};
         newClient = clientController.formData;
@@ -117,8 +128,10 @@ app.controller('clientsController', function(ClientsFactory) {
 
         ClientsFactory.addClient(newClient, function mySuccess() {
             refresh(businessId);
+            clearFormData();
             alerts.autoCloseAlert('success-message', 'New client added!!', 'Good luck!');
         }, function myError() {
+            clearFormData();
             alerts.autoCloseAlert('success-message', 'Oops something went wrong', 'Please try again!');
         });
     }
@@ -234,9 +247,9 @@ function NewClientModalController(ClientsFactory, $scope, templates) {
 
     $scope.getNewClientModalTemplateUrl = function () {
         return templates.newClientModal;
-    }
+    };
 
-    function refresh(businessId) {
+    function clearFormData() {
         newClientModalController.formData = {};
     }
 
@@ -258,9 +271,10 @@ function NewClientModalController(ClientsFactory, $scope, templates) {
         console.log(newClient);
 
         ClientsFactory.addClient(newClient, function mySuccess() {
-            refresh(businessId);
+            clearFormData();
             alerts.autoCloseAlert('success-message', 'New client added!!', 'Good luck!');
         }, function myError() {
+            clearFormData();
             alerts.autoCloseAlert('success-message', 'Oops something went wrong', 'Please try again!');
         });
     }

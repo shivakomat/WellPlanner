@@ -225,12 +225,24 @@
                     <div class="card-body">
                         <table class="table">
                             <thead>
-                                <tr>
+                                <tr data-ng-show="controller.showNewItem">
+                                    <th class="text-center"></th>
+                                    <th class="text-center">Name *</th>
+                                    <th class="text-center">Phone Number *</th>
+                                    <th class="text-center">Email *</th>
+                                    <th class="text-center">Estimated Budget *</th>
+                                    <th class="text-center">Event Date *</th>
+                                    <th class="text-center">Status *</th>
+                                    @*                                    <th class="text-center">Notes</th>*@
+                                    <th class="text-center"></th>
+                                    <th class="text-center"></th>
+                                </tr>
+                                <tr data-ng-show="controller.showNewItem === false">
                                     <th class="text-center"></th>
                                     <th class="text-center">Name</th>
                                     <th class="text-center">Phone Number</th>
                                     <th class="text-center">Email Address</th>
-                                    <th class="text-center">Budget</th>
+                                    <th class="text-center">Estimated Budget</th>
                                     <th class="text-center">Event Date</th>
                                     <th class="text-center">Status</th>
 @*                                    <th class="text-center">Notes</th>*@
@@ -305,7 +317,7 @@
                                         <a data-ng-if="client[1] != null" href="/pages/{{client[0].business_id}}/projects/{{client[1]}}/overview-dashboard" class="btn btn-outline-warning btn-round">
                                         <i class="fa fa-heart"></i> View Project
                                     </a>
-                                        <button data-ng-if="client[1] === null" type="button" rel="tooltip" data-original-title="Create New Project" class="btn btn-outline-default"  data-toggle="modal" data-target="#newProject" data-ng-click="controller.setCurrentClient(client[0].id)">START</button></td>
+                                        <button data-ng-if="client[1] === null" type="button" rel="tooltip" data-original-title="Create New Project" class="btn btn-outline-default"  data-toggle="modal" data-target="#newProject" data-ng-click="controller.setCurrentClient(client[0])" tooltip>START</button></td>
                                     <td class="td-actions text-center">
                                         <button class="btn btn-info" rel="tooltip" data-original-title="Add Proposal Document Link" data-toggle="modal" data-target="#proposalDocLink" tooltip>
                                             <span class="btn-label">
