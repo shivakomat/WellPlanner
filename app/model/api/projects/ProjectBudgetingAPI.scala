@@ -40,6 +40,9 @@ class ProjectBudgetingAPI(dbApi: DBApi, ws: WSClient) {
     paymentsDb.allPayments.filter(bd => bd.business_id == businessId && bd.project_id == projectId
                                   && bd.budget_id == budgetId)
 
+  def paymentsByProject(projectId: Long, businessId: Long): Seq[Payment] =
+    paymentsDb.allPayments.filter(bd => bd.business_id == businessId && bd.project_id == projectId)
+
 
   def budgetBreakdownsByProject(projectId: Long, businessId: Long): Seq[BudgetBreakdownList] = {
     val list = breakDownsDb.allBudgetBreakdowns().filter(bd => bd.business_id == businessId && bd.project_id == projectId)

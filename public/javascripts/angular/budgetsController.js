@@ -5,6 +5,8 @@ app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
     budgetController.isLoaded = false;
     budgetController.currentPayments = [];
 
+    budgetController.allPayments = [];
+
     budgetController.editBreakdownItem = function (breakdownItem) {
         budgetController.currentBreakdown = breakdownItem
     };
@@ -12,6 +14,7 @@ app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
     budgetController.init = function (businessId, projectId) {
         list(businessId, projectId);
         setProjectInfo(projectId, businessId);
+
     };
 
     budgetController.newBreakdownItem = function (parent) {
@@ -47,10 +50,32 @@ app.controller('budgetController', function(BudgetFactory, ProjectsFactory) {
         BudgetFactory.allBreakdowns(businessId, projectId, function (response) {
             budgetController.breakDownsLists  = response.data.data;
             budgetController.breakDownsLists = calcTotalEstimateAndActual(budgetController.breakDownsLists);
+            budgetController.allPayments = processForPayments(budgetController.breakDownsLists);
         }, function (response) { console.log(response.statusText);
         })
     }
+
+
 });
+
+function processForPayments(breakdownList) {
+    var payments = [];
+    for (var x = 0; x < breakdownList.length; x++) {
+        console.log(breakdownList[x]);
+        for (var y = 0; y < breakdownList[x].subBreakDowns.length; y++) {
+            for (var z = 0; z < breakdownList[x].subBreakDowns[y].payments.length; z++) {
+                console.log(breakdownList[x].subBreakDowns[y].breakdownItem.title);
+                payments[z] = {};
+                payments[z].main_title = breakdownList[x].breakDown.title;
+                payments[z].title = breakdownList[x].subBreakDowns[y].breakdownItem.title;
+                payments[z].payment_amount = breakdownList[x].subBreakDowns[y].payments[z].payment_amount;
+                payments[z].payment_date = breakdownList[x].subBreakDowns[y].payments[z].payment_date;
+                payments[z].payment_date_display = moment(breakdownList[x].subBreakDowns[y].payments[z].payment_date, "YYYYMMDD").format("MMM-DD-YYYY");
+            }
+        }
+    }
+    return payments;
+}
 
 function calcTotalEstimateAndActual(breakdownList) {
     var p;

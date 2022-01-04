@@ -346,9 +346,19 @@
                         }
                             <a href="/pages/@businessId/projects/@projectId/budget">
                                 <i class="nc-icon nc-money-coins"></i>
-                                <p>Budget</p>
+                                <p>Budget Breakdowns</p>
                             </a>
                         </li>
+                        @if(activeMenuItem == "payments") {
+                            <li class="active">
+                        } else {
+                            <li>
+                            }
+                        <a href="/pages/@businessId/projects/@projectId/payments">
+                            <i class="nc-icon nc-money-coins"></i>
+                            <p>Payments</p>
+                        </a>
+                    </li>
                         @if(activeMenuItem == "project-settings") {
                             <li class="active">
                         } else {

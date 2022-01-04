@@ -1,0 +1,68 @@
+@(title: String, projectId: Int, businessId: Int)
+
+@projectMain("Project Payments Tracker", "payments", "Payments Page: Tracking project payments", projectId, businessId) {
+    <div class="content" data-ng-controller="budgetController as controller" data-ng-init="controller.init(@businessId, @projectId)">
+
+        <div class="row text-center" data-ng-show="controller.isLoaded == false">
+            <div class="col-md-12 ml-auto mr-auto mt-auto mb-auto">
+                <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+                <div class="text-default text-center text-capitalize">Loading Budgets Info</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <button type="button" class="btn btn-default" data-toggle="modal" rel="tooltip" data-original-title="Add New Vendor"  data-ng-click="controller.newItem()" tooltip>Add Payment</button>
+            </div>
+            <div class="col-md-4 pull-right">
+                <div class="input-group no-border">
+                    <input type="text" value="" class="form-control" placeholder="Search..." ng-model="searchText">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <i class="nc-icon nc-zoom-split"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center"></th>
+                                    <th class="text-center">Item List</th>
+                                    <th class="text-center">Item Name</th>
+                                    <th class="text-center">Payment Amount</th>
+                                    <th class="text-center">Payment Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="payment in controller.allPayments | filter:searchText">
+                                    <th class="text-center">
+                                    </th>
+                                    <td class="text-center">{{payment.main_title}}</td>
+                                    <td class="text-center">{{payment.title}}</td>
+                                    <td class="text-center">{{payment.payment_amount | currency}}</td>
+                                    <td class="text-center">{{payment.payment_date_display}}</td>
+@*                                    <td class="td-actions text-center">*@
+@*                                        <button class="btn btn-warning" rel="tooltip" data-original-title="Edit Payment Amount" data-toggle="modal" data-target="#editVendor" data-ng-click="controller.editAmount(vendor)" tooltip>*@
+@*                                            <span class="btn-label">*@
+@*                                                <i class="nc-icon nc-ruler-pencil"></i>*@
+@*                                            </span>*@
+@*                                        </button>*@
+@*                                        <button class="btn btn-danger" rel="tooltip" data-original-title="Delete Payment" data-ng-click="controller.deletePayment(@businessId, vendor.id)" tooltip>*@
+@*                                            <i class="nc-icon nc-scissors"></i>*@
+@*                                        </button>*@
+@*                                    </td>*@
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

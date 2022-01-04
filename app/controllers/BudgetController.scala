@@ -94,7 +94,11 @@ class BudgetController @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WS
   }
 
   def payments(budgetId: Long, projectId: Int, businessId: Int) =  Action {
-    successResponse(OK, Json.toJson(breakdownsApi.paymentsByBudgetItem(budgetId, businessId, projectId)), Seq("Successfully processed"))
+    successResponse(OK, Json.toJson(breakdownsApi.paymentsByBudgetItem(budgetId, projectId, businessId)), Seq("Successfully processed"))
+  }
+
+  def allPaymentsByProject(projectId: Int, businessId: Int) =  Action {
+    successResponse(OK, Json.toJson(breakdownsApi.paymentsByProject(projectId, businessId)), Seq("Successfully processed"))
   }
 
   def deletePaymentById(paymentId: Int, projectId: Int, businessId: Int, budgetId: Int) = Action {
