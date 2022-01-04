@@ -12,6 +12,7 @@ class ProjectsDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) 
   val parser: RowParser[Project] = Macro.namedParser[Project]
 
   def addNewProject(project: Project): Option[Long] = {
+    println(project);
     db.withConnection { implicit connection =>
       SQL("insert into Projects(name , event_type , brides_name, budget, event_date, grooms_name, client_id, business_id, modified_date, created_date) " +
         "values ({name} , {event_type} , {brides_name}, {budget}, {event_date}, {grooms_name}, {client_id}, {business_id}, {modified_date}, {created_date})")
