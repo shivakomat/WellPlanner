@@ -2,7 +2,6 @@
 
 @projectMain("Project Payments Tracker", "payments", "Payments Page: Tracking project payments", projectId, businessId) {
     <div class="content" data-ng-controller="budgetController as controller" data-ng-init="controller.init(@businessId, @projectId)">
-
         <div class="row text-center" data-ng-show="controller.isLoaded == false">
             <div class="col-md-12 ml-auto mr-auto mt-auto mb-auto">
                 <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
@@ -11,24 +10,24 @@
         </div>
 
         <div class="row">
-            <div class="col-md-8">
-                <button type="button" class="btn btn-default" data-toggle="modal" rel="tooltip" data-original-title="Add New Vendor"  data-ng-click="controller.newItem()" tooltip>Add Payment</button>
-            </div>
-            <div class="col-md-4 pull-right">
-                <div class="input-group no-border">
-                    <input type="text" value="" class="form-control" placeholder="Search..." ng-model="searchText">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <i class="nc-icon nc-zoom-split"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <button type="button" class="btn btn-default" data-toggle="modal" rel="tooltip" data-original-title="Add New Vendor"  data-ng-click="controller.newItem()" tooltip>Add Payment</button>
+                            </div>
+                            <div class="col-md-4 pull-right">
+                                <div class="input-group no-border">
+                                    <input type="text" value="" class="form-control" placeholder="Search..." ng-model="searchText">
+                                    <div class="input-group-append">
+                                        <div class="input-group-text">
+                                            <i class="nc-icon nc-zoom-split"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <table class="table">
                             <thead>
                                 <tr>
