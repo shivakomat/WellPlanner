@@ -1,6 +1,6 @@
 <div class="modal fade" id="newProject" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
+        <div class="modal-content" data-ng-init="newProjectController.init()">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -10,18 +10,19 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="brideName">Bride</label>
+                        <p>(*) required</p>
+                        <label for="brideName">Bride *</label>
                         <input id="brideName" type="text" class="form-control" data-ng-model="newProjectController.formData.bride">
-                        <label for="groomName">Groom</label>
+                        <label for="groomName">Groom *</label>
                         <input id="groomName" type="text" class="form-control" data-ng-model="newProjectController.formData.groom">
                     </div>
                     <div class="form-group">
-                        <label for="budgetApproximation">Budget</label>
-                        <input id="budgetApproximation" type="text" class="form-control" data-ng-model="newProjectController.formData.budget" data-input-currency>
+                        <label for="budgetApproximation">Actual Budget* </label>
+                        <input id="budgetApproximation" type="text" class="form-control" data-ng-model="newProjectController.clientBudget" data-input-currency>
                     </div>
                     <div class="form-group">
-                        <label>Event Date</label>
-                        <input id="project_event_date"  size="30" class="form-control" ng-model="newProjectController.formData.eventDate" ng-model-options="{ updateOn: 'blur' }"  moment-picker="newProjectController.formData.eventDate" format="YYYY-MM-DD" start-view="year">
+                        <label>Actual Event Date *</label>
+                        <input id="project_event_date"  size="30" class="form-control" ng-model="newProjectController.clientEventDate" ng-model-options="{ updateOn: 'blur' }"  moment-picker="newProjectController.formData.eventDate" format="YYYY-MM-DD" start-view="year"/>
                     </div>
                 </form>
             </div>
