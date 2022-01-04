@@ -77,7 +77,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   }
 
   def clientPortalMainPage(projectId: Int, businessId: Int) = Action {
-    Ok(views.html.clientPortalMainDashboard("Clients Portal - Main Page", projectId, businessId))
+    Ok(views.html.clientsProjectTasks("Clients Portal - Project Tasks", projectId, businessId))
   }
 
   def clientPortalBudgetPage(projectId: Int, businessId: Int) = Action {

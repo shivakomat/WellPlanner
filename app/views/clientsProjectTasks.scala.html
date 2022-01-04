@@ -1,0 +1,61 @@
+@import play.api.libs.json.JsValue
+@(title: String, projectId: Int, businessId: Int)
+
+@clientPortalMainDashboard("Planners Tasks","project tasks", "Project Tasks", projectId, businessId) {
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div id="accordion" role="tablist" aria-multiselectable="true" class="card-collapse">
+                            <h4 class="card-title">Planner's Tasks</h4>
+
+                            <div class="mt-lg-3 card card-plain" data-ng-repeat="task in controller.tasks">
+                                <div class="card-header" role="tab" id="headingOne">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="{{ '#collapse_' + task.parent.id}}" aria-expanded="true" aria-controls="collapseOne">
+                                        <div class="row ml-0">
+                                            <div class="col-lg-5"><h7><b>{{task.parent.title | uppercase}}</b></h7></div>
+                                            <div class="col-lg-2 text-right text-danger"><h7> due by </h7></div>
+                                            <div class="col-lg-3 text-center"><h7>{{task.parent.due_date_display}}</h7></div>
+                                            <div class="col-lg-2 right-side"><i class="nc-icon nc-minimal-down"></i></div>
+
+                                        </div>
+                                    </a>
+                                </div>
+                                <div id="{{ 'collapse_' + task.parent.id}}" class="collapse show" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="card-body">
+                                        <div class="table-borderless table-responsive">
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <td  class="text-left"><u>Description</u></td>
+                                                        <td  class="text-left"><u>Due Date</u></td>
+                                                        <td  class="text-center"><u>Actions</u></td>
+                                                    </tr>
+                                                    <tr data-ng-repeat="subTask in task.subTasks">
+                                                        <td data-ng-if="subTask.is_completed == false" class="text-left">{{subTask.description}}</td>
+                                                        <td data-ng-if="subTask.is_completed" class="text-left"><strike>{{subTask.description}}</strike></td>
+                                                        <td class="text-left">{{subTask.due_date_display}}</td>
+                                                        <td class="td-actions text-center" data-ng-if="subTask.is_completed === false" >
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-info btn-round btn-icon btn-icon-mini btn-neutral"  data-toggle="modal" data-target="#taskItemsModal" data-original-title="View Task Items" data-ng-click="controller.setSubTaskForTaskItems(subTask)" tooltip>
+                                                                <i class="nc-icon nc-bullet-list-67"></i>
+                                                            </button>
+
+                                                            <button type="button" rel="tooltip" title="" class="btn btn-warning btn-round btn-icon btn-icon-mini btn-neutral" data-toggle="modal" data-target="#taskComments" data-original-title="Comments" data-ng-click="controller.setTaskComments(subTask.project_id, subTask.business_id, subTask)" tooltip>
+                                                                <i class="nc-icon nc-chat-33"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
