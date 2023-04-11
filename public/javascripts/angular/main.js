@@ -10,7 +10,7 @@ app.config(function ($provide, authProvider, $urlRouterProvider, $httpProvider, 
                 // Allow same origin resource loads.
                 'self',
                 // Allow loading from our assets domain. **.
-                'https://well-wedding-planner.herokuapp.com/assets/**'
+                'https://wellplanner.herokuapp.com/assets/**'
         ]);
 });
 
@@ -175,13 +175,13 @@ app.directive('tooltip', function(){
 
 // PROD Constants
 app.constant('config', {
-        appHost: 'https://well-wedding-planner.herokuapp.com',
-        appAngularAssets: 'https://well-wedding-planner.herokuapp.com/assets/javascripts/angular/'
+        appHost: 'https://wellplanner.herokuapp.com',
+        appAngularAssets: 'https://wellplanner.herokuapp.com/assets/javascripts/angular/'
 });
 
 // Production base URL
 
-var baseUrl = "https://well-wedding-planner.herokuapp.com/assets/javascripts/angular";
+var baseUrl = "https://wellplanner.herokuapp.com/assets/javascripts/angular";
 
 // Dev Base URL
 // var baseUrl = "http://localhost:7000/assets/javascripts/angular";
