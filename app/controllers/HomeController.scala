@@ -65,7 +65,7 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
   }
 
   def loginPage = Action {
-    Redirect("https://well-wedding-planner.herokuapp.com/assets/rubik-presentation-site/well-planner.html")
+    Redirect("https://wellplanner.herokuapp.com/assets/rubik-presentation-site/well-planner.html")
   }
 
   def registerPage = Action {
