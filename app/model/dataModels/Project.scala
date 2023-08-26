@@ -11,4 +11,5 @@ case class Project(id: Option[Int] = None,
                    event_date: Int,
                    business_id: Int,
                    modified_date: Int,
-                   created_date: Int)
+                   created_date: Int,
+                   is_deleted: Boolean = false)
