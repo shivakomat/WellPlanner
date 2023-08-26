@@ -25,8 +25,7 @@ class ProjectsDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) 
           "client_id" -> project.client_id,
           "business_id" -> project.business_id,
           "modified_date" -> project.modified_date,
-          "created_date" -> project.created_date,
-          "is_deleted" -> project.is_deleted)
+          "created_date" -> project.created_date)
         .executeInsert()
     }
   }
