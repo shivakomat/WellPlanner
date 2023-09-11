@@ -12,10 +12,9 @@ class ProjectsDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) 
   val parser: RowParser[Project] = Macro.namedParser[Project]
 
   def addNewProject(project: Project): Option[Long] = {
-    println(project);
     db.withConnection { implicit connection =>
       SQL("insert into Projects(name , event_type , brides_name, budget, event_date, grooms_name, client_id, business_id, modified_date, created_date, is_deleted) " +
-        "values ({name} , {event_type} , {brides_name}, {budget}, {event_date}, {grooms_name}, {client_id}, {business_id}, {modified_date}, {created_date})")
+        "values ({name} , {event_type} , {brides_name}, {budget}, {event_date}, {grooms_name}, {client_id}, {business_id}, {modified_date}, {created_date}, {is_deleted})")
         .on("name"  -> project.name,
           "event_type" -> project.event_type,
           "brides_name" -> project.brides_name,
@@ -25,7 +24,8 @@ class ProjectsDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) 
           "client_id" -> project.client_id,
           "business_id" -> project.business_id,
           "modified_date" -> project.modified_date,
-          "created_date" -> project.created_date)
+          "created_date" -> project.created_date,
+          "is_deleted" -> project.is_deleted)
         .executeInsert()
     }
   }
@@ -40,7 +40,7 @@ class ProjectsDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) 
 
   def list(): Seq[Project] =
     db.withConnection { implicit connection =>
-      SQL("select * from projects").as(parser.*)
+      SQL("select * from projects where is_deleted = false").as(parser.*)
     }
 
   def softDeleteByProjectIdAndBusinessId(projectId: Int, businessId: Int): Int =
