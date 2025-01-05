@@ -34,13 +34,13 @@
                 </div>
                 <div class="sidebar-wrapper">
                     <ul class="nav">
-                        <li class="active">
+                        <li>
                             <a href="/register-business-user">
                                 <i class="nc-icon nc-circle-10"></i>
                                 <p>Sign Up</p>
                             </a>
                         </li>
-                        <li class="">
+                        <li class="active">
                             <a href="/pages/login">
                                 <i class="nc-icon nc-button-power"></i>
                                 <p>Login</p>
@@ -59,17 +59,10 @@
                                 <form action="" method="" novalidate="novalidate">
                                     <div class="card-header text-center">
                                         <h3 class="card-title">
-                                            Signing Up
+                                            User Login
                                         </h3>
-                                        <h5 class="description">Below information will let us know more about you</h5>
                                         <div class="wizard-navigation">
                                             <ul class="nav nav-pills">
-                                                <li class="nav-item" style="width: 33.3333%;">
-                                                    <a class="nav-link" href="#about" data-toggle="tab" role="tab" aria-controls="about" aria-selected="true">
-                                                        <i class="nc-icon nc-tie-bow"></i>
-                                                        Business Info
-                                                    </a>
-                                                </li>
                                                 <li class="nav-item" style="width: 33.3333%;">
                                                     <a class="nav-link" href="#account" data-toggle="tab" role="tab" aria-controls="account" aria-selected="true">
                                                         <i class="nc-icon nc-touch-id"></i>
@@ -84,30 +77,8 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="tab-content">
-                                            <div class="tab-pane show active" id="about">
-                                                <h5 class="info-text"> Let's start with the basic information (with validation)</h5>
-                                                <div class="row justify-content-center">
-                                                    <div class="col-lg-10 mt-3">
-
-                                                        <div class="input-group" id="businessNameInputGroup">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="nc-icon nc-shop"></i></span>
-                                                            </div>
-                                                            <input type="text" class="form-control" placeholder="Business Name (required)" name="businessName" data-ng-model="pageController.businessName">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-10 mt-3">
-                                                        <div class="input-group">
-                                                            <div class="input-group-prepend">
-                                                                <span class="input-group-text"><i class="nc-icon nc-alert-circle-i"></i></span>
-                                                            </div>
-                                                            <input type="text" placeholder="Social Media URL" class="form-control" name="socialMediaUrl" data-ng-model="pageController.socialMediaUrl">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="tab-pane" id="account">
-                                                <h5 class="info-text"> Let's setup your admin account now!!</h5>
+                                                <h5 class="description">Business & Client User Login Page</h5>
                                                 <div class="row justify-content-center">
                                                     <div class="col-lg-10 mt-3">
                                                         <div class="input-group">
@@ -127,21 +98,21 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <div class="pull-right">
-                                            <input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next" value="Next">
-                                            <input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" name="finish" value="Finish" style="display: none;" data-ng-click="pageController.completeRegistration()">
                                         </div>
-                                        <div class="pull-left">
-                                            <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous">
+                                        <div class="card-footer">
+                                            <div class="pull-right">
+                                                <input type="button" class="btn btn-next btn-fill btn-rose btn-wd" name="next" value="Next">
+                                                <input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" name="finish" value="Finish" style="display: none;" data-ng-click="pageController.completeRegistration()">
+                                            </div>
+                                            <div class="pull-left">
+                                                <input type="button" class="btn btn-previous btn-fill btn-default btn-wd disabled" name="previous" value="Previous">
+                                            </div>
+                                            <div class="clearfix"></div>
                                         </div>
-                                        <div class="clearfix"></div>
-                                    </div>
                                 </form>
                             </div>
                         </div>
-                           <!-- wizard container -->
+                            <!-- wizard container -->
                     </div>
                 </div>
 
@@ -182,9 +153,9 @@
             <!--  Plugin for Sweet Alert -->
         <script src="@routes.Assets.versioned("template_assets/js/plugins/sweetalert2.min.js")"></script>
             <!-- Forms Validations Plugin -->
-@*        <script src="@routes.Assets.versioned("template_assets/js/plugins/jquery.validate.min.js")"></script>*@
+        @*        <script src="@routes.Assets.versioned("template_assets/js/plugins/jquery.validate.min.js")"></script>*@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
-@*        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>*@
+        @*        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>*@
 
 
             <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
@@ -241,31 +212,31 @@
 
 
                 <!-- javascript for Toggle Button Swtiches -->
-            $('.bootstrap-switch').each(function(){
-                $this = $(this);
-                data_on_label = $this.data('on-label') || '';
-                data_off_label = $this.data('off-label') || '';
+                $('.bootstrap-switch').each(function(){
+                    $this = $(this);
+                    data_on_label = $this.data('on-label') || '';
+                    data_off_label = $this.data('off-label') || '';
 
-                $this.bootstrapSwitch({
-                    onText: data_on_label,
-                    offText: data_off_label
+                    $this.bootstrapSwitch({
+                        onText: data_on_label,
+                        offText: data_off_label
+                    });
                 });
-            });
 
-            <!-- javascript for Date Time Picker -->
-            $('.datetimepicker').datetimepicker({
-                icons: {
-                    time: "fa fa-clock-o",
-                    date: "fa fa-calendar",
-                    up: "fa fa-chevron-up",
-                    down: "fa fa-chevron-down",
-                    previous: 'fa fa-chevron-left',
-                    next: 'fa fa-chevron-right',
-                    today: 'fa fa-screenshot',
-                    clear: 'fa fa-trash',
-                    close: 'fa fa-remove'
-                }
-            });
+                <!-- javascript for Date Time Picker -->
+                $('.datetimepicker').datetimepicker({
+                    icons: {
+                        time: "fa fa-clock-o",
+                        date: "fa fa-calendar",
+                        up: "fa fa-chevron-up",
+                        down: "fa fa-chevron-down",
+                        previous: 'fa fa-chevron-left',
+                        next: 'fa fa-chevron-right',
+                        today: 'fa fa-screenshot',
+                        clear: 'fa fa-trash',
+                        close: 'fa fa-remove'
+                    }
+                });
         </script>
 
 

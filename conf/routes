@@ -53,7 +53,8 @@ GET     /pages/:businessId/projects/:projectId/projectSettings      controllers.
 +nocsrf
 POST /client-accesses/login              controllers.ClientsAccessController.loginSuccessfully
 
-
++nocsrf
+POST /users/login              controllers.ApplicationLoginController.loginUser
 
 # # Projects
 +nocsrf
