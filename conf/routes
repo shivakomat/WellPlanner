@@ -4,7 +4,7 @@
 # ~~~~
 
 # Web pages
-GET     /                           controllers.HomeController.loginPage
+GET     /                           controllers.HomeController.welcome
 GET     /register                   controllers.HomeController.registerPage
 GET     /register-business-user     controllers.HomeController.businessUserRegisterPage
 GET     /register-team-users        controllers.HomeController.businessTeamUsersSettingsPage

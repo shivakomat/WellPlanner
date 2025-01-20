@@ -3,11 +3,16 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
+
         <link rel="apple-touch-icon" sizes="76x76" href="@routes.Assets.versioned("template_assets/img/apple-icon.png")">
         <link rel="icon" type="image/png" href="@routes.Assets.versioned("template_assets/img/favicon.png")">
+
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <title> Login Page </title>
+
+        <title>@title</title>
+
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+
             <!--     Fonts and icons     -->
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -18,181 +23,228 @@
 
             <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="@routes.Assets.versioned("template_assets/demo/demo.css")" rel="stylesheet" />
-
-<body class="login-page" data-ng-app="wellPlanner" data-ng-controller="loginController as loginPageCtrl">
-        <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
-        <div class="container">
-            <div class="navbar-wrapper">
-                <div class="navbar-toggle">
-                    <button type="button" class="navbar-toggler">
-                        <span class="navbar-toggler-bar bar1"></span>
-                        <span class="navbar-toggler-bar bar2"></span>
-                        <span class="navbar-toggler-bar bar3"></span>
-                    </button>
+    </head>
+    <body class="" data-ng-app="wellPlanner" data-ng-controller="registerBusinessController as pageController" data-ng-init="pageController.initializeFormValidators()">
+        <div class="wrapper ">
+            <div class="sidebar" data-color="white" data-active-color="danger">
+                <div class="logo">
+                    <a href="/" class="simple-text logo-normal text-center">
+                        Well Planner
+                    </a>
                 </div>
-                <a class="navbar-brand" href="#pablo">WELL-PLANNER</a>
+                <div class="sidebar-wrapper">
+                    <ul class="nav">
+                        <li class="active">
+                            <a href="/register-business-user">
+                                <i class="nc-icon nc-circle-10"></i>
+                                <p>Sign Up</p>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="/pages/login">
+                                <i class="nc-icon nc-button-power"></i>
+                                <p>Login</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-bar navbar-kebab"></span>
-                <span class="navbar-toggler-bar navbar-kebab"></span>
-                <span class="navbar-toggler-bar navbar-kebab"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navigation">
-                <ul class="navbar-nav">
-                    <li class="nav-item  active ">
-                        <a href="/register" class="nav-link">
-                            <i class="nc-icon nc-tap-01"></i>Register
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-        <!-- End Navbar -->
-    <div class="wrapper wrapper-full-page">
-        <div class="full-page section-image" filter-color="white" data-color="#F4F3EF">
-                <!--   you can change the color of the filter page using: data-color="blue | purple | green | orange | red | rose " -->
-            <div class="content">
-                <div class="container">
-                    <div class="col-lg-4 col-md-6 ml-auto mr-auto">
-                        <form class="form" data-ng-submit="loginPageCtrl.loginSubmission()">
-                            <div class="card card-plain card-login">
-                                <div class="card-header ">
-                                    <div class="card-header ">
-                                        <h3 class="header text-center">Login</h3>
-                                    </div>
-                                </div>
-                                <div class="card-body">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
+
+            <div class="main-panel">
+                <div class="content">
+                    <div class="col-md-6 mr-auto ml-auto">
+                            <!--      Wizard container        -->
+                        <div class="wizard-container">
+                            <div class="card card-wizard active" data-color="primary" id="wizardProfile">
+                                <form action="" method="" novalidate="novalidate">
+                                    <div class="card-header text-center">
+                                        <h3 class="card-title">
+                                            User Login Page
+                                        </h3>
+                                        <h5 class="description">Below information will let us know more about you</h5>
+                                        <div class="wizard-navigation">
+                                            <ul class="nav nav-pills">
+                                                <li class="nav-item" style="width: 33.3333%;">
+                                                    <a class="nav-link" href="#about" data-toggle="tab" role="tab" aria-controls="about" aria-selected="true">
+                                                        <i class="nc-icon nc-tie-bow"></i>
+                                                        Login Info
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div class="moving-tab" style="width: 33.3333%; transform: translate3d(0px, 0px, 0px); transition: transform 0s ease 0s;">
                                                 <i class="nc-icon nc-single-02"></i>
-                                            </span>
-                                        </div>
-                                        <input type="text" style="background-color: rgba(0,0,0,0.8);" class="form-control" data-ng-model="loginPageCtrl.email" placeholder="Login Email">
-                                    </div>
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">
-                                                <i class="nc-icon nc-key-25"></i>
-                                            </span>
-                                        </div>
-                                        <input type="password" style="background-color: rgba(0,0,0,0.8);" placeholder="Password" data-ng-model="loginPageCtrl.password" class="form-control">
-                                    </div>
-                                    <br/>
-                                    <div class="form-group">
-                                        <div class="form-check">
-                                            <label class="form-check-label">
-                                                <input class="form-check-input" type="checkbox" value="" checked="">
-                                                <span class="form-check-sign"></span>
-                                                Remember me
-                                            </label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="card-footer ">
-                                    <button class="btn btn-warning btn-round btn-block mb-3" type="submit">Submit</button>
-                                </div>
+                                    <div class="card-body">
+                                        <div class="tab-content">
+                                            <div class="tab-pane show active" id="about">
+                                                <h5 class="info-text"> Let's start with the basic information (with validation)</h5>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-lg-10 mt-3">
+
+                                                        <div class="input-group" id="businessNameInputGroup">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="nc-icon nc-shop"></i></span>
+                                                            </div>
+                                                            <input type="text" class="form-control" placeholder="Account Email (required)" name="userEmailAddress" data-ng-model="pageController.userEmailAddress">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-10 mt-3">
+                                                        <div class="input-group">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text"><i class="nc-icon nc-alert-circle-i"></i></span>
+                                                            </div>
+                                                            <input type="text" placeholder="Password" class="form-control" name="userPassword" data-ng-model="pageController.userPassword" type="password">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="pull-right">
+                                                <input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" name="finish" value="Submit" style="display: none;" data-ng-click="pageController.userLogin()">
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </form>
+                        </div>
+                            <!-- wizard container -->
                     </div>
                 </div>
-            </div>
-            <footer class="footer footer-black  footer-white ">
-                <div class="container-fluid">
-                    <div class="row">
-                        <nav class="footer-nav">
-                            <ul>
-                            </ul>
-                        </nav>
-                        <div class="credits ml-auto">
-                            <span class="copyright">
 
-                                <script>
-                  document.write(new Date().getFullYear())
-                </script>, made with <i class="fa fa-heart heart"></i> by Shiva Komatreddy
-                            </span>
+                <footer class="footer footer-black  footer-white ">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <nav class="footer-nav">
+                                <ul>
+                                </ul>
+                            </nav>
+                            <div class="credits ml-auto">
+                                <span class="copyright">
+                                    ©
+                                    <script>
+                                            document.write(new Date().getFullYear())
+                                    </script>, made with <i class="fa fa-heart heart"></i>  by Shiva Komatreddy
+                                </span>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </footer>
+                </footer>
+            </div>
         </div>
-    </div>
-        <!--   Core JS Files   -->
-    <script src="@routes.Assets.versioned("template_assets/js/core/jquery.min.js")"></script>
+            <!--   Core JS Files   -->
+        <script src="@routes.Assets.versioned("template_assets/js/core/jquery.min.js")"></script>
 
-    <script src="@routes.Assets.versioned("template_assets/js/core/popper.min.js")"></script>
+        <script src="@routes.Assets.versioned("template_assets/js/core/popper.min.js")"></script>
 
-    <script src="@routes.Assets.versioned("template_assets/js/core/bootstrap.min.js")"></script>
+        <script src="@routes.Assets.versioned("template_assets/js/core/bootstrap.min.js")"></script>
 
-    <script src="@routes.Assets.versioned("template_assets/js/plugins/perfect-scrollbar.jquery.min.js")"></script>
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/perfect-scrollbar.jquery.min.js")"></script>
 
-    <script src="@routes.Assets.versioned("template_assets/js/plugins/moment.min.js")"></script>
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/moment.min.js")"></script>
 
-        <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
-    <script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-switch.js")"></script>
+            <!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-switch.js")"></script>
 
-        <!--  Plugin for Sweet Alert -->
-    <script src="@routes.Assets.versioned("template_assets/js/plugins/sweetalert2.min.js")"></script>
-        <!-- Forms Validations Plugin -->
-    <script src="@routes.Assets.versioned("template_assets/js/plugins/jquery.validate.min.js")"></script>
-
-        <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
-    <script src="@routes.Assets.versioned("template_assets/js/plugins/jquery.bootstrap-wizard.js")"></script>
-
-        <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
-    <script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-selectpicker.js")"></script>
-
-        <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
-
-    <script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-datetimepicker.js")"></script>
-
-        <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
-
-    <script src="@routes.Assets.versioned("template_assets/js/plugins/jquery.dataTables.min.js")"></script>
-        <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
-    <script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-tagsinput.js")"></script>
-        <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
-
-    <script src="@routes.Assets.versioned("template_assets/js/plugins/jasny-bootstrap.min.js")"></script>
-        <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
-
-    <script src="@routes.Assets.versioned("template_assets/js/plugins/fullcalendar.min.js")"></script>
-        <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
-    <script src="@routes.Assets.versioned("template_assets/js/plugins/jquery-jvectormap.js")" ></script>
-        <!--  Plugin for the Bootstrap Table -->
-    <script src="@routes.Assets.versioned("template_assets/js/plugins/nouislider.min.js")" ></script>
-        <!--  Google Maps Plugin    -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-        <!-- Chart JS -->
-    <script src="@routes.Assets.versioned("template_assets/js/plugins/chartjs.min.js")"></script>
-        <!--  Notifications Plugin    -->
-    <script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-notify.js")" ></script>
-        <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="@routes.Assets.versioned("template_assets/js/paper-dashboard.min.js?v=2.0.1")" type="text/javascript"></script>
-        <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
-    <script src="@routes.Assets.versioned("template_assets/demo/demo.js")"></script>
-
-    <script src="@routes.Assets.versioned("node_modules/angular/angular.js")"></script>
-    <script src="@routes.Assets.versioned("node_modules/angular-animate/angular-animate.js")"></script>
-    <script src="@routes.Assets.versioned("node_modules/angular-aria/angular-aria.js")"></script>
-    <script src="@routes.Assets.versioned("node_modules/angular-material/angular-material.js")"></script>
-    <script src="@routes.Assets.versioned("node_modules/angular-jwt/dist/angular-jwt.js")"></script>
-    <script src="@routes.Assets.versioned("node_modules/angular-storage/dist/angular-storage.js")"></script>
-    <script src="@routes.Assets.versioned("node_modules/angular-ui-router/release/angular-ui-router.js")"></script>
-    <script src="@routes.Assets.versioned("node_modules/auth0-angular/build/auth0-angular.js")"></script>
-    <script src="@routes.Assets.versioned("node_modules/auth0-js/build/auth0.js")"></script>
-
-    <script src="@routes.Assets.versioned("javascripts/angular/main.js")"></script>
-    <script src="@routes.Assets.versioned("javascripts/angular/loginController.js")"></script>
+            <!--  Plugin for Sweet Alert -->
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/sweetalert2.min.js")"></script>
+            <!-- Forms Validations Plugin -->
+        @*        <script src="@routes.Assets.versioned("template_assets/js/plugins/jquery.validate.min.js")"></script>*@
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+        @*        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>*@
 
 
-    <script>
-    $(document).ready(function() {
-        demo.checkFullPageBackgroundImage();
-    });
-  </script>
-</body>
+            <!--  Plugin for the Wizard, full documentation here: https://github.com/VinceG/twitter-bootstrap-wizard -->
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/jquery.bootstrap-wizard.js")"></script>
+
+            <!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-selectpicker.js")"></script>
+
+            <!--  Plugin for the DateTimePicker, full documentation here: https://eonasdan.github.io/bootstrap-datetimepicker/ -->
+
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-datetimepicker.js")"></script>
+
+            <!--  DataTables.net Plugin, full documentation here: https://datatables.net/    -->
+
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/jquery.dataTables.min.js")"></script>
+            <!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-tagsinput.js")"></script>
+            <!-- Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/jasny-bootstrap.min.js")"></script>
+            <!--  Full Calendar Plugin, full documentation here: https://github.com/fullcalendar/fullcalendar    -->
+
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/fullcalendar.min.js")"></script>
+            <!-- Vector Map plugin, full documentation here: http://jvectormap.com/documentation/ -->
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/jquery-jvectormap.js")" ></script>
+            <!--  Plugin for the Bootstrap Table -->
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/nouislider.min.js")" ></script>
+            <!--  Google Maps Plugin    -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+            <!-- Chart JS -->
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/chartjs.min.js")"></script>
+            <!--  Notifications Plugin    -->
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/bootstrap-notify.js")" ></script>
+            <!-- Control Center for Now Ui Dashboard: parallax effects, scripts for the example pages etc -->
+        <script src="@routes.Assets.versioned("template_assets/js/paper-dashboard.min.js?v=2.0.1")" type="text/javascript"></script>
+            <!-- Paper Dashboard DEMO methods, don't include it in your project! -->
+        <script src="@routes.Assets.versioned("template_assets/demo/demo.js")"></script>
+
+        <script src="@routes.Assets.versioned("node_modules/angular/angular.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-animate/angular-animate.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-aria/angular-aria.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-material/angular-material.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-jwt/dist/angular-jwt.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-storage/dist/angular-storage.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/angular-ui-router/release/angular-ui-router.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/auth0-angular/build/auth0-angular.js")"></script>
+        <script src="@routes.Assets.versioned("node_modules/auth0-js/build/auth0.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/businessRegistrationWizard.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/wellPlannerValidators.js")"></script>
+
+        @*  only for module loading need to refactor and create two separate angular apps one for registration and the other one for the planning application *@
+        <script src="@routes.Assets.versioned("template_assets/js/plugins/angular-moment-picker.min.js")"></script>
+        <script>
+
+
+                <!-- javascript for Toggle Button Swtiches -->
+                $('.bootstrap-switch').each(function(){
+                    $this = $(this);
+                    data_on_label = $this.data('on-label') || '';
+                    data_off_label = $this.data('off-label') || '';
+
+                    $this.bootstrapSwitch({
+                        onText: data_on_label,
+                        offText: data_off_label
+                    });
+                });
+
+                <!-- javascript for Date Time Picker -->
+                $('.datetimepicker').datetimepicker({
+                    icons: {
+                        time: "fa fa-clock-o",
+                        date: "fa fa-calendar",
+                        up: "fa fa-chevron-up",
+                        down: "fa fa-chevron-down",
+                        previous: 'fa fa-chevron-left',
+                        next: 'fa fa-chevron-right',
+                        today: 'fa fa-screenshot',
+                        clear: 'fa fa-trash',
+                        close: 'fa fa-remove'
+                    }
+                });
+        </script>
+
+
+
+        <script src="@routes.Assets.versioned("javascripts/angular/main.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/signUpController.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/commonFactory.js")"></script>
+        <script src="@routes.Assets.versioned("javascripts/angular/registrationController.js")"></script>
+
+    </body>
 
 </html>
