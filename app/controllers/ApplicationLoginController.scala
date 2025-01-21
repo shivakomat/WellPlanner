@@ -30,8 +30,8 @@ class ApplicationLoginController  @Inject() (dbApi: DBApi, cc: ControllerCompone
 
   def loginUser: Action[JsValue] = Action(parse.json) { request =>
     val json = request.body
-    (json \ "username").asOpt[String].flatMap { username =>
-      (json \ "password").asOpt[String].flatMap { password =>
+    (json \ "user_email").asOpt[String].flatMap { username =>
+      (json \ "user_password").asOpt[String].flatMap { password =>
         usersApi.login(username, password) flatMap { user =>
           val token = JwtJson.encode(
             Json.obj("id" -> user.id, "username" -> user.username),

@@ -1,4 +1,4 @@
-app.controller('registerBusinessController', function($http, $window) {
+app.controller('registerBusinessController', function($http, $window, UserFactory) {
 
     console.log("Attached JS: registerBusinessController");
 
@@ -36,6 +36,17 @@ app.controller('registerBusinessController', function($http, $window) {
     pageCtrl.phoneNumberValidated = false;
     pageCtrl.businessNameValidated = false;
 
+    pageCtrl.userLogin = function () {
+        var user_login_data = {};
+        user_login_data.user_email = pageCtrl.userEmailAddress;
+        user_login_data.user_password = pageCtrl.userPassword;
+        UserFactory.loginUser(user_login_data, function mySuccess (response) {
+            console.log("successfully logged in user: " + response.data.data.email);
+            $window.location.href = "https://" + $window.location.host + "/pages/dashboard/:businessId/" + response.data.data.business_id ;
+        }, function myError (response) {
+            alerts.autoCloseAlert('success-message', 'Unable to find user', 'Please try again!');
+        });
+    }
 
     pageCtrl.isBusinessNameValidated = function () {
         var isValidAlphaNumeric = pageCtrl.isValidInput(pageCtrl.businessName);

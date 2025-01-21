@@ -61,7 +61,6 @@
                                         <h3 class="card-title">
                                             User Login Page
                                         </h3>
-                                        <h5 class="description">Below information will let us know more about you</h5>
                                         <div class="wizard-navigation">
                                             <ul class="nav nav-pills">
                                                 <li class="nav-item" style="width: 33.3333%;">
@@ -79,7 +78,6 @@
                                     <div class="card-body">
                                         <div class="tab-content">
                                             <div class="tab-pane show active" id="about">
-                                                <h5 class="info-text"> Let's start with the basic information (with validation)</h5>
                                                 <div class="row justify-content-center">
                                                     <div class="col-lg-10 mt-3">
 
@@ -95,7 +93,7 @@
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="nc-icon nc-alert-circle-i"></i></span>
                                                             </div>
-                                                            <input type="text" placeholder="Password" class="form-control" name="userPassword" data-ng-model="pageController.userPassword" type="password">
+                                                            <input type="password" placeholder="Password" class="form-control" name="userPassword" data-ng-model="pageController.userPassword">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -103,7 +101,7 @@
                                         </div>
                                         <div class="card-footer">
                                             <div class="pull-right">
-                                                <input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" name="finish" value="Submit" style="display: none;" data-ng-click="pageController.userLogin()">
+                                                <input type="button" class="btn btn-finish btn-fill btn-rose btn-wd" name="finish" value="Login" style="display: none;" data-ng-click="pageController.userLogin()">
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
