@@ -38,6 +38,7 @@ app.controller('registerBusinessController', function($http, $window, UserFactor
 
     pageCtrl.userLogin = function () {
         var user_login_data = {};
+        console.log("Hello world")
         user_login_data.user_email = pageCtrl.userEmailAddress;
         user_login_data.user_password = pageCtrl.userPassword;
         UserFactory.loginUser(user_login_data, function mySuccess (response) {
