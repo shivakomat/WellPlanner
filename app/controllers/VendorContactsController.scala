@@ -26,7 +26,7 @@ class VendorContactsController  @Inject()(dbApi: DBApi, cc: ControllerComponents
   private def badRequest: Future[Result] =
     Future.successful(errorResponse(BAD_REQUEST, Seq("Unable to recognize request")))
 
-  def newVendorContact(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def newVendorContact(): Action[JsValue] = Action.async(parse.json) { request =>
     println("A new vendor contact request accepted ")
 
     def createContact(newVendor: VendorContact): Future[Result] =
@@ -48,7 +48,7 @@ class VendorContactsController  @Inject()(dbApi: DBApi, cc: ControllerComponents
     successResponse(OK, Json.toJson(vendorContactsApi.getAllVendoMangeBy(projectId, businessId)), Seq("Successfully processed"))
   }
 
-  def newVendorManage(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def newVendorManage(): Action[JsValue] = Action.async(parse.json) { request =>
     println("A new vendor manage request accepted ")
 
     def createVendorManage(newVendorManageItem: VendorManage): Future[Result] =
@@ -66,7 +66,7 @@ class VendorContactsController  @Inject()(dbApi: DBApi, cc: ControllerComponents
     )
   }
 
-  def updateVendorContact(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def updateVendorContact(): Action[JsValue] = Action.async(parse.json) { request =>
     println("Updating vendor contact request accepted")
 
     def update(vendor: VendorContact): Future[Result] =

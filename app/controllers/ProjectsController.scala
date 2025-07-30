@@ -24,7 +24,7 @@ class ProjectsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
   private def badRequest: Future[Result] =
     Future.successful(errorResponse(BAD_REQUEST, Seq("Unable to recognize request")))
 
-  def newWeddingProject(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def newWeddingProject(): Action[JsValue] = Action.async(parse.json) { request =>
     println("Register new project request accepted ")
     def createProject(newProject: NewWeddingProjectMessage): Future[Result] =
       projectsApi.addNewWeddingEventProject(newProject) match {

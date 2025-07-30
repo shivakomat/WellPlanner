@@ -24,7 +24,7 @@ class ClientsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: 
   private def badRequest: Future[Result] =
     Future.successful(errorResponse(BAD_REQUEST, Seq("Unable to recognize request")))
 
-  def newClient(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def newClient(): Action[JsValue] = Action.async(parse.json) { request =>
     println("Adding of new client request incoming")
 
     def createClient(newClient: NewClientMessage): Future[Result] =
@@ -44,7 +44,7 @@ class ClientsController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: 
     )
   }
 
-  def updateClient(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def updateClient(): Action[JsValue] = Action.async(parse.json) { request =>
     println("Updated client request incoming")
 
     def update(client: NewClientMessage): Future[Result] =

@@ -7,7 +7,7 @@ import model.api.businesses.{AdminSignUpMessage, BusinessesApi}
 import model.dataModels.{Business, TeamMember}
 import play.api.Logger
 import play.api.db.DBApi
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.WSClient
 import play.api.mvc._
@@ -26,7 +26,7 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
   def logForSuccess(data: String) =
     logger.info(s"Successfully created \n tasks and id follows : \n { $data } ")
 
-  def registerNewBusiness(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def registerNewBusiness(): Action[JsValue] = Action.async(parse.json) { request =>
 
     println("Register new business request accepted ")
 
@@ -58,7 +58,7 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
     successResponse(OK, Json.toJson(businessesApi.businessInfo(businessId)), Seq("Successfully processed"))
   }
 
-  def updateBusinessInfo(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def updateBusinessInfo(): Action[JsValue] = Action.async(parse.json) { request =>
     println("Updating business info request accepted")
 
     def updateOperation(business: Business): Future[Result] =
@@ -76,7 +76,7 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
     )
   }
 
-  def updateTeamMember(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def updateTeamMember(): Action[JsValue] = Action.async(parse.json) { request =>
     println("Updating team info request accepted")
 
     def updateOperation(newTeamMember: TeamMember): Future[Result] =
@@ -94,7 +94,7 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
     )
   }
 
-  def addNewMemberToTeamByBusiness(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def addNewMemberToTeamByBusiness(): Action[JsValue] = Action.async(parse.json) { request =>
     request.body.validate[TeamMember].fold(
       errors => badRequest,
       newMember =>

@@ -9,7 +9,7 @@ import play.api.http.MimeTypes
 import play.api.libs.json.{JsObject, JsValue, Json}
 import play.api.libs.json.Json.toJsFieldJsValueWrapper
 import play.api.libs.ws._
-import play.api.mvc.{Action, AnyContent, Controller}
+import play.api.mvc.{Action, AnyContent, BaseController, ControllerComponents}
 import controllers.util.Auth0Config
 import play.api.Configuration
 import play.api.cache.SyncCacheApi
@@ -17,7 +17,8 @@ import model.api.users.{Users, _}
 import model.dataModels.User
 import play.api.db.DBApi
 
-class CallbackController @Inject() (dbApi: DBApi, cache: DefaultSyncCacheApi, ws: WSClient, configuration: Configuration) extends Controller {
+class CallbackController @Inject() (dbApi: DBApi, cache: DefaultSyncCacheApi, ws: WSClient, configuration: Configuration, cc: ControllerComponents) extends BaseController {
+  override protected def controllerComponents: ControllerComponents = cc
 
   private val config = Auth0Config.get(configuration)
 
@@ -36,8 +37,8 @@ class CallbackController @Inject() (dbApi: DBApi, cache: DefaultSyncCacheApi, ws
             val id = request.session.get("id").get
             cache.set(request.session.get("id").get + "profile", user)
             println("profile page route")
-            println(routes.ProfileController.profilePage())
-            Redirect(routes.ProfileController.profilePage())
+            println(routes.ProfileController.profilePage)
+            Redirect(routes.ProfileController.profilePage)
               .withSession(
                 "idToken" -> idToken,
                 "accessToken" -> accessToken,

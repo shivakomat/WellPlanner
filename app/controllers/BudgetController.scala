@@ -26,7 +26,7 @@ class BudgetController @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WS
     Future.successful(errorResponse(BAD_REQUEST, Seq("Unable to recognize request")))
 
 
-  def updateBreakdownInfo(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def updateBreakdownInfo(): Action[JsValue] = Action.async(parse.json) { request =>
     println("Updating task request accepted")
 
     def updateOperation(breakdown: BudgetBreakdowns): Future[Result] =
@@ -44,7 +44,7 @@ class BudgetController @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WS
     )
   }
 
-  def addNew(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def addNew(): Action[JsValue] = Action.async(parse.json) { request =>
     def create(newBreakDown: BudgetBreakdowns): Future[Result] = {
       breakdownsApi.addNewBreakDown(newBreakDown) match {
         case Right(data) =>
@@ -60,7 +60,7 @@ class BudgetController @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WS
     )
   }
 
-  def addNewPayment(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def addNewPayment(): Action[JsValue] = Action.async(parse.json) { request =>
     def create(payment: Payment): Future[Result] = {
       breakdownsApi.addPaymentToBudgetItem(payment) match {
         case Right(data) =>
@@ -76,7 +76,7 @@ class BudgetController @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WS
     )
   }
 
-  def updatePayment(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def updatePayment(): Action[JsValue] = Action.async(parse.json) { request =>
 
     def updateOperation(payment: Payment): Future[Result] =
       breakdownsApi.updatePayment(payment) match {

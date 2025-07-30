@@ -23,4 +23,6 @@ trait UsersDbApi  {
 
   def delete(username: String, password: String): Option[String]
 
+  def findByUsername(username: String): Option[User]
+
 }

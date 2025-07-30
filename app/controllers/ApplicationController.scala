@@ -8,7 +8,8 @@ import play.api.Configuration
 import play.api.cache._
 import play.api.mvc._
 
-class ApplicationController @Inject() (cache: DefaultSyncCacheApi, configuration: Configuration) extends Controller {
+class ApplicationController @Inject() (cache: DefaultSyncCacheApi, configuration: Configuration, cc: ControllerComponents) extends BaseController {
+  override protected def controllerComponents: ControllerComponents = cc
 
   private val config = Auth0Config.get(configuration)
 

@@ -37,4 +37,8 @@ object JsonFormats {
   implicit val timelineItemsListFormat = Json.format[TimelineItemsList]
   implicit val clientAccessFormat = Json.format[ClientAccess]
   implicit val clientLoginMessageFormat = Json.format[ClientLoginMessage]
+  
+  // New authentication-related formats
+  implicit val userRegistrationFormat = Json.format[UserRegistration]
+  implicit val loginResponseFormat = Json.format[LoginResponse]
 }

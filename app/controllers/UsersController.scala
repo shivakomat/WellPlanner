@@ -19,7 +19,7 @@ class UsersController @Inject() (dbApi: DBApi, cc: ControllerComponents) extends
   private def badRequest: Future[Result] =
     Future.successful(errorResponse(BAD_REQUEST, Seq("Unable to recognize request")))
 
-  def login() = Action.async(BodyParsers.parse.json) { request =>
+  def login() = Action.async(parse.json) { request =>
     def apiLogin(data: UserMessage) =
       api.login(data.username, data.password) match {
         case Some(user) =>
@@ -34,7 +34,7 @@ class UsersController @Inject() (dbApi: DBApi, cc: ControllerComponents) extends
     )
   }
 
-  def logoff() = Action.async(BodyParsers.parse.json) { request =>
+  def logoff() = Action.async(parse.json) { request =>
     def apiLogoff(data: UserMessage) =
       api.logOff(data.username, data.password) match {
         case Some(user) =>
@@ -49,7 +49,7 @@ class UsersController @Inject() (dbApi: DBApi, cc: ControllerComponents) extends
     )
   }
 
-  def register() = Action.async(BodyParsers.parse.json) { request =>
+  def register() = Action.async(parse.json) { request =>
     def apiRegister(newUser: User) =
       api.register(newUser) match {
         case Some(newUser) => Future.successful(successResponse(CREATED, Json.toJson(newUser), Seq(s"Successfully registered $newUser")))
@@ -93,7 +93,7 @@ class UsersController @Inject() (dbApi: DBApi, cc: ControllerComponents) extends
     successResponse(OK, Json.toJson(api.users()), Seq("Successfully processed"))
   }
 
-  def delete() = Action.async(BodyParsers.parse.json) { request =>
+  def delete() = Action.async(parse.json) { request =>
     def apiRemove(data: UserMessage) =
       api.remove(data) match {
         case Some(msg) =>

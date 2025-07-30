@@ -19,7 +19,7 @@ class UsersFacade @Inject() (dbApi: DBApi) extends UsersApi {
 
 
   override def emailCheck(email: String): Boolean =
-    db emailExists email
+    db.emailExists(email)
 
 
   override def login(username: String, password: String): Option[User] =
@@ -35,16 +35,19 @@ class UsersFacade @Inject() (dbApi: DBApi) extends UsersApi {
     } yield loggedOffUser
 
   override def register(newUser: User): Option[User] =
-    db add newUser
+    db.add(newUser)
 
   override def users(): Seq[User] =
-    db list
+    db.list
 
   override def remove(userMessage: UserMessage): Option[String] =
-    db delete(userMessage.username, userMessage.password)
+    db.delete(userMessage.username, userMessage.password)
 
 
   override def byAuth0Id(id: String): Option[User] =
-    db byAuth0Id(id)
+    db.byAuth0Id(id)
+
+  def findByUsername(username: String): Option[User] =
+    db.findByUsername(username)
 
 }

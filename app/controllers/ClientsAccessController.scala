@@ -25,7 +25,7 @@ class ClientsAccessController @Inject() (dbApi: DBApi, cc: ControllerComponents,
   private def badRequest: Future[Result] =
     Future.successful(errorResponse(BAD_REQUEST, Seq("Unable to recognize request")))
 
-  def addAccess(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def addAccess(): Action[JsValue] = Action.async(parse.json) { request =>
     def createTask(access: ClientAccess): Future[Result] = {
       clientAccessApi.addClientAccess(access) match {
         case Right(data) =>
@@ -45,7 +45,7 @@ class ClientsAccessController @Inject() (dbApi: DBApi, cc: ControllerComponents,
     successResponse(OK, Json.toJson(clientAccessApi.getAccessBy(projectId, businessId)), Seq("Successfully processed"))
   }
 
-  def loginSuccessfully() =  Action.async(BodyParsers.parse.json) { request =>
+  def loginSuccessfully() =  Action.async(parse.json) { request =>
 
     def tryLoggingClient(loginMsg: ClientLoginMessage): Future[Result] = {
       clientAccessApi.loginClient(loginMsg) match {
@@ -65,7 +65,7 @@ class ClientsAccessController @Inject() (dbApi: DBApi, cc: ControllerComponents,
   }
 
 
-  def updateClientAccess(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def updateClientAccess(): Action[JsValue] = Action.async(parse.json) { request =>
     println("Updated client request incoming")
 //    Redirect(routes.HomeController.clientTasksPage(2, 1))
 //      .withSession("hello world")

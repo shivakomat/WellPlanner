@@ -24,7 +24,7 @@ class TimelineController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
   private def badRequest: Future[Result] =
     Future.successful(errorResponse(BAD_REQUEST, Seq("Unable to recognize request")))
 
-  def newTimelineItem(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def newTimelineItem(): Action[JsValue] = Action.async(parse.json) { request =>
     def createItem(newItem: TimelineItem): Future[Result] =
       timelineApi.addNewItem(newItem) match {
         case Right(data) =>
@@ -49,7 +49,7 @@ class TimelineController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
   }
 
 
-  def updateTimelineItem(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def updateTimelineItem(): Action[JsValue] = Action.async(parse.json) { request =>
     println("Updating timeline item request accepted")
 
     def updateOperation(timelineItem: TimelineItem): Future[Result] =

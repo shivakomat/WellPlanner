@@ -8,7 +8,8 @@ import play.api.db.DBApi
 import play.api.libs.json._
 import play.api.mvc._
 
-class ProfileController @Inject() (dbApi: DBApi, cache: DefaultSyncCacheApi) extends Controller {
+class ProfileController @Inject() (dbApi: DBApi, cache: DefaultSyncCacheApi, cc: ControllerComponents) extends BaseController {
+  override protected def controllerComponents: ControllerComponents = cc
 
   private val userApi = new UsersFacade(dbApi)
 
@@ -19,7 +20,7 @@ class ProfileController @Inject() (dbApi: DBApi, cache: DefaultSyncCacheApi) ext
         request.session.get("id")
           .flatMap(id => Some(cache.get[JsValue](id + "profile")))
           .map(profile => f(request))
-          .orElse(Some(Redirect(routes.HomeController.loginPage()))).get
+          .orElse(Some(Redirect(routes.HomeController.loginPage))).get
     }
   }
 

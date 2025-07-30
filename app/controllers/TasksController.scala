@@ -24,7 +24,7 @@ class TasksController @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WSC
   private def badRequest: Future[Result] =
     Future.successful(errorResponse(BAD_REQUEST, Seq("Unable to recognize request")))
 
-  def addNewTasks(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def addNewTasks(): Action[JsValue] = Action.async(parse.json) { request =>
     def createTask(newTask: Task): Future[Result] = {
       tasksApi.addTask(newTask) match {
         case Right(data) =>
@@ -41,7 +41,7 @@ class TasksController @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WSC
   }
 
 
-  def addTaskItemToTask(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def addTaskItemToTask(): Action[JsValue] = Action.async(parse.json) { request =>
     println("Adding new task item request accepted")
 
     def createNewTaskItem(newTaskItem: TaskItem): Future[Result] = {
@@ -62,7 +62,7 @@ class TasksController @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WSC
     )
   }
 
-  def updateTask(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def updateTask(): Action[JsValue] = Action.async(parse.json) { request =>
     println("Updating task request accepted")
 
     def updateOperation(task: Task): Future[Result] =
@@ -80,7 +80,7 @@ class TasksController @Inject() (dbApi: DBApi, cc: ControllerComponents, ws: WSC
     )
   }
 
-  def addCommentToTask(): Action[JsValue] = Action.async(BodyParsers.parse.json) { request =>
+  def addCommentToTask(): Action[JsValue] = Action.async(parse.json) { request =>
     def addComment(comment: TaskComment): Future[Result] = {
       tasksApi.addCommentToTask(comment) match {
         case Right(data) =>

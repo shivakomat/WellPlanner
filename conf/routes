@@ -197,7 +197,29 @@ GET     /businesses/teamMembers/:businessId   controllers.BusinessController.all
 +nocsrf
 POST    /businesses/teamMembers            controllers.BusinessController.updateTeamMember()
 
-# # Users
+# Secure Authentication API
++nocsrf
+POST    /api/auth/login             controllers.SecureUsersController.login
++nocsrf
+POST    /api/auth/register          controllers.SecureUsersController.register
+GET     /api/auth/username/:username/exists    controllers.SecureUsersController.usernameExists(username: String)
+GET     /api/auth/email/:email/exists          controllers.SecureUsersController.emailExists(email: String)
+
+# Protected User Endpoints (requires JWT token)
+GET     /api/user/profile           controllers.SecureUsersController.profile
++nocsrf
+PUT     /api/user/profile           controllers.SecureUsersController.updateProfile
++nocsrf
+POST    /api/user/change-password   controllers.SecureUsersController.changePassword
++nocsrf
+POST    /api/user/logout            controllers.SecureUsersController.logout
+
+# Admin-only Endpoints (requires JWT token + admin role)
+GET     /api/admin/users            controllers.SecureUsersController.users
++nocsrf
+DELETE  /api/admin/users/:userId    controllers.SecureUsersController.deleteUser(userId: Int)
+
+# # Legacy Users (for backward compatibility)
 GET     /users/:username               controllers.UsersController.usernameExists(username)
 GET     /users/:email                  controllers.UsersController.usernameExists(email)
 GET     /users/auth0/:auth0Id                controllers.UsersController.byAuth0Id(auth0Id)

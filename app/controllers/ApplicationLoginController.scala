@@ -8,7 +8,7 @@ import model.api.users.{UsersApi, UsersFacade}
 import pdi.jwt.{JwtAlgorithm, JwtJson}
 import play.api.Logger
 import play.api.db.DBApi
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.libs.json.{JsValue, Json}
 import play.api.libs.ws.WSClient
 import play.api.mvc._

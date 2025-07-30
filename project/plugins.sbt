@@ -2,4 +2,12 @@ logLevel := Level.Warn
 
 resolvers += "Typesafe repository" at "https://repo.typesafe.com/typesafe/releases/"
 
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.7.3")
+// Use the latest stable Play 2.9 plugin
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.9.0")
+
+// Recommended: sbt-native-packager (used by Play for packaging/deployment tasks)
+addSbtPlugin("com.github.sbt" % "sbt-native-packager" % "1.10.0")
+
+
+
+

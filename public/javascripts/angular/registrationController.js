@@ -56,56 +56,99 @@ app.controller('registerBusinessController', function($http, $window, CommonsFac
 
 
     pageController.completeRegistration = function () {
-        console.log("Inside Complete Registration Page");
+        console.log("Inside Complete Registration Page - Using Secure Authentication");
 
-        var data = {};
-        data.businessName = pageController.businessName;
-        data.password = pageController.password;
-        data.email = pageController.email;
-        data.socialMediaUrl = pageController.socialMediaUrl;
+        var userData = {
+            username: pageController.businessName.toLowerCase().replace(/\s+/g, ''), // Convert business name to username
+            password: pageController.password,
+            email: pageController.email,
+            business_id: 1, // Default business ID
+            is_admin: true, // Business owner is admin
+            is_customer: false,
+            is_an_employee: true
+        };
 
-        // console.log("incoming data -> " + JSON.stringify(data));
+        console.log("Registering user with secure authentication...");
 
+        // Step 1: Register user with our secure authentication system
         $http({
-            'crossDomain': true,
-            'url': 'https://wellplanner.auth0.com/dbconnections/signup',
-            'method': 'POST',
-            'headers': {
+            method: 'POST',
+            url: '/api/auth/register',
+            headers: {
                 'Content-Type': 'application/json'
             },
-            'data': {
-                'client_id': 'Kp0T1n3QIsJqcvR5dJTDJ0ghbR4idZvr',
-                'email': pageController.email,
-                'password': pageController.password,
-                'connection': 'well-planner-users',
-                'name': pageController.businessName,
-                'user_metadata': {'color': 'red'}
-            }
+            data: userData
         }).then(function successCallback(response) {
-            var newBusiness =  {};
-            newBusiness.email = response.data.email;
-            newBusiness.password = data.password;
-            newBusiness.businessName = data.businessName;
-            newBusiness.socialMediaUrl = data.socialMediaUrl;
-            newBusiness.auth0Id = response.data._id;
-
+            console.log("User registration successful:", response.data);
+            
+            // Step 2: Automatically log in the user after successful registration
+            var loginData = {
+                username: userData.username,
+                password: userData.password
+            };
+            
             $http({
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                url: '/businesses/signUp',
-                data: newBusiness,
-            }).then(function mySuccess() {
-                CommonsFactory.getUserByAuthOId(newBusiness.auth0Id, function success (response) {
-                    $window.location.href = "https://" + $window.location.host + "/pages/dashboard/" + response.data.data.business_id
-                }, function errorCallback() {
-                    alert("Internal Registration Error!!");
+                url: '/api/auth/login',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: loginData
+            }).then(function loginSuccess(loginResponse) {
+                console.log("Login successful:", loginResponse.data);
+                
+                // Store JWT token in localStorage for future requests
+                if (loginResponse.data.data && loginResponse.data.data.token) {
+                    localStorage.setItem('wellplanner_token', loginResponse.data.data.token);
+                    localStorage.setItem('wellplanner_user', JSON.stringify(loginResponse.data.data.user));
+                }
+                
+                // Step 3: Create business record with the new user
+                var newBusiness = {
+                    email: userData.email,
+                    businessName: pageController.businessName,
+                    socialMediaUrl: pageController.socialMediaUrl || "",
+                    password: userData.password, // backend still expects plain password; consider hashing server-side
+                    auth0Id: "na"
+                };
+                
+                $http({
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + loginResponse.data.data.token // Include JWT token
+                    },
+                    url: '/businesses/signUp',
+                    data: newBusiness
+                }).then(function businessSuccess(businessResponse) {
+                    console.log("Business creation successful:", businessResponse.data);
+                    
+                    // Step 4: Redirect to dashboard
+                    var businessId = businessResponse.data.business_id || userData.business_id;
+                    $window.location.href = "/pages/dashboard/" + businessId;
+                    
+                }, function businessError(error) {
+                    console.error("Business creation error:", error);
+                    alert("Business registration failed. Please try again.");
                 });
-            }, function myError() {
-                alert("Internal Registration Error!!");
-            })
-
-        }, function errorCallback(response) {
-            alert("Authentication Registration Error!!")
+                
+            }, function loginError(error) {
+                console.error("Auto-login error:", error);
+                alert("Registration successful but login failed. Please try logging in manually.");
+                $window.location.href = "/pages/login";
+            });
+            
+        }, function errorCallback(error) {
+            console.error("User registration error:", error);
+            
+            // Handle specific error cases
+            if (error.status === 409) {
+                alert("Username or email already exists. Please choose different credentials.");
+            } else if (error.status === 400) {
+                alert("Invalid registration data. Please check your inputs and try again.");
+            } else {
+                alert("Registration failed. Please try again.");
+            }
         });
     };
 

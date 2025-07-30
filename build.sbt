@@ -1,48 +1,49 @@
-name := """well-planner"""
- 
-version := "1.0" 
-      
-lazy val `wellplanner` = (project in file(".")).enablePlugins(PlayScala)
+name := "well-planner"
 
-resolvers += "scalaz-bintray" at "https://dl.bintray.com/scalaz/releases"
-      
-resolvers += "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
-      
-scalaVersion := "2.12.2"
+version := "1.0"
 
-libraryDependencies ++= Seq( ehcache , ws , specs2 % Test , guice )
-libraryDependencies += evolutions
-libraryDependencies += cache
-libraryDependencies += cacheApi
+scalaVersion := "2.13.12"
+lazy val playVersion = "2.9.0"
 
-libraryDependencies += "com.h2database" % "h2" % "1.4.197"
+// Force scala-xml to resolve version conflicts (required for Play plugins)
+dependencyOverrides += "org.scala-lang.modules" %% "scala-xml" % "1.2.0"
 
-libraryDependencies += "org.playframework.anorm" %% "anorm" % "2.6.2"
+// Enable Play Framework
+lazy val wellplanner = (project in file(".")).enablePlugins(PlayScala)
 
-libraryDependencies += "org.postgresql" % "postgresql" % "9.4-1206-jdbc4"
-libraryDependencies += "com.typesafe.play" %% "play-slick" % "4.0.0"
-libraryDependencies += "com.typesafe.play" %% "play-slick-evolutions" % "4.0.0"
-libraryDependencies += "com.typesafe.slick" %% "slick-codegen" % "3.2.0"
+// Modern, working resolvers
+resolvers ++= Seq(
+  "Akka Snapshot Repository" at "https://repo.akka.io/snapshots/"
+)
 
-libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.1" % Test
+// Required Play modules
+libraryDependencies ++= Seq(
+  guice,
+  ehcache,
+  ws,
+  specs2 % Test,
+  evolutions,
+  caffeine,
+  "com.h2database" % "h2" % "1.4.197",
+  "org.playframework.anorm" %% "anorm" % "2.7.0",
+  "org.postgresql" % "postgresql" % "9.4-1206-jdbc4",
+  "com.typesafe.play" %% "play-slick" % "5.1.0",
+  "com.typesafe.play" %% "play-slick-evolutions" % "5.1.0",
+  "com.typesafe.slick" %% "slick-codegen" % "3.4.1",
+  "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test,
+  "com.sun.mail" % "javax.mail" % "1.6.2",
+  "com.typesafe.akka" %% "akka-http-core" % "10.2.10",
+  "org.jsoup" % "jsoup" % "1.11.3",
+  "com.typesafe.play" %% "play-json-joda" % "2.10.0",
+  "com.github.jwt-scala" %% "jwt-play" % "9.4.4",
+  "com.github.jwt-scala" %% "jwt-core" % "9.4.4",
+  "com.auth0" % "jwks-rsa" % "0.6.1",
+  "net.java.dev.jna" % "jna" % "5.13.0",
+  "com.typesafe.play" %% "play" % playVersion
+)
 
-// https://mvnrepository.com/artifact/com.sun.mail/javax.mail
-libraryDependencies += "com.sun.mail" % "javax.mail" % "1.6.2"
+// sbt-web fix for Play's test assets
+unmanagedResourceDirectories in Test += baseDirectory.value / "target/web/public/test"
 
-libraryDependencies += "org.skinny-framework" %% "skinny-http-client" % "2.3.7"
-libraryDependencies += ws
-libraryDependencies += ehcache
-
-
-// https://mvnrepository.com/artifact/org.jsoup/jsoup
-libraryDependencies += "org.jsoup" % "jsoup" % "1.11.3"
-
-// https://mvnrepository.com/artifact/com.typesafe.play/play-json-joda
-libraryDependencies += "com.typesafe.play" %% "play-json-joda" % "2.6.0-RC1"
-
-
-libraryDependencies += "com.pauldijou" %% "jwt-play" % "0.19.0"
-libraryDependencies += "com.pauldijou" %% "jwt-core" % "0.19.0"
-libraryDependencies += "com.auth0" % "jwks-rsa" % "0.6.1"
-
-unmanagedResourceDirectories in Test <+=  baseDirectory ( _ /"target/web/public/test" )
+// Disable file watch service (optional but speeds up dev mode on macOS)
+javaOptions in Runtime += "-Dplay.fileWatchService=noop"
