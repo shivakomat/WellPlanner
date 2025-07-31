@@ -10,7 +10,7 @@ app.config(function ($provide, authProvider, $urlRouterProvider, $httpProvider, 
                 // Allow same origin resource loads.
                 'self',
                 // Allow loading from our assets domain. **.
-                'https://wellplanner.herokuapp.com/assets/**'
+                'https://*.herokuapp.com/assets/**'
         ]);
 });
 

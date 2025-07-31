@@ -1808,3 +1808,4 @@ java.nio.file.FileSystemNotFoundException: Provider "readonly" not installed
 	at java.base/java.lang.Thread.run(Thread.java:840)
 
 2025.07.31 11:25:23 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner/build.sbt. Using presentation compiler with project's scala-library version: 3.3.6
+2025.07.31 11:28:29 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner/build.sbt. Using presentation compiler with project's scala-library version: 3.3.6
