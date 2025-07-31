@@ -181,10 +181,10 @@ app.constant('config', {
 
 // Production base URL
 
-// var baseUrl = "https://well-planner-248f4a7d862e.herokuapp.com/assets/javascripts/angular";
+var baseUrl = "https://well-planner-248f4a7d862e.herokuapp.com/assets/javascripts/angular";
 
 // Dev Base URL
-var baseUrl = "http://localhost:9000/assets/javascripts/angular";
+// var baseUrl = "http://localhost:9000/assets/javascripts/angular";
 
 app.constant('templates', {
         newProjectModal:  baseUrl + "/newProjectModal.html",
