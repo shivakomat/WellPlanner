@@ -175,16 +175,16 @@ app.directive('tooltip', function(){
 
 // PROD Constants
 app.constant('config', {
-        appHost: 'https://https://well-planner-248f4a7d862e.herokuapp.com',
+        appHost: 'https://well-planner-248f4a7d862e.herokuapp.com',
         appAngularAssets: 'https://well-planner-248f4a7d862e.herokuapp.com/assets/javascripts/angular/'
 });
 
 // Production base URL
 
-var baseUrl = "https://https://well-planner-248f4a7d862e.herokuapp.com/assets/javascripts/angular";
+// var baseUrl = "https://well-planner-248f4a7d862e.herokuapp.com/assets/javascripts/angular";
 
 // Dev Base URL
-// var baseUrl = "http://localhost:7000/assets/javascripts/angular";
+var baseUrl = "http://localhost:9000/assets/javascripts/angular";
 
 app.constant('templates', {
         newProjectModal:  baseUrl + "/newProjectModal.html",

@@ -68,7 +68,7 @@ class UsersDbFacade @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) wit
 
       SQL("insert into users(logged_in, user_auth_0_id, username, password, password_salt, email, business_id, is_admin, is_customer, is_an_employee, modified_date, created_date) " +
                  "values ({logged_in}, {user_auth_0_id}, {username}, {password}, {password_salt}, {email}, {business_id}, {is_admin}, {is_customer}, {is_an_employee}, {modified_date}, {created_date})")
-        .on("logged_in" -> u.logged_in, "user_auth_0_id" -> u.user_auth_0_id, "username" -> u.username, "password" -> u.password, "password_salt" -> u.password_salt, "email" -> u.email,
+        .on("logged_in" -> u.logged_in, "user_auth_0_id" -> u.user_auth_0_id, "username" -> u.email, "password" -> u.password, "password_salt" -> u.password_salt, "email" -> u.email,
           "business_id" -> u.business_id, "is_admin" -> u.is_admin, "is_customer" -> u.is_customer, "is_an_employee" -> u.is_an_employee, "modified_date" -> u.modified_date, "created_date" -> u.created_date)
         .executeInsert()
       println("execution completed")
