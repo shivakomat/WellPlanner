@@ -26,7 +26,7 @@ libraryDependencies ++= Seq(
   caffeine,
   "com.h2database" % "h2" % "1.4.197",
   "org.playframework.anorm" %% "anorm" % "2.7.0",
-  "org.postgresql" % "postgresql" % "9.4-1206-jdbc4",
+  "org.postgresql" % "postgresql" % "42.7.3", // upgraded for SCRAM-SHA-256 auth
   "com.typesafe.play" %% "play-slick" % "5.1.0",
   "com.typesafe.play" %% "play-slick-evolutions" % "5.1.0",
   "com.typesafe.slick" %% "slick-codegen" % "3.4.1",

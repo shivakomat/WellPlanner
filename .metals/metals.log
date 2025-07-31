@@ -1771,3 +1771,40 @@ WARNING: Unmatched cancel notification for request id 3480
 2025.07.31 10:30:14 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner/app/model/databases/BusinessDbApi.scala. Using presentation compiler with project's scala-library version: 3.3.6
 2025.07.31 10:30:14 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner/app/model/databases/BusinessesDb.scala. Using presentation compiler with project's scala-library version: 3.3.6
 2025.07.31 10:30:14 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner/app/controllers/HomeController.scala. Using presentation compiler with project's scala-library version: 3.3.6
+2025.07.31 11:22:23 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner/build.sbt. Using presentation compiler with project's scala-library version: 3.3.6
+2025.07.31 11:22:24 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner/build.sbt. Using presentation compiler with project's scala-library version: 3.3.6
+2025.07.31 11:22:24 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner/build.sbt
+Jul 31, 2025 11:22:56 AM org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleNotification
+WARNING: Notification threw an exception: {
+  "jsonrpc": "2.0",
+  "method": "metals/didFocusTextDocument",
+  "params": [
+    "readonly:original_file%3A///Users/shivakomatreddy/IdeaProjects/WellPlanner/build.sbt"
+  ]
+}
+java.nio.file.FileSystemNotFoundException: Provider "readonly" not installed
+	at java.base/java.nio.file.Path.of(Path.java:212)
+	at java.base/java.nio.file.Paths.get(Paths.java:98)
+	at scala.meta.internal.mtags.MtagsEnrichments$XtensionURIMtags.toAbsolutePath(MtagsEnrichments.scala:130)
+	at scala.meta.internal.mtags.MtagsEnrichments$XtensionStringMtags.toAbsolutePath(MtagsEnrichments.scala:190)
+	at scala.meta.internal.metals.MetalsEnrichments$XtensionString.toAbsolutePath(MetalsEnrichments.scala:787)
+	at scala.meta.internal.metals.MetalsEnrichments$XtensionString.toAbsolutePath(MetalsEnrichments.scala:784)
+	at scala.meta.internal.metals.WorkspaceLspService.didFocus(WorkspaceLspService.scala:786)
+	at scala.meta.metals.lsp.DelegatingScalaService.didFocus(DelegatingScalaService.scala:42)
+	at jdk.internal.reflect.GeneratedMethodAccessor14.invoke(Unknown Source)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:569)
+	at org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.lambda$recursiveFindRpcMethods$0(GenericEndpoint.java:65)
+	at org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.notify(GenericEndpoint.java:160)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.handleNotification(RemoteEndpoint.java:231)
+	at org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.consume(RemoteEndpoint.java:198)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.handleMessage(StreamMessageProducer.java:185)
+	at org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.listen(StreamMessageProducer.java:97)
+	at org.eclipse.lsp4j.jsonrpc.json.ConcurrentMessageProcessor.run(ConcurrentMessageProcessor.java:114)
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:539)
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1136)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+	at java.base/java.lang.Thread.run(Thread.java:840)
+
+2025.07.31 11:25:23 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner/build.sbt. Using presentation compiler with project's scala-library version: 3.3.6
