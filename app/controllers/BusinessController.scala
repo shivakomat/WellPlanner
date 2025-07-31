@@ -30,17 +30,17 @@ class BusinessController  @Inject() (dbApi: DBApi, cc: ControllerComponents, ws:
 
     println("Register new business request accepted ")
 
-    def logForSuccess(data: String) =
+  def logForSuccess(data: String) =
       logger.info(s"Successfully registered \n user details follow : \n { $data } ")
 
-    def apiRegister(newBusiness: AdminSignUpMessage): Future[Result] =
-      businessesApi.signUpBusiness(newBusiness) match {
-        case Right(data) =>
-          logForSuccess(Json.toJson(data).toString)
-          Future.successful(successResponse(CREATED, Json.toJson(data), Seq(s"Successfully registered ${data._1.name}")))
-        case Left(errorMsg) =>
-          Future.successful(errorResponse(FOUND, Seq(s"Error: $errorMsg")))
-      }
+  def apiRegister(newBusiness: AdminSignUpMessage): Future[Result] =
+    businessesApi.signUpBusiness(newBusiness) match {
+      case Right(data) =>
+        logForSuccess(Json.toJson(data).toString)
+        Future.successful(successResponse(CREATED, Json.toJson(data), Seq(s"Successfully registered ${data._1.name}")))
+      case Left(errorMsg) =>
+        Future.successful(errorResponse(FOUND, Seq(s"Error: $errorMsg")))
+    }
 
     request.body.validate[AdminSignUpMessage].fold(
       errors => badRequest,

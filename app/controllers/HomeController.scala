@@ -32,6 +32,10 @@ class HomeController @Inject()(cc: ControllerComponents) extends AbstractControl
     Ok(views.html.timeline("Wedding Day Timeline", projectId, businessId))
   }
 
+  def userRegisterPage = Action {
+    Ok(views.html.userRegister("User Registration"))
+  }
+
   def projectSettings(projectId: Int, businessId: Int) = Action {
     Ok(views.html.projectSettings("Project Settings", projectId, businessId))
   }

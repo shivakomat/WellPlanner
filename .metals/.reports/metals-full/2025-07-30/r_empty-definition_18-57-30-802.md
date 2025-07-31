@@ -1,3 +1,14 @@
+error id: file://<WORKSPACE>/app/model/api/businesses/BusinessesApi.scala:scala/package.Right.
+file://<WORKSPACE>/app/model/api/businesses/BusinessesApi.scala
+empty definition using pc, found symbol in pc: scala/package.Right.
+empty definition using semanticdb
+empty definition using fallback
+non-local guesses:
+
+offset: 1950
+uri: file://<WORKSPACE>/app/model/api/businesses/BusinessesApi.scala
+text:
+```scala
 package model.api.businesses
 
 import model.api.users.{UsersApi, UsersFacade}
@@ -20,9 +31,9 @@ class BusinessesApi(dbApi: DBApi, ws: WSClient) {
 
       def registerBusiness: Option[Business] = {
         val business =
-          Business(name = newBusiness.businessName, city = Some("N/A"), email = Some(newBusiness.email),
-                   state = Some("N/A"), phone_number = Some(""), social_media_link = Some(newBusiness.socialMediaUrl),
-                   country = Some("N/A"), modified_date = DateTimeNow.getCurrent, created_date = DateTimeNow.getCurrent)
+          Business(name = newBusiness.businessName, email = newBusiness.email,  city = "N/A",
+                   state = "N/A", phone_number = "", social_media_link = newBusiness.socialMediaUrl,
+                   country = "N/A", modified_date = DateTimeNow.getCurrent, created_date = DateTimeNow.getCurrent)
 
         businessesDb
           .addNewBusiness(business)
@@ -39,29 +50,32 @@ class BusinessesApi(dbApi: DBApi, ws: WSClient) {
       val businessRegistered = registerBusiness
       businessRegistered match {
         case Some(business) =>
-          println("Business registered successfully with id: " + business.id.get + " and user informaiton: " + newBusiness.email)
           val userRegistered = registerUser(business.id.get)
           userRegistered match {
-            case Some(user) => Right((business, user))
-            case None =>
+            case Some(user) => Rig@@ht((business, user))
+            case None => 
               deleteBusiness(business.id.get)
               Left("Failed to Register User with business id: " + business.id.get + " and user informaiton: " + newBusiness.email)
           }
         case None => Left("Failed to Register Business Name")
       }
 
-  }
+      val result = for {
+         businessRegistered <- registerBusiness
+         println(businessRegistered)
+         userRegistered <- registerUser(businessRegistered.id.get)
+         println(userRegistered)
+        } yield Right((businessRegistered, userRegistered))
 
-  def deleteBusiness(id: Int): Int = businessesDb.deleteBusiness(id)
+      result.getOrElse(Left("Failed to Register"))
+  }
 
   def businessExists(businessName: String): Boolean = {
     businessesDb.existsByName(businessName)
   }
 
   def businessInfo(businessId: Int): Option[Business] = {
-    val result = businessesDb.byId(businessId)
-    println("Business info: " + result.toString())
-    result
+    businessesDb.byId(businessId)
   }
 
 
@@ -103,3 +117,9 @@ class BusinessesApi(dbApi: DBApi, ws: WSClient) {
 
 
 }
+```
+
+
+#### Short summary: 
+
+empty definition using pc, found symbol in pc: scala/package.Right.

@@ -8,7 +8,9 @@ trait BusinessDbApi {
 
   def list(): Seq[Business]
 
+  def deleteBusiness(id: Int): Int
+
 //  def businessKpi(id: Int)
 //
-//  def updateBusinessInfo(business: Business): Future[Business]
+ def updateBusinessInfo(business: Business): Int
 }

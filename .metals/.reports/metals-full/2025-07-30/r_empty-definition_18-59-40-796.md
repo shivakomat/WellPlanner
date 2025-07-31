@@ -1,3 +1,14 @@
+error id: file://<WORKSPACE>/app/model/api/businesses/BusinessesApi.scala:`<none>`.
+file://<WORKSPACE>/app/model/api/businesses/BusinessesApi.scala
+empty definition using pc, found symbol in pc: `<none>`.
+empty definition using semanticdb
+empty definition using fallback
+non-local guesses:
+
+offset: 2562
+uri: file://<WORKSPACE>/app/model/api/businesses/BusinessesApi.scala
+text:
+```scala
 package model.api.businesses
 
 import model.api.users.{UsersApi, UsersFacade}
@@ -20,9 +31,9 @@ class BusinessesApi(dbApi: DBApi, ws: WSClient) {
 
       def registerBusiness: Option[Business] = {
         val business =
-          Business(name = newBusiness.businessName, city = Some("N/A"), email = Some(newBusiness.email),
-                   state = Some("N/A"), phone_number = Some(""), social_media_link = Some(newBusiness.socialMediaUrl),
-                   country = Some("N/A"), modified_date = DateTimeNow.getCurrent, created_date = DateTimeNow.getCurrent)
+          Business(name = newBusiness.businessName, email = newBusiness.email,  city = "N/A",
+                   state = "N/A", phone_number = "", social_media_link = newBusiness.socialMediaUrl,
+                   country = "N/A", modified_date = DateTimeNow.getCurrent, created_date = DateTimeNow.getCurrent)
 
         businessesDb
           .addNewBusiness(business)
@@ -50,18 +61,25 @@ class BusinessesApi(dbApi: DBApi, ws: WSClient) {
         case None => Left("Failed to Register Business Name")
       }
 
-  }
+      // val result = for {
+      //    businessRegistered <- registerBusiness
+      //    println(businessRegistered)
+      //    userRegistered <- registerUser(businessRegist@@ered.id.get)
+      //    println(userRegistered)
+      //   } yield Right((businessRegistered, userRegistered))
 
-  def deleteBusiness(id: Int): Int = businessesDb.deleteBusiness(id)
+      // result.getOrElse{
+      //   deleteBusiness(businessRegistered.id.get) 
+      //   Left("Failed to Register")
+      // }
+  }
 
   def businessExists(businessName: String): Boolean = {
     businessesDb.existsByName(businessName)
   }
 
   def businessInfo(businessId: Int): Option[Business] = {
-    val result = businessesDb.byId(businessId)
-    println("Business info: " + result.toString())
-    result
+    businessesDb.byId(businessId)
   }
 
 
@@ -103,3 +121,9 @@ class BusinessesApi(dbApi: DBApi, ws: WSClient) {
 
 
 }
+```
+
+
+#### Short summary: 
+
+empty definition using pc, found symbol in pc: `<none>`.

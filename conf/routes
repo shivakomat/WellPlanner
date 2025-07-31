@@ -17,7 +17,8 @@ GET     /profile                    controllers.HomeController.profile
 GET     /pages/invoices             controllers.HomeController.invoicesPage
 GET     /pages/calendar             controllers.HomeController.businessCalendar
 GET     /pages/login                controllers.HomeController.loginPage
-GET     /pages/profile             controllers.ProfileController.profilePage
+GET     /pages/profile              controllers.ProfileController.profilePage
+GET     /pages/user-registration    controllers.HomeController.userRegisterPage
 
 
 

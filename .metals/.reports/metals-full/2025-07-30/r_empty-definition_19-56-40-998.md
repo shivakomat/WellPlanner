@@ -1,3 +1,25 @@
+error id: file://<WORKSPACE>/app/model/databases/BusinessesDb.scala:`<none>`.
+file://<WORKSPACE>/app/model/databases/BusinessesDb.scala
+empty definition using pc, found symbol in pc: `<none>`.
+empty definition using semanticdb
+empty definition using fallback
+non-local guesses:
+	 -anorm/business/about.
+	 -anorm/business/about#
+	 -anorm/business/about().
+	 -model/tools/AnormExtension.business.about.
+	 -model/tools/AnormExtension.business.about#
+	 -model/tools/AnormExtension.business.about().
+	 -business/about.
+	 -business/about#
+	 -business/about().
+	 -scala/Predef.business.about.
+	 -scala/Predef.business.about#
+	 -scala/Predef.business.about().
+offset: 2725
+uri: file://<WORKSPACE>/app/model/databases/BusinessesDb.scala
+text:
+```scala
 package model.databases
 
 import anorm.{Macro, RowParser, _}
@@ -63,10 +85,16 @@ class BusinessesDb @Inject() (dbApi: DBApi) extends PostgresDatabase(dbApi) with
         " state = {state}, country = {country}, modified_date = {modified_date}, created_date = {created_date}" +
         " where id = {business_id}")
         .on("name"  -> business.name, "email" -> business.email, "city" -> business.city,
-          "about" -> business.about, "phone_number" -> business.phone_number, "social_media_link" -> business.social_media_link,
+          "about" -> business.a@@bout, "phone_number" -> business.phone_number, "social_media_link" -> business.social_media_link,
           "state" -> business.state, "country" -> business.country, "modified_date" -> business.modified_date,
           "created_date" -> business.created_date, "business_id" -> business.id)
         .executeUpdate()
     }
 
 }
+```
+
+
+#### Short summary: 
+
+empty definition using pc, found symbol in pc: `<none>`.
