@@ -1,4 +1,1 @@
-web: target/universal/stage/bin/well-planner \
-     -Dconfig.resource=application.prod.conf \
-     -Dplay.http.secret.key=${PLAY_SECRET} \
-     -Dhttp.port=${PORT}
+web: target/universal/stage/bin/well-planner -Dconfig.resource=application.prod.conf -Dplay.http.secret.key=${PLAY_SECRET} -Dhttp.port=${PORT}
