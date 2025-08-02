@@ -1809,3 +1809,164 @@ java.nio.file.FileSystemNotFoundException: Provider "readonly" not installed
 
 2025.07.31 11:25:23 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner/build.sbt. Using presentation compiler with project's scala-library version: 3.3.6
 2025.07.31 11:28:29 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner/build.sbt. Using presentation compiler with project's scala-library version: 3.3.6
+2025.07.31 11:52:29 INFO  Shutting down server
+2025.07.31 11:52:29 INFO  shutting down Metals
+2025.07.31 11:52:29 INFO  Exiting server
+2025.07.31 11:52:41 INFO  Started: Metals version 1.6.0 in folders '/Users/shivakomatreddy/IdeaProjects/WellPlanner' for client Windsurf 1.99.3.
+2025.07.31 11:52:48 INFO  running '/opt/homebrew/bin/sbt -Dbloop.export-jar-classifiers=sources bloopInstall'
+2025.07.31 11:52:48 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner/project/project/metals.sbt. Using presentation compiler with project's scala-library version: 3.3.6
+2025.07.31 11:52:48 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner/project/metals.sbt
+2025.07.31 11:52:48 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner/project/project/metals.sbt
+2025.07.31 11:52:49 INFO  [info] welcome to sbt 1.9.7 (Homebrew Java 17.0.13)
+2025.07.31 11:52:49 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner/project/metals.sbt. Using presentation compiler with project's scala-library version: 3.3.6
+2025.07.31 11:52:50 INFO  [info] loading settings for project wellplanner-build-build-build from metals.sbt ...
+2025.07.31 11:52:50 INFO  [info] loading project definition from /Users/shivakomatreddy/IdeaProjects/WellPlanner/project/project/project
+2025.07.31 11:53:08 INFO  [info] loading settings for project wellplanner-build-build from metals.sbt ...
+2025.07.31 11:53:08 INFO  [info] loading project definition from /Users/shivakomatreddy/IdeaProjects/WellPlanner/project/project
+2025.07.31 11:53:09 INFO  [success] Generated .bloop/wellplanner-build-build.json
+2025.07.31 11:53:09 INFO  [success] Total time: 1 s, completed Jul 31, 2025, 11:53:09 AM
+2025.07.31 11:53:09 INFO  [info] loading settings for project wellplanner-build from metals.sbt,plugins.sbt ...
+2025.07.31 11:53:09 INFO  [info] loading project definition from /Users/shivakomatreddy/IdeaProjects/WellPlanner/project
+2025.07.31 11:53:11 INFO  [success] Total time: 1 s, completed Jul 31, 2025, 11:53:11 AM
+2025.07.31 11:53:12 ERROR /Users/shivakomatreddy/IdeaProjects/WellPlanner/build.sbt:46: warning: method in in trait ScopingSetting is deprecated (since 1.5.0): `in` is deprecated; migrate to slash syntax - https://www.scala-sbt.org/1.x/docs/Migrating-from-sbt-013x.html#slash
+2025.07.31 11:53:12 ERROR unmanagedResourceDirectories in Test += baseDirectory.value / "target/web/public/test"
+2025.07.31 11:53:12 ERROR                              ^
+2025.07.31 11:53:12 ERROR /Users/shivakomatreddy/IdeaProjects/WellPlanner/build.sbt:49: warning: method in in trait ScopingSetting is deprecated (since 1.5.0): `in` is deprecated; migrate to slash syntax - https://www.scala-sbt.org/1.x/docs/Migrating-from-sbt-013x.html#slash
+2025.07.31 11:53:12 ERROR javaOptions in Runtime += "-Dplay.fileWatchService=noop"
+2025.07.31 11:53:12 ERROR             ^
+2025.07.31 11:53:11 INFO  [info] loading settings for project wellplanner from build.sbt ...
+2025.07.31 11:53:12 INFO  [info]   __              __
+2025.07.31 11:53:12 INFO  [info]   \ \     ____   / /____ _ __  __
+2025.07.31 11:53:12 INFO  [info]    \ \   / __ \ / // __ `// / / /
+2025.07.31 11:53:12 INFO  [info]    / /  / /_/ // // /_/ // /_/ /
+2025.07.31 11:53:12 INFO  [info]   /_/  / .___//_/ \__,_/ \__, /
+2025.07.31 11:53:12 INFO  [info]       /_/               /____/
+2025.07.31 11:53:12 INFO  [info] 
+2025.07.31 11:53:12 INFO  [info] Version 2.9.0 running Java 17.0.13
+2025.07.31 11:53:12 INFO  [info] 
+2025.07.31 11:53:12 INFO  [info] Play is run entirely by the community. Please consider contributing and/or donating:
+2025.07.31 11:53:12 INFO  [info] https://www.playframework.com/sponsors
+2025.07.31 11:53:12 INFO  [info] 
+2025.07.31 11:53:13 INFO  [success] Generated .bloop/wellplanner.json
+2025.07.31 11:53:13 INFO  [success] Generated .bloop/wellplanner-test.json
+2025.07.31 11:53:13 INFO  [success] Total time: 1 s, completed Jul 31, 2025, 11:53:13 AM
+2025.07.31 11:53:14 INFO  time: ran 'sbt bloopInstall' in 25s
+2025.07.31 11:53:14 INFO  Attempting to connect to the build server...
+2025.07.31 11:53:14 INFO  No running Bloop server found, starting one.
+2025.07.31 11:53:17 INFO  Starting compilation server
+2025.07.31 11:53:17 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/shivakomatreddy/IdeaProjects/WellPlanner/.metals/bsp.trace.json or /Users/shivakomatreddy/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.07.31 11:53:20 INFO  Attempting to connect to the build server...
+2025.07.31 11:53:20 INFO  Found a Bloop server running
+2025.07.31 11:53:20 INFO  Attempting to connect to the build server...
+2025.07.31 11:53:20 INFO  Found a Bloop server running
+2025.07.31 11:53:20 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/shivakomatreddy/IdeaProjects/WellPlanner/project/project/.metals/bsp.trace.json or /Users/shivakomatreddy/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.07.31 11:53:20 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/shivakomatreddy/IdeaProjects/WellPlanner/project/.metals/bsp.trace.json or /Users/shivakomatreddy/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.07.31 11:53:20 INFO  time: Connected to build server in 7.25s
+2025.07.31 11:53:21 INFO  Connected to Build server: Bloop v2.0.10
+2025.07.31 11:53:20 WARN  2.13.12 is no longer supported in the current Metals versions, using the last known supported version 1.4.2
+2025.07.31 11:53:40 INFO  time: indexed workspace in 19s
+Jul 31, 2025 4:54:46 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+2025.07.31 16:56:17 INFO  compiling wellplanner (129 scala sources and 1 java source)
+2025.07.31 16:56:31 INFO  time: compiled wellplanner in 13s
+2025.07.31 16:57:29 INFO  Started: Metals version 1.6.1 in folders '/Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm' for client Windsurf 1.99.3.
+2025.07.31 16:57:32 INFO  Attempting to connect to the build server...
+2025.07.31 16:57:32 INFO  Found a Bloop server running
+2025.07.31 16:57:32 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/.metals/bsp.trace.json or /Users/shivakomatreddy/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.07.31 16:57:34 INFO  Attempting to connect to the build server...
+2025.07.31 16:57:34 INFO  Found a Bloop server running
+2025.07.31 16:57:34 INFO  Attempting to connect to the build server...
+2025.07.31 16:57:34 INFO  Found a Bloop server running
+2025.07.31 16:57:34 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/project/project/.metals/bsp.trace.json or /Users/shivakomatreddy/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.07.31 16:57:34 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/project/.metals/bsp.trace.json or /Users/shivakomatreddy/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.07.31 16:57:34 INFO  time: Connected to build server in 1.7s
+2025.07.31 16:57:34 INFO  Connected to Build server: Bloop v2.0.10
+2025.07.31 16:57:34 WARN  2.13.12 is no longer supported in the current Metals versions, using the last known supported version 1.4.2
+2025.07.31 16:57:37 INFO  time: indexed workspace in 3.73s
+2025.07.31 16:57:55 INFO  Disconnecting from Bloop session...
+2025.07.31 16:57:55 INFO  Shut down connection with build server.
+2025.07.31 16:57:55 INFO  Shut down connection with build server.
+2025.07.31 16:57:55 INFO  Shut down connection with build server.
+2025.07.31 16:57:56 INFO  Attempting to connect to the build server...
+2025.07.31 16:57:56 INFO  No running Bloop server found, starting one.
+2025.07.31 16:57:56 INFO  Starting compilation server
+2025.07.31 16:57:57 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/.metals/bsp.trace.json or /Users/shivakomatreddy/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.07.31 16:57:58 INFO  Attempting to connect to the build server...
+2025.07.31 16:57:58 INFO  Found a Bloop server running
+2025.07.31 16:57:58 INFO  Attempting to connect to the build server...
+2025.07.31 16:57:58 INFO  Found a Bloop server running
+2025.07.31 16:57:58 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/project/project/.metals/bsp.trace.json or /Users/shivakomatreddy/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.07.31 16:57:58 INFO  tracing is disabled for protocol BSP, to enable tracing of incoming and outgoing JSON messages create an empty file at /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/project/.metals/bsp.trace.json or /Users/shivakomatreddy/Library/Caches/org.scalameta.metals/bsp.trace.json
+2025.07.31 16:57:58 INFO  time: Connected to build server in 2.71s
+2025.07.31 16:57:58 INFO  Connected to Build server: Bloop v2.0.12
+2025.07.31 16:58:00 INFO  time: indexed workspace in 1.52s
+2025.08.01 21:09:03 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/dataModels/ClientDocument.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:09:03 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/dataModels/ClientDocument.scala
+2025.08.01 21:09:03 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/dataModels/ClientDocument.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:09:39 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/databases/ClientDocumentsDbFacade.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:09:39 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/databases/ClientDocumentsDbFacade.scala
+2025.08.01 21:09:39 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/databases/ClientDocumentsDbFacade.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:09:56 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/api/clients/ClientDocumentsApi.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:09:56 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/api/clients/ClientDocumentsApi.scala
+2025.08.01 21:09:56 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/api/clients/ClientDocumentsApi.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:04 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/controllers/util/JsonFormats.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:04 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/controllers/util/JsonFormats.scala
+2025.08.01 21:10:05 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/controllers/util/JsonFormats.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:27 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/controllers/util/JsonFormats.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:27 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/controllers/util/JsonFormats.scala
+2025.08.01 21:10:27 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/controllers/util/JsonFormats.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:27 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/controllers/util/JsonFormats.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:35 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/dataModels/ClientDocument.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:35 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/dataModels/ClientDocument.scala
+2025.08.01 21:10:35 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/dataModels/ClientDocument.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:35 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/dataModels/ClientDocument.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:38 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/databases/ClientDocumentsDbFacade.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:38 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/databases/ClientDocumentsDbFacade.scala
+2025.08.01 21:10:38 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/databases/ClientDocumentsDbFacade.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:38 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/databases/ClientDocumentsDbFacade.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:48 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/dataModels/ClientDocument.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:48 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/dataModels/ClientDocument.scala
+2025.08.01 21:10:48 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/dataModels/ClientDocument.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:50 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/databases/ClientDocumentsDbFacade.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:50 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/databases/ClientDocumentsDbFacade.scala
+2025.08.01 21:10:50 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/databases/ClientDocumentsDbFacade.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:53 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/api/clients/ClientDocumentsApi.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:53 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/api/clients/ClientDocumentsApi.scala
+2025.08.01 21:10:53 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/api/clients/ClientDocumentsApi.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:53 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/api/clients/ClientDocumentsApi.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:59 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/api/clients/ClientDocumentsApi.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:59 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/api/clients/ClientDocumentsApi.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:10:59 INFO  Created report: Optional[file:///Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/api/clients/ClientDocumentsApi.scala]
+2025.08.01 21:10:59 INFO  empty definition using pc, found symbol in pc: model/dataModels/ClientDocument.apply(). (full report at: "/Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/.metals/.reports/metals-full/2025-08-01/r_empty-definition_21-10-59-570.md")
+2025.08.01 21:11:05 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/api/clients/ClientDocumentsApi.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:11:27 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/controllers/ClientDocumentsController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:11:27 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/controllers/ClientDocumentsController.scala
+2025.08.01 21:11:27 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/controllers/ClientDocumentsController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:14:27 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/controllers/ClientDocumentsController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:23:13 INFO  compiling wellplanner (125 scala sources)
+2025.08.01 21:23:21 WARN  Invalid text document uri received from build server: file:///Users/shivakomatreddy/IdeaProjects/WellPlanner/target/scala-2.13/routes/main/router/Routes.scala
+2025.08.01 21:23:21 INFO  time: compiled wellplanner in 8.41s
+2025.08.01 21:23:21 INFO  compiling wellplanner (125 scala sources)
+2025.08.01 21:23:24 INFO  time: compiled wellplanner in 2.34s
+2025.08.01 21:24:03 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/controllers/ClientDocumentsController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:24:04 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/controllers/ClientDocumentsController.scala
+2025.08.01 21:24:04 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/controllers/ClientDocumentsController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:27:04 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/controllers/ClientDocumentsController.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:29:41 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/services/ApplicationStartup.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:29:41 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/services/ApplicationStartup.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:29:41 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/services/ApplicationStartup.scala
+2025.08.01 21:29:46 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/services/ApplicationStartup.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:29:46 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/Module.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:29:46 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/Module.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:29:46 WARN  no build target for: /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/Module.scala
+2025.08.01 21:30:02 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/Module.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:34:40 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/controllers/util/JsonFormats.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:34:40 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/api/clients/ClientDocumentsApi.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:34:40 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/databases/ClientDocumentsDbFacade.scala. Using presentation compiler with project's scala-library version: 2.13.16
+2025.08.01 21:34:40 INFO  no build target found for /Users/shivakomatreddy/IdeaProjects/WellPlanner_As_global_crm/app/model/dataModels/ClientDocument.scala. Using presentation compiler with project's scala-library version: 2.13.16
+Aug 01, 2025 11:16:33 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
+2025.08.01 23:18:41 INFO  Started: Metals version 1.6.1 in folders '/Users/shivakomatreddy/IdeaProjects/WellPlanner' for client Windsurf 1.99.3.
+2025.08.01 23:18:42 INFO  time: initialize in 0.49s
+Aug 01, 2025 11:18:46 PM org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint notify
+INFO: Unsupported notification method: $/setTrace
