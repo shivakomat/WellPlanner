@@ -1,0 +1,229 @@
+
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Web pages
+GET     /                           controllers.HomeController.welcome
+GET     /register                   controllers.HomeController.registerPage
+GET     /register-business-user     controllers.HomeController.businessUserRegisterPage
+GET     /register-team-users        controllers.HomeController.businessTeamUsersSettingsPage
+GET     /profile                    controllers.HomeController.profile
+
+#GET     /pages/settings             controllers.HomeController.settingsPage
+
+
+
+GET     /pages/invoices             controllers.HomeController.invoicesPage
+GET     /pages/calendar             controllers.HomeController.businessCalendar
+GET     /pages/login                controllers.HomeController.loginPage
+GET     /pages/profile              controllers.ProfileController.profilePage
+GET     /pages/user-registration    controllers.HomeController.userRegisterPage
+
+
+
+# REST API Routes for web pages
+
+GET     /pages/client-portal-access/login      controllers.HomeController.clientPortalPage
+GET     /pages/client-portal/:businessId/projects/:projectId      controllers.HomeController.clientPortalMainPage(projectId: Int, businessId: Int)
+GET     /pages/client-portal/:businessId/projects/:projectId/budget   controllers.HomeController.clientPortalBudgetPage(projectId: Int, businessId: Int)
+
+GET     /pages/customers/:businessId            controllers.HomeController.customerPage(businessId: Int)
+GET     /pages/dashboard/:businessId           controllers.HomeController.mainDashboard(businessId: Int)
+GET     /pages/vendors/:businessId             controllers.HomeController.vendors(businessId: Int)
+GET     /pages/projects/:businessId             controllers.HomeController.projectsPages(businessId: Int)
+
+
+GET     /pages/:businessId/projects/:projectId/tasks                controllers.HomeController.projectTasks(projectId: Int, businessId: Int)
+GET     /pages/:businessId/projects/:projectId/budget               controllers.HomeController.projectBudgetPage(projectId: Int, businessId: Int)
+GET     /pages/:businessId/projects/:projectId/payments             controllers.HomeController.projectPaymentsPage(projectId: Int, businessId: Int)
+GET     /pages/:businessId/projects/:projectId/overview-dashboard   controllers.HomeController.projectOverviewDashboard(projectId: Int, businessId: Int)
+GET     /pages/:businessId/business-settings                        controllers.HomeController.businessSettingsPage(businessId: Int)
+
+GET     /pages/:businessId/projects/:projectId/vendors-shortlists   controllers.HomeController.projectVendorsShortlists(projectId: Int, businessId: Int)
+
+GET     /pages/:businessId/projects/:projectId/timeline             controllers.HomeController.timelinePage(projectId: Int, businessId: Int)
+GET     /pages/:businessId/projects/:projectId/projectSettings      controllers.HomeController.projectSettings(projectId: Int, businessId: Int)
+
+
+
+
+# REST API Routes for data
+
+# # Client Portal
++nocsrf
+POST /client-accesses/login              controllers.ClientsAccessController.loginSuccessfully
+
++nocsrf
+POST /users/login              controllers.ApplicationLoginController.loginUser
+
+# # Projects
++nocsrf
+POST   /businesses/projects          controllers.ProjectsController.newWeddingProject
+
+GET    /businesses/:businessId/projects          controllers.ProjectsController.projectsByBusiness(businessId: Int)
+
++nocsrf
+DELETE /businesses/:businessId/projects/:projectId controllers.ProjectsController.deleteProjectById(projectId: Int, businessId : Int)
+
+# # Clients
+GET    /businesses/clients/:businessId  controllers.ClientsController.businessClients(businessId: Int)
++nocsrf
+POST   /businesses/clients           controllers.ClientsController.newClient
++nocsrf
+POST   /businesses/clients/update    controllers.ClientsController.updateClient
+
++nocsrf
+DELETE /businesses/:businessId/clients/:clientId controllers.ClientsController.deleteClientById(clientId: Int, businessId : Int)
+
+
+# Vendor Contacts
+GET /businesses/vendors/:id                             controllers.VendorContactsController.vendorContactsByBusiness(id: Int)
+
++nocsrf
+POST  /businesses/vendors                               controllers.VendorContactsController.newVendorContact
+
++nocsrf
+POST   /businesses/vendors/update                       controllers.VendorContactsController.updateVendorContact
+
++nocsrf
+DELETE /businesses/:businessId/vendors/:vendorId        controllers.VendorContactsController.deleteVendorById(vendorId: Int, businessId : Int)
+
+###### Project Tasks
+GET /businesses/:businessId/projects/:projectId/info                                            controllers.ProjectsController.getProjectById(projectId: Int, businessId: Int)
+
+GET /businesses/:businessId/projects/:projectId/tasks                                           controllers.TasksController.tasks(businessId: Int, projectId: Int)
+
+GET /businesses/:businessId/projects/:projectId/tasks/:taskId/taskItems                         controllers.TasksController.taskItems(businessId: Int, projectId: Int, taskId: Int)
+
++nocsrf
+POST /businesses/projects/clientAccess                                                          controllers.ClientsAccessController.addAccess
+
++nocsrf
+POST /businesses/projects/clientAccess/update                                                   controllers.ClientsAccessController.updateClientAccess
+
+GET /businesses/:businessId/projects/:projectId/clientAccess                                    controllers.ClientsAccessController.getAccess(businessId: Int, projectId: Int)
+
++nocsrf
+POST /businesses/projects/tasks                                                                 controllers.TasksController.addNewTasks
+
+GET /businesses/:businessId/projects/:projectId/timelineItems                                    controllers.TimelineController.timelineItems(businessId: Int, projectId: Int)
+
++nocsrf
+POST /businesses/projects/timelineItems                                                          controllers.TimelineController.newTimelineItem
+
++nocsrf
+POST /businesses/projects/timelineItems/update                                                   controllers.TimelineController.updateTimelineItem
+
++nocsrf
+DELETE /businesses/:businessId/projects/:projectId/timelineItems/:timelineItemId                 controllers.TimelineController.deleteTimelineItemById(timelineItemId: Int, projectId: Int, businessId: Int)
+
++nocsrf
+POST /businesses/projects/tasks/taskItems                                                       controllers.TasksController.addTaskItemToTask
+
+
++nocsrf
+DELETE /businesses/:businessId/projects/:projectId/tasks/:taskId/taskItems/:taskItemId          controllers.TasksController.deleteTaskItemById(taskItemId: Int, taskId: Int, projectId: Int, businessId: Int)
+
++nocsrf
+POST /businesses/projects/tasks/update                                                          controllers.TasksController.updateTask()
+
++nocsrf
+DELETE /businesses/:businessId/projects/:projectId/tasks/:taskId                                controllers.TasksController.deleteTaskById(taskId: Int, projectId: Int, businessId: Int)
++nocsrf
+POST  /businesses/projects/tasks/taskComments                                                   controllers.TasksController.addCommentToTask
+GET   /businesses/:businessId/projects/:projectId/tasks/:taskId/taskComments                    controllers.TasksController.taskCommentsByTask(businessId: Int, projectId: Int, taskId: Int)
++nocsrf
+DELETE /businesses/:businessId/projects/:projectId/tasks/:taskId/taskComments/:taskCommentId    controllers.TasksController.deleteTaskCommentById(taskCommentId: Int, taskId: Int, projectId: Int, businessId: Int)
+
+###### Project Budgetting
+GET /businesses/:businessId/projects/:projectId/budget-breakdowns                               controllers.BudgetController.budgetBreakdownsBy(businessId: Int, projectId: Int)
+
++nocsrf
+POST /businesses/projects/budget-breakdowns                                                     controllers.BudgetController.addNew()
+
++nocsrf
+POST /businesses/projects/budget-breakdowns/update                                              controllers.BudgetController.updateBreakdownInfo()
+
++nocsrf
+DELETE  /businesses/:businessId/projects/:projectId/budget-breakdowns/:breakdownId              controllers.BudgetController.deleteBudgetBreakdownById(breakdownId: Int, projectId: Int, businessId: Int)
+
+
+###### Project Budget Payments
++nocsrf
+POST /businesses/projects/budget-breakdowns/payments                                            controllers.BudgetController.addNewPayment()
+
+GET /businesses/:businessId/projects/:projectId/budget-breakdowns/:budgetId/payments            controllers.BudgetController.payments(budgetId: Long, projectId: Int, businessId: Int)
+
++nocsrf
+POST /businesses/projects/budget-breakdowns/payments/update                                     controllers.BudgetController.updatePayment()
+
+
++nocsrf
+DELETE  /businesses/:businessId/projects/:projectId/budget-breakdowns/:breakdownId/payments/:paymentId              controllers.BudgetController.deletePaymentById(paymentId: Int,  projectId: Int, businessId: Int, breakdownId: Int)
+
+####### Project Timeline Items
+
+#+nocsrf
+#POST /businesses/projects/timelineItems                                           controllers.TimelineController.newTimelineItem()
+
+
+
+####### Project Vendors Shortlistings
++nocsrf
+POST /businesses/projects/vendor-manages                                  controllers.VendorContactsController.newVendorManage()
+
+GET /businesses/:businessId/projects/:projectId/vendor-manages                                  controllers.VendorContactsController.vendorManagesBy(projectId: Int, businessId: Int)
+
+# # User Login system
+GET     /login                      controllers.ApplicationController.login
+GET     /logout                     controllers.ApplicationController.logout
+GET     /callback                   controllers.CallbackController.callback(code: Option[String], state: Option[String])
+
+
+# # Businesses
++nocsrf
+POST    /businesses/signUp                  controllers.BusinessController.registerNewBusiness()
+
++nocsrf
+POST    /businesses/updateInfo              controllers.BusinessController.updateBusinessInfo()
+
+GET     /businesses/exists/:businessName    controllers.BusinessController.businessExists(businessName)
+GET     /businesses/users/:username/:email  controllers.UsersController.usernameAndEmailExists(username, email)
+GET     /businesses/:businessId             controllers.BusinessController.byId(businessId: Int)
+
++nocsrf
+POST    /businesses/newTeamMember           controllers.BusinessController.addNewMemberToTeamByBusiness()
+GET     /businesses/teamMembers/:businessId   controllers.BusinessController.allTeamMembers(businessId: Int)
++nocsrf
+POST    /businesses/teamMembers            controllers.BusinessController.updateTeamMember()
+
+# Secure Authentication API
++nocsrf
+POST    /api/auth/login             controllers.SecureUsersController.login
++nocsrf
+POST    /api/auth/register          controllers.SecureUsersController.register
+GET     /api/auth/username/:username/exists    controllers.SecureUsersController.usernameExists(username: String)
+GET     /api/auth/email/:email/exists          controllers.SecureUsersController.emailExists(email: String)
+
+# Protected User Endpoints (requires JWT token)
+GET     /api/user/profile           controllers.SecureUsersController.profile
++nocsrf
+PUT     /api/user/profile           controllers.SecureUsersController.updateProfile
++nocsrf
+POST    /api/user/change-password   controllers.SecureUsersController.changePassword
++nocsrf
+POST    /api/user/logout            controllers.SecureUsersController.logout
+
+# Admin-only Endpoints (requires JWT token + admin role)
+GET     /api/admin/users            controllers.SecureUsersController.users
++nocsrf
+DELETE  /api/admin/users/:userId    controllers.SecureUsersController.deleteUser(userId: Int)
+
+# # Legacy Users (for backward compatibility)
+GET     /users/:username               controllers.UsersController.usernameExists(username)
+GET     /users/:email                  controllers.UsersController.usernameExists(email)
+GET     /users/auth0/:auth0Id                controllers.UsersController.byAuth0Id(auth0Id)
+
+# assets
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

@@ -11,7 +11,7 @@ Global_Constants.clientStatuses =  [
     {"type": "Lost"}
 ];
 
-app.controller('clientsController', function(ClientsFactory) {
+app.controller('clientsController', function(ClientsFactory, $rootScope) {
     var clientController = this;
     clientController.clients = [];
     clientController.currentClientId = null;
@@ -45,6 +45,8 @@ app.controller('clientsController', function(ClientsFactory) {
     };
 
     clientController.setCurrentClient = function (client) {
+        $rootScope.$broadcast('currentClientSet', client);
+        clientController.currentClient = client;
         clientController.currentClientId = client.id;
         clientController.currentClientBudget = client.budget;
         var event_date_year = parseInt(client.event_date .toString().substr(0, 4));

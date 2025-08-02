@@ -1,0 +1,47 @@
+<!-- Client Documents Modal -->
+<div class="modal fade" id="clientDocsModal" tabindex="-1" role="dialog" aria-labelledby="clientDocsModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="clientDocsModalLabel">Client Documents</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group d-flex justify-content-between align-items-center">
+            <button type="button" class="btn btn-primary" ng-click="clientDocsModalCtrl.triggerFilePicker()">
+                <i class="fa fa-upload mr-1"></i> Upload Document
+            </button>
+            <input id="clientDocFile" type="file" class="d-none" accept="application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                   onchange="angular.element(this).scope().$parent.clientDocsModalCtrl.onFileSelected(this)" />
+        </div>
+
+        <table class="table table-sm" ng-if="clientDocsModalCtrl.docs.length">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Size (KB)</th>
+              <th>Uploaded</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="doc in clientDocsModalCtrl.docs">
+              <td><a ng-href="/api/documents/{{doc.id}}" target="_blank">{{doc.filename}}</a></td>
+              <td>{{doc.file_size / 1024 | number:1}}</td>
+              <td>{{doc.uploaded_at | date:'medium'}}</td>
+              <td>
+                
+                    <a class="btn btn-success btn-sm mr-2" title="Download file" ng-href="/api/documents/{{doc.id}}" target="_blank" download>
+                        <i class="fa fa-download"></i>
+                    </a>
+                    <button type="button" class="btn btn-danger btn-sm" title="Delete file" ng-click="clientDocsModalCtrl.deleteDoc(doc)"><i class="fa fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -174,17 +174,23 @@ app.directive('tooltip', function(){
 });
 
 // PROD Constants
+// app.constant('config', {
+//         appHost: 'https://well-planner-248f4a7d862e.herokuapp.com',
+//         appAngularAssets: 'https://well-planner-248f4a7d862e.herokuapp.com/assets/javascripts/angular/'
+// });
+
+
 app.constant('config', {
-        appHost: 'https://well-planner-248f4a7d862e.herokuapp.com',
-        appAngularAssets: 'https://well-planner-248f4a7d862e.herokuapp.com/assets/javascripts/angular/'
+        appHost: 'http://localhost:9000',
+        appAngularAssets: 'http://localhost:9000/assets/javascripts/angular/'
 });
 
-// Production base URL
 
-var baseUrl = "https://well-planner-248f4a7d862e.herokuapp.com/assets/javascripts/angular";
+// Production base URL
+// var baseUrl = "https://well-planner-248f4a7d862e.herokuapp.com/assets/javascripts/angular";
 
 // Dev Base URL
-// var baseUrl = "http://localhost:9000/assets/javascripts/angular";
+var baseUrl = "http://localhost:9000/assets/javascripts/angular";
 
 app.constant('templates', {
         newProjectModal:  baseUrl + "/newProjectModal.html",
@@ -207,4 +213,5 @@ app.constant('templates', {
         deleteBreakdownsListModal: baseUrl + "/deleteBreakdownListModal.html",
         editBreakdownItemModal: baseUrl + "/editBreakdownItem.html",
         addVendorManageModal: baseUrl + "/newVendorManager.html",
+    clientDocumentsModal: baseUrl + "/clientDocumentsModal.html",
 });

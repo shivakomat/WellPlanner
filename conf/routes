@@ -225,5 +225,12 @@ GET     /users/:username               controllers.UsersController.usernameExist
 GET     /users/:email                  controllers.UsersController.usernameExists(email)
 GET     /users/auth0/:auth0Id                controllers.UsersController.byAuth0Id(auth0Id)
 
++nocsrf
+POST    /api/clients/:clientId/documents           controllers.ClientDocumentsController.upload(clientId: Int)
+GET     /api/clients/:clientId/documents           controllers.ClientDocumentsController.list(clientId: Int)
+GET     /api/documents/:docId                     controllers.ClientDocumentsController.download(docId: Int)
++nocsrf
+DELETE  /api/documents/:docId                     controllers.ClientDocumentsController.delete(docId: Int)
+
 # assets
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
